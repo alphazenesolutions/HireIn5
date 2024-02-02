@@ -37,7 +37,6 @@ const DashBoardComp = () => {
           button=""
           fun=""
         />
-        <DashBody />
       </div>
       {/* </div> */}
     </>
