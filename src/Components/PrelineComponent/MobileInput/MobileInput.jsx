@@ -17,7 +17,7 @@ const MobileInput = ({ setphone }) => {
               type="number"
               id="hs-inline-leading-select-label"
               name="inline-add-on"
-              class="py-3 px-4 ps-20 block w-full border-gray-900 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-0 dark:border-gray-900 dark:text-gray-400 dark:focus:ring-gray-600"
+              class="py-3 px-4 ps-20 block w-full border-gray-900 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-0 dark:border-gray-900 dark:text-gray-700 dark:focus:ring-gray-600"
               placeholder="+1 (000) 000-0000"
               onChange={(e) => {
                 setphone(e.target.value);
