@@ -28,3 +28,32 @@
     text-decoration: underline;
     text-underline-offset: 4px;
 }
+
+
+.upgradeTop {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+
+}
+
+.upgradeTop h5 {
+    font-weight: 600;
+    margin-left: 30px;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.upgradeTop h4 {
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.upgradeTop h3 {
+    font-weight: 600;
+    font-size: 15px;
+    opacity: 0.5;
+    cursor: pointer;
+}
