@@ -50,7 +50,10 @@ const VerificationComp = () => {
     } else {
     }
   };
-
+  const [isChange, setIsChange] = useState(false);
+  const buttonHandler = () => {
+    setIsChange(true);
+  };
   const routeTimeout = setTimeout(routeHandler, 1500);
 
   const handleInputChange = (index, event) => {
@@ -123,16 +126,32 @@ const VerificationComp = () => {
               title="Email verification successful!"
               des="Please verify your mobile number before as the last step"
             />
-
-            <MobileInput setphone={setphone} />
-            <div id="recaptcha-container" className="forget"></div>
-            <button
-              id="page3"
-              onClick={PageHandler}
-              className="marginTop20 marginBottom20"
-            >
-              Verify mobile number
-            </button>
+            <div onClick={buttonHandler} className="">
+              <MobileInput setphone={setphone} />
+            </div>
+            <div
+              onClick={buttonHandler}
+              id="recaptcha-container"
+              className="forget"
+            ></div>
+            {isChange === true ? (
+              <button
+                id="page3"
+                onClick={PageHandler}
+                className="marginTop20 marginBottom20 mobileVerificationButtonActive"
+              >
+                Verify mobile number
+              </button>
+            ) : (
+              <button
+                id="page3"
+                // disabled
+                onClick={PageHandler}
+                className="marginTop20 marginBottom20 mobileVerificationButtonDisable"
+              >
+                Verify mobile number
+              </button>
+            )}
           </div>
         </div>
       )}
