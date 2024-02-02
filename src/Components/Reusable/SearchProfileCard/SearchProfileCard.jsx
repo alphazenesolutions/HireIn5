@@ -76,7 +76,10 @@ const SearchProfileCard = () => {
               <div className="candidateCartButton">
                 <div className="cartbtnimg">
                   <img src={BookMarkSimple} alt="" />
-                  <button>Schedule call</button>
+                  <button className="cartbtnimgbutton1">
+                    Reserve candidate
+                  </button>
+                  <button className="cartbtnimgbutton2">view</button>
                 </div>
               </div>
             </div>
