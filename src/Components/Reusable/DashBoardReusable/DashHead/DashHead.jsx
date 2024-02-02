@@ -1,0 +1,39 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
+import "./DashHead.css";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { storeAction } from "../../../../Store/Store";
+
+const DashHead = (props) => {
+  const dispatch = useDispatch();
+  const userid = useSelector((store) => store.userid);
+  const token = useSelector((store) => store.token);
+  useEffect(() => {
+    setTimeout(() => {
+      getalldata();
+    }, 2000);
+  }, []);
+  const getalldata = () => {
+    if (token == null && userid == null) {
+      console.log(token, userid, "iii");
+      dispatch(storeAction.isloginHandler({ islogin: false }));
+      dispatch(storeAction.tokenHandler({ token: null }));
+      dispatch(storeAction.useridHandler({ userid: 5 }));
+      window.location.replace("/login");
+    }
+  };
+  return (
+    <div>
+      <div className="dashBoardMainHead">
+        <h1>{props.head}</h1>
+        <div className="dashBoardMainHeadDesc">
+          <p>{props.desc}</p>
+          <a href="">{props.highLight}</a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DashHead;

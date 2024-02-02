@@ -1,0 +1,139 @@
+.tableOne {
+    width: 100%;
+    height: 100%;
+    padding-top: 30px;
+
+}
+
+.tableOne h1 {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+}
+
+.tableButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.shortListedActive {
+    width: 200px;
+    border-radius: 8px;
+    padding: 6px;
+    margin-right: 25px;
+    background-color: var(--disableColor);
+}
+
+.shortListedInActive {
+    width: 200px;
+    border-radius: 8px;
+    padding: 6px;
+    margin-right: 25px;
+    border: 1px solid var(--borderColor);
+}
+
+.hired {
+    width: 200px;
+    border-radius: 8px;
+    padding: 6px 50px;
+    border: 1px solid var(--borderColor);
+}
+
+.hiredActive {
+    width: 200px;
+    border-radius: 8px;
+    padding: 6px 50px;
+    background-color: var(--disableColor);
+}
+
+
+.table {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background-color: var(--white);
+
+}
+
+.innerTable {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.tableFirst {
+    width: 70px;
+}
+
+
+
+.tableHead th {
+    padding: 15px 10px;
+    text-align: start;
+    font-weight: 400;
+    font-size: 14px;
+    opacity: 0.5;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.profileData {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.profileData img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profileBookMark {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileBookMark img {
+    border: 1px solid var(--borderColor);
+    padding: 6px;
+    border-radius: 3px;
+
+}
+
+.skillData {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.skillData p {
+    background-color: var(--disableColor);
+    padding: 0px 10px;
+    font-size: 14px;
+    border-radius: 20px;
+    margin-right: 5px;
+    color: var(--textColor);
+}
+
+.tableRow td {
+    padding: 15px 10px;
+}
+
+.tdBtn {
+
+    padding: 6px 10px;
+    display: flex;
+    border-radius: 8px;
+    color: var(--white);
+    background-color: var(--primaryColor);
+}

@@ -1,0 +1,129 @@
+.candidateSignUp {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.candidateSignUpCompInner {
+    width: 100%;
+}
+
+/* =====================Body Section ======================= */
+.candidateSignUpCompBody {
+    width: 100%;
+}
+
+/* ========================= Email ======================== */
+.candidateSignUpCompBodyEmail {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.candidateSignUpCompBodyEmail h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    margin-left: 3px;
+}
+
+.candidateSignUpCompBodyEmail input {
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    border: 1px solid var(--borderColor);
+    border-radius: 5px;
+}
+
+/* ========================= Password ======================== */
+.candidateSignUpCompBodyPassword {
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.candidateSignUpCompBodyPasswordLabel {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.candidateSignUpCompBodyPassword h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    margin-left: 3px;
+}
+
+.candidateSignUpCompBodyPassword h5 {
+    font-size: 0.8rem;
+    color: var(--primaryColor);
+    margin-bottom: 8px;
+    margin-left: 3px;
+}
+
+.candidateSignUpCompBodyPasswordInput {
+    width: 100%;
+    position: relative;
+}
+
+.candidateSignUpCompBodyPasswordInput input {
+    width: 100%;
+    height: 45px;
+    border: 1px solid var(--borderColor);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.candidateEye {
+    position: absolute;
+    right: 4%;
+    top: 33%;
+}
+
+
+/* ========================= Button ======================== */
+.candidatesignUpCompBodyButton {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.candidateSignUpCompBodyButtonEnable {
+    background-color: var(--primaryColor);
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--white);
+
+}
+
+.candidateSignUpCompBodyButtonDisable {
+    background-color: var(--disableColor);
+    color: var(--textColor);
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+
+.candidateSignUpCompBodyButtonLoading {
+    background-color: var(--buttonLoading);
+    color: var(--white);
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {}

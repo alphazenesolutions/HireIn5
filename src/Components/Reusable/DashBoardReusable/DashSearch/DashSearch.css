@@ -1,0 +1,162 @@
+.dashBoardMainSearch {
+    position: relative;
+    height: 110px;
+}
+
+.searchImg {
+    position: absolute;
+    padding: 10px;
+
+}
+
+.mainInput {
+    padding: 15px;
+    padding-left: 55px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.dashBoardMainSelect {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.dashBoardMainSelectbutton {
+    margin-right: 8px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 35px;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    background-color: #f8f8f8;
+    border: 1px solid var(--borderColor);
+}
+
+.dashBoardMainSelectbuttonActive {
+    margin-right: 8px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 35px;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    background-color: #f8f8f8;
+    border: 1px solid var(--borderColor);
+}
+
+
+
+.dashBoardMainSelect img {
+    position: absolute;
+    right: 8px;
+}
+
+
+.hourlyRate {
+    width: 450px;
+    padding: 25px;
+    padding-bottom: 20px;
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+}
+
+.hourlyRate h1 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+
+.hourlyRate h3 {
+    font-size: 14px;
+    opacity: 0.7;
+
+}
+
+.hourlyButtonReset {
+    width: 48%;
+    margin-Right: 4%;
+    font-weight: 600;
+    opacity: 0.7;
+    padding: 10px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+}
+
+.hourlyButtonFilter {
+    width: 48%;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+    background-color: var(--primaryColor);
+    color: var(--white);
+}
+
+.location {
+    width: 300px;
+    height: 280px;
+
+    position: relative;
+    left: 14%;
+    padding: 5px;
+
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+}
+
+.locInput {
+    width: 100%;
+
+    padding: 10px;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.checkInput {
+    margin-right: 15px;
+    background-color: var(--primaryColor);
+
+}
+
+.checkInput:checked {
+    background-color: var(--primaryColor);
+    color: var(--primaryColor);
+
+}
+
+.locationDesc {
+    width: 100%;
+    padding: 15px;
+    height: 210px;
+    overflow-y: scroll;
+}
+
+.locationDesc::-webkit-scrollbar {
+    display: none;
+}
+
+.locDesc {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.locDesc p {
+    font-size: 16px;
+    font-weight: 500;
+}

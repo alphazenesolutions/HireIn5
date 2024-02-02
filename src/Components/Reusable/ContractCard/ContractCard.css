@@ -1,0 +1,48 @@
+.contractCard {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+    border-radius: 8px;
+}
+
+.contractInner {
+    display: flex;
+}
+
+.contractInner img {
+    margin-right: 15px;
+}
+
+.contractInnerDesc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.contractInnerDesc h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.contractInnerDesc h6 {
+    opacity: 0.7;
+    font-size: 15px;
+}
+
+.contractCard button {
+    padding: 10px;
+    width: 100%;
+    background-color: var(--primaryColor);
+    color: var(--white);
+    border-radius: 8px;
+    margin-top: 20px;
+
+}
+
+.Contract {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}

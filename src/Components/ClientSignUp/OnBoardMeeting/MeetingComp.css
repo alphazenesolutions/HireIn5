@@ -1,0 +1,95 @@
+.meetingComp {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    flex-direction: column;
+}
+
+.meetBottom {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.meetBottom img {
+    height: 88px;
+    width: 88px;
+    object-fit: cover;
+}
+
+.meetBottom h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.meetBottom p {
+    font-size: 14px;
+    color: var(--textColor);
+
+}
+
+.meetButton {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.schedule {
+    padding: 10px 15px;
+    background-color: var(--primaryColor);
+    color: var(--white);
+    border-radius: 8px;
+    margin-right: 25px;
+    font-weight: 600;
+}
+
+.skip {
+    padding: 10px 20px;
+    background-color: var(--white);
+    color: var(--textColor);
+    border-radius: 8px;
+    margin-right: 25px;
+    border: 1px solid var(--borderColor);
+    font-weight: 600;
+}
+
+.callSuccess {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 54vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.calendly {
+    margin-top: 100px;
+    /* height: 100vh; */
+
+}
+
+
+/* media Query */
+@media only screen and (max-width: 600px) {
+    .calendly {
+        margin-top: 0px;
+        /* height: 100vh; */
+
+    }
+}

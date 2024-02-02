@@ -1,0 +1,289 @@
+.OnBoardComp {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.OnBoardCompInner {
+  width: 100%;
+
+}
+
+/* =====================body Section ======================= */
+.OnBoardCompBody {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*  ======================== Left ========================== */
+.OnBoardCompBodyLeft {
+  width: 300px;
+  height: 250px;
+  margin-right: 30px;
+  border-radius: 8px;
+  transition: 0.5s;
+  border: 2px solid var(--secondaryColor);
+  z-index: 10;
+}
+
+.OnBoardCompBodyLeftDesc {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.OnBoardCompBodyLeftImg {
+  width: 100%;
+  height: 80%;
+  background-color: var(--secondaryColor);
+  display: flex;
+  border-radius: 8px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.OnBoardCompBodyLeft img {
+  width: 60px;
+  border-radius: 8px;
+  height: 60px;
+
+  object-fit: contain;
+}
+
+/* active */
+
+.OnBoardCompBodyLeftActive {
+  width: 300px;
+  height: 250px;
+  margin-right: 30px;
+  border-radius: 8px;
+  transition: 0.5s;
+  z-index: 10;
+  border: 2px solid var(--primaryColor);
+}
+
+.OnBoardCompBodyLeftDescActive {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primaryColor);
+}
+
+.OnBoardCompBodyLeftImgActive {
+  width: 100%;
+  height: 80%;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  /* background-color: var(--secondaryColor); */
+  background-color: #eeeaff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.OnBoardCompBodyLeftActive svg {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+
+}
+
+/*  ======================== Left Hover ========================== */
+
+.OnBoardCompBodyLeft:hover {
+  border: 2px solid var(--primaryColor);
+  transition: 0.5s;
+}
+
+.OnBoardCompBodyLeft:hover .OnBoardCompBodyLeftDesc {
+  color: var(--primaryColor);
+  transition: 0.5s;
+}
+
+.OnBoardCompBodyLeft:hover .OnBoardCompBodyLeftImg {
+  background-color: #eeeaff;
+  transition: 0.5s;
+}
+
+/*  ======================== Right ========================== */
+.OnBoardCompBodyRight {
+  width: 300px;
+  height: 250px;
+  border-radius: 8px;
+  border: 2px solid var(--secondaryColor);
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.OnBoardCompBodyRightDesc {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.OnBoardCompBodyRightImg {
+  width: 100%;
+  height: 80%;
+  background-color: var(--secondaryColor);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.OnBoardCompBodyRightImg svg {
+  width: 60px;
+  height: 60px;
+  color: var(--primaryColor);
+  /* background-color: var(--primaryColor); */
+  object-fit: contain;
+}
+
+.hightLight {
+  font-weight: 700;
+}
+
+.OnBoardCompBodyRightActive {
+  width: 300px;
+  height: 250px;
+  border-radius: 8px;
+  /* border: 2px solid var(--secondaryColor); */
+  border: 2px solid var(--primaryColor);
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.OnBoardCompBodyRightDescActive {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primaryColor);
+}
+
+.OnBoardCompBodyRightImgActive {
+  width: 100%;
+  height: 80%;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  /* background-color: var(--secondaryColor); */
+  background-color: #eeeaff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.OnBoardCompBodyRightImgActive img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.hightLight {
+  font-weight: 700;
+}
+
+/*  ======================== RightHover ========================== */
+.OnBoardCompBodyRight:hover {
+  border: 2px solid var(--primaryColor);
+  transition: 0.5s;
+}
+
+.OnBoardCompBodyRight:hover .OnBoardCompBodyRightDesc {
+  color: var(--primaryColor);
+  transition: 0.5s;
+}
+
+.OnBoardCompBodyRight:hover .OnBoardCompBodyRightImg {
+  background-color: #eeeaff;
+  transition: 0.5s;
+}
+
+/* ==================== Button ======================= */
+.OnBoardCompButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: var(--primaryColor); */
+}
+
+.OnBoardCompButtonEnable {
+  background-color: var(--primaryColor);
+  width: 120px;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+}
+
+.OnBoardCompButtonDisable {
+  background-color: rgb(242, 242, 242);
+  color: var(--disableButton);
+  width: 120px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.logoActive {
+  color: var(--primaryColor);
+}
+
+
+@media only screen and (max-width: 600px) {
+  .OnBoardCompBodyRight {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 160px;
+  }
+
+  .OnBoardCompBodyLeft {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 160px;
+    margin-bottom: 20px;
+  }
+
+  .OnBoardCompBodyRightActive {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 160px;
+  }
+
+  .OnBoardCompBodyLeftActive {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 160px;
+    margin-bottom: 20px;
+  }
+
+  .OnBoardCompBody {
+    flex-direction: column;
+  }
+
+  .OnBoardCompButtonEnable {
+    width: 300px;
+  }
+
+  .OnBoardCompButtonDisable {
+    width: 300px;
+  }
+}

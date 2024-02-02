@@ -1,0 +1,525 @@
+.pricingComp {
+    width: 100%;
+    height: 100%;
+    background-color: #f8f8f8;
+
+}
+
+.pricingCompInner {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.pricingCompHead {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pricingCompHead h1 {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.pricingCompHead p {
+    font-size: 14px;
+    color: var(--textColor);
+}
+
+.pricingToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.toggleBodyLeft {
+    width: 35px;
+    height: 20px;
+    background-color: var(--disableColor);
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2px;
+    transition: 0.5 ease;
+}
+
+.toggleBodyRight {
+    width: 35px;
+    height: 20px;
+    background-color: var(--primaryColor);
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 2px;
+    transition: 0.5 ease;
+}
+
+.toggle {
+    height: 15px;
+    width: 15px;
+    background-color: var(--white);
+    border-radius: 50%;
+}
+
+.pricingBody {
+    width: 72vw;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.pricingDesc {
+    width: 100%;
+    /* background-color: #fff; */
+    border-radius: 8px;
+}
+
+/*==================== desc =================== */
+
+.pricingDescHead {
+    width: 100%;
+    height: 225px;
+}
+
+/*==================== starter =================== */
+
+.starter {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.starterHead {
+    padding: 22px;
+    padding-bottom: 0px;
+}
+
+.startHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.startHead h1 {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.startHead p {
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #BBF7D0;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.starterBody p {
+    font-size: 14px;
+    color: var(--textColor);
+}
+
+.starterBottom {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 25px;
+    margin-bottom: 2px;
+}
+
+.starterBottom h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.starterBody button {
+    width: 100%;
+    color: var(--white);
+    padding: 10px;
+    background-color: var(--primaryColor);
+    border-radius: 8px;
+}
+
+/*==================== pro =================== */
+
+.pro {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.proPricingHead {
+    padding: 22px;
+    padding-bottom: 0px;
+}
+
+.proHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.proHead h1 {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.proHead p {
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #BBF7D0;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.proBody p {
+    font-size: 14px;
+    color: var(--textColor);
+}
+
+.proBottom {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 25px;
+    margin-bottom: 2px;
+}
+
+.proBottom h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.proBody button {
+    width: 100%;
+    color: var(--white);
+    padding: 10px;
+    background-color: var(--primaryColor);
+    border-radius: 8px;
+}
+
+.pricingDescOption {
+    padding: 22px;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pricingDescOptionFirst {
+    display: flex;
+    flex-direction: column;
+    /* padding-top: 22px; */
+}
+
+.pricingTerms {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+
+}
+
+/* ==================== Success ======================== */
+.payment {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.payment p {
+    font-size: 14px;
+    color: var(--textColor);
+    margin-top: 10px;
+}
+
+.paymentTimer {
+    margin-top: 0px;
+    font-size: 14px;
+    color: var(--textColor);
+}
+
+.emailDarks {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--textColor);
+}
+
+.payment button {
+    padding: 10px 15px;
+    color: var(--white);
+    background-color: var(--primaryColor);
+    border-radius: 8px;
+}
+
+.mobPricingComp {
+    display: none;
+}
+
+/*======================== mobile component =========================== */
+
+@media only screen and (max-width: 600px) {
+    .pricingComp {
+        display: none;
+        /* background-color: #f8f8f8; */
+    }
+
+    .mobPricingComp {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        background-color: #f8f8f8;
+    }
+
+    .mobPricingCompInner {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobPricingCompHead {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .mobPricingCompHead h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .mobPricingCompHead p {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--textColor);
+        margin-top: 10px;
+    }
+
+    /* starter mobile */
+
+    .radioDiv {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 1px solid var(--borderColor);
+    }
+
+    .radioDivActive {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 1px solid var(--borderColor);
+        background-color: var(--primaryColor);
+
+    }
+
+    .mobStarter {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 10px;
+        border: 1px solid var(--borderColor);
+        margin-bottom: 30px;
+    }
+
+    .mobStarterHead {
+        padding: 16px;
+    }
+
+    .mobStartHead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mobStartHead h1 {
+        font-size: 36px;
+        font-weight: 600;
+    }
+
+    .mobStartHead p {
+        font-size: 12px;
+        font-weight: 400;
+        background-color: #BBF7D0;
+        padding: 3px 10px;
+        border-radius: 20px;
+    }
+
+    .mobStarterBody p {
+        font-size: 14px;
+        color: var(--textColor);
+    }
+
+    .mobStarterBottom {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    .mobStarterBottom h2 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .mobStarterBody button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 14px;
+    }
+
+    .mobStartedDesc {
+        padding-left: 25px;
+        padding-top: 20px;
+    }
+
+    .mobStartedDesc li {
+        list-style: disc;
+        font-size: 14px;
+        color: var(--textColorDark);
+    }
+
+    /* Pro mobile */
+    .mobPro {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 10px;
+        border: 1px solid var(--borderColor);
+        margin-bottom: 30px;
+    }
+
+    .mobProHeader {
+        padding: 16px;
+    }
+
+    .mobProHead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mobProHead h1 {
+        font-size: 36px;
+        font-weight: 600;
+    }
+
+    .mobProHead p {
+        font-size: 12px;
+        font-weight: 400;
+        background-color: #BBF7D0;
+        padding: 3px 10px;
+        border-radius: 20px;
+    }
+
+    .mobProBody p {
+        font-size: 14px;
+        color: var(--textColor);
+    }
+
+    .mobProBottom {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    .mobProBottom h2 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .mobProBody button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 14px;
+    }
+
+    .mobProDesc {
+        padding-top: 20px;
+    }
+
+    .mobProDesc ul {
+        padding-left: 25px;
+    }
+
+    .mobProDesc h6 {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 15px;
+        color: var(--textColorDark);
+    }
+
+    .mobProDesc li {
+        list-style: disc;
+        font-size: 14px;
+        color: var(--textColorDark);
+    }
+
+    .mobButtonDisable {
+        width: 100%;
+        color: var(--textColorDark);
+        padding: 10px;
+        background-color: var(--disableColor);
+        border-radius: 8px;
+    }
+
+    .mobButtonActive {
+        width: 100%;
+        color: var(--white);
+        padding: 10px;
+        background-color: var(--primaryColor);
+        border-radius: 8px;
+    }
+
+    .mobPricingTerms {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: var(--textColor);
+        margin-top: 25px;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+
+    }
+}

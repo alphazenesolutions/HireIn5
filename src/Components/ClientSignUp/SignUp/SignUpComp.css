@@ -1,0 +1,184 @@
+.SignUpComp {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.clientSignUpCompInner {
+    width: 100%;
+
+}
+
+/* =====================Body Section ======================= */
+.clientSignUpCompBody {
+    width: 100%;
+}
+
+/* ========================= Email ======================== */
+.clientSignUpCompBodyEmail {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.clientSignUpCompBodyEmail h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    margin-left: 3px;
+}
+
+.clientSignUpCompBodyEmail input {
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    /* border: 1px solid var(--secondaryColor); */
+    border: 1px solid rgb(219, 219, 219);
+    border-radius: 5px;
+}
+
+/* ========================= Password ======================== */
+.clientSignUpCompBodyPassword {
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.clientSignUpCompBodyPasswordLabel {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.clientSignUpCompBodyPassword h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    margin-left: 3px;
+}
+
+.clientSignUpCompBodyPassword h5 {
+    font-size: 0.8rem;
+    color: var(--primaryColor);
+    margin-bottom: 8px;
+    margin-left: 3px;
+}
+
+
+.clientSignUpCompBodyPasswordInput {
+    width: 100%;
+    position: relative;
+}
+
+.clientSignUpCompBodyPasswordInput input {
+    width: 100%;
+    height: 45px;
+    border: 1px solid rgb(219, 219, 219);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.eyeOne {
+    position: absolute;
+    right: 4%;
+    top: 33%;
+}
+
+/* ========================= Conform Password ======================== */
+.clientSignUpCompBodyConfirmPassword {
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.clientSignUpCompBodyConfirmPasswordLabel {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.clientSignUpCompBodyConfirmPassword h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    margin-left: 3px;
+}
+
+.clientSignUpCompBodyConfirmPassword h5 {
+    font-size: 0.8rem;
+    color: var(--primaryColor);
+    margin-bottom: 8px;
+    margin-left: 3px;
+}
+
+.clientSignUpCompBodyConfirmPasswordInput {
+    width: 100%;
+    position: relative;
+}
+
+.clientSignUpCompBodyConfirmPasswordInput input {
+    width: 300px;
+    height: 45px;
+    border: 1px solid rgb(219, 219, 219);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.eyeTwo {
+    position: absolute;
+    right: 4%;
+    top: 33%;
+}
+
+/* ========================= Button ======================== */
+.signUpCompBodyButton {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.signUpCompBodyButtonEnable {
+    background-color: var(--primaryColor);
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+
+}
+
+.signUpCompBodyButtonDisable {
+    background-color: rgb(242, 242, 242);
+    color: #b6babf;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+
+.signUpCompBodyButtonLoading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--loadingColor);
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {}

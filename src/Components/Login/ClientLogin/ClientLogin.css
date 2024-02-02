@@ -1,0 +1,131 @@
+.clientLogin {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.clientLoginCompInner {
+  width: 100%;
+}
+
+/* ========================= Body ======================== */
+.clientLoginCompBody {
+  width: 100%;
+}
+
+/* ========================= Email ======================== */
+.clientLoginCompBodyEmail {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.clientLoginCompBodyEmail h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  margin-left: 3px;
+}
+
+.clientLoginCompBodyEmail input {
+  width: 300px;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid var(--borderColor);
+  border-radius: 5px;
+}
+
+/* ========================= Password ======================== */
+.clientLoginCompBodyPassword {
+  width: 100%;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.clientLoginCompBodyPasswordLabel {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clientLoginCompBodyPassword h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  margin-left: 3px;
+}
+
+.clientLoginCompBodyPassword h5 {
+  font-size: 0.8rem;
+  color: var(--primaryColor);
+  margin-bottom: 8px;
+  margin-left: 3px;
+}
+
+.clientLoginCompBodyPasswordInput {
+  width: 100%;
+  position: relative;
+}
+
+.clientLoginCompBodyPasswordInput input {
+  width: 100%;
+  height: 45px;
+  border: 1px solid var(--borderColor);
+  border-radius: 5px;
+  padding: 10px;
+  position: relative;
+}
+
+/* ========================= Button ======================== */
+.clientLoginCompBodyButton {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.clientLoginCompBodyButtonEnable {
+  background-color: var(--primaryColor);
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+}
+
+.clientLoginCompBodyButtonDisable {
+  background-color: var(--disableColor);
+  width: 100%;
+  color: #b6babf;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.clientLoginCompBodyButtonLoading {
+  background-color: var(--loadingColor);
+  color: white;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.loadingIcon {
+  color: #6D28D9;
+  font-size: 22px;
+  text-align: center;
+  transform: rotate(180deg);
+  animation: rotate 0.3s infinite;
+
+}

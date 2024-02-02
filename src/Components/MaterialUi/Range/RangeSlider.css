@@ -1,0 +1,19 @@
+span.MuiSlider-track.css-1gv0vcd-MuiSlider-track {
+    color: var(--primaryColor);
+    height: 5px;
+}
+
+span.MuiSlider-root.MuiSlider-colorPrimary.MuiSlider-sizeMedium.text-black.css-187mznn-MuiSlider-root {
+    color: var(--disableColor);
+    height: 5px;
+}
+
+span.MuiSlider-thumb.MuiSlider-thumbSizeMedium.MuiSlider-thumbColorPrimary.MuiSlider-thumb.MuiSlider-thumbSizeMedium.MuiSlider-thumbColorPrimary.css-jx1sa5-MuiSlider-thumb {
+    color: var(--white);
+}
+
+.css-7d61z1-MuiSlider-valueLabel {
+    color: var(--textColorDark);
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+}

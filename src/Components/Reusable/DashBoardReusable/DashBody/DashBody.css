@@ -1,0 +1,44 @@
+.dashBoardMainBody {
+    width: 100%;
+    padding: 120px 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.dashBoardMainBodyInner {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashBoardMainBodyInner img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+}
+
+.dashBoardMainBodyInner h1 {
+    font-size: 22px;
+    font-weight: 600;
+
+}
+
+.dashBoardMainBodyInner p {
+    font-size: 14px;
+    width: 70%;
+    color: var(--textColor);
+    margin-top: 5px;
+
+}
+
+.dashBoardMainBodyInnerButton {
+    padding: 6px 10px;
+    background-color: var(--primaryColor);
+    color: var(--white);
+    margin-top: 20px;
+    border-radius: 8px;
+}

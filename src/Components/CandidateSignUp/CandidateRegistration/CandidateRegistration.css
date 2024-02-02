@@ -1,0 +1,1298 @@
+.candidateRegistration {
+    background-color: #f4f4f5;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+
+.candidateRegistration1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.candidateRegistrationInner {
+    width: 600px;
+    display: flex;
+    padding: 0px;
+    flex-direction: column;
+    border-radius: 7px;
+    margin-bottom: 20px;
+}
+
+.CandidatePages {
+    width: 100%;
+    background-color: #f4f4f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.CandidatePages p {
+    width: 45px;
+    height: 2px;
+    background-color: var(--borderColor);
+    margin: 0px 7px;
+}
+
+.CandidatePages .candidateBtn1 {
+    padding: 10px;
+    background-color: var(--primaryColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 100%;
+}
+
+.CandidatePages .candidateBtn2 {
+    padding: 10px;
+    background-color: var(--secondaryColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    color: black;
+    border-radius: 100%;
+}
+
+.CandidatePages .candidateBtn3 {
+    padding: 10px;
+    background-color: var(--secondaryColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    color: black;
+    border-radius: 100%;
+}
+
+.CandidateHead {
+    background-color: #f4f4f5;
+    margin: 10px 0px;
+}
+
+.CandidateHead h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 15px 0px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.basicDetails {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+}
+
+.basicDetails h2 {
+    color: var(--textColorDark);
+    font-size: 13px;
+    opacity: 0.5;
+    font-weight: 400;
+}
+
+.DocumentDetails {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+}
+
+.CandidateDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    grid-gap: 20px;
+    padding: 10px 0px;
+}
+
+.CandidateInformation {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    grid-gap: 20px;
+    padding: 0px 0px 10px 0px;
+}
+
+.DocumentDetails h2 {
+    color: var(--textColorDark);
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0.5;
+}
+
+.documentDetails1 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
+}
+
+.addressLine {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.candidateAddress {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0px;
+}
+
+.candidatePlace {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+.candidateDetails1 .candidateInfo {
+    margin: 5px 0px 10px 0px;
+}
+
+.candidatePlace .candidateInfo {
+    margin: 5px 0px 10px 0px;
+}
+
+.candidateInfo h3 {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 0px;
+}
+
+.candidateInfo input {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+
+}
+
+.candidateInfo p {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px 10px;
+    font-size: 15px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+}
+
+.candidateInfo p select {
+    outline: none;
+    border: none;
+
+}
+
+.candidateInfo p input {
+    outline: none;
+    border: none;
+    height: 95%;
+}
+
+.candidateInfo input::placeholder {
+    color: var(--borderColor)
+}
+
+.candidateInfo .candidateState {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+
+.candidateState select {
+    width: 100%;
+    outline: none;
+    border: none;
+    color: var(--borderColor)
+}
+
+.company select::placeholder {
+    color: var(--borderColor)
+}
+
+.aadhaarDetails {
+    width: 100%;
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    padding: 20px 0px;
+}
+
+.aadhaarDetails .aadhaar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+}
+
+.aadhaar .aadhaarFront {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px dashed var(--borderColor);
+    border-radius: 7px;
+}
+
+.aadhaar h3 {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.aadhaar h3 img {
+    margin-left: 5px;
+}
+
+.aadhaarFront h3 {
+    margin-left: 5px;
+    text-decoration: none;
+}
+
+.aadhaarFront a {
+    margin-left: 5px;
+    text-decoration: none;
+    color: var(--primaryColor);
+}
+
+.aadhaarFront p {
+    width: 70%;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.5;
+    font-weight: 500;
+    color: var(--textColorDark);
+}
+
+.aadhaarFront p[title] {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--textColorDark);
+}
+
+.aadhaar1 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    padding: 0px;
+}
+
+.aadhaar1 .aadhaarFront {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px dashed var(--borderColor);
+    border-radius: 7px;
+}
+
+.aadhaar1 h3 {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.aadhaar1 h3 img {
+    margin-left: 5px;
+}
+
+.documentTitle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.passPortDetails .documentTitle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 0px 20px 0px;
+}
+
+
+.passPortDetails {
+    width: 100%;
+    background-color: white;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.passPortDetails .basicDetails {
+    padding: 0px 20px 20px 20px;
+    margin-bottom: 10px;
+}
+
+.passPortDetails h2 {
+    color: var(--textColorDark);
+    font-size: 13px;
+    opacity: 0.5;
+    font-weight: 4 00;
+}
+
+.passPortDetails .aadhaarDetails {
+    padding: 0px 0px;
+}
+
+.candidateBottom {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.candidateBottom button {
+
+    width: 100%;
+    background-color: var(--primaryColor);
+    padding: 10px;
+    border-radius: 7px;
+    outline: none;
+    border: none;
+    color: white;
+}
+
+.candidateTermsAndConditions {
+    width: 600px;
+    display: flex;
+}
+
+.candidateTermsAndConditions {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 30px 20px;
+    margin-top: 10px;
+}
+
+.candidatetermsAndConditions h6 {
+    color: var(--textLightColor);
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.courseSearch {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.search {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.search h3 {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 0px;
+}
+
+.searchBar {
+    width: 100%;
+    height: 46px;
+    border-radius: 7px;
+    border: 1px solid var(--borderColor);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.searchBar input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 6px;
+}
+
+.searchContent1 {
+    width: 100%;
+    border-radius: 7px;
+    border: 1px solid var(--borderColor);
+    margin: 0px 0px 15px 0px;
+    padding: 5px 5px 5px 0px;
+}
+
+.searchContent {
+    margin: 0px 0px;
+    padding: 10px;
+    /* height: 180px; */
+    overflow-y: scroll;
+}
+
+.searchContent::-webkit-scrollbar {
+    width: 7px;
+    border-radius: 10px;
+    background-color: var(--textLightColor)
+}
+
+.searchContent::-webkit-scrollbar-thumb {
+    width: 100%;
+    border-radius: 10px;
+    background-color: var(--secondaryColor);
+
+}
+
+.searchContent h3 {
+    /* margin: 7px 0px; */
+    border-radius: 7px;
+    padding: 7px;
+    transition: 1s;
+}
+
+.searchContent h3:hover {
+    background-color: var(--secondaryColor);
+}
+
+.Level h3:hover {
+    background-color: var(--secondaryColor);
+}
+
+.searchBar input::placeholder {
+    color: var(--borderColor)
+}
+
+.Skills1 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 5px 5px 0px;
+    height: 300px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+}
+
+.Skills {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.Skills::-webkit-scrollbar {
+    width: 7px;
+    border-radius: 10px;
+    background-color: var(--textLightColor)
+}
+
+.Skills::-webkit-scrollbar-thumb {
+    width: 100%;
+    border-radius: 10px;
+    background-color: var(--secondaryColor);
+
+}
+
+.SkillsHead {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.SkillsHead h2 {
+    color: var(--textColorDark);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.skillSets {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.skillSet {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.skillList {
+    width: 100%;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 0px 10px;
+}
+
+.skillSet {
+    width: 100%;
+    margin: 10px 0px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.skillbtn {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.skillSet button {
+    padding: 5px 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #EDE9FE;
+    color: var(--loadingIconColor);
+    margin: 0px 30px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+}
+
+.skillSet button[title] {
+    padding: 5px 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--borderColor);
+    background-color: white;
+    margin: 0px 30px;
+    border-radius: 30px;
+    border: 1px solid var(--borderColor);
+    outline: none;
+}
+
+.skillSet button h3 {
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+.skillbtn h3 {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 0px;
+}
+
+.skillList .deleteIcon {
+    font-size: 20px;
+    color: var(--emailHighLighter);
+}
+
+.Accounts {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    grid-gap: 20px;
+    margin: 0px 0px;
+    padding: 10px 20px 20px 20px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    background-color: white;
+
+}
+
+.languages {
+    background-color: white;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 600px;
+    margin-top: 20px;
+    padding: 10px 20px 20px 20px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    height: auto;
+}
+
+.addLanguages {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.addLanguages h3 {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 0px;
+}
+
+.selectLanguages h3 {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 0px;
+}
+
+.addLanguages input {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+}
+
+.addLanguages button {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+    margin: 20px 0px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selectLanguages {
+    width: 40%;
+    height: 100%;
+    margin-left: 20px;
+
+}
+
+.lanSearch {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 42px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+
+}
+
+.lanSearch input {
+    width: 100px;
+    height: 100%;
+    outline: none;
+    border: none;
+    padding: 10px 5px;
+}
+
+.languages input::placeholder {
+    color: var(--borderColor)
+}
+
+.lanSearch select {
+    width: 20px;
+    outline: none;
+    border: none;
+}
+
+.candidateBottom .Agree {
+
+    width: 100%;
+    background-color: #EDE9FE;
+    padding: 10px;
+    border-radius: 7px;
+    outline: none;
+    border: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: flex-start;
+}
+
+.Agree input {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.Agree span {
+    color: var(--primaryColor);
+    margin: 0px 10px;
+
+}
+
+.candidateBottom .Next {
+    width: 100%;
+    background-color: var(--borderColor);
+    padding: 10px;
+    border-radius: 7px;
+    outline: none;
+    border: none;
+    color: var(--textColorDark);
+    margin: 20px 0px 0px 0px;
+}
+
+.Level {
+    padding: 5px 15px;
+    margin-top: 20px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+}
+
+.Level h3 {
+    margin: 5px 0px;
+    padding: 5px 5px;
+    border-radius: 7px;
+}
+
+.CandidateSkills {
+    width: 100%;
+    background-color: #f4f4f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 7pxx;
+}
+
+.CandidateSkills p {
+    width: 45px;
+    height: 2px;
+    background-color: var(--borderColor);
+    margin: 0px 7px;
+
+}
+
+.CandidateSkills .candidateBtn1 {
+    padding: 10px;
+    background-color: var(--primaryColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 100%;
+}
+
+.CandidateSkills .candidateBtn2 {
+    padding: 10px;
+    background-color: var(--primaryColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 100%;
+}
+
+.CandidateSkills .candidateBtn3 {
+    padding: 10px;
+    background-color: var(--secondaryColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    color: black;
+    border-radius: 100%;
+}
+
+.CandidateSkills button[title] {
+    padding: 10px;
+    background-color: var(--primaryColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 100%;
+}
+
+.travelDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    padding: 0px 0px 10px 0px;
+}
+
+.travelBottom {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 7px;
+    border: 1px solid var(--borderColor);
+    background-color: white;
+}
+
+.travelBottom button {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+    margin: 20px 0px 0px 0px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.travelInfo button {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+    margin: 20px 0px 0px 0px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.travelResidence h2 {
+    color: var(--textColorDark);
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0.5;
+
+}
+
+.travelResidence {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(1, 4fr);
+    grid-gap: 20px;
+    padding: 20px;
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 7px;
+    border: 1px solid var(--borderColor);
+}
+
+.travelDuration {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+.infoHead {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 0px 8px 0px;
+}
+
+.infoHead h2 {
+    color: black;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.infoHead h3[title] {
+    color: var(--textColorDark);
+    font-size: 13px;
+    font-weight: 600;
+
+}
+
+.infoDetails {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.infoDetails h3 {
+    color: black;
+    font-size: 13px;
+    font-weight: 600;
+
+}
+
+.infoDetails h3[title] {
+    color: var(--textColorDark);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.travelBottom h2 {
+    color: var(--textColorDark);
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    opacity: 0.5;
+
+}
+
+.travelBottom .candidateInfo {
+    margin-top: 10px;
+}
+
+.travelInfo .candidateInfo {
+    margin: 0px 0px 10px 0px;
+}
+
+.Bottombtns {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.Bottombtns .nextbtn1 {
+    width: 100%;
+    background-color: var(--primaryColor);
+    padding: 10px;
+    border-radius: 7px;
+    outline: none;
+    border: none;
+    color: white;
+}
+
+.Bottombtns .skipbtn {
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    border-radius: 7px;
+    outline: none;
+    border: 1px solid var(--borderColor);
+    color: black;
+    margin: 20px 0px 0px 0px;
+}
+
+.backButton {
+    width: 90px;
+    border-radius: 7px;
+    border: 1px solid var(--borderColor);
+    padding: 10px;
+    color: var(--textColorDark);
+    position: absolute;
+    left: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.backButtonNone {
+    display: none;
+}
+
+.back {
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .candidateRegistration {
+        background-color: #f4f4f5;
+        width: auto;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        /* background-color: red; */
+        padding: 20px;
+    }
+
+
+    .candidateRegistration1 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .candidateRegistrationInner {
+        width: 100%;
+        display: flex;
+        padding: 0px;
+        flex-direction: column;
+        border-radius: 7px;
+        margin-bottom: 20px;
+    }
+
+    .CandidateDetails {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(1, 4fr);
+        grid-gap: 20px;
+        padding: 10px 0px;
+    }
+
+    .candidateBottom {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .candidateTermsAndConditions {
+        width: 100%;
+        display: flex;
+    }
+
+    .Accounts {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(2, 2fr);
+        grid-gap: 20px;
+        margin: 0px 0px;
+        padding: 10px 20px 20px 20px;
+        border: 1px solid var(--borderColor);
+        border-radius: 7px;
+        background-color: white;
+
+    }
+
+    .travelBottom {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 7px;
+        border: 1px solid var(--borderColor);
+        background-color: white;
+    }
+
+    .languages {
+        background-color: white;
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-direction: column;
+        margin-top: 20px;
+        padding: 10px 20px 20px 20px;
+        border: 1px solid var(--borderColor);
+        border-radius: 7px;
+        height: auto;
+    }
+
+    .travelResidence {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(1, 4fr);
+        grid-gap: 20px;
+        padding: 20px;
+        background-color: white;
+        margin-bottom: 20px;
+        border-radius: 7px;
+        border: 1px solid var(--borderColor);
+    }
+
+    .Bottombtns {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .candidatePlace {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(1, 2fr);
+        grid-gap: 0px;
+    }
+
+    .aadhaarDetails {
+        width: 100%;
+        display: flex;
+        display: grid;
+        grid-template-columns: repeat(1, 2fr);
+        grid-gap: 20px;
+        padding: 20px 0px;
+    }
+
+    .CandidateInformation {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(1, 2fr);
+        grid-gap: 20px;
+        padding: 0px 0px 10px 0px;
+    }
+
+    .Accounts {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(1, 2fr);
+        grid-gap: 20px;
+        margin: 0px 0px;
+        padding: 10px 20px 20px 20px;
+        border: 1px solid var(--borderColor);
+        border-radius: 7px;
+        background-color: white;
+
+    }
+
+    .selectLanguages {
+        width: 100%;
+        height: 100%;
+        margin-left: 0px;
+
+    }
+
+    .travelDetails {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(1, 3fr);
+        grid-column-gap: 20px;
+        padding: 0px 0px 10px 0px;
+    }
+
+    .travelDuration {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(1, 2fr);
+        grid-gap: 20px;
+    }
+
+    .candidateBottom .Agree {
+
+        width: 100%;
+        background-color: #EDE9FE;
+        padding: 10px;
+        border-radius: 7px;
+        outline: none;
+        border: none;
+        color: black;
+        display: flex;
+        align-items: flex-start;
+        margin-top: 20px;
+        justify-content: flex-start;
+        /* background-color: red; */
+        font-size: 10px;
+    }
+
+    .skillSet button h3 {
+        font-size: 9px;
+        margin-left: 5px;
+    }
+
+    .skillbtn h3 {
+        font-size: 10px;
+        font-weight: 600;
+        padding: 8px 0px;
+    }
+}

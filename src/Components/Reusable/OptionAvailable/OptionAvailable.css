@@ -1,0 +1,30 @@
+.options {
+    text-align: center;
+    padding: 12px;
+    height: 65px;
+    /* background-color: burlywood; */
+    border-bottom: 1px solid var(--borderColor);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.optionsLeft {
+    text-align: start;
+    padding: 12px 0px;
+    /* background-color: burlywood; */
+    border-bottom: 1px solid var(--borderColor);
+    display: flex;
+    align-items: flex-end;
+    height: 65px;
+}
+
+.optionsLeft p {
+    font-size: 14px;
+    /* color: var(--textColor); */
+}
+
+.options p {
+    font-size: 14px;
+    /* color: var(--textColor); */
+}

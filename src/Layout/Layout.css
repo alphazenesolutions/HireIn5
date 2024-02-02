@@ -1,0 +1,25 @@
+.dashboard {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sideNavComp {
+    width: 18%;
+    height: 100%;
+    background-color: var(--white);
+}
+
+.main {
+    width: 82%;
+    height: 100%;
+    overflow-y: scroll;
+    /* padding: 0px 120px; */
+    background-color: #f8f8f8;
+}
+
+/* .main::-webkit-scrollbar {
+    display: none;
+} */

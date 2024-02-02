@@ -1,0 +1,11 @@
+.interviewHead {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.interviewCard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+}

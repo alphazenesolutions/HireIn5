@@ -1,0 +1,30 @@
+.dashBoardMainHead {
+    padding: 50px 0px;
+
+
+}
+
+.dashBoardMainHead h1 {
+    font-size: 45px;
+}
+
+.dashBoardMainHeadDesc {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.dashBoardMainHeadDesc p {
+    font-size: 15px;
+    color: var(--textColor);
+    margin-right: 5px;
+
+}
+
+.dashBoardMainHeadDesc a {
+    font-size: 15px;
+    color: var(--primaryColor);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}

@@ -1,0 +1,166 @@
+/* head */
+.sideNavHead {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.sideNavHead h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
+
+/* SideNav */
+.sideNav {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--white);
+}
+
+.sideNavInner {
+    width: 100%;
+    height: 94%;
+    background-color: var(--white);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.sideNavTop {
+    width: 100%;
+}
+
+.sideNavBottom {
+    width: 100%;
+}
+
+
+
+.dashProfile {
+    display: flex;
+    padding: 15px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8f8f8;
+    margin-bottom: 20px;
+}
+
+.profileName h2 {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.profileName p {
+    font-size: 15px;
+    color: var(--textColor);
+}
+
+.cash {
+    display: flex;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px;
+    border: 1px solid var(--borderColor);
+}
+
+.cashLeft {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.cashRight {
+    margin-left: 15px;
+}
+
+.cashRight p {
+    font-size: 12px;
+    color: var(--textColor);
+}
+
+.cashRight h5 {
+    font-weight: 600;
+}
+
+.cashRight span {
+    margin-right: 5px;
+
+}
+
+
+.logout {
+    display: flex;
+    padding: 15px 25px;
+    border-top: 1px solid var(--borderColor);
+    padding-bottom: 0px;
+}
+
+.logout img {
+    margin-right: 10px;
+
+}
+
+.logout h6 {
+    font-size: 14px;
+
+}
+
+.navMenu {
+    width: 100%;
+    height: 100%;
+    /* padding: 15px; */
+}
+
+.menu1 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.menuName {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.menuImg {
+    height: 22px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.menu1:hover {
+    background-color: var(--loadingColor);
+}
+
+.menu1:hover .menuName {
+    color: var(--primaryColor);
+}
+
+.menu1:hover .menuImg {
+    color: var(--primaryColor);
+}
+
+
+.menu1Active {
+    background-color: var(--loadingColor);
+    color: var(--primaryColor);
+    color: var(--primaryColor);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}

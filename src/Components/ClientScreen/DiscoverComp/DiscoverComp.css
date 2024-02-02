@@ -1,0 +1,36 @@
+.recent {
+    display: flex;
+    overflow-x: scroll;
+    z-index: 15;
+}
+
+.recentHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15px;
+    margin-bottom: 15px;
+
+}
+
+.recentHeadRight h2 {
+    color: var(--primaryColor);
+}
+
+.recentHead button {
+    padding: 6px 8px;
+    border-radius: 50%;
+    margin-right: 15px;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+}
+
+.recentHeadLeft {
+    display: flex;
+}
+
+.recentHead h1 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 20px;
+}

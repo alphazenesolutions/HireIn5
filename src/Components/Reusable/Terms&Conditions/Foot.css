@@ -1,0 +1,35 @@
+.foot {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.foot h4 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--textColor);
+}
+
+.footDesc {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footDesc a {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.footDesc p {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--textColor);
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
