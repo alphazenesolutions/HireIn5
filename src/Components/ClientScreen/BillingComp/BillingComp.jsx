@@ -66,6 +66,11 @@ const BillingComp = () => {
   const toggleHandler = () => {
     setIsToggle(!isToggle);
   };
+
+  const [isSubscribe, setIsSubscribe] = useState(false);
+  const subscribeHandler = () => {
+    setIsSubscribe(true);
+  };
   return (
     <>
       <div className="dashBoardMain paddingLeft100 paddingRight100">
@@ -416,6 +421,10 @@ const BillingComp = () => {
                     <button id="page3" onClick={PageHandler}>
                       Choose plan
                     </button>
+                    {/* <div className="planButton">
+                      <button>Current plan</button>
+                      <button>Cancel plan</button>
+                    </div> */}
                   </div>
                 </div>
                 <div className="pricingDescOption">
@@ -458,7 +467,18 @@ const BillingComp = () => {
                       <h2>${isToggle === true ? yearlyPro : monthlyPro}</h2>
                       <p>/month, billed annually</p>
                     </div>
-                    <button>Choose plan</button>
+                    {isSubscribe === true ? (
+                      <div className="planButton">
+                        <button className="currentPlanButton">
+                          Current plan
+                        </button>
+                        <button className="cancelPlanButton">
+                          Cancel plan
+                        </button>
+                      </div>
+                    ) : (
+                      <button onClick={subscribeHandler}>Choose plan</button>
+                    )}
                   </div>
                 </div>
                 <div className="pricingDescOption">

@@ -296,3 +296,26 @@ textarea::placeholder {
 .updradePlan {
     padding-bottom: 50px;
 }
+
+.planButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currentPlanButton {
+    padding: 10px;
+    width: 50%;
+    border: 1px solid var(--borderColor);
+    background-color: var(--disableColor);
+    color: var(--textColor);
+    margin-right: 10px;
+}
+
+.cancelPlanButton {
+    padding: 10px;
+    width: 50%;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+    color: var(--textColorDark);
+}
