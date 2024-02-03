@@ -271,65 +271,41 @@ const CandidateRegistration = () => {
           ...values,
           pan_front: true,
         }));
-      } else if (formdata.passport_no.length === 0) {
+      } else {
         setformdataerror((values) => ({
           ...values,
           pan_front: false,
         }));
-        setformdataerror((values) => ({
-          ...values,
-          passport_no: true,
-        }));
-      } else if (formdata.valid_until.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
+        setformdataerror({
+          firstname: false,
+          lastname: false,
+          email: false,
+          phone: false,
+          dob: false,
+          address1: false,
+          address2: false,
+          city: false,
+          state: false,
+          title: false,
+          aadhaar_number: false,
+          aadhaarfront: false,
+          aadhaarback: false,
+          pan_number: false,
+          pan_front: false,
           passport_no: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          valid_until: true,
-        }));
-      } else if (formdata.country_of_citizenship.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
           valid_until: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          country_of_citizenship: true,
-        }));
-      } else if (formdata.country_of_issue.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          country_of_citizenship: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          country_of_issue: true,
-        }));
-      } else if (formdata.passport_front.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          country_of_issue: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          passport_front: true,
-        }));
-      } else if (formdata.passport_back.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
+          country: false,
           passport_front: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          passport_back: true,
-        }));
-      } else {
-        setformdataerror((values) => ({
-          ...values,
           passport_back: false,
-        }));
+          qualification: false,
+          experience: false,
+          skill: false,
+          linkedin: false,
+          hackerrank: false,
+          github: false,
+          website: false,
+          languages: false,
+        });
         var newobj = {
           username: signupdata.username,
           phone: formdata.phone,
@@ -440,15 +416,16 @@ const CandidateRegistration = () => {
     // routeHandler();
   }
   const fileInputRef = useRef(null);
+  const [formtype, setformtype] = useState(null);
 
-  const handleFileSelectClick = () => {
+  const handleFileSelectClick = (data) => {
     fileInputRef.current.click();
+    setformtype(data);
   };
   const [formData, setFormData] = useState(new FormData());
   const handleFileInputChange = async (e) => {
     formData.append("image", e.target.files[0]);
-    formData.append("name", "aadhar");
-    console.log(formData, "formData");
+    formData.append("name", formtype);
     try {
       const response = await axios.post(
         "https://fileserver-21t2.onrender.com/api/upload/",
@@ -459,11 +436,17 @@ const CandidateRegistration = () => {
           },
         }
       );
-      console.log(response.data);
+
+      setformdata((values) => ({
+        ...values,
+        [formtype]: response.data.img_url,
+      }));
+      fileInputRef.current.file = "";
     } catch (error) {
       console.error("Error sending FormData:", error);
     }
   };
+
   return (
     <>
       <div className="candidateRegistration">
@@ -679,7 +662,9 @@ const CandidateRegistration = () => {
                   <div className="aadhaarDetails">
                     <div
                       className="aadhaar cursor-pointer"
-                      onClick={handleFileSelectClick}
+                      onClick={() => {
+                        handleFileSelectClick("aadhaarfront");
+                      }}
                     >
                       <h3>
                         Aadhaar Card Front <img src={aadhaarimg} alt="" />
@@ -695,6 +680,7 @@ const CandidateRegistration = () => {
                         type="file"
                         ref={fileInputRef}
                         style={{ display: "none" }}
+                        name="aadhaarfront"
                         onChange={handleFileInputChange}
                       />
                       {formdataerror.aadhaarfront && (
@@ -705,7 +691,9 @@ const CandidateRegistration = () => {
                     </div>
                     <div
                       className="aadhaar cursor-pointer"
-                      onClick={handleFileSelectClick}
+                      onClick={() => {
+                        handleFileSelectClick("aadhaarback");
+                      }}
                     >
                       <h3>
                         Aadhaar Card Back <img src={aadhaarimg} alt="" />
@@ -722,6 +710,7 @@ const CandidateRegistration = () => {
                         type="file"
                         ref={fileInputRef}
                         style={{ display: "none" }}
+                        name="aadhaarback"
                         onChange={handleFileInputChange}
                       />
                       {formdataerror.aadhaarback && (
@@ -748,7 +737,9 @@ const CandidateRegistration = () => {
                   </div>
                   <div
                     className="aadhaar1 cursor-pointer"
-                    onClick={handleFileSelectClick}
+                    onClick={() => {
+                      handleFileSelectClick("pan_front");
+                    }}
                   >
                     <h3>
                       PAN Card Front <img src={aadhaarimg} alt="" />
@@ -764,6 +755,7 @@ const CandidateRegistration = () => {
                       type="file"
                       ref={fileInputRef}
                       style={{ display: "none" }}
+                      name="pan_front"
                       onChange={handleFileInputChange}
                     />
                     {formdataerror.pan_front && (
@@ -855,7 +847,9 @@ const CandidateRegistration = () => {
                   <div className="aadhaarDetails">
                     <div
                       className="aadhaar1 cursor-pointer"
-                      onClick={handleFileSelectClick}
+                      onClick={() => {
+                        handleFileSelectClick("passport_front");
+                      }}
                     >
                       <h3>
                         Passport Card Front <img src={aadhaarimg} alt="" />
@@ -871,12 +865,15 @@ const CandidateRegistration = () => {
                         type="file"
                         ref={fileInputRef}
                         style={{ display: "none" }}
+                        name="passport_front"
                         onChange={handleFileInputChange}
                       />
                     </div>
                     <div
                       className="aadhaar1 cursor-pointer"
-                      onClick={handleFileSelectClick}
+                      onClick={() => {
+                        handleFileSelectClick("passport_back");
+                      }}
                     >
                       <h3>
                         Passport Card Back <img src={aadhaarimg} alt="" />
@@ -893,6 +890,7 @@ const CandidateRegistration = () => {
                         type="file"
                         ref={fileInputRef}
                         style={{ display: "none" }}
+                        name="passport_back"
                         onChange={handleFileInputChange}
                       />
                     </div>
