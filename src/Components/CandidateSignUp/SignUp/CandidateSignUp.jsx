@@ -10,6 +10,7 @@ import back from "../../../assests/back.png";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
+import { FiLoader } from "react-icons/fi";
 
 const CandidateSignUp = () => {
   const navigate = useNavigate();
@@ -155,7 +156,11 @@ const CandidateSignUp = () => {
                         : "candidateSignUpCompBodyButtonEnable"
                     }
                   >
-                    {isLoading === true ? "loading" : "Sign up"}
+                    {isLoading === true ? (
+                      <FiLoader className="loadingIcon" />
+                    ) : (
+                      "Sign up"
+                    )}
                   </button>
                 ) : (
                   <button

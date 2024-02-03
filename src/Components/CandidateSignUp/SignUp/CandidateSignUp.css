@@ -119,10 +119,13 @@
 }
 
 .candidateSignUpCompBodyButtonLoading {
-    background-color: var(--buttonLoading);
+    background-color: var(--loadingColor);
     color: var(--white);
     width: 100%;
     padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 10px;
 }
 
