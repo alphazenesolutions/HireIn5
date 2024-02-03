@@ -184,6 +184,7 @@ const BillingComp = () => {
                   <tr className="tableHead">
                     <th className="firstTableHead">Name</th>
                     <th>INVOICE DATE</th>
+                    <th>DUE DATE</th>
                     <th>AMOUNT</th>
                     <th>STATUS</th>
                     <th className="lastTableHead"></th>
@@ -204,9 +205,12 @@ const BillingComp = () => {
                           <h2>{data.Date}</h2>
                         </td>
                         <td>
+                          <h2>{data.Date}</h2>
+                        </td>
+                        <td>
                           <h2>{data.amount}</h2>
                         </td>
-                        <td className="skillData">
+                        <td className="paidData">
                           {/* <p>{data.Skill1}</p>
                       <p>{data.Skill2}</p>
                       <p>{data.Skill3}</p> */}
