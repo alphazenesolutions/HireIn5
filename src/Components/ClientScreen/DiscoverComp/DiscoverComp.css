@@ -4,6 +4,10 @@
     z-index: 15;
 }
 
+.recent::-webkit-scrollbar {
+    display: none;
+}
+
 .recentHead {
     display: flex;
     align-items: center;

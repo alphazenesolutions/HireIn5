@@ -97,29 +97,35 @@
 
 
 /* Billing boxex */
-.billingInfo {
-    width: 100%;
-    height: 55vh;
+/* .billingInfo {
+    width: 100vw;
+    height: 100vh;
     padding: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10 !important;
     background-color: #00000099;
     font-family: 'Inter', sans-serif;
 
-}
+} */
 
 .billingInfo1 {
     width: 480px;
     height: auto;
     background-color: white;
     display: flex;
+    z-index: 10 !important;
     flex-direction: column;
     padding: 10px;
     border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.billingInfo .billingClose {
+.billingClose {
     width: 100%;
     display: flex;
     align-items: center;
@@ -128,7 +134,7 @@
 
 }
 
-.billingInfo .billingClose img {
+.billingClose img {
     padding: 12px;
     border: 1px solid var(--borderColor);
     border-radius: 7px;

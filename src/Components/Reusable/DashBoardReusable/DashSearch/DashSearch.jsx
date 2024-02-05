@@ -3,8 +3,14 @@ import "./DashSearch.css";
 import Range from "../../../MaterialUi/Range/RangeSlider";
 import search from "../../../../assests/search.png";
 import downArrow from "../../../../assests/btnDownArrow.png";
+import { storeAction } from "../../../../Store/Store";
+import { useDispatch, useSelector } from "react-redux";
+import close from "../../../../assests/billingX.png";
+import filter from "../../../../assests/allFilters.png";
+import RangeSlider from "../../../MaterialUi/Range/RangeSlider";
 
 const DashSearch = (props) => {
+  const dispatch = useDispatch();
   const [isHourly, setIsHourly] = useState(false);
   const HourlyHandler = () => {
     setIsHourly(!isHourly);
@@ -14,6 +20,24 @@ const DashSearch = (props) => {
   const LocationHandler = () => {
     setIsLoction(!isLocation);
     setIsHourly(false);
+  };
+
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+
+  const FilterHandler = () => {
+    dispatch(storeAction.isPopUpHander());
+  };
+
+  const [isToggle, setIsToggle] = useState(false);
+  const toggleHandler = () => {
+    setIsToggle(!isToggle);
+  };
+
+  const [isToggle1, setIsToggle1] = useState(false);
+  const toggleHandler1 = () => {
+    setIsToggle1(!isToggle1);
   };
 
   const locationData = [
@@ -77,7 +101,7 @@ const DashSearch = (props) => {
           >
             <p>Location</p> <img src={downArrow} alt="" />
           </button>
-          <button className="dashBoardMainSelectbutton">
+          <button onClick={FilterHandler} className="dashBoardMainSelectbutton">
             <p>All Filters</p>
             <img src={downArrow} alt="" />
           </button>
@@ -110,6 +134,74 @@ const DashSearch = (props) => {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        )}
+        {isPopUp && (
+          <div className="allFilter">
+            <div className="allFilterHead">
+              <div className="allFilterHeadLeft">
+                <img src={filter} alt="" />
+                <h2>All Filters</h2>
+              </div>
+              <img src={close} alt="" />
+            </div>
+            <div className="workHistory">
+              <div className="FilterToggle">
+                <h2>Currently available for work</h2>
+                <div
+                  onClick={toggleHandler}
+                  className={
+                    isToggle === true ? "toggleBodyRight" : "toggleBodyLeft"
+                  }
+                >
+                  <div className="toggle"></div>
+                </div>
+                <h2>Eligible for Overseas Travel</h2>
+                <div
+                  onClick={toggleHandler1}
+                  className={
+                    isToggle1 === true ? "toggleBodyRight" : "toggleBodyLeft"
+                  }
+                >
+                  <div className="toggle"></div>
+                </div>
+              </div>
+            </div>
+            <div className="filterSkill">
+              <div className="filterSkillHead">
+                <h2>Skill / Role</h2>
+                <h3>Type a skill or a job role here</h3>
+              </div>
+              <input type="text" name="" id=""></input>
+            </div>
+            <div className="allFilterBody">
+              <div className="filterRate">
+                <div className="filterRateHead">
+                  <h2>Hourly Rate</h2>
+                  <h3>Select a price range</h3>
+                </div>
+                <h4>USD 50 - 250</h4>
+                <RangeSlider />
+              </div>
+              <div className="fliterLocation">
+                <h2>Location</h2>
+                <input type="text" />
+              </div>
+            </div>
+            <div className="allFilterBodyBottom">
+              <div className="workExp">
+                <h2>Years of Work Experience</h2>
+                <input placeholder="3" type="text" />
+              </div>
+              <div className="language">
+                <h2>Languages</h2>
+                <input placeholder="e.g French" type="text" />
+              </div>
+            </div>
+            <div className="allFilterBodyButton">
+              <button className="ResetAll">Reset All</button>
+              <button className="SetFilter">Set Filters</button>
             </div>
           </div>
         )}

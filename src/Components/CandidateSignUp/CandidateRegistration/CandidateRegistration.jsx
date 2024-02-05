@@ -645,7 +645,7 @@ const CandidateRegistration = () => {
 
                 <div className="documentDetails1">
                   <div className="candidateInfo">
-                    <h3>Aadhaar number</h3>
+                    <h3>Aadhaar number / Nationality Id proof</h3>
                     <input
                       type="text"
                       placeholder="e.g. 00000000000"
@@ -655,7 +655,7 @@ const CandidateRegistration = () => {
                     />
                     {formdataerror.aadhaar_number && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter Aadhaar number
+                        Please Enter Aadhaar number / Id proof
                       </h6>
                     )}
                   </div>
@@ -667,7 +667,8 @@ const CandidateRegistration = () => {
                       }}
                     >
                       <h3>
-                        Aadhaar Card Front <img src={aadhaarimg} alt="" />
+                        Aadhaar Card Front / Id proof
+                        <img src={aadhaarimg} alt="" />
                       </h3>
                       <div className="aadhaarFront">
                         <h3>
@@ -696,7 +697,8 @@ const CandidateRegistration = () => {
                       }}
                     >
                       <h3>
-                        Aadhaar Card Back <img src={aadhaarimg} alt="" />
+                        Aadhaar Card Back / Id proof{" "}
+                        <img src={aadhaarimg} alt="" />
                       </h3>
 
                       <div className="aadhaarFront">
@@ -715,13 +717,13 @@ const CandidateRegistration = () => {
                       />
                       {formdataerror.aadhaarback && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
-                          Please Upload Aadhaar Card Back
+                          Please Upload Aadhaar Card Back / Id Proof
                         </h6>
                       )}
                     </div>
                   </div>
                   <div className="candidateInfo">
-                    <h3>PAN number</h3>
+                    <h3>PAN number / Tax Id</h3>
                     <input
                       type="text"
                       placeholder="e.g. 00000000000"
@@ -731,7 +733,7 @@ const CandidateRegistration = () => {
                     />
                     {formdataerror.pan_number && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter PAN number
+                        Please Enter PAN number / Tax Id
                       </h6>
                     )}
                   </div>
@@ -742,7 +744,7 @@ const CandidateRegistration = () => {
                     }}
                   >
                     <h3>
-                      PAN Card Front <img src={aadhaarimg} alt="" />
+                      PAN Card Front / Tax Id <img src={aadhaarimg} alt="" />
                     </h3>
                     <div className="aadhaarFront">
                       <h3>
@@ -760,7 +762,7 @@ const CandidateRegistration = () => {
                     />
                     {formdataerror.pan_front && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Upload PAN Front
+                        Please Upload PAN Front / Tax Id
                       </h6>
                     )}
                   </div>

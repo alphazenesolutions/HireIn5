@@ -12,8 +12,11 @@ import DashHead from "../../Reusable/DashBoardReusable/DashHead/DashHead";
 import DashBody from "../../Reusable/DashBoardReusable/DashBody/DashBody";
 import PricingComp from "../../ClientSignUp/Pricing/PricingComp";
 import OptionAvailable from "../../Reusable/OptionAvailable/OptionAvailable";
+import { useDispatch, useSelector } from "react-redux";
+import { storeAction } from "../../../Store/Store";
 
 const BillingComp = () => {
+  const dispatch = useDispatch();
   const [isPage, setIsPage] = useState("billing");
   const PageHandler = (event) => {
     setIsPage(event.target.id);
@@ -71,6 +74,14 @@ const BillingComp = () => {
   const subscribeHandler = () => {
     setIsSubscribe(true);
   };
+
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+
+  const overLayHandler = () => {
+    dispatch(storeAction.isPopUpHander());
+  };
   return (
     <>
       <div className="dashBoardMain paddingLeft100 paddingRight100">
@@ -126,7 +137,8 @@ const BillingComp = () => {
                       <h4>Monthly</h4>
                       <img
                         id="monthly"
-                        onClick={PageHandler}
+                        // onClick={PageHandler}
+                        onClick={overLayHandler}
                         src={penSquare}
                         alt=""
                       />
@@ -229,55 +241,55 @@ const BillingComp = () => {
             </div>
           </div>
         )}
-        {isPage === "monthly" && (
-          <div className="billingInfo">
-            <div className="billingInfo1">
-              <div className="billingClose">
-                <img id="page2" onClick={PageHandler} src={closeicon} alt="" />
+        {isPopUp && (
+          // <div className="billingInfo">
+          <div className="billingInfo1">
+            <div className="billingClose">
+              <img id="page2" onClick={overLayHandler} src={closeicon} alt="" />
+            </div>
+            <div className="billingCycle">
+              <div className="billingCycle1">
+                <h1>Change billing cycle</h1>
+                <p>
+                  Once Annual billing cycle has been activated, it cannot be
+                  downgraded automatically. Please connect with us at
+                  <span> billing@hirein5.com</span> for further help.
+                </p>
               </div>
-              <div className="billingCycle">
-                <div className="billingCycle1">
-                  <h1>Change billing cycle</h1>
-                  <p>
-                    Once Annual billing cycle has been activated, it cannot be
-                    downgraded automatically. Please connect with us at
-                    <span> billing@hirein5.com</span> for further help.
-                  </p>
+              <div className="billinglist">
+                <p>
+                  <img src={tickicon} alt="" />
+                  Copy for subscription renewal
+                </p>
+                <p>
+                  <img src={tickicon} alt="" />
+                  Copy for when the user will get charged
+                </p>
+                <p>
+                  <img src={tickicon} alt="" />
+                  Copy for subsequent charges
+                </p>
+                <p>
+                  <img src={tickicon} alt="" />
+                  Copy for plan activation time
+                </p>
+              </div>
+              <div className="billingBtn">
+                <div className="billingSub">
+                  <button>
+                    <input type="radio" name="sub" />
+                    <h2>Monthly</h2>
+                  </button>
+                  <button>
+                    <input type="radio" name="sub" />
+                    <h2>Yearly</h2>
+                  </button>
                 </div>
-                <div className="billinglist">
-                  <p>
-                    <img src={tickicon} alt="" />
-                    Copy for subscription renewal
-                  </p>
-                  <p>
-                    <img src={tickicon} alt="" />
-                    Copy for when the user will get charged
-                  </p>
-                  <p>
-                    <img src={tickicon} alt="" />
-                    Copy for subsequent charges
-                  </p>
-                  <p>
-                    <img src={tickicon} alt="" />
-                    Copy for plan activation time
-                  </p>
-                </div>
-                <div className="billingBtn">
-                  <div className="billingSub">
-                    <button>
-                      <input type="radio" name="sub" />
-                      <h2>Monthly</h2>
-                    </button>
-                    <button>
-                      <input type="radio" name="sub" />
-                      <h2>Yearly</h2>
-                    </button>
-                  </div>
-                  <button name="">Confirm change</button>
-                </div>
+                <button name="">Confirm change</button>
               </div>
             </div>
           </div>
+          // </div>
         )}
         {isPage === "cancel" && (
           <div className="billingInfo">
