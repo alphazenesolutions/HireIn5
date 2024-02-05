@@ -19,6 +19,7 @@ const VerificationComp = () => {
   const [isPage, setIsPage] = useState("page1");
   const [final, setfinal] = useState(null);
   const [phone, setphone] = useState("");
+  const [show, setshow] = useState(true);
 
   const PageHandler = (event) => {
     if (isPage === "page1") {
@@ -32,6 +33,7 @@ const VerificationComp = () => {
         .signInWithPhoneNumber(`+91${phone}`, verify)
         .then((result) => {
           setfinal(result);
+          setshow(false);
           setIsPage(event.target.id);
         })
         .catch((err) => {
@@ -134,24 +136,26 @@ const VerificationComp = () => {
               id="recaptcha-container"
               className="forget"
             ></div>
-            {isChange === true ? (
-              <button
-                id="page3"
-                onClick={PageHandler}
-                className="marginTop20 marginBottom20 mobileVerificationButtonActive"
-              >
-                Verify mobile number
-              </button>
-            ) : (
-              <button
-                id="page3"
-                // disabled
-                onClick={PageHandler}
-                className="marginTop20 marginBottom20 mobileVerificationButtonDisable"
-              >
-                Verify mobile number
-              </button>
-            )}
+            {show === true ? (
+              isChange === true ? (
+                <button
+                  id="page3"
+                  onClick={PageHandler}
+                  className="marginTop20 marginBottom20 mobileVerificationButtonActive"
+                >
+                  Verify mobile number
+                </button>
+              ) : (
+                <button
+                  id="page3"
+                  // disabled
+                  onClick={PageHandler}
+                  className="marginTop20 marginBottom20 mobileVerificationButtonDisable"
+                >
+                  Verify mobile number
+                </button>
+              )
+            ) : null}
           </div>
         </div>
       )}
