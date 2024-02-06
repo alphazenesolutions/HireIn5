@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./ContractComp.css";
-import documentX from "../../../assests/documentX.png";
-import DashHead from "../../Reusable/DashBoardReusable/DashHead/DashHead";
-import DashBody from "../../Reusable/DashBoardReusable/DashBody/DashBody";
-import tabImg from "../../../assests/table.png";
-import tabFirst from "../../../assests/colar.png";
-import contractCard from "../../../assests/contractCard.png";
-import ContractCard from "../../Reusable/ContractCard/ContractCard";
+import documentX from "../../../../assests/documentX.png";
+import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
+import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
+import tabImg from "../../../../assests/table.png";
+import tabFirst from "../../../../assests/colar.png";
+import contractCard from "../../../../assests/contractCard.png";
+import ContractCard from "../../../Reusable/ContractCard/ContractCard";
 const ContractComp = () => {
   const [isSelect, setIsSelect] = useState(false);
   const buttonHandler = () => {

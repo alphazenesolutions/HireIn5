@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./PricingComp.css";
-import OptionAvailable from "../../Reusable/OptionAvailable/OptionAvailable";
-import correct from "../../../assests/correct.png";
-import wrong from "../../../assests/wrong.png";
-import arrowDown from "../../../assests/arrowDown.png";
-import Head from "../../Reusable/LogoHead/Head";
-import SuccessResponse from "../../Reusable/SuccessResponse/SuccessResponse";
+import OptionAvailable from "../../../Reusable/OptionAvailable/OptionAvailable";
+import correct from "../../../../assests/correct.png";
+import wrong from "../../../../assests/wrong.png";
+import arrowDown from "../../../../assests/arrowDown.png";
+import Head from "../../../Reusable/LogoHead/Head";
+import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import { useNavigate } from "react-router-dom";
 
 const PricingComp = () => {

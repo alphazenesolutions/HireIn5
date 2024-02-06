@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import "./CandidateRegistration.css";
-import aadhaarimg from "../../../assests/info.png";
+import aadhaarimg from "../../../../assests/info.png";
 import { FaAngleDown } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -11,12 +11,12 @@ import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import { useRef } from "react";
-import back from "../../../assests/back.png";
-import SuccessResponse from "../../Reusable/SuccessResponse/SuccessResponse";
+import back from "../../../../assests/back.png";
+import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { storeAction } from "../../../Store/Store";
+import { storeAction } from "../../../../Store/Store";
 
 const CandidateRegistration = () => {
   const navigate = useNavigate();

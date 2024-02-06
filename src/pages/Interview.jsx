@@ -1,5 +1,5 @@
 import React from "react";
-import InterviewComp from "../Components/ClientScreen/InterviewComp/InterviewComp";
+import InterviewComp from "../Components/Client/ClientScreen/InterviewComp/InterviewComp";
 
 const Interview = () => {
   return (

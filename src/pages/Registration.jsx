@@ -1,6 +1,6 @@
 import React from "react";
-import RegistrationComp from "../Components/ClientSignUp/Registration/RegistrationComp";
-import CandidateRegistration from "../Components/CandidateSignUp/CandidateRegistration/CandidateRegistration";
+import RegistrationComp from "../Components/Client/ClientSignUp/Registration/RegistrationComp";
+import CandidateRegistration from "../Components/Candidate/CandidateSignUp/CandidateRegistration/CandidateRegistration";
 import { useSelector } from "react-redux";
 
 const Registration = () => {

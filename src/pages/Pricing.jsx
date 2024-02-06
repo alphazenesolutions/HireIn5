@@ -1,5 +1,5 @@
 import React from "react";
-import PricingComp from "../Components/ClientSignUp/Pricing/PricingComp";
+import PricingComp from "../Components/Client/ClientSignUp/Pricing/PricingComp";
 
 const Pricing = () => {
   return (

@@ -1,37 +1,26 @@
-import React, { useState } from "react";
-import "./SignUpComp.css";
-import Head from "../../Reusable/LogoHead/Head";
-import Foot from "../../Reusable/Terms&Conditions/Foot";
-import SectionHead from "../../Reusable/SectionHead/SectionHead";
-import eye from "../../../assests/eye.png";
-import { useNavigate } from "react-router-dom";
-import back from "../../../assests/back.png";
-import { useDispatch } from "react-redux";
-import { storeAction } from "../../../Store/Store";
-import { useSelector } from "react-redux";
+/* eslint-disable no-unused-vars */
+import { React, useState } from "react";
+import "./CandidateSignUp.css";
+import Head from "../../../Reusable/LogoHead/Head";
+import Foot from "../../../Reusable/Terms&Conditions/Foot";
+import SectionHead from "../../../Reusable/SectionHead/SectionHead";
+import eye from "../../../../assests/eye.png";
+import { Link, useNavigate } from "react-router-dom";
+import back from "../../../../assests/back.png";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { storeAction } from "../../../../Store/Store";
 import { FiLoader } from "react-icons/fi";
 
-const SignUpComp = () => {
+const CandidateSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const role = useSelector((store) => store.role);
-  const [isButton, setIsButton] = useState(false);
-
-  const ButtonHandler = (e) => {
-    setIsButton(true);
-    setsignupdata((values) => ({ ...values, cpassword: e.target.value }));
-  };
+  const [isButton, setIsButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
   const [show, setShow] = useState("false");
+
   const showPassword = () => {
     setShow(!show);
-  };
-
-  const [show1, setShow1] = useState("false");
-  const showConfirmPassword = () => {
-    setShow1(!show1);
   };
 
   const backHandler = () => {
@@ -40,18 +29,16 @@ const SignUpComp = () => {
   const [signupdata, setsignupdata] = useState({
     username: "",
     password: "",
-    cpassword: "",
   });
   const [usernameerror, setusernameerror] = useState(false);
   const [passworderror, setpassworderror] = useState(false);
-  const [cpassworderror, setcpassworderror] = useState(false);
-  const [passwordmatch, setpasswordmatch] = useState(false);
   const [finalerror, setfinalerror] = useState(false);
 
   const handlechange = (e) => {
     const { name, value } = e.target;
     setsignupdata((values) => ({ ...values, [name]: value }));
   };
+
   const ButtonHandler1 = async () => {
     setfinalerror(false);
     if (signupdata.username.length === 0) {
@@ -59,29 +46,17 @@ const SignUpComp = () => {
     } else if (signupdata.password.length === 0) {
       setusernameerror(false);
       setpassworderror(true);
-    } else if (signupdata.cpassword.length === 0) {
-      setcpassworderror(true);
-      setpassworderror(false);
-      setpasswordmatch(false);
-    } else if (signupdata.password !== signupdata.cpassword) {
-      setpasswordmatch(true);
-      setcpassworderror(false);
     } else {
-      setIsLoading(true);
-
-      setusernameerror(false);
       setpassworderror(false);
-      setcpassworderror(false);
-      setpasswordmatch(false);
+      setIsLoading(true);
       var newobj = {
         email: signupdata.username,
         username: signupdata.username,
         password: signupdata.password,
-        role: role === "Client" ? 2 : 1,
+        role: 3,
       };
-
       var createuser = await axios
-        .post(`${process.env.REACT_APP_LOCAL_HOST_URL}/user/create/`, newobj)
+        .post(`https://hirein5-server.onrender.com/user/create/`, newobj)
         .then((res) => {
           return res.data;
         })
@@ -106,25 +81,27 @@ const SignUpComp = () => {
       }
     }
   };
+
   return (
     <>
-      <div className="SignUpComp">
-        <div className="clientSignUpComp">
-          <div className="clientSignUpCompInner">
+      <div className="candidateSignUp">
+        <div className="candidateSignUpComp">
+          <div className="candidateSignUpCompInner">
             <Head />
+            {/* ======================= Head ====================== */}
             <SectionHead
               head="Sign up"
               desc="Already have an account?"
               highLight="Log in"
               route="/login"
             />
-            <div className="clientSignUpCompBody">
-              <div className="clientSignUpCompBodyEmail">
+
+            <div className="candidateSignUpCompBody">
+              <div className="candidateSignUpCompBodyEmail">
                 <h4>Company Email</h4>
                 <input
                   placeholder="you@gmail.com"
                   type="text"
-                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                   name="username"
                   onChange={handlechange}
                 />
@@ -134,11 +111,15 @@ const SignUpComp = () => {
                   </p>
                 )}
               </div>
-              <div className="clientSignUpCompBodyPassword">
-                <div className="clientSignUpCompBodyPasswordLabel">
+
+              <div className="candidateSignUpCompBodyPassword">
+                <div className="candidateSignUpCompBodyPasswordLabel">
                   <h4>Create Password</h4>
+                  <Link to="/forgotPassword">
+                    <h5>Forget password</h5>
+                  </Link>
                 </div>
-                <div className="clientSignUpCompBodyPasswordInput">
+                <div className="candidateSignUpCompBodyPasswordInput">
                   <input
                     type={show === true ? "text" : "password"}
                     name="password"
@@ -146,7 +127,7 @@ const SignUpComp = () => {
                   />
                   <img
                     onClick={showPassword}
-                    className="eyeOne"
+                    className="candidateEye"
                     src={eye}
                     alt=""
                   />
@@ -157,48 +138,20 @@ const SignUpComp = () => {
                   </p>
                 )}
               </div>
-              <div className="clientSignUpCompBodyConfirmPassword">
-                <div className="clientSignUpCompBodyConfirmPasswordLabel">
-                  <h4>Re-enter Password</h4>
-                </div>
-                <div className="clientSignUpCompBodyConfirmPasswordInput">
-                  <input
-                    onChange={ButtonHandler}
-                    type={show1 === true ? "text" : "password"}
-                    name="cpassword"
-                  />
-                  <img
-                    onClick={showConfirmPassword}
-                    className="eyeTwo"
-                    src={eye}
-                    alt=""
-                  />
-                </div>
-                {passwordmatch && (
-                  <p className="text-red-500 text-xs font-semibold mt-2">
-                    Password & Re-enter Password not match
-                  </p>
-                )}
-                {cpassworderror && (
-                  <p className="text-red-500 text-xs font-semibold mt-2">
-                    Please Enter Re-enter Password
-                  </p>
-                )}
-              </div>
               {finalerror && (
                 <p className="text-red-500 text-xs font-semibold mt-2">
                   A user with that username already exists.
                 </p>
               )}
-              <div className="signUpCompBodyButton marginTop20 marginBottom20">
+              <div className="candidateSignUpCompBodyButton marginTop20 marginBottom20">
                 {isButton === true ? (
                   <button
                     onClick={ButtonHandler1}
                     id="Signup"
                     className={
                       isLoading === true
-                        ? "signUpCompBodyButtonLoading"
-                        : "signUpCompBodyButtonEnable"
+                        ? "candidateSignUpCompBodyButtonLoading"
+                        : "candidateSignUpCompBodyButtonEnable"
                     }
                   >
                     {isLoading === true ? (
@@ -211,7 +164,7 @@ const SignUpComp = () => {
                   <button
                     disabled
                     id="Signup"
-                    className="signUpCompBodyButtonDisable"
+                    className="candidateSignUpCompBodyButtonDisable"
                   >
                     Sign up
                   </button>
@@ -234,4 +187,4 @@ const SignUpComp = () => {
   );
 };
 
-export default SignUpComp;
+export default CandidateSignUp;
