@@ -24,7 +24,6 @@ const ForgetComp = () => {
   const [isPage, setIsPage] = useState("page1");
   const PageHandler = (event) => {
     setIsPage(event.target.id);
-    console.log(event.target.id);
   };
 
   const [isButton1, setIsButton1] = useState(false);
@@ -36,7 +35,6 @@ const ForgetComp = () => {
   const ButtonHandler2 = (event) => {
     setIsPage(event.target.id);
     setIsLoading1(true);
-    console.log(event.target.id);
   };
   return (
     <>

@@ -339,7 +339,6 @@ const RegistrationComp = () => {
 
     setinterestItems(updatedItems);
   };
-  console.log(durationdata, "lookingdata");
   return (
     <>
       {isPage === "page1" && (

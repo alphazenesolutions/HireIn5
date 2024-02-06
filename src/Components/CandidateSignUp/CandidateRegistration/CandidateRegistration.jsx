@@ -27,7 +27,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page1");
+  const [isPage, setIsPage] = useState("page2");
   const [dropDown, setdropDown] = useState(false);
   const [dropDown1, setdropDown1] = useState(false);
   const [dropDownList, setdropDownList] = useState([
@@ -44,6 +44,9 @@ const CandidateRegistration = () => {
     "Fluent",
   ]);
   const [dropDownOpen1, setdropDownClose1] = useState(dropDownList1);
+  const [finalerror, setfinalerror] = useState(null);
+  const [finalerrorstatus, setfinalerrorstatus] = useState(false);
+  const [finalerrortype, setfinalerrortype] = useState(null);
 
   function dropDownHandler(params) {
     const inputvalue = inputref.current.value.toLowerCase();
@@ -139,6 +142,7 @@ const CandidateRegistration = () => {
     setformdata((values) => ({ ...values, [name]: value }));
   };
   async function pageHandler(e) {
+    setfinalerrorstatus(false);
     if (isPage === "page1") {
       if (formdata.firstname.length === 0) {
         setformdataerror((values) => ({
@@ -346,12 +350,92 @@ const CandidateRegistration = () => {
           )
           .then((res) => {
             return res.data;
+          })
+          .catch((err) => {
+            return err.response.data;
           });
         if (
           updatedata.message === "User and Associated Info updated successfully"
         ) {
           setIsPage(e.target.id);
           routeHandler();
+          setfinalerrorstatus(false);
+          setfinalerror(null);
+          setfinalerrortype(null);
+        } else {
+          if (updatedata.username === undefined) {
+            if (updatedata.phone === undefined) {
+              if (updatedata.title === undefined) {
+                if (updatedata.first_name === undefined) {
+                  if (updatedata.passport_info === undefined) {
+                    if (updatedata.kyc_info === undefined) {
+                    } else {
+                      setfinalerrorstatus(true);
+                      setfinalerror(updatedata.kyc_info.aadhar_number);
+                      setfinalerrortype("aadhar_number");
+                    }
+                  } else {
+                    if (
+                      updatedata.passport_info.passport_number === undefined
+                    ) {
+                      if (
+                        updatedata.passport_info.passport_validity === undefined
+                      ) {
+                        if (
+                          updatedata.passport_info.country_of_citizenship ===
+                          undefined
+                        ) {
+                          if (
+                            updatedata.passport_info.country_of_issue ===
+                            undefined
+                          ) {
+                          } else {
+                            setfinalerrorstatus(true);
+                            setfinalerror(
+                              updatedata.passport_info.country_of_issue
+                            );
+                            setfinalerrortype("country_of_issue");
+                          }
+                        } else {
+                          setfinalerrorstatus(true);
+                          setfinalerror(
+                            updatedata.passport_info.country_of_citizenship
+                          );
+                          setfinalerrortype("country_of_citizenship");
+                        }
+                      } else {
+                        setfinalerrorstatus(true);
+                        setfinalerror(
+                          updatedata.passport_info.passport_validity
+                        );
+                        setfinalerrortype("passport_validity");
+                      }
+                    } else {
+                      setfinalerrorstatus(true);
+                      setfinalerror(updatedata.passport_info.passport_number);
+                      setfinalerrortype("passport_number");
+                    }
+                  }
+                } else {
+                  setfinalerrorstatus(true);
+                  setfinalerror(updatedata.first_name);
+                  setfinalerrortype("first_name");
+                }
+              } else {
+                setfinalerrorstatus(true);
+                setfinalerror(updatedata.title);
+                setfinalerrortype("title");
+              }
+            } else {
+              setfinalerrorstatus(true);
+              setfinalerror(updatedata.phone);
+              setfinalerrortype("phone");
+            }
+          } else {
+            setfinalerrorstatus(true);
+            setfinalerror(updatedata.username);
+            setfinalerrortype("username");
+          }
         }
       }
     } else if (isPage === "page2") {
@@ -446,7 +530,6 @@ const CandidateRegistration = () => {
       console.error("Error sending FormData:", error);
     }
   };
-
   return (
     <>
       <div className="candidateRegistration">
@@ -899,7 +982,13 @@ const CandidateRegistration = () => {
                   </div>
                 </div>
               </div>
+              {finalerrorstatus && (
+                <p className="text-red-500 text-md font-semibold mt-2 capitalize">
+                  {finalerrortype} : {finalerror}
+                </p>
+              )}
             </div>
+
             <div className="candidateBottom">
               <button className="nextbtn" id="page2" onClick={pageHandler}>
                 Next

@@ -20,7 +20,6 @@ const BillingComp = () => {
   const [isPage, setIsPage] = useState("billing");
   const PageHandler = (event) => {
     setIsPage(event.target.id);
-    console.log(isPage);
   };
 
   const profileData = [

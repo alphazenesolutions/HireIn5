@@ -30,7 +30,6 @@ const SideBar = () => {
     }, 2000);
   }, [token, userid]);
   const getUserinfo = useCallback(async () => {
-    console.log(token, userid, "kkk");
     if (token !== null && userid !== null) {
       var userinfo = await axios
         .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`, {

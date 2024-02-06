@@ -10,8 +10,9 @@ const RangeSlider = () => {
     setValue(newValue);
   };
   function valuetext(value) {
-    return `${value}USD`;
+    return `${value} USD`;
   }
+  console.log(value, "value");
   return (
     <div>
       <Box sx={{ width: 385 }}>
