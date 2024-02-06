@@ -58,11 +58,9 @@ const CandidateSignUp = () => {
       var createuser = await axios
         .post(`https://hirein5-server.onrender.com/user/create/`, newobj)
         .then((res) => {
-          console.log(res, "res");
           return res.data;
         })
         .catch((err) => {
-          console.log(err, "err");
           return err.response.data;
         });
       if (createuser.access_token !== undefined) {

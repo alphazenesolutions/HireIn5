@@ -25,7 +25,6 @@ const VerificationComp = () => {
     if (isPage === "page1") {
       // const email = "dineshkit15@gmail.com";
       // window.location.href = `mailto:${email}`;
-      // console.log("object");
       setIsPage(event.target.id);
     } else if (isPage === "page2") {
       let verify = new firebase.auth.RecaptchaVerifier("recaptcha-container");
@@ -48,7 +47,7 @@ const VerificationComp = () => {
   };
   const routeHandler = () => {
     if (isPage === "page4") {
-      navigate("/registration");
+      window.location.replace("/registration");
     } else {
     }
   };

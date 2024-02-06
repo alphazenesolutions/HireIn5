@@ -16,7 +16,6 @@ const DashHead = (props) => {
   }, []);
   const getalldata = () => {
     if (token == null && userid == null) {
-      console.log(token, userid, "iii");
       dispatch(storeAction.isloginHandler({ islogin: false }));
       dispatch(storeAction.tokenHandler({ token: null }));
       dispatch(storeAction.useridHandler({ userid: 5 }));
