@@ -8,7 +8,7 @@ import user_check from "../../../assests/userCheck.png";
 import location from "../../../assests/mapPin.png";
 // import BookMarkSimple from "../../../assests/colar.png";
 
-const ProfileCard = ({ filterdata }) => {
+const ProfileCard = ({ filterdata, fun }) => {
   console.log(filterdata, "filterdata");
   return (
     <div>
@@ -21,7 +21,12 @@ const ProfileCard = ({ filterdata }) => {
           <div className="clientDiscover">
             {filterdata.length !== 0
               ? filterdata.map((data, index) => (
-                  <div className="clientDiscover1" key={index}>
+                  <div
+                    id="page2"
+                    onClick={() => fun("page2")}
+                    className="clientDiscover1"
+                    key={index}
+                  >
                     <div className="candidateDiscoverProfile">
                       <div className="candidateDiscoverProfile1">
                         <div className="candidateDiscoverImage">

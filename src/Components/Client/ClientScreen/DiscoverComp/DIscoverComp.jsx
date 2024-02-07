@@ -11,6 +11,8 @@ import ProfileCard from "../../../Reusable/ProfileCard/ProfileCard";
 import { gsap } from "gsap";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import back from "../../../../assests/back.png";
+import CandidateProfileCard from "../../../Reusable/CandidateProfileCard/CandidateProfileCard";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const DiscoverComp = () => {
@@ -19,7 +21,11 @@ const DiscoverComp = () => {
   const [isDisable, setIsDisable] = useState(false);
   const [alldata, setalldata] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
-
+  const [isPage, setIsPage] = useState("page1");
+  const pageHandler = (event) => {
+    setIsPage(event);
+    // console.log(event);
+  };
   const InputHandler = async (e) => {
     if (e.target.value.length !== 0) {
       setIsInput(true);
@@ -99,60 +105,68 @@ const DiscoverComp = () => {
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">
-        <DashHead
-          head="Discover Candidates"
-          desc="Search and find the right fit for your company. If you need instant help in shortlisting candidates,"
-          highLight="Contact us"
-        />
-        <DashSearch
-          class="dashBoardMainSearch paddingRight100"
-          function={InputHandler}
-        />
-        {isInput === false ? (
-          <div>
-            <div className="recentHead paddingRight100">
-              <div className="recentHeadLeft">
-                <h1>Recent Searches</h1>
-                <button
-                  disabled={isDisable === true ? true : false}
-                  onClick={gsapHandlerReverse}
-                >
-                  <img src={recentLeft} alt="" />
-                </button>
-                <button onClick={gsapHandler}>
-                  <img src={recentRight} alt="" />
-                </button>
+        {isPage === "page1" && (
+          <div className="">
+            <DashHead
+              head="Discover Candidates"
+              desc="Search and find the right fit for your company. If you need instant help in shortlisting candidates,"
+              highLight="Contact us"
+            />
+            <DashSearch
+              class="dashBoardMainSearch paddingRight100"
+              function={InputHandler}
+            />
+            {isInput === false ? (
+              <div>
+                <div className="recentHead paddingRight100">
+                  <div className="recentHeadLeft">
+                    <h1>Recent Searches</h1>
+                    <button
+                      disabled={isDisable === true ? true : false}
+                      onClick={gsapHandlerReverse}
+                    >
+                      <img src={recentLeft} alt="" />
+                    </button>
+                    <button onClick={gsapHandler}>
+                      <img src={recentRight} alt="" />
+                    </button>
+                  </div>
+                  <div className="recentHeadRight">
+                    <h2>Clear All</h2>
+                  </div>
+                </div>
+                <div className="recent ">
+                  <div className="recentWrap">
+                    <SearchProfileCard />
+                  </div>
+                  <div className="recentWrap">
+                    <SearchProfileCard />
+                  </div>
+                  <div className="recentWrap">
+                    <SearchProfileCard />
+                  </div>
+                  <div className="recentWrap">
+                    <SearchProfileCard />
+                  </div>
+                  <div className="recentWrap">
+                    <SearchProfileCard />
+                  </div>
+                  <div className="recentWrap">
+                    <SearchProfileCard />
+                  </div>
+                </div>
+                <Table class="tableOne paddingRight100" />
               </div>
-              <div className="recentHeadRight">
-                <h2>Clear All</h2>
+            ) : (
+              <div className="">
+                <ProfileCard fun={pageHandler} filterdata={filterdata} />
               </div>
-            </div>
-            <div className="recent ">
-              <div className="recentWrap">
-                <SearchProfileCard />
-              </div>
-              <div className="recentWrap">
-                <SearchProfileCard />
-              </div>
-              <div className="recentWrap">
-                <SearchProfileCard />
-              </div>
-              <div className="recentWrap">
-                <SearchProfileCard />
-              </div>
-              <div className="recentWrap">
-                <SearchProfileCard />
-              </div>
-              <div className="recentWrap">
-                <SearchProfileCard />
-              </div>
-            </div>
-            <Table class="tableOne paddingRight100" />
+            )}
           </div>
-        ) : (
-          <ProfileCard filterdata={filterdata} />
         )}
+        {isPage === "page2" && <CandidateProfileCard fun={pageHandler} />}
       </div>
+
       {/* <div contenteditable="true" className="h-[100px] w-full bg-grey-400">
         <div contenteditable="true">I'm Editable. Edit me!</div>
       </div> */}
