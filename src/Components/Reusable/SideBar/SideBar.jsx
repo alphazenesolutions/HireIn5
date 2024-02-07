@@ -1,23 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from "react";
 import "./SideBar.css";
-import profile from "../../assests/profile.png";
-import wallet from "../../assests/wallet.png";
-import logout from "../../assests/logout.png";
-import discover from "../../assests/Discover.svg";
-import interview from "../../assests/User.svg";
-import contract from "../../assests/Contracts.svg";
-import billing from "../../assests/Billing.svg";
-import help from "../../assests/help.svg";
-import logo from "../../assests/Logo.png";
+import profile from "../../../assests/profile.png";
+import wallet from "../../../assests/wallet.png";
+import logout from "../../../assests/logout.png";
+import discover from "../../../assests/Discover.svg";
+import interview from "../../../assests/User.svg";
+import contract from "../../../assests/Contracts.svg";
+import billing from "../../../assests/Billing.svg";
+import help from "../../../assests/help.svg";
+import logo from "../../../assests/Logo.png";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { storeAction } from "../../Store/Store";
+import { storeAction } from "../../../Store/Store";
 // import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const SideBar = () => {
+const SideBar = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.userid);
@@ -141,38 +141,43 @@ const SideBar = () => {
                 onClick={HoverHandler}
                 className={isHover === true ? "menu1Active" : "menu1"}
               >
-                <img className="menuImg" src={discover} alt="" />
+                <img className="menuImg" src={props.img1} alt="" />
                 <h4 onClick={() => navigate("/discover")} className="menuName">
-                  Discover
+                  {props.one}
                 </h4>
+                <p className="number">5</p>
               </div>
               <div
                 onClick={HoverHandler1}
                 className={isHover1 === true ? "menu1Active" : "menu1"}
               >
-                <img className="menuImg" src={interview} alt="" />
-                <h4 className="menuName">Interviews</h4>
+                <img className="menuImg" src={props.img1} alt="" />
+                <h4 className="menuName">{props.two}</h4>
+                <p className="number">5</p>
               </div>
               <div
                 onClick={HoverHandler2}
                 className={isHover2 === true ? "menu1Active" : "menu1"}
               >
-                <img className="menuImg" src={contract} alt="" />
-                <h4 className="menuName">Contracts</h4>
+                <img className="menuImg" src={props.img1} alt="" />
+                <h4 className="menuName">{props.three}</h4>
+                <p className="number">5</p>
               </div>
               <div
                 onClick={HoverHandler3}
                 className={isHover3 === true ? "menu1Active" : "menu1"}
               >
-                <img className="menuImg" src={billing} alt="" />
-                <h4 className="menuName">Billing</h4>
+                <img className="menuImg" src={props.img1} alt="" />
+                <h4 className="menuName">{props.four}</h4>
+                <p className="number">5</p>
               </div>
               <div
                 onClick={HoverHandler4}
                 className={isHover4 === true ? "menu1Active" : "menu1"}
               >
-                <img className="menuImg" src={help} alt="" />
-                <h4 className="menuName">Help & FAQs</h4>
+                <img className="menuImg" src={props.img1} alt="" />
+                <h4 className="menuName">{props.five}</h4>
+                <p className="number">5</p>
               </div>
             </div>
           </div>

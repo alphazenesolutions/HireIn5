@@ -39,7 +39,18 @@ const DashSearch = (props) => {
   const toggleHandler1 = () => {
     setIsToggle1(!isToggle1);
   };
+  const [Count, setCount] = useState([]);
+  const countHandler = () => {
+    setCount(Count + 1);
+  };
+  const [Cost, setCost] = useState(false);
+  const CostHandler = () => {
+    setCost(true);
+  };
 
+  const ResetHandler = () => {
+    setCost(false);
+  };
   const locationData = [
     {
       loc1: "India",
@@ -93,16 +104,19 @@ const DashSearch = (props) => {
         />
         <div className="dashBoardMainSelect">
           <button onClick={HourlyHandler} className="dashBoardMainSelectbutton">
-            <p>Hourly Rate</p> <img src={downArrow} alt="" />
+            <p>{Cost === true ? "USD 0-100" : "Hourly Rate"}</p>{" "}
+            <img src={downArrow} alt="" />
           </button>
           <button
             onClick={LocationHandler}
             className="dashBoardMainSelectbutton"
           >
-            <p>Location</p> <img src={downArrow} alt="" />
+            <p>Location</p>
+            <h6>{Count.length}</h6> <img src={downArrow} alt="" />
           </button>
           <button onClick={FilterHandler} className="dashBoardMainSelectbutton">
             <p>All Filters</p>
+            <h6>5</h6>
             <img src={downArrow} alt="" />
           </button>
         </div>
@@ -112,8 +126,15 @@ const DashSearch = (props) => {
             <Range />
             <h3>615 candidates found</h3>
             <div className="hourlyButton">
-              <button className="hourlyButtonReset marginTop15">Reset</button>
-              <button className="hourlyButtonFilter">Set Filter</button>
+              <button
+                onClick={ResetHandler}
+                className="hourlyButtonReset marginTop15"
+              >
+                Reset
+              </button>
+              <button onClick={CostHandler} className="hourlyButtonFilter">
+                Set Filter
+              </button>
             </div>
           </div>
         )}
@@ -129,6 +150,7 @@ const DashSearch = (props) => {
                       type="checkbox"
                       name=""
                       id=""
+                      onClick={countHandler}
                     />
                     <p>{data.loc1}</p>
                   </div>
