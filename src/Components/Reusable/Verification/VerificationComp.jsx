@@ -19,12 +19,12 @@ const VerificationComp = () => {
   const [isPage, setIsPage] = useState("page1");
   const [final, setfinal] = useState(null);
   const [phone, setphone] = useState("");
+  const [show, setshow] = useState(true);
 
   const PageHandler = (event) => {
     if (isPage === "page1") {
       // const email = "dineshkit15@gmail.com";
       // window.location.href = `mailto:${email}`;
-      // console.log("object");
       setIsPage(event.target.id);
     } else if (isPage === "page2") {
       let verify = new firebase.auth.RecaptchaVerifier("recaptcha-container");
@@ -32,6 +32,7 @@ const VerificationComp = () => {
         .signInWithPhoneNumber(`+91${phone}`, verify)
         .then((result) => {
           setfinal(result);
+          setshow(false);
           setIsPage(event.target.id);
         })
         .catch((err) => {
@@ -46,11 +47,14 @@ const VerificationComp = () => {
   };
   const routeHandler = () => {
     if (isPage === "page4") {
-      navigate("/registration");
+      window.location.replace("/registration");
     } else {
     }
   };
-
+  const [isChange, setIsChange] = useState(false);
+  const buttonHandler = () => {
+    setIsChange(true);
+  };
   const routeTimeout = setTimeout(routeHandler, 1500);
 
   const handleInputChange = (index, event) => {
@@ -123,16 +127,34 @@ const VerificationComp = () => {
               title="Email verification successful!"
               des="Please verify your mobile number before as the last step"
             />
-
-            <MobileInput setphone={setphone} />
-            <div id="recaptcha-container" className="forget"></div>
-            <button
-              id="page3"
-              onClick={PageHandler}
-              className="marginTop20 marginBottom20"
-            >
-              Verify mobile number
-            </button>
+            <div onClick={buttonHandler} className="">
+              <MobileInput setphone={setphone} />
+            </div>
+            <div
+              onClick={buttonHandler}
+              id="recaptcha-container"
+              className="forget"
+            ></div>
+            {show === true ? (
+              isChange === true ? (
+                <button
+                  id="page3"
+                  onClick={PageHandler}
+                  className="marginTop20 marginBottom20 mobileVerificationButtonActive"
+                >
+                  Verify mobile number
+                </button>
+              ) : (
+                <button
+                  id="page3"
+                  // disabled
+                  onClick={PageHandler}
+                  className="marginTop20 marginBottom20 mobileVerificationButtonDisable"
+                >
+                  Verify mobile number
+                </button>
+              )
+            ) : null}
           </div>
         </div>
       )}

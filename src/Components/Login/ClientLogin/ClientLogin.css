@@ -105,7 +105,7 @@
 .clientLoginCompBodyButtonDisable {
   background-color: var(--disableColor);
   width: 100%;
-  color: #b6babf;
+  color: var(--textColor);
   padding: 10px;
   border-radius: 10px;
 }

@@ -16,7 +16,6 @@ const DashHead = (props) => {
   }, []);
   const getalldata = () => {
     if (token == null && userid == null) {
-      console.log(token, userid, "iii");
       dispatch(storeAction.isloginHandler({ islogin: false }));
       dispatch(storeAction.tokenHandler({ token: null }));
       dispatch(storeAction.useridHandler({ userid: 5 }));
@@ -26,6 +25,15 @@ const DashHead = (props) => {
   return (
     <div>
       <div className="dashBoardMainHead">
+        <div className="upgradeTop">
+          <h3 id={props.billingId} onClick={props.fun}>
+            {props.left}
+          </h3>{" "}
+          <h5>{props.center}</h5>
+          <h4 id={props.upgradeId} onClick={props.fun}>
+            {props.right}
+          </h4>
+        </div>
         <h1>{props.head}</h1>
         <div className="dashBoardMainHeadDesc">
           <p>{props.desc}</p>

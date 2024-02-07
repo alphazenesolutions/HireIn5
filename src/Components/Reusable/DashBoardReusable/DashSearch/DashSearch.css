@@ -160,3 +160,202 @@
     font-size: 16px;
     font-weight: 500;
 }
+
+/* all Filter */
+
+.allFilter {
+    width: 70%;
+    margin-left: auto;
+    margin-left: auto;
+    padding-bottom: 10px;
+    background-color: var(--white);
+    position: fixed;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-44%, -50%);
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+}
+
+.allFilterHead {
+    width: 100%;
+
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #E2E8F0;
+    padding: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.allFilterHeadLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.allFilterHeadLeft img {
+    margin-right: 15px;
+}
+
+.workHistory {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 15px;
+}
+
+.FilterToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.FilterToggle h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0px 10px;
+}
+
+.filterSkill {
+    width: 100%;
+    padding: 30px;
+    padding-top: 10px;
+
+}
+
+.filterSkill h2 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.filterSkill input {
+    border: 1px solid var(--borderColor);
+    padding: 10px;
+    height: 70px;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+.filterSkillHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filterSkillHead h3 {
+    color: var(--textColor);
+    font-size: 14px;
+}
+
+.allFilterBody {
+    width: 100%;
+    padding: 0px 30px;
+    display: flex;
+    align-items: self-start;
+    justify-content: center;
+    text-align: center;
+}
+
+.allFilterBody h4 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.allFilterBody h2 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.allFilterBody h3 {
+    font-size: 15px;
+    color: var(--textColor);
+}
+
+.filterRate {
+    width: 50%;
+    margin-right: 40px;
+}
+
+.fliterLocation {
+    width: 50%;
+    text-align: left;
+}
+
+.fliterLocation input {
+    width: 100%;
+    padding: 15px 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: 1px solid var(--borderColor);
+}
+
+.filterRateHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.allFilterBodyBottom {
+    width: 100%;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.allFilterBodyBottom h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.allFilterBodyBottom input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+}
+
+.workExp {
+    width: 50%;
+    margin-right: 40px;
+}
+
+.language {
+    width: 50%;
+}
+
+.allFilterBodyButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 30px 30px;
+}
+
+.ResetAll {
+
+    margin-Right: 4%;
+    font-weight: 600;
+    opacity: 0.7;
+    padding: 10px 50px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+}
+
+.SetFilter {
+
+    font-weight: 600;
+    padding: 10px 40px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+    background-color: var(--primaryColor);
+    color: var(--white);
+}

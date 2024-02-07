@@ -1,5 +1,5 @@
 import React from "react";
-import MeetingComp from "../Components/ClientSignUp/OnBoardMeeting/MeetingComp";
+import MeetingComp from "../Components/Client/ClientSignUp/OnBoardMeeting/MeetingComp";
 
 const OnBoardMeeting = () => {
   return (

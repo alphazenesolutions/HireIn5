@@ -8,196 +8,74 @@ import user_check from "../../../assests/userCheck.png";
 import location from "../../../assests/mapPin.png";
 // import BookMarkSimple from "../../../assests/colar.png";
 
-const ProfileCard = (props) => {
+const ProfileCard = ({ filterdata }) => {
+  console.log(filterdata, "filterdata");
   return (
     <div>
-      <div className={props.class}>
+      <div className="clientDiscoverOuter paddingRight100">
         <div className="clientDiscoverInner">
           <div className="clientDiscoverTop">
-            <h1>834 Results</h1>
+            <h1>{filterdata.length} Results</h1>
             <h1 title="">Sort by</h1>
           </div>
           <div className="clientDiscover">
-            <div className="clientDiscover1">
-              <div className="candidateDiscoverProfile">
-                <div className="candidateDiscoverProfile1">
-                  <div className="candidateDiscoverImage">
-                    <img src={candidateimges} alt="" />
-                  </div>
-                  <div className="candidateDiscoverName">
-                    <h3>Surya Narreddi</h3>
-                    <h5>Java Developer</h5>
-                  </div>
-                </div>
-                <div className="candidateDiscoverHours">
-                  <h2>&#8377; 4500/hr</h2>
-                </div>
-              </div>
-              <div className="candidateDiscoverSkills">
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  Java EEE
-                </h4>
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  JavaScript
-                </h4>
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  Java
-                </h4>
-                <h4>jQuery</h4>
-                <h4>Android</h4>
-                <h4>Kotlin</h4>
-                <h4>REST</h4>
-                <h4>Spring Framework</h4>
-                <h4>Firebase Cloud Firestore</h4>
-              </div>
-              <div className="candidateDiscoverExperience">
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={briefcase} alt="" /> 2 years of experience
-                  </p>
-                </div>
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={graduation_cap} alt="" /> Bachelors in Computer
-                    Science
-                  </p>
-                </div>
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={user_check} alt="" /> Part-time availability
-                  </p>
-                </div>
+            {filterdata.length !== 0
+              ? filterdata.map((data, index) => (
+                  <div className="clientDiscover1" key={index}>
+                    <div className="candidateDiscoverProfile">
+                      <div className="candidateDiscoverProfile1">
+                        <div className="candidateDiscoverImage">
+                          <img src={candidateimges} alt="" />
+                        </div>
+                        <div className="candidateDiscoverName">
+                          <h3>{data.first_name}</h3>
+                          <h5>{data.title}</h5>
+                        </div>
+                      </div>
+                      <div className="candidateDiscoverHours">
+                        <h2>&#8377; 4500/hr</h2>
+                      </div>
+                    </div>
+                    <div className="candidateDiscoverSkills">
+                      {data.skill.length !== 0
+                        ? data.skill.map((datanew, index) => (
+                            <h4 key={index}>{datanew}</h4>
+                          ))
+                        : null}
+                      {/* <h4>jQuery</h4>
+                      <h4>Android</h4>
+                      <h4>Kotlin</h4>
+                      <h4>REST</h4>
+                      <h4>Spring Framework</h4>
+                      <h4>Firebase Cloud Firestore</h4> */}
+                    </div>
+                    <div className="candidateDiscoverExperience">
+                      <div className="candidateDiscoverExp">
+                        <p>
+                          <img src={briefcase} alt="" /> 2 years of experience
+                        </p>
+                      </div>
+                      <div className="candidateDiscoverExp">
+                        <p>
+                          <img src={graduation_cap} alt="" /> Bachelors in
+                          Computer Science
+                        </p>
+                      </div>
+                      <div className="candidateDiscoverExp">
+                        <p>
+                          <img src={user_check} alt="" /> Part-time availability
+                        </p>
+                      </div>
 
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={location} alt="" /> Japan, Australia, Kuwait
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="clientDiscover1">
-              <div className="candidateDiscoverProfile">
-                <div className="candidateDiscoverProfile1">
-                  <div className="candidateDiscoverImage">
-                    <img src={candidateimges} alt="" />
+                      <div className="candidateDiscoverExp">
+                        <p>
+                          <img src={location} alt="" /> Japan, Australia, Kuwait
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="candidateDiscoverName">
-                    <h3>Surya Narreddi</h3>
-                    <h5>Java Developer</h5>
-                  </div>
-                </div>
-                <div className="candidateDiscoverHours">
-                  <h2>&#8377; 4500/hr</h2>
-                </div>
-              </div>
-              <div className="candidateDiscoverSkills">
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  Java EEE
-                </h4>
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  JavaScript
-                </h4>
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  Java
-                </h4>
-                <h4>jQuery</h4>
-                <h4>Android</h4>
-                <h4>Kotlin</h4>
-                <h4>REST</h4>
-                <h4>Spring Framework</h4>
-                <h4>Firebase Cloud Firestore</h4>
-              </div>
-              <div className="candidateDiscoverExperience">
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={briefcase} alt="" /> 2 years of experience
-                  </p>
-                </div>
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={graduation_cap} alt="" /> Bachelors in Computer
-                    Science
-                  </p>
-                </div>
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={user_check} alt="" /> Part-time availability
-                  </p>
-                </div>
-
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={location} alt="" /> Japan, Australia, Kuwait
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="clientDiscover1">
-              <div className="candidateDiscoverProfile">
-                <div className="candidateDiscoverProfile1">
-                  <div className="candidateDiscoverImage">
-                    <img src={candidateimges} alt="" />
-                  </div>
-                  <div className="candidateDiscoverName">
-                    <h3>Surya Narreddi</h3>
-                    <h5>Java Developer</h5>
-                  </div>
-                </div>
-                <div className="candidateDiscoverHours">
-                  <h2>&#8377; 4500/hr</h2>
-                </div>
-              </div>
-              <div className="candidateDiscoverSkills">
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  Java EEE
-                </h4>
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  JavaScript
-                </h4>
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  Java
-                </h4>
-                <h4>jQuery</h4>
-                <h4>Android</h4>
-                <h4>Kotlin</h4>
-                <h4>REST</h4>
-                <h4>Spring Framework</h4>
-                <h4>Firebase Cloud Firestore</h4>
-              </div>
-              <div className="candidateDiscoverExperience">
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={briefcase} alt="" /> 2 years of experience
-                  </p>
-                </div>
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={graduation_cap} alt="" /> Bachelors in Computer
-                    Science
-                  </p>
-                </div>
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={user_check} alt="" /> Part-time availability
-                  </p>
-                </div>
-
-                <div className="candidateDiscoverExp">
-                  <p>
-                    <img src={location} alt="" /> Japan, Australia, Kuwait
-                  </p>
-                </div>
-              </div>
-            </div>
+                ))
+              : null}
           </div>
         </div>
       </div>

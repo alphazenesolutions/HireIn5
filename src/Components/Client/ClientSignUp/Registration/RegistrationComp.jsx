@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./RegistrationComp.css";
-import Head from "../../Reusable/LogoHead/Head";
-import SuccessResponse from "../../Reusable/SuccessResponse/SuccessResponse";
-import back from "../../../assests/back.png";
+import Head from "../../../Reusable/LogoHead/Head";
+import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
+import back from "../../../../assests/back.png";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -339,7 +339,6 @@ const RegistrationComp = () => {
 
     setinterestItems(updatedItems);
   };
-  console.log(durationdata, "lookingdata");
   return (
     <>
       {isPage === "page1" && (

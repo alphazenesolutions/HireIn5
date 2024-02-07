@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./MeetingComp.css";
-import Head from "../../Reusable/LogoHead/Head";
-import call from "../../../assests/call.png";
-import SuccessResponse from "../../Reusable/SuccessResponse/SuccessResponse";
+import Head from "../../../Reusable/LogoHead/Head";
+import call from "../../../../assests/call.png";
+import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import { InlineWidget } from "react-calendly";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { storeAction } from "../../../Store/Store";
+import { storeAction } from "../../../../Store/Store";
 
 const MeetingComp = () => {
   const dispatch = useDispatch();

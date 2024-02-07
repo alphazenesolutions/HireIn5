@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./InterviewComp.css";
-import userX from "../../../assests/userX.png";
-import DashHead from "../../Reusable/DashBoardReusable/DashHead/DashHead";
-import DashBody from "../../Reusable/DashBoardReusable/DashBody/DashBody";
-import SearchProfileCard from "../../Reusable/SearchProfileCard/SearchProfileCard";
-import tabImg from "../../../assests/table.png";
-import tabFirst from "../../../assests/colar.png";
+import userX from "../../../../assests/userX.png";
+import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
+import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
+import SearchProfileCard from "../../../Reusable/SearchProfileCard/SearchProfileCard";
+import tabImg from "../../../../assests/table.png";
+import tabFirst from "../../../../assests/colar.png";
 
 const InterviewComp = (props) => {
   const [isPage, setIsPage] = useState("page1");

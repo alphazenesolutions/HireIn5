@@ -12,8 +12,14 @@ span.MuiSlider-thumb.MuiSlider-thumbSizeMedium.MuiSlider-thumbColorPrimary.MuiSl
     color: var(--white);
 }
 
-.css-7d61z1-MuiSlider-valueLabel {
+.MuiSlider-valueLabelLabel {
     color: var(--textColorDark);
     background-color: var(--white);
-    border: 1px solid var(--borderColor);
+    text-align: center;
+    padding: 6px 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.MuiSlider-valueLabel {
+    background-color: var(--white) !important;
 }

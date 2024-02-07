@@ -12,6 +12,7 @@ const StoreSlice = createSlice({
     token: null,
     userid: null,
     islogin: false,
+    isPopUp: false,
   },
   reducers: {
     roleHandler(state, payload) {
@@ -28,6 +29,9 @@ const StoreSlice = createSlice({
     },
     isloginHandler(state, payload) {
       state.islogin = payload.payload.islogin;
+    },
+    isPopUpHander(state) {
+      state.isPopUp = !state.isPopUp;
     },
   },
 });

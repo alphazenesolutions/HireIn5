@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import "./CandidateRegistration.css";
-import aadhaarimg from "../../../assests/info.png";
+import aadhaarimg from "../../../../assests/info.png";
 import { FaAngleDown } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -11,12 +11,12 @@ import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import { useRef } from "react";
-import back from "../../../assests/back.png";
-import SuccessResponse from "../../Reusable/SuccessResponse/SuccessResponse";
+import back from "../../../../assests/back.png";
+import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { storeAction } from "../../../Store/Store";
+import { storeAction } from "../../../../Store/Store";
 
 const CandidateRegistration = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page1");
+  const [isPage, setIsPage] = useState("page2");
   const [dropDown, setdropDown] = useState(false);
   const [dropDown1, setdropDown1] = useState(false);
   const [dropDownList, setdropDownList] = useState([
@@ -44,6 +44,9 @@ const CandidateRegistration = () => {
     "Fluent",
   ]);
   const [dropDownOpen1, setdropDownClose1] = useState(dropDownList1);
+  const [finalerror, setfinalerror] = useState(null);
+  const [finalerrorstatus, setfinalerrorstatus] = useState(false);
+  const [finalerrortype, setfinalerrortype] = useState(null);
 
   function dropDownHandler(params) {
     const inputvalue = inputref.current.value.toLowerCase();
@@ -139,6 +142,7 @@ const CandidateRegistration = () => {
     setformdata((values) => ({ ...values, [name]: value }));
   };
   async function pageHandler(e) {
+    setfinalerrorstatus(false);
     if (isPage === "page1") {
       if (formdata.firstname.length === 0) {
         setformdataerror((values) => ({
@@ -271,65 +275,41 @@ const CandidateRegistration = () => {
           ...values,
           pan_front: true,
         }));
-      } else if (formdata.passport_no.length === 0) {
+      } else {
         setformdataerror((values) => ({
           ...values,
           pan_front: false,
         }));
-        setformdataerror((values) => ({
-          ...values,
-          passport_no: true,
-        }));
-      } else if (formdata.valid_until.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
+        setformdataerror({
+          firstname: false,
+          lastname: false,
+          email: false,
+          phone: false,
+          dob: false,
+          address1: false,
+          address2: false,
+          city: false,
+          state: false,
+          title: false,
+          aadhaar_number: false,
+          aadhaarfront: false,
+          aadhaarback: false,
+          pan_number: false,
+          pan_front: false,
           passport_no: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          valid_until: true,
-        }));
-      } else if (formdata.country_of_citizenship.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
           valid_until: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          country_of_citizenship: true,
-        }));
-      } else if (formdata.country_of_issue.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          country_of_citizenship: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          country_of_issue: true,
-        }));
-      } else if (formdata.passport_front.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          country_of_issue: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          passport_front: true,
-        }));
-      } else if (formdata.passport_back.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
+          country: false,
           passport_front: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          passport_back: true,
-        }));
-      } else {
-        setformdataerror((values) => ({
-          ...values,
           passport_back: false,
-        }));
+          qualification: false,
+          experience: false,
+          skill: false,
+          linkedin: false,
+          hackerrank: false,
+          github: false,
+          website: false,
+          languages: false,
+        });
         var newobj = {
           username: signupdata.username,
           phone: formdata.phone,
@@ -370,12 +350,92 @@ const CandidateRegistration = () => {
           )
           .then((res) => {
             return res.data;
+          })
+          .catch((err) => {
+            return err.response.data;
           });
         if (
           updatedata.message === "User and Associated Info updated successfully"
         ) {
           setIsPage(e.target.id);
           routeHandler();
+          setfinalerrorstatus(false);
+          setfinalerror(null);
+          setfinalerrortype(null);
+        } else {
+          if (updatedata.username === undefined) {
+            if (updatedata.phone === undefined) {
+              if (updatedata.title === undefined) {
+                if (updatedata.first_name === undefined) {
+                  if (updatedata.passport_info === undefined) {
+                    if (updatedata.kyc_info === undefined) {
+                    } else {
+                      setfinalerrorstatus(true);
+                      setfinalerror(updatedata.kyc_info.aadhar_number);
+                      setfinalerrortype("aadhar_number");
+                    }
+                  } else {
+                    if (
+                      updatedata.passport_info.passport_number === undefined
+                    ) {
+                      if (
+                        updatedata.passport_info.passport_validity === undefined
+                      ) {
+                        if (
+                          updatedata.passport_info.country_of_citizenship ===
+                          undefined
+                        ) {
+                          if (
+                            updatedata.passport_info.country_of_issue ===
+                            undefined
+                          ) {
+                          } else {
+                            setfinalerrorstatus(true);
+                            setfinalerror(
+                              updatedata.passport_info.country_of_issue
+                            );
+                            setfinalerrortype("country_of_issue");
+                          }
+                        } else {
+                          setfinalerrorstatus(true);
+                          setfinalerror(
+                            updatedata.passport_info.country_of_citizenship
+                          );
+                          setfinalerrortype("country_of_citizenship");
+                        }
+                      } else {
+                        setfinalerrorstatus(true);
+                        setfinalerror(
+                          updatedata.passport_info.passport_validity
+                        );
+                        setfinalerrortype("passport_validity");
+                      }
+                    } else {
+                      setfinalerrorstatus(true);
+                      setfinalerror(updatedata.passport_info.passport_number);
+                      setfinalerrortype("passport_number");
+                    }
+                  }
+                } else {
+                  setfinalerrorstatus(true);
+                  setfinalerror(updatedata.first_name);
+                  setfinalerrortype("first_name");
+                }
+              } else {
+                setfinalerrorstatus(true);
+                setfinalerror(updatedata.title);
+                setfinalerrortype("title");
+              }
+            } else {
+              setfinalerrorstatus(true);
+              setfinalerror(updatedata.phone);
+              setfinalerrortype("phone");
+            }
+          } else {
+            setfinalerrorstatus(true);
+            setfinalerror(updatedata.username);
+            setfinalerrortype("username");
+          }
         }
       }
     } else if (isPage === "page2") {
@@ -440,15 +500,16 @@ const CandidateRegistration = () => {
     // routeHandler();
   }
   const fileInputRef = useRef(null);
+  const [formtype, setformtype] = useState(null);
 
-  const handleFileSelectClick = () => {
+  const handleFileSelectClick = (data) => {
     fileInputRef.current.click();
+    setformtype(data);
   };
   const [formData, setFormData] = useState(new FormData());
   const handleFileInputChange = async (e) => {
     formData.append("image", e.target.files[0]);
-    formData.append("name", "aadhar");
-    console.log(formData, "formData");
+    formData.append("name", formtype);
     try {
       const response = await axios.post(
         "https://fileserver-21t2.onrender.com/api/upload/",
@@ -459,7 +520,12 @@ const CandidateRegistration = () => {
           },
         }
       );
-      console.log(response.data);
+
+      setformdata((values) => ({
+        ...values,
+        [formtype]: response.data.img_url,
+      }));
+      fileInputRef.current.file = "";
     } catch (error) {
       console.error("Error sending FormData:", error);
     }
@@ -662,7 +728,7 @@ const CandidateRegistration = () => {
 
                 <div className="documentDetails1">
                   <div className="candidateInfo">
-                    <h3>Aadhaar number</h3>
+                    <h3>Aadhaar number / Nationality Id proof</h3>
                     <input
                       type="text"
                       placeholder="e.g. 00000000000"
@@ -672,17 +738,20 @@ const CandidateRegistration = () => {
                     />
                     {formdataerror.aadhaar_number && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter Aadhaar number
+                        Please Enter Aadhaar number / Id proof
                       </h6>
                     )}
                   </div>
                   <div className="aadhaarDetails">
                     <div
                       className="aadhaar cursor-pointer"
-                      onClick={handleFileSelectClick}
+                      onClick={() => {
+                        handleFileSelectClick("aadhaarfront");
+                      }}
                     >
                       <h3>
-                        Aadhaar Card Front <img src={aadhaarimg} alt="" />
+                        Aadhaar Card Front / Id proof
+                        <img src={aadhaarimg} alt="" />
                       </h3>
                       <div className="aadhaarFront">
                         <h3>
@@ -695,6 +764,7 @@ const CandidateRegistration = () => {
                         type="file"
                         ref={fileInputRef}
                         style={{ display: "none" }}
+                        name="aadhaarfront"
                         onChange={handleFileInputChange}
                       />
                       {formdataerror.aadhaarfront && (
@@ -705,10 +775,13 @@ const CandidateRegistration = () => {
                     </div>
                     <div
                       className="aadhaar cursor-pointer"
-                      onClick={handleFileSelectClick}
+                      onClick={() => {
+                        handleFileSelectClick("aadhaarback");
+                      }}
                     >
                       <h3>
-                        Aadhaar Card Back <img src={aadhaarimg} alt="" />
+                        Aadhaar Card Back / Id proof{" "}
+                        <img src={aadhaarimg} alt="" />
                       </h3>
 
                       <div className="aadhaarFront">
@@ -722,17 +795,18 @@ const CandidateRegistration = () => {
                         type="file"
                         ref={fileInputRef}
                         style={{ display: "none" }}
+                        name="aadhaarback"
                         onChange={handleFileInputChange}
                       />
                       {formdataerror.aadhaarback && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
-                          Please Upload Aadhaar Card Back
+                          Please Upload Aadhaar Card Back / Id Proof
                         </h6>
                       )}
                     </div>
                   </div>
                   <div className="candidateInfo">
-                    <h3>PAN number</h3>
+                    <h3>PAN number / Tax Id</h3>
                     <input
                       type="text"
                       placeholder="e.g. 00000000000"
@@ -742,16 +816,18 @@ const CandidateRegistration = () => {
                     />
                     {formdataerror.pan_number && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter PAN number
+                        Please Enter PAN number / Tax Id
                       </h6>
                     )}
                   </div>
                   <div
                     className="aadhaar1 cursor-pointer"
-                    onClick={handleFileSelectClick}
+                    onClick={() => {
+                      handleFileSelectClick("pan_front");
+                    }}
                   >
                     <h3>
-                      PAN Card Front <img src={aadhaarimg} alt="" />
+                      PAN Card Front / Tax Id <img src={aadhaarimg} alt="" />
                     </h3>
                     <div className="aadhaarFront">
                       <h3>
@@ -764,11 +840,12 @@ const CandidateRegistration = () => {
                       type="file"
                       ref={fileInputRef}
                       style={{ display: "none" }}
+                      name="pan_front"
                       onChange={handleFileInputChange}
                     />
                     {formdataerror.pan_front && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Upload PAN Front
+                        Please Upload PAN Front / Tax Id
                       </h6>
                     )}
                   </div>
@@ -855,7 +932,9 @@ const CandidateRegistration = () => {
                   <div className="aadhaarDetails">
                     <div
                       className="aadhaar1 cursor-pointer"
-                      onClick={handleFileSelectClick}
+                      onClick={() => {
+                        handleFileSelectClick("passport_front");
+                      }}
                     >
                       <h3>
                         Passport Card Front <img src={aadhaarimg} alt="" />
@@ -871,12 +950,15 @@ const CandidateRegistration = () => {
                         type="file"
                         ref={fileInputRef}
                         style={{ display: "none" }}
+                        name="passport_front"
                         onChange={handleFileInputChange}
                       />
                     </div>
                     <div
                       className="aadhaar1 cursor-pointer"
-                      onClick={handleFileSelectClick}
+                      onClick={() => {
+                        handleFileSelectClick("passport_back");
+                      }}
                     >
                       <h3>
                         Passport Card Back <img src={aadhaarimg} alt="" />
@@ -893,13 +975,20 @@ const CandidateRegistration = () => {
                         type="file"
                         ref={fileInputRef}
                         style={{ display: "none" }}
+                        name="passport_back"
                         onChange={handleFileInputChange}
                       />
                     </div>
                   </div>
                 </div>
               </div>
+              {finalerrorstatus && (
+                <p className="text-red-500 text-md font-semibold mt-2 capitalize">
+                  {finalerrortype} : {finalerror}
+                </p>
+              )}
             </div>
+
             <div className="candidateBottom">
               <button className="nextbtn" id="page2" onClick={pageHandler}>
                 Next

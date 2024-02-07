@@ -103,12 +103,23 @@ p[title] span {
     flex-direction: column;
 }
 
-.mobileVerification button {
+.mobileVerificationButtonActive {
     font-weight: normal;
     font-size: 12px;
     line-height: 18.15px;
     background-color: var(--primaryColor);
     color: white;
+    padding: 10px;
+    /* margin: 20px 0px; */
+    border-radius: 8px;
+}
+
+.mobileVerificationButtonDisable {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18.15px;
+    background-color: var(--disableColor);
+    color: var(--textColor);
     padding: 10px;
     /* margin: 20px 0px; */
     border-radius: 8px;

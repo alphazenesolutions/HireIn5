@@ -1,0 +1,343 @@
+.dashBoardMain {
+    /* width: 82%; */
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #f8f8f8;
+}
+
+.paidData {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.paidData p {
+    background-color: #CCFBF1;
+    padding: 0px 10px;
+    font-size: 14px;
+    border-radius: 20px;
+    margin-right: 5px;
+    color: #14B8A6;
+}
+
+/* billing card */
+.billingCard {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+
+}
+
+.billCard {
+    background-color: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+    padding: 12px;
+}
+
+.billRight {
+    display: flex;
+    align-items: center;
+
+}
+
+.billDescOne {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.billHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.billHead h2 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    color: var(--primaryColor)
+}
+
+.billHead h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.billDescOne h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.billRight h4 {
+    font-size: 15px;
+    color: var(--textColorDark);
+    font-weight: 400;
+    margin-right: 10px;
+    opacity: 0.8;
+}
+
+/* table */
+.firstTableHead {
+    width: 40%;
+}
+
+.lastTableHead {
+    width: 12%;
+}
+
+
+
+/* Billing boxex */
+/* .billingInfo {
+    width: 100vw;
+    height: 100vh;
+    padding: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10 !important;
+    background-color: #00000099;
+    font-family: 'Inter', sans-serif;
+
+} */
+
+.billingInfo1 {
+    width: 480px;
+    height: auto;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.billingClose {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+
+}
+
+.billingClose img {
+    padding: 12px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    background-color: var(--secondaryColor)
+}
+
+.billingCycle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* background-color: blue; */
+    padding: 0px 30px 30px 30px;
+}
+
+.billingCycle1 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* background-color: gold; */
+}
+
+.billingCycle1 h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.billingCycle1 p {
+    font-size: 14px;
+    font-size: 400;
+    margin: 10px 0px 0px 0px;
+    color: var(--textColor);
+    line-height: 22px;
+}
+
+.billingCycle1 span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.billinglist {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0px;
+    /* background-color: aqua; */
+}
+
+.billinglist p {
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--textColor);
+}
+
+.billinglist p img {
+    margin-right: 10px;
+}
+
+.billingBtn {
+    width: 100%;
+    height: auto;
+    /* background-color: brown; */
+    display: flex;
+    flex-direction: column;
+
+}
+
+.billingBtn .billingSub {
+    width: 100%;
+    /* background-color: blue; */
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px;
+}
+
+.billingSub button {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 13px;
+    border-radius: 7px;
+    border: none;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+
+}
+
+.billingSub button input {
+    margin-right: 10px;
+    width: 15px;
+    height: 15px;
+}
+
+.billingSub button h2 {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.billingBtn button[name] {
+    width: 100%;
+    padding: 16px 12px;
+    border-radius: 7px;
+    border: none;
+    outline: none;
+    background-color: var(--primaryColor);
+    margin: 20px 0px 0px 0px;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+}
+
+.subcriptionMessageBox {
+    width: 100%;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+.subcriptionMessageBox .subMessageTitle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: yellow; */
+    padding: 10px 0px;
+}
+
+.subMessageTitle h3 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.subMessageTitle p {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--textColor);
+}
+
+.subcriptionMessageBox textarea {
+    border-radius: 7px;
+    padding: 10px;
+    font-family: inter, "sans-serif";
+    border: 1px solid var(--borderColor);
+}
+
+textarea::placeholder {
+    color: var(--borderColor);
+}
+
+/* pricing */
+
+.billingToggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.billingToggle p {
+    font-size: 14px;
+    color: var(--textColor);
+}
+
+.billingBody {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.updradePlan {
+    padding-bottom: 50px;
+}
+
+.planButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currentPlanButton {
+    padding: 10px;
+    width: 50%;
+    border: 1px solid var(--borderColor);
+    background-color: var(--disableColor);
+    color: var(--textColor);
+    margin-right: 10px;
+}
+
+.cancelPlanButton {
+    padding: 10px;
+    width: 50%;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+    color: var(--textColorDark);
+}
