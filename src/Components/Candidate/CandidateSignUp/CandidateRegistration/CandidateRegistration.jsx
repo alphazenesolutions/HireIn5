@@ -28,7 +28,7 @@ const CandidateRegistration = () => {
   const token = useSelector((store) => store.token);
 
   const [isPage, setIsPage] = useState("page2");
-  const [dropDown, setdropDown] = useState(false);
+  const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [dropDownList, setdropDownList] = useState([
     "PHP",
@@ -44,25 +44,40 @@ const CandidateRegistration = () => {
     "Fluent",
   ]);
   const [dropDownOpen1, setdropDownClose1] = useState(dropDownList1);
+const [selectedvalue, setselectedvalue] = useState("")
+const [selectedvalue1, setselectedvalue1] = useState()
   const [finalerror, setfinalerror] = useState(null);
   const [finalerrorstatus, setfinalerrorstatus] = useState(false);
   const [finalerrortype, setfinalerrortype] = useState(null);
 
   function dropDownHandler(params) {
+
     const inputvalue = inputref.current.value.toLowerCase();
+    setdropDown("")
+
     const dropdownvalue = dropDownList.filter((getvalue) =>
       getvalue.toLowerCase().includes(inputvalue)
     );
     setdropDownClose(dropdownvalue);
     setdropDown(inputvalue.length > 0 && dropdownvalue.length > 0);
+
   }
   function dropDownHandler1(params) {
-    const inputvalue = inputref1.current.value.toLowerCase();
-    const dropdownvalue = dropDownList1.filter((getvalue) =>
-      getvalue.toLowerCase().includes(inputvalue)
-    );
-    setdropDownClose1(dropdownvalue);
-    setdropDown1(inputvalue.length > 0 && dropdownvalue.length > 0);
+    setdropDown1(!dropDown1)
+   }
+  function filterdata(event) {
+    const selectvalue=event.target.textContent.toLowerCase()
+    setselectedvalue(selectvalue)
+    setdropDown1(false)
+  }
+  function filterdata1(params) {
+    setdropDown(!dropDown)
+  }
+  function getdata(event) {
+    const getvalue=event.target.textContent.toLowerCase()
+    setselectedvalue1(getvalue)
+    setdropDown(false)
+    
   }
   const backHandler = (event) => {
     setIsPage(event.target.id);
@@ -1061,16 +1076,17 @@ const CandidateRegistration = () => {
                       <CiSearch />
                       <input
                         type="text"
+                        value={selectedvalue1}
                         ref={inputref}
                         onChange={dropDownHandler}
                       />
-                      <FaAngleDown onClick={dropDownHandler} />
+                      <FaAngleDown onClick={filterdata1} />
                     </div>
                     {dropDown && (
                       <div className="searchContent1">
                         <div className="searchContent">
                           {dropDownOpen.map((option, index) => (
-                            <h3 key={index}>{option}</h3>
+                            <h3 onClick={getdata} key={index}>{option}</h3>
                           ))}
                         </div>
                       </div>
@@ -1234,8 +1250,9 @@ const CandidateRegistration = () => {
                 <div className="lanSearch">
                   <input
                     type="text"
-                    ref={inputref1}
-                    onChange={dropDownHandler1}
+                    value={selectedvalue}
+                    // ref={inputref1}
+                    // onChange={dropDownHandler1}
                     placeholder="My level is"
                   />
                   <FaAngleDown onClick={dropDownHandler1} />
@@ -1243,7 +1260,7 @@ const CandidateRegistration = () => {
                 {dropDown1 && (
                   <div className="Level">
                     {dropDownOpen1.map((option, index) => (
-                      <h3 key={index}>{option}</h3>
+                      <h3 onClick={filterdata} key={index}>{option}</h3>
                     ))}
                   </div>
                 )}
