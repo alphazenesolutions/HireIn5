@@ -1,5 +1,5 @@
 import React from "react";
-import DiscoverComp from "../Components/ClientScreen/DiscoverComp/DIscoverComp";
+import DiscoverComp from "../Components/Client/ClientScreen/DiscoverComp/DIscoverComp";
 
 const Discover = () => {
   return (

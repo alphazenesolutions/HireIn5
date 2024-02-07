@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import "./BillingComp.css";
-import billingTable from "../../../assests/billingTable.png";
-import tabFirst from "../../../assests/colar.png";
-import closeicon from "../../../assests/billingX.png";
-import tickicon from "../../../assests/BillingTick.png";
-import penSquare from "../../../assests/penSquare.png";
-import documentX from "../../../assests/documentX.png";
-import correct from "../../../assests/correct.png";
-import wrong from "../../../assests/wrong.png";
-import DashHead from "../../Reusable/DashBoardReusable/DashHead/DashHead";
-import DashBody from "../../Reusable/DashBoardReusable/DashBody/DashBody";
+import billingTable from "../../../../assests/billingTable.png";
+import tabFirst from "../../../../assests/colar.png";
+import closeicon from "../../../../assests/billingX.png";
+import tickicon from "../../../../assests/BillingTick.png";
+import penSquare from "../../../../assests/penSquare.png";
+import documentX from "../../../../assests/documentX.png";
+import correct from "../../../../assests/correct.png";
+import wrong from "../../../../assests/wrong.png";
+import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
+import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
 import PricingComp from "../../ClientSignUp/Pricing/PricingComp";
-import OptionAvailable from "../../Reusable/OptionAvailable/OptionAvailable";
+import OptionAvailable from "../../../Reusable/OptionAvailable/OptionAvailable";
 import { useDispatch, useSelector } from "react-redux";
-import { storeAction } from "../../../Store/Store";
+import { storeAction } from "../../../../Store/Store";
 
 const BillingComp = () => {
   const dispatch = useDispatch();
