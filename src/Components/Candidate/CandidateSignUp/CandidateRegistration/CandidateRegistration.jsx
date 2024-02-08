@@ -28,7 +28,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page2");
+  const [isPage, setIsPage] = useState("page3");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [dropDownList, setdropDownList] = useState([
@@ -1573,8 +1573,8 @@ const CandidateRegistration = () => {
                     <h3>Validity of Visa</h3>
                     <input type="text" placeholder="DD/MM/YYYY" />
                   </div>
-                  <button>+ Add more</button>
                 </div>
+                <button className="travelInfoButton">+ Add more</button>
               </div>
             </div>
 
@@ -1679,7 +1679,7 @@ const CandidateRegistration = () => {
                 </p>
               </div>
 
-              <button>+ Add more</button>
+              <button className="travelBottomButton ">+ Add more</button>
             </div>
 
             <div className="Bottombtns">
