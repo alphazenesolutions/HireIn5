@@ -155,6 +155,7 @@ const CandidateRegistration = () => {
   const [finalerrorstatus, setfinalerrorstatus] = useState(false);
   const [finalerrortype, setfinalerrortype] = useState(null);
   const [skill, setskill] = useState([]);
+  const [indexvalue, setindexvalue] = useState(null);
 
   function dropDownHandler(params) {
     const inputvalue = inputref.current.value.toLowerCase();
@@ -166,13 +167,16 @@ const CandidateRegistration = () => {
     setdropDownClose(dropdownvalue);
     setdropDown(inputvalue.length > 0 && dropdownvalue.length > 0);
   }
-  function dropDownHandler1(params) {
+  function dropDownHandler1(index) {
+    setindexvalue(index);
     setdropDown1(!dropDown1);
   }
-  function filterdata(event) {
-    const selectvalue = event.target.textContent.toLowerCase();
-    setselectedvalue(selectvalue);
+  function filterdata(event, index) {
+    // const selectvalue = event.target.textContent.toLowerCase();
+    // setselectedvalue(selectvalue);
     setdropDown1(false);
+    row[index]["level"] = event;
+    setrow([...row]);
   }
   function filterdata1(params) {
     setdropDown(!dropDown);
@@ -691,8 +695,8 @@ const CandidateRegistration = () => {
         //   });
         console.log(newObj, "uuuu");
       }
-      // setIsPage(e.target.id);
-      // routeHandler();
+      setIsPage(e.target.id);
+      routeHandler();
     } else if (isPage === "page3") {
       setIsPage(e.target.id);
       routeHandler();
@@ -731,7 +735,7 @@ const CandidateRegistration = () => {
       console.error("Error sending FormData:", error);
     }
   };
-  const [row, setrow] = useState([]);
+  const [row, setrow] = useState([{ languages: "", level: "" }]);
   const addcount = () => {
     var newobj = {
       languages: "",
@@ -739,6 +743,11 @@ const CandidateRegistration = () => {
     };
     setrow((prevState) => [...prevState, newobj]);
   };
+  const get_value = (e, index) => {
+    row[index]["languages"] = e;
+    setrow([...row]);
+  };
+  console.log(row, "row");
   return (
     <>
       <div className="candidateRegistration">
@@ -1417,47 +1426,70 @@ const CandidateRegistration = () => {
               </div>
             </div>
             <div className="languages">
-              <div className="addLanguages">
-                <div className="addLanguageInner">
-                  <h3>Languages</h3>
-                  <input type="text" placeholder="e.g. Kannada" />
-                </div>
-                <div className="selectLanguages">
-                  <h3>Proficiency</h3>
-                  <div className="lanSearch">
-                    <input
-                      type="text"
-                      value={selectedvalue}
-                      // ref={inputref1}
-                      // onChange={dropDownHandler1}
-                      placeholder="My level is"
-                    />
-                    <FaAngleDown onClick={dropDownHandler1} />
-                  </div>
-                  {dropDown1 && (
-                    <div className="Level">
-                      {dropDownOpen1.map((option, index) => (
-                        <h3 onClick={filterdata} key={index}>
-                          {option}
-                        </h3>
-                      ))}
+              {row.length !== 0
+                ? row.map((datanew, index) => (
+                    <div className="addLanguages" key={index}>
+                      <div className="addLanguageInner">
+                        <h3>Languages</h3>
+                        <input
+                          type="text"
+                          placeholder="e.g. Kannada"
+                          name="language"
+                          onChange={(e) => {
+                            get_value(e.target.value, index);
+                          }}
+                          defaultValue={datanew.languages}
+                        />
+                      </div>
+                      <div className="selectLanguages">
+                        <h3>Proficiency</h3>
+                        <div className="lanSearch">
+                          <input
+                            type="text"
+                            defaultValue={datanew.level}
+                            // ref={inputref1}
+                            // onChange={dropDownHandler1}
+                            placeholder="My level is"
+                          />
+                          <FaAngleDown
+                            onClick={() => {
+                              dropDownHandler1(index);
+                            }}
+                          />
+                        </div>
+                        {indexvalue == index
+                          ? dropDown1 && (
+                              <div className="Level">
+                                {dropDownOpen1.map((option, index1) => (
+                                  <h3
+                                    onClick={() => {
+                                      filterdata(option, index);
+                                    }}
+                                    key={index1}
+                                  >
+                                    {option}
+                                  </h3>
+                                ))}
+                              </div>
+                            )
+                          : null}
+                      </div>
                     </div>
-                  )}
-                </div>
-              </div>
+                  ))
+                : null}
 
               <button className="addLanguagesButton" onClick={addcount}>
                 + Add more
               </button>
             </div>
 
-            <div className="candidateBottom">
-              <button className="Agree">
+            <div className="candidateBottom mt-5">
+              {/* <button className="Agree">
                 <input type="checkbox" />I agree to the Hirein5{" "}
                 <span>terms & conditions </span> and{" "}
                 <span> privacy policy</span>
-              </button>
-              <button className="Next" id="page3" onClick={pageHandler}>
+              </button> */}
+              <button className="nextbtn" id="page3" onClick={pageHandler}>
                 Next
               </button>
             </div>
