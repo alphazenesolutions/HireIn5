@@ -49,8 +49,8 @@ const CandidateProfileCard = (props) => {
   };
   return (
     <div>
-      <div className="candidateProfile">
-        <div onClick={() => props.fun("page1")} className="candidateBack">
+      <div className={props.main}>
+        <div onClick={() => props.fun("page1")} className={props.back}>
           <img src={back} alt="" />
           <h2>Back to results</h2>
         </div>

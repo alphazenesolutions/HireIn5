@@ -15,6 +15,7 @@ import Interview from "../pages/Interview";
 import Contract from "../pages/Contract";
 import Billing from "../pages/Billing";
 import { Resetpassword } from "../pages/Resetpassword";
+import Profile from "../pages/Profile";
 
 const Routing = () => {
   return (
@@ -34,6 +35,7 @@ const Routing = () => {
         <Route path="/contract" element={<Contract />} />
         <Route path="/billing" element={<Billing />} />
         <Route path="/resetpassword" element={<Resetpassword />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );

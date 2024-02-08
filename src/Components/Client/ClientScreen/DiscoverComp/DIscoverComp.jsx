@@ -120,6 +120,7 @@ const DiscoverComp = () => {
               head="Discover Candidates"
               desc="Search and find the right fit for your company. If you need instant help in shortlisting candidates,"
               highLight="Contact us"
+              descClass="dashBoardMainHeadDescBetween"
             />
             <DashSearch
               class="dashBoardMainSearch paddingRight100"
@@ -173,7 +174,13 @@ const DiscoverComp = () => {
             )}
           </div>
         )}
-        {isPage === "page2" && <CandidateProfileCard fun={pageHandler} />}
+        {isPage === "page2" && (
+          <CandidateProfileCard
+            main="candidateProfile"
+            fun={pageHandler}
+            back="candidateBack"
+          />
+        )}
       </div>
 
       {/* <div contenteditable="true" className="h-[100px] w-full bg-grey-400">

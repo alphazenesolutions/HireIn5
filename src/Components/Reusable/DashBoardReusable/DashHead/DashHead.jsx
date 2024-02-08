@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 
-const DashHead = (props) => {
+const DashHead = (props, fun) => {
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
@@ -35,9 +35,13 @@ const DashHead = (props) => {
           </h4>
         </div>
         <h1>{props.head}</h1>
-        <div className="dashBoardMainHeadDesc">
+        <div className={props.descClass}>
           <p>{props.desc}</p>
           <a href="">{props.highLight}</a>
+          <button onClick={props.fun} className={props.btnClass}>
+            <img src={props.btnImg} alt="" />
+            {props.button}
+          </button>
         </div>
       </div>
     </div>
