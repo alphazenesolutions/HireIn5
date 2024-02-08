@@ -914,7 +914,7 @@
     background-color: white;
 }
 
-.travelBottom button {
+.travelBottomButton {
     width: 100%;
     height: 42px;
     border: 1px solid var(--borderColor);
@@ -929,7 +929,7 @@
     justify-content: center;
 }
 
-.travelInfo button {
+.travelInfoButton {
     width: 100%;
     height: 42px;
     border: 1px solid var(--borderColor);
