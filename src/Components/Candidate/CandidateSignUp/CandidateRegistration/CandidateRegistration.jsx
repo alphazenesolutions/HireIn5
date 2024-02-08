@@ -1418,34 +1418,39 @@ const CandidateRegistration = () => {
             </div>
             <div className="languages">
               <div className="addLanguages">
-                <h3>Languages</h3>
-                <input type="text" placeholder="e.g. Kannada" />
-                <button onClick={addcount}>+ Add more</button>
-              </div>
-              <div className="selectLanguages">
-                <h3>Proficiency</h3>
-                <div className="lanSearch">
-                  <input
-                    type="text"
-                    value={selectedvalue}
-                    // ref={inputref1}
-                    // onChange={dropDownHandler1}
-                    placeholder="My level is"
-                  />
-                  <FaAngleDown onClick={dropDownHandler1} />
+                <div className="addLanguageInner">
+                  <h3>Languages</h3>
+                  <input type="text" placeholder="e.g. Kannada" />
                 </div>
-                {dropDown1 && (
-                  <div className="Level">
-                    {dropDownOpen1.map((option, index) => (
-                      <h3 onClick={filterdata} key={index}>
-                        {option}
-                      </h3>
-                    ))}
+                <div className="selectLanguages">
+                  <h3>Proficiency</h3>
+                  <div className="lanSearch">
+                    <input
+                      type="text"
+                      value={selectedvalue}
+                      // ref={inputref1}
+                      // onChange={dropDownHandler1}
+                      placeholder="My level is"
+                    />
+                    <FaAngleDown onClick={dropDownHandler1} />
                   </div>
-                )}
+                  {dropDown1 && (
+                    <div className="Level">
+                      {dropDownOpen1.map((option, index) => (
+                        <h3 onClick={filterdata} key={index}>
+                          {option}
+                        </h3>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
+
+              <button className="addLanguagesButton" onClick={addcount}>
+                + Add more
+              </button>
             </div>
-            
+
             <div className="candidateBottom">
               <button className="Agree">
                 <input type="checkbox" />I agree to the Hirein5{" "}
