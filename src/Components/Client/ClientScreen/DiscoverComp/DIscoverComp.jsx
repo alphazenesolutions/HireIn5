@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./DiscoverComp.css";
@@ -29,10 +30,18 @@ const DiscoverComp = () => {
   const InputHandler = async (e) => {
     if (e.target.value.length !== 0) {
       setIsInput(true);
-      var filterdata = await alldata.filter((data) => {
-        return data.first_name.toLowerCase().includes(e.target.value);
+      const searchTerm = e.target.value.toLowerCase();
+      const filteredData = alldata.filter((data) => {
+        const isFirstNameMatch = data.first_name
+          .toLowerCase()
+          .includes(searchTerm);
+        const isSkillMatch = data.skill.some((skill) =>
+          skill.toLowerCase().includes(searchTerm)
+        );
+
+        return isFirstNameMatch || isSkillMatch;
       });
-      setfilterdata(filterdata);
+      setfilterdata(filteredData);
     } else {
       setIsInput(false);
       setfilterdata([]);
@@ -101,7 +110,7 @@ const DiscoverComp = () => {
       setalldata(newarray);
     }
   };
-
+  // console.log(alldata);
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">

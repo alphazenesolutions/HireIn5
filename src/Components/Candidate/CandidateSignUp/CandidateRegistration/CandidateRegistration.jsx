@@ -28,7 +28,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page3");
+  const [isPage, setIsPage] = useState("page1");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [dropDownList, setdropDownList] = useState([
@@ -736,6 +736,7 @@ const CandidateRegistration = () => {
     }
   };
   const [row, setrow] = useState([{ languages: "", level: "" }]);
+  const [travelrow, settravelrow] = useState([{ languages: "", level: "" }]);
   const addcount = () => {
     var newobj = {
       languages: "",
@@ -1574,6 +1575,7 @@ const CandidateRegistration = () => {
                     <input type="text" placeholder="DD/MM/YYYY" />
                   </div>
                 </div>
+                
                 <button className="travelInfoButton">+ Add more</button>
               </div>
             </div>
