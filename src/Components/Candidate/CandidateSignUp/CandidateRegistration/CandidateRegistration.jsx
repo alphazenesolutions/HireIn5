@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { storeAction } from "../../../../Store/Store";
+import Dragoption from "./Dragoption";
 
 const CandidateRegistration = () => {
   const navigate = useNavigate();
@@ -31,10 +32,115 @@ const CandidateRegistration = () => {
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [dropDownList, setdropDownList] = useState([
-    "PHP",
-    "Pytorch",
-    "Javascript",
-    "Node.Js",
+    "Algorithmic Problem Solving",
+    "Data Structures",
+    "Object-Oriented Programming (OOP)",
+    "Functional Programming",
+    "Concurrency",
+    "Error Handling and Debugging",
+    "Version Control (e.g., Git)",
+    "Code Collaboration",
+    "Code Review",
+    "Software Design Patterns",
+    "Refactoring",
+    "Unit Testing",
+    "Integration Testing",
+    "Test-Driven Development (TDD)",
+    "Continuous Integration/Continuous Deployment (CI/CD)",
+    "Maven",
+    "Gradle",
+    "npm",
+    "pip",
+    "Python",
+    "Ruby",
+    "Shell Scripting",
+    "Database Design",
+    "SQL and Database Management",
+    "NoSQL Databases",
+    "RESTful API Design",
+    "Web Services",
+    "Microservices Architecture",
+    "Docker",
+    "Kubernetes",
+    "Serverless Computing",
+    "AWS",
+    "Azure",
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React.js",
+    "Angular",
+    "Vue.js",
+    "Frontend Frameworks",
+    "Web Security Best Practices",
+    "Web Performance Optimization",
+    "Responsive Web Design",
+    "Mobile App Development (Native or Cross-platform)",
+    "React Native",
+    "Mobile App Design Principles",
+    "Progressive Web Apps (PWAs)",
+    "Desktop Application Development",
+    "Game Development",
+    "Augmented Reality (AR)",
+    "Virtual Reality (VR)",
+    "Machine Learning",
+    "Deep Learning",
+    "Natural Language Processing (NLP)",
+    "Computer Vision",
+    "Data Analysis and Visualization",
+    "Big Data Technologies",
+    "Hadoop",
+    "Spark",
+    "IoT (Internet of Things) Programming",
+    "Embedded Systems Programming",
+    "Network Programming",
+    "Blockchain Development",
+    "Smart Contracts",
+    "Security Programming",
+    "Cryptography",
+    "Reverse Engineering",
+    "API Integration",
+    "GraphQL",
+    "WebAssembly",
+    "Geospatial Programming",
+    "Parallel Programming",
+    "Distributed Systems",
+    "Functional Reactive Programming (FRP)",
+    "Cross-platform Development",
+    "Localization",
+    "Internationalization",
+    "Compiler Design",
+    "Computer Graphics Programming",
+    "Robotics Programming",
+    "Quantum Computing",
+    "Bioinformatics Programming",
+    "Natural Computing",
+    "Ethical Hacking",
+    "DevOps Practices",
+    "Server-side Rendering (SSR)",
+    "Static Site Generators",
+    "Progressive Enhancement",
+    "Web Accessibility (A11y)",
+    "Chatbot Development",
+    "Voice User Interface (VUI) Development",
+    "Human-Computer Interaction (HCI)",
+    "Agile Methodologies",
+    "Scrum",
+    "Kanban",
+    "Lean Software Development",
+    "Behavior-Driven Development (BDD)",
+    "User Acceptance Testing (UAT)",
+    "Pair Programming",
+    "Code Metrics",
+    "Code Analysis",
+    "Code Optimization",
+    "Technical Documentation",
+    "API Documentation",
+    "Knowledge of Design Thinking",
+    "Critical Thinking",
+    "Problem Solving",
+    "Adaptability",
+    "Effective Communication",
   ]);
   const [dropDownOpen, setdropDownClose] = useState(dropDownList);
   const [dropDownList1, setdropDownList1] = useState([
@@ -44,40 +150,40 @@ const CandidateRegistration = () => {
     "Fluent",
   ]);
   const [dropDownOpen1, setdropDownClose1] = useState(dropDownList1);
-const [selectedvalue, setselectedvalue] = useState("")
-const [selectedvalue1, setselectedvalue1] = useState()
+  const [selectedvalue, setselectedvalue] = useState("");
   const [finalerror, setfinalerror] = useState(null);
   const [finalerrorstatus, setfinalerrorstatus] = useState(false);
   const [finalerrortype, setfinalerrortype] = useState(null);
+  const [skill, setskill] = useState([]);
 
   function dropDownHandler(params) {
-
     const inputvalue = inputref.current.value.toLowerCase();
-    setdropDown("")
+    setdropDown("");
 
     const dropdownvalue = dropDownList.filter((getvalue) =>
       getvalue.toLowerCase().includes(inputvalue)
     );
     setdropDownClose(dropdownvalue);
     setdropDown(inputvalue.length > 0 && dropdownvalue.length > 0);
-
   }
   function dropDownHandler1(params) {
-    setdropDown1(!dropDown1)
-   }
+    setdropDown1(!dropDown1);
+  }
   function filterdata(event) {
-    const selectvalue=event.target.textContent.toLowerCase()
-    setselectedvalue(selectvalue)
-    setdropDown1(false)
+    const selectvalue = event.target.textContent.toLowerCase();
+    setselectedvalue(selectvalue);
+    setdropDown1(false);
   }
   function filterdata1(params) {
-    setdropDown(!dropDown)
+    setdropDown(!dropDown);
   }
   function getdata(event) {
-    const getvalue=event.target.textContent.toLowerCase()
-    setselectedvalue1(getvalue)
-    setdropDown(false)
-    
+    const getvalue = event;
+    // setdropDown(false);
+    const updatedItems = skill.includes(getvalue)
+      ? skill.filter((data) => data !== getvalue)
+      : [...skill, getvalue];
+    setskill(updatedItems);
   }
   const backHandler = (event) => {
     setIsPage(event.target.id);
@@ -468,10 +574,28 @@ const [selectedvalue1, setselectedvalue1] = useState()
           ...values,
           experience: true,
         }));
-      } else if (formdata.linkedin.length === 0) {
+      } else if (skill.length === 0) {
         setformdataerror((values) => ({
           ...values,
           experience: false,
+        }));
+        setformdataerror((values) => ({
+          ...values,
+          skill: true,
+        }));
+      } else if (skill.length < 5) {
+        setformdataerror((values) => ({
+          ...values,
+          skill: false,
+        }));
+        setformdataerror((values) => ({
+          ...values,
+          skilllength: true,
+        }));
+      } else if (formdata.linkedin.length === 0) {
+        setformdataerror((values) => ({
+          ...values,
+          skilllength: false,
         }));
         setformdataerror((values) => ({
           ...values,
@@ -504,9 +628,71 @@ const [selectedvalue1, setselectedvalue1] = useState()
           ...values,
           website: true,
         }));
+      } else {
+        setformdataerror({
+          firstname: false,
+          lastname: false,
+          email: false,
+          phone: false,
+          dob: false,
+          address1: false,
+          address2: false,
+          city: false,
+          state: false,
+          title: false,
+          aadhaar_number: false,
+          aadhaarfront: false,
+          aadhaarback: false,
+          pan_number: false,
+          pan_front: false,
+          passport_no: false,
+          valid_until: false,
+          country: false,
+          passport_front: false,
+          passport_back: false,
+          qualification: false,
+          experience: false,
+          skill: false,
+          linkedin: false,
+          hackerrank: false,
+          github: false,
+          website: false,
+          languages: false,
+          skilllength: false,
+        });
+        var newObj = {
+          // username: signupdata.username,
+          preference_info: {
+            qualification: formdata.qualification,
+            year_of_experience: formdata.experience,
+            skills: skill,
+            linkedin: formdata.linkedin,
+            hackerrank: formdata.hackerrank,
+            github: formdata.github,
+            personal_website: formdata.website,
+          },
+        };
+        // var update_data = await axios
+        //   .put(
+        //     `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`,
+        //     newObj,
+        //     {
+        //       headers: {
+        //         "Content-Type": "application/json",
+        //         Authorization: `JWT ${token}`,
+        //       },
+        //     }
+        //   )
+        //   .then((res) => {
+        //     return res.data;
+        //   })
+        //   .catch((err) => {
+        //     return err.response.data;
+        //   });
+        console.log(newObj, "uuuu");
       }
-      setIsPage(e.target.id);
-      routeHandler();
+      // setIsPage(e.target.id);
+      // routeHandler();
     } else if (isPage === "page3") {
       setIsPage(e.target.id);
       routeHandler();
@@ -545,6 +731,14 @@ const [selectedvalue1, setselectedvalue1] = useState()
       console.error("Error sending FormData:", error);
     }
   };
+  const [row, setrow] = useState([]);
+  const addcount = () => {
+    var newobj = {
+      languages: "",
+      level: "",
+    };
+    setrow((prevState) => [...prevState, newobj]);
+  };
   return (
     <>
       <div className="candidateRegistration">
@@ -565,7 +759,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
               <div className="basicDetails">
                 <h2>BASIC DETAILS</h2>
                 <div className="CandidateDetails">
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>First Name</h3>
                     <input
                       type="text"
@@ -580,7 +774,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       </h6>
                     )}
                   </div>
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Last Name</h3>
                     <input
                       type="text"
@@ -595,7 +789,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       </h6>
                     )}
                   </div>
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Email ID</h3>
                     <input
                       type="text"
@@ -610,7 +804,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       </h6>
                     )}
                   </div>
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Phone no.</h3>
                     <p>
                       <select name="" id="">
@@ -632,7 +826,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                   </div>
                 </div>
                 <div className="candidateDetails1">
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Date of birth</h3>
                     <input
                       type="date"
@@ -647,7 +841,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       </h6>
                     )}
                   </div>
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Address line 1</h3>
                     <input
                       type="text"
@@ -662,7 +856,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       </h6>
                     )}
                   </div>
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <div className="addressLine">
                       <h3>Address line 2</h3>
                       <h3>Optional</h3>
@@ -683,7 +877,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                 </div>
                 <div className="candidateAddress">
                   <div className="candidatePlace">
-                    <div className="candidateInfo">
+                    <div className="candidateInfo h-full">
                       <h3>City</h3>
                       <input
                         type="text"
@@ -698,7 +892,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                         </h6>
                       )}
                     </div>
-                    <div className="candidateInfo">
+                    <div className="candidateInfo h-full">
                       <h3>State</h3>
                       <div className="candidateState">
                         <select
@@ -719,7 +913,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       )}
                     </div>
                   </div>
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Job title</h3>
                     <input
                       type="text"
@@ -742,7 +936,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                 <h2>DOCUMENTS</h2>
 
                 <div className="documentDetails1">
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Aadhaar number / Nationality Id proof</h3>
                     <input
                       type="text"
@@ -820,7 +1014,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       )}
                     </div>
                   </div>
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>PAN number / Tax Id</h3>
                     <input
                       type="text"
@@ -875,7 +1069,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                 </div>
                 <div className="basicDetails">
                   <div className="CandidateDetails">
-                    <div className="candidateInfo">
+                    <div className="candidateInfo h-full">
                       <h3>Passport no.</h3>
                       <input
                         type="text"
@@ -890,7 +1084,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                         </h6>
                       )}
                     </div>
-                    <div className="candidateInfo">
+                    <div className="candidateInfo h-full">
                       <h3>Valid until</h3>
                       <input
                         type="date"
@@ -906,7 +1100,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       )}
                     </div>
 
-                    <div className="candidateInfo">
+                    <div className="candidateInfo h-full">
                       <h3>Country of Citizenship</h3>
                       <p>
                         <input
@@ -923,7 +1117,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                         </h6>
                       )}
                     </div>
-                    <div className="candidateInfo">
+                    <div className="candidateInfo h-full">
                       <h3>Country of Issue</h3>
                       <p>
                         <input
@@ -1042,9 +1236,14 @@ const [selectedvalue1, setselectedvalue1] = useState()
               </div>
               <div className="basicDetails">
                 <div className="CandidateInformation">
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Your Current Qualification</h3>
-                    <input type="text" placeholder="e.g. Java Developer" />
+                    <input
+                      type="text"
+                      placeholder="e.g. Java Developer"
+                      name="qualification"
+                      onChange={handlechange}
+                    />
                     {formdataerror.qualification && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
                         Please Enter Your Current Qualification
@@ -1052,13 +1251,15 @@ const [selectedvalue1, setselectedvalue1] = useState()
                     )}
                   </div>
 
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Years of Experience (all time)</h3>
                     <p>
-                      <input type="number" placeholder="0-1" />
-                      <select name="" id="">
-                        <option value=""></option>
-                      </select>
+                      <input
+                        type="number"
+                        placeholder="0-1"
+                        name="experience"
+                        onChange={handlechange}
+                      />
                     </p>
                     {formdataerror.experience && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
@@ -1076,7 +1277,6 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       <CiSearch />
                       <input
                         type="text"
-                        value={selectedvalue1}
                         ref={inputref}
                         onChange={dropDownHandler}
                       />
@@ -1086,7 +1286,14 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       <div className="searchContent1">
                         <div className="searchContent">
                           {dropDownOpen.map((option, index) => (
-                            <h3 onClick={getdata} key={index}>{option}</h3>
+                            <h3
+                              onClick={() => {
+                                getdata(option);
+                              }}
+                              key={index}
+                            >
+                              {option}
+                            </h3>
                           ))}
                         </div>
                       </div>
@@ -1094,144 +1301,114 @@ const [selectedvalue1, setselectedvalue1] = useState()
                   </div>
                 </div>
 
-                <div className="Skills1">
+                {/* <div className="Skills1">
                   <div className="Skills">
                     <div className="SkillsHead">
                       <h2>SKILLS</h2>
                       <h2>Minimum 5 skills and 3 top skills</h2>
                     </div>
                     <div className="skillSets">
-                      <div className="skillList">
-                        <div className="skillSet">
-                          <div className="skillbtn">
-                            <RxHamburgerMenu />
-                            <button>
-                              <CiStar />
-                              <h3>Top Skill</h3>
-                            </button>
-                            <h3>Python</h3>
-                          </div>
-                        </div>
-                        <MdDeleteOutline className="deleteIcon" />
-                      </div>
-                      <div className="skillList">
-                        <div className="skillSet">
-                          <div className="skillbtn">
-                            <RxHamburgerMenu />
-                            <button>
-                              <CiStar />
-                              <h3>Top Skill</h3>
-                            </button>
-                            <h3>PHP</h3>
-                          </div>
-                        </div>
-                        <MdDeleteOutline className="deleteIcon" />
-                      </div>
-                      <div className="skillList">
-                        <div className="skillSet">
-                          <div className="skillbtn">
-                            <RxHamburgerMenu />
-                            <button>
-                              <CiStar />
-                              <h3>Top Skill</h3>
-                            </button>
-                            <h3>HTML</h3>
-                          </div>
-                        </div>
-                        <MdDeleteOutline className="deleteIcon" />
-                      </div>
-                      <div className="skillList">
-                        <div className="skillSet">
-                          <div className="skillbtn">
-                            <RxHamburgerMenu />
-                            <button>
-                              <CiStar />
-                              <h3>Top Skill</h3>
-                            </button>
-                            <h3>HTML</h3>
-                          </div>
-                        </div>
-                        <MdDeleteOutline className="deleteIcon" />
-                      </div>
-                      <div className="skillList">
-                        <div className="skillSet">
-                          <div className="skillbtn">
-                            <RxHamburgerMenu />
-                            <button>
-                              <CiStar />
-                              <h3>Top Skill</h3>
-                            </button>
-                            <h3>HTML</h3>
-                          </div>
-                        </div>
-                        <MdDeleteOutline className="deleteIcon" />
-                      </div>
-                      <div className="skillList">
-                        <div className="skillSet">
-                          <div className="skillbtn">
-                            <RxHamburgerMenu />
-                            <button title="">
-                              <CiStar />
-                              <h3>Top Skill</h3>
-                            </button>
-                            <h3>jQuery</h3>
-                          </div>
-                        </div>
-                        <MdDeleteOutline className="deleteIcon" />
-                      </div>
+                      {skill.length !== 0
+                        ? skill.map((data, index) => (
+                            <div className="skillList" key={index}>
+                              <div className="skillSet">
+                                <div className="skillbtn">
+                                  <RxHamburgerMenu />
+                                  <button>
+                                    <CiStar />
+                                    <h3>Top Skill</h3>
+                                  </button>
+                                  <h3>{data}</h3>
+                                </div>
+                              </div>
+                              <MdDeleteOutline
+                                className="deleteIcon cursor-pointer"
+                                onClick={() => {
+                                  getdata(data);
+                                }}
+                              />
+                            </div>
+                          ))
+                        : null}
                     </div>
                   </div>
-                </div>
+                </div> */}
+                <Dragoption skill={skill} getdata={getdata} />
                 {formdataerror.skill && (
                   <h6 className="text-red-500 text-xs font-semibold mt-2">
                     Please Enter Skills
+                  </h6>
+                )}
+                {formdataerror.skilllength && (
+                  <h6 className="text-red-500 text-xs font-semibold mt-2">
+                    Minimum 5 skills Required
                   </h6>
                 )}
               </div>
             </div>
 
             <div className="Accounts">
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <div className="addressLine">
                   <h3>LinkedIn</h3>
                 </div>
-                <input type="text" placeholder="Linkedin.com/in/yourusername" />
+                <input
+                  type="text"
+                  placeholder="Linkedin.com/in/yourusername"
+                  name="linkedin"
+                  onChange={handlechange}
+                />
                 {formdataerror.linkedin && (
                   <h6 className="text-red-500 text-xs font-semibold mt-2">
                     Please Enter LinkedIn
                   </h6>
                 )}
               </div>
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <div className="addressLine">
                   <h3>HackerRank</h3>
                   <h3>Optional</h3>
                 </div>
-                <input type="text" placeholder="Link to proifle" />
+                <input
+                  type="text"
+                  placeholder="Link to proifle"
+                  name="hackerrank"
+                  onChange={handlechange}
+                />
                 {formdataerror.hackerrank && (
                   <h6 className="text-red-500 text-xs font-semibold mt-2">
                     Please Enter HackerRank
                   </h6>
                 )}
               </div>
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <div className="addressLine">
                   <h3>GitHub</h3>
                   <h3>Optional</h3>
                 </div>
-                <input type="text" placeholder="github.com/yourusername" />
+                <input
+                  type="text"
+                  placeholder="github.com/yourusername"
+                  name="github"
+                  onChange={handlechange}
+                />
                 {formdataerror.github && (
                   <h6 className="text-red-500 text-xs font-semibold mt-2">
                     Please Enter GitHub
                   </h6>
                 )}
               </div>
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <div className="addressLine">
                   <h3>Personal Website</h3>
                   <h3>Optional</h3>
                 </div>
-                <input type="text" placeholder="http://" />
+                <input
+                  type="text"
+                  placeholder="http://"
+                  name="website"
+                  onChange={handlechange}
+                />
                 {formdataerror.website && (
                   <h6 className="text-red-500 text-xs font-semibold mt-2">
                     Please Enter Personal Website
@@ -1243,7 +1420,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
               <div className="addLanguages">
                 <h3>Languages</h3>
                 <input type="text" placeholder="e.g. Kannada" />
-                <button>+ Add more</button>
+                <button onClick={addcount}>+ Add more</button>
               </div>
               <div className="selectLanguages">
                 <h3>Proficiency</h3>
@@ -1260,12 +1437,15 @@ const [selectedvalue1, setselectedvalue1] = useState()
                 {dropDown1 && (
                   <div className="Level">
                     {dropDownOpen1.map((option, index) => (
-                      <h3 onClick={filterdata} key={index}>{option}</h3>
+                      <h3 onClick={filterdata} key={index}>
+                        {option}
+                      </h3>
                     ))}
                   </div>
                 )}
               </div>
             </div>
+            
             <div className="candidateBottom">
               <button className="Agree">
                 <input type="checkbox" />I agree to the Hirein5{" "}
@@ -1314,7 +1494,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
               </div>
               <div className="basicDetails">
                 <div className="travelDetails">
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Country</h3>
                     <p>
                       <input type="text" placeholder="Country" />
@@ -1323,12 +1503,12 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       </select>
                     </p>
                   </div>
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Year of travel</h3>
                     <input type="text" placeholder="YYYY" />
                   </div>
 
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Duration</h3>
                     <p>
                       <input type="number" placeholder="" />
@@ -1339,7 +1519,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                   </div>
                 </div>
                 <div className="travelInfo">
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Purpose</h3>
                     <p>
                       <input type="text" placeholder="Work" />
@@ -1348,11 +1528,11 @@ const [selectedvalue1, setselectedvalue1] = useState()
                       </select>
                     </p>
                   </div>
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Type of Visa</h3>
                     <input type="text" placeholder="H-1B" />
                   </div>
-                  <div className="candidateInfo">
+                  <div className="candidateInfo h-full">
                     <h3>Validity of Visa</h3>
                     <input type="text" placeholder="DD/MM/YYYY" />
                   </div>
@@ -1363,7 +1543,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
 
             <div className="travelResidence">
               <h2>RESIDENCY DETAILS</h2>
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <h3>Current place of residence</h3>
                 <p>
                   <input type="text" placeholder="Country" />
@@ -1372,7 +1552,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                   </select>
                 </p>
               </div>
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <h3>How long have you lived at your current residence?</h3>
                 <p>
                   <input type="text" placeholder="" />
@@ -1385,7 +1565,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
 
             <div className="travelResidence">
               <h2>COUNTRIES YOU'RE WILLING TO TRAVEL TO FOR WORK</h2>
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <div className="infoHead">
                   <h3>Country</h3>
                   <h3 title="">Select upto 3 countries</h3>
@@ -1397,7 +1577,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                   </select>
                 </p>
               </div>
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <h3>How long have you lived at your current residence?</h3>
                 <p>
                   <input type="text" placeholder="" />
@@ -1407,7 +1587,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                 </p>
               </div>
               <div className="travelDuration">
-                <div className="candidateInfo">
+                <div className="candidateInfo h-full">
                   <h3>Duration</h3>
                   <p>
                     <input type="number" placeholder="Short Term - 6 months" />
@@ -1416,7 +1596,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                     </select>
                   </p>
                 </div>
-                <div className="candidateInfo">
+                <div className="candidateInfo h-full">
                   <h3>Travel Readlines</h3>
                   <p>
                     <input type="text" placeholder="Immediate" />
@@ -1430,7 +1610,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
             <div className="travelBottom">
               <h2>COUNTRIES YOU'RE WILLING TO RELOCATE FOR WORK</h2>
 
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <h3>Are you willing to relocate?</h3>
                 <p>
                   <input type="text" placeholder="Yes" />
@@ -1439,7 +1619,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                   </select>
                 </p>
               </div>
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <div className="infoDetails">
                   <h3>What are your preferred countries to relocate to?</h3>
                   <h3 title="">Select up to 3 countries</h3>
@@ -1452,7 +1632,7 @@ const [selectedvalue1, setselectedvalue1] = useState()
                   </select>
                 </p>
               </div>
-              <div className="candidateInfo">
+              <div className="candidateInfo h-full">
                 <h3>How long are you willing to relocate for?</h3>
                 <p>
                   <input type="text" placeholder="Country" />
