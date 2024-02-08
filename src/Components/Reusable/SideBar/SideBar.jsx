@@ -74,6 +74,7 @@ const SideBar = (props) => {
     setIsHover2(false);
     setIsHover3(false);
     setIsHover4(false);
+    setIsHover5(false);
   };
 
   const [isHover1, setIsHover1] = useState(false);
@@ -84,6 +85,7 @@ const SideBar = (props) => {
     setIsHover2(false);
     setIsHover3(false);
     setIsHover4(false);
+    setIsHover5(false);
   };
 
   const [isHover2, setIsHover2] = useState(false);
@@ -94,6 +96,7 @@ const SideBar = (props) => {
     setIsHover2(true);
     setIsHover3(false);
     setIsHover4(false);
+    setIsHover5(false);
   };
 
   const [isHover3, setIsHover3] = useState(false);
@@ -104,6 +107,7 @@ const SideBar = (props) => {
     setIsHover2(false);
     setIsHover3(true);
     setIsHover4(false);
+    setIsHover5(false);
   };
 
   const [isHover4, setIsHover4] = useState(false);
@@ -114,6 +118,7 @@ const SideBar = (props) => {
     setIsHover2(false);
     setIsHover3(false);
     setIsHover4(true);
+    setIsHover5(false);
   };
 
   const [isHover5, setIsHover5] = useState(false);
