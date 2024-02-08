@@ -1,0 +1,131 @@
+.certificate {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 15px;
+}
+
+.certificateHeadLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.innerCertificate {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--dropBorderColor);
+}
+
+.certificateHead {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    border-bottom: 1px solid var(--dropBorderColor);
+    background-color: var(--dropColor);
+}
+
+.bottomBorder {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    background-color: var(--dropColor);
+}
+
+.certificate h1 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.certificateLeftIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.certificateLeftIconSvg {
+    margin-right: 10px;
+    height: 18px;
+}
+
+.certificateDesc {
+    width: 100%;
+    /* height: 300px; */
+    background-color: var(--white);
+    border-bottom-left-radius: 8px;
+    border-bottom-Right-radius: 8px;
+    padding: 30px;
+}
+
+.certificateDesc h1 {
+    font-size: 15px;
+    color: var(--textColor);
+    margin-bottom: 20px;
+    margin-left: 0;
+}
+
+.certificateDesc h2 {
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0.6;
+    margin-bottom: 3px;
+}
+
+.certificateDescFlex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+
+.certificateDescFlex h3 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.certificateDescFlex h4 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.certificateDescFlex p {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.2;
+    margin-left: 5px;
+
+}
+
+.certificateDesc p {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.2;
+    margin-left: 5px;
+}
+
+.certificateDescFlexLast {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+    margin-top: 30px;
+
+}
+
+.certificateDescFlexLast h4 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.certificateDescFlexLast p {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.2;
+    margin-left: 5px;
+
+}

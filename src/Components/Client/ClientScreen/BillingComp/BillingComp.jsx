@@ -96,6 +96,7 @@ const BillingComp = () => {
               fun={PageHandler}
               desc="Some caption which sets more context for this page"
               highLight=""
+              descClass="dashBoardMainHeadDescBetween"
             />
             {isPage === "billing" && (
               <DashBody

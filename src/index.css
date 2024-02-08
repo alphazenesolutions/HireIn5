@@ -35,6 +35,8 @@ code {
   --loadingIconColor: #6D28D9;
   --disableColor: #ebebeb;
   --borderColor: #dbdbdb;
+  --dropBorderColor: #E2E8F0;
+  --dropColor: #F8FAFC;
 }
 
 .sectionWidth {

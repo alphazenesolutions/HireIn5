@@ -52,6 +52,7 @@ const InterviewComp = (props) => {
           head="Interviews"
           desc="All your interviews kept in one place. If you need instant help in scheduling an interview,"
           highLight="Contact us"
+          descClass="dashBoardMainHeadDescBetween"
         />
         <h1 className="interviewHead">Upcoming interviews</h1>
         {isPage === "page1" && (

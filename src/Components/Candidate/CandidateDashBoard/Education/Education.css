@@ -1,0 +1,120 @@
+.education {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 15px;
+}
+
+.innerEducation {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--dropBorderColor);
+}
+
+.educationHeadLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.educationHead {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    border-bottom: 1px solid var(--dropBorderColor);
+    background-color: var(--dropColor);
+}
+
+.bottomBorder {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    background-color: var(--dropColor);
+}
+
+.educationHead h1 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.educationLeftIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.educationLeftIconSvg {
+    margin-right: 10px;
+    height: 18px;
+}
+
+.educationDesc {
+    width: 100%;
+    /* height: 300px; */
+    background-color: var(--white);
+    border-bottom-left-radius: 8px;
+    border-bottom-Right-radius: 8px;
+    padding: 30px;
+}
+
+.educationDesc h1 {
+    font-size: 15px;
+    color: var(--textColor);
+    margin-bottom: 20px;
+}
+
+.educationDesc h2 {
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0.6;
+    margin-bottom: 3px;
+}
+
+.educationDescFlex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+
+
+.educationDescFlex h3 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.educationDescFlex p {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.2;
+    margin-left: 5px;
+}
+
+.educationDescFlex h4 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.educationDescFlexLast {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+
+.educationDescFlexLast p {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.2;
+    margin-left: 5px;
+}
+
+.educationDescFlexLast h4 {
+    font-size: 14px;
+    font-weight: 500;
+}

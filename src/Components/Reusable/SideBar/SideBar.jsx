@@ -74,6 +74,7 @@ const SideBar = (props) => {
     setIsHover2(false);
     setIsHover3(false);
     setIsHover4(false);
+    setIsHover5(false);
   };
 
   const [isHover1, setIsHover1] = useState(false);
@@ -84,6 +85,7 @@ const SideBar = (props) => {
     setIsHover2(false);
     setIsHover3(false);
     setIsHover4(false);
+    setIsHover5(false);
   };
 
   const [isHover2, setIsHover2] = useState(false);
@@ -94,6 +96,7 @@ const SideBar = (props) => {
     setIsHover2(true);
     setIsHover3(false);
     setIsHover4(false);
+    setIsHover5(false);
   };
 
   const [isHover3, setIsHover3] = useState(false);
@@ -104,6 +107,7 @@ const SideBar = (props) => {
     setIsHover2(false);
     setIsHover3(true);
     setIsHover4(false);
+    setIsHover5(false);
   };
 
   const [isHover4, setIsHover4] = useState(false);
@@ -114,6 +118,18 @@ const SideBar = (props) => {
     setIsHover2(false);
     setIsHover3(false);
     setIsHover4(true);
+    setIsHover5(false);
+  };
+
+  const [isHover5, setIsHover5] = useState(false);
+  const HoverHandler5 = () => {
+    navigate("/profile");
+    setIsHover(false);
+    setIsHover1(false);
+    setIsHover2(false);
+    setIsHover3(false);
+    setIsHover4(false);
+    setIsHover5(true);
   };
   return (
     <div>
@@ -177,6 +193,14 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.five}</h4>
+                <p className="number">5</p>
+              </div>
+              <div
+                onClick={HoverHandler5}
+                className={isHover5 === true ? "menu1Active" : "menu1"}
+              >
+                <img className="menuImg" src={props.img1} alt="" />
+                <h4 className="menuName">{props.six}</h4>
                 <p className="number">5</p>
               </div>
             </div>

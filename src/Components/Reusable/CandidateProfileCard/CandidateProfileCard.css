@@ -6,11 +6,23 @@
     padding-top: 30px;
 }
 
+.candidateProfile1 {
+    width: 100%;
+    height: 100%;
+    /* padding-right: 100px; */
+    /* padding-top: 30px; */
+    padding-bottom: 30px;
+}
+
 .candidateBack {
     width: 20%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+}
+
+.disNone {
+    display: none;
 }
 
 .candidateBack img {

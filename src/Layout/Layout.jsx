@@ -19,6 +19,7 @@ const Layout = () => {
               three="Contracts"
               four="Billing"
               five="Help & FAQs"
+              six="profile"
             />
           </div>
           <div className="main">
