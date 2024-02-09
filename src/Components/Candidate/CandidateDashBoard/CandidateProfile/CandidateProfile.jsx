@@ -5,7 +5,6 @@ import Certificate from "../Certifications/Certificate";
 import PersonalDetails from "../PersonalDetails/PersonalDetails";
 import ProfessionalDetails from "../ProfessionalDetails/ProfessionalDetails";
 import ProjectDetails from "../ProjectDetails/ProjectDetails";
-import TravelHistory from "../TravelHistory/TravelHistory";
 import VideoResume from "../VideoResume/VideoResume";
 import WorkExperience from "../WorkExperience/WorkExperience";
 import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
@@ -43,7 +42,6 @@ const CandidateProfile = () => {
             <ProfessionalDetails />
             <ProjectDetails />
             <Certificate />
-            <TravelHistory />
             <Education />
             <VideoResume />
           </div>
