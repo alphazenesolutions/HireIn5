@@ -1,7 +1,6 @@
 import React from "react";
 import "./ProfileCard.css";
 import candidateimges from "../../../assests/table.png";
-import courseIcons from "../../../assests/userCard.png";
 import briefcase from "../../../assests/briefCase.png";
 import graduation_cap from "../../../assests/graduationCap.png";
 import user_check from "../../../assests/userCheck.png";
@@ -9,7 +8,6 @@ import location from "../../../assests/mapPin.png";
 // import BookMarkSimple from "../../../assests/colar.png";
 
 const ProfileCard = ({ filterdata, fun }) => {
-  console.log(filterdata, "filterdata");
   return (
     <div>
       <div className="clientDiscoverOuter paddingRight100">

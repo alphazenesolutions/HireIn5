@@ -12,7 +12,6 @@ import ProfileCard from "../../../Reusable/ProfileCard/ProfileCard";
 import { gsap } from "gsap";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import back from "../../../../assests/back.png";
 import CandidateProfileCard from "../../../Reusable/CandidateProfileCard/CandidateProfileCard";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -25,7 +24,6 @@ const DiscoverComp = () => {
   const [isPage, setIsPage] = useState("page1");
   const pageHandler = (event) => {
     setIsPage(event);
-    // console.log(event);
   };
   const InputHandler = async (e) => {
     if (e.target.value.length !== 0) {
@@ -55,7 +53,6 @@ const DiscoverComp = () => {
   // increment
   const totalHandler = () => {
     card += 1;
-    console.log(card);
   };
   // decrement
   const totalHandler1 = () => {
@@ -110,7 +107,6 @@ const DiscoverComp = () => {
       setalldata(newarray);
     }
   };
-  // console.log(alldata);
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">

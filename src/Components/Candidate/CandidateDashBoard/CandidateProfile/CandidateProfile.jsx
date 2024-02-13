@@ -15,7 +15,6 @@ const CandidateProfile = () => {
   const [isPage, setIsPage] = useState(false);
   const pageHandler = (event) => {
     setIsPage(!isPage);
-    console.log(isPage);
   };
   return (
     <div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -34,7 +35,7 @@ const Routing = () => {
         <Route path="/interview" element={<Interview />} />
         <Route path="/contract" element={<Contract />} />
         <Route path="/billing" element={<Billing />} />
-        <Route path="/resetpassword" element={<Resetpassword />} />
+        <Route path="/resetpassword/:hash" element={<Resetpassword />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>

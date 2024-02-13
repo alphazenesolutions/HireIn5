@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -657,7 +658,6 @@ const CandidateRegistration = () => {
           languages: false,
           skilllength: false,
         });
-        console.log(row[0].languages.length, "row[0].languages");
         if (row[0].languages.length === 0) {
           setlanuageerror(true);
           setlevelerror(false);
@@ -748,7 +748,6 @@ const CandidateRegistration = () => {
       //   .catch((err) => {
       //     return err.response.data;
       //   });
-      // console.log(update1_data, "newobj1");
       setIsPage(e.target.id);
       routeHandler();
     }
@@ -766,25 +765,21 @@ const CandidateRegistration = () => {
   const handleFileInputChange = async (e) => {
     formData.append("image", e.target.files[0]);
     formData.append("name", formtype);
-    try {
-      const response = await axios.post(
-        "https://fileserver-21t2.onrender.com/api/upload/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
-      setformdata((values) => ({
-        ...values,
-        [formtype]: response.data.img_url,
-      }));
-      fileInputRef.current.file = "";
-    } catch (error) {
-      console.error("Error sending FormData:", error);
-    }
+    setformdata((values) => ({
+      ...values,
+      [formtype]: response.data.img_url,
+    }));
+    fileInputRef.current.file = "";
   };
   const [row, setrow] = useState([{ languages: "", level: "" }]);
 
