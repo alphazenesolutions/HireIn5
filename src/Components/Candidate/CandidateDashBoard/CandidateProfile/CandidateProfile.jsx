@@ -9,6 +9,8 @@ import VideoResume from "../VideoResume/VideoResume";
 import WorkExperience from "../WorkExperience/WorkExperience";
 import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import recEye from "../../../../assests/RecEye.svg";
+import TravelHistory from "../../../Candidate/CandidateDashBoard/TravelHistory/TravelHistory";
+
 import CandidateProfileCard from "../../../Reusable/CandidateProfileCard/CandidateProfileCard";
 
 const CandidateProfile = () => {
@@ -41,6 +43,7 @@ const CandidateProfile = () => {
             <ProfessionalDetails />
             <ProjectDetails />
             <Certificate />
+            <TravelHistory />
             <Education />
             <VideoResume />
           </div>
