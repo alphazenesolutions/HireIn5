@@ -72,7 +72,7 @@ const ClientLogin = () => {
         });
       if (loginuser.access !== undefined) {
         dispatch(storeAction.tokenHandler({ token: loginuser.access }));
-        dispatch(storeAction.useridHandler({ userid: 2 }));
+        dispatch(storeAction.useridHandler({ userid: 7 }));
         dispatch(storeAction.isloginHandler({ islogin: true }));
         navigate("/dashboard");
       } else {

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -150,7 +151,8 @@ const CandidateRegistration = () => {
     "Fluent",
   ]);
   const [dropDownOpen1, setdropDownClose1] = useState(dropDownList1);
-  const [selectedvalue, setselectedvalue] = useState("");
+  const [lanuageerror, setlanuageerror] = useState(false);
+  const [levelerror, setlevelerror] = useState(false);
   const [finalerror, setfinalerror] = useState(null);
   const [finalerrorstatus, setfinalerrorstatus] = useState(false);
   const [finalerrortype, setfinalerrortype] = useState(null);
@@ -212,16 +214,16 @@ const CandidateRegistration = () => {
     state: "",
     title: "",
     aadhaar_number: "",
-    aadhaarfront: "1",
-    aadhaarback: "1",
+    aadhaarfront: "",
+    aadhaarback: "",
     pan_number: "",
-    pan_front: "1",
+    pan_front: "",
     passport_no: "",
     valid_until: "",
     country_of_citizenship: "",
     country_of_issue: "",
-    passport_front: "11",
-    passport_back: "22",
+    passport_front: "",
+    passport_back: "",
     qualification: "",
     experience: "",
     skill: "",
@@ -319,19 +321,10 @@ const CandidateRegistration = () => {
           ...values,
           address1: true,
         }));
-      } else if (formdata.address2.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          address1: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          address2: true,
-        }));
       } else if (formdata.city.length === 0) {
         setformdataerror((values) => ({
           ...values,
-          address2: false,
+          address1: false,
         }));
         setformdataerror((values) => ({
           ...values,
@@ -464,7 +457,7 @@ const CandidateRegistration = () => {
         };
         var updatedata = await axios
           .put(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`,
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}/`,
             newobj,
             {
               headers: {
@@ -479,6 +472,7 @@ const CandidateRegistration = () => {
           .catch((err) => {
             return err.response.data;
           });
+
         if (
           updatedata.message === "User and Associated Info updated successfully"
         ) {
@@ -664,40 +658,96 @@ const CandidateRegistration = () => {
           languages: false,
           skilllength: false,
         });
-        var newObj = {
-          // username: signupdata.username,
-          preference_info: {
-            qualification: formdata.qualification,
-            year_of_experience: formdata.experience,
-            skills: skill,
-            linkedin: formdata.linkedin,
-            hackerrank: formdata.hackerrank,
-            github: formdata.github,
-            personal_website: formdata.website,
-          },
-        };
-        // var update_data = await axios
-        //   .put(
-        //     `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`,
-        //     newObj,
-        //     {
-        //       headers: {
-        //         "Content-Type": "application/json",
-        //         Authorization: `JWT ${token}`,
-        //       },
-        //     }
-        //   )
-        //   .then((res) => {
-        //     return res.data;
-        //   })
-        //   .catch((err) => {
-        //     return err.response.data;
-        //   });
-        console.log(newObj, "uuuu");
+        if (row[0].languages.length === 0) {
+          setlanuageerror(true);
+          setlevelerror(false);
+        } else if (row[0].level.length === 0) {
+          setlanuageerror(false);
+          setlevelerror(true);
+        } else {
+          setlanuageerror(false);
+          setlevelerror(false);
+          const arrayOfStrings = row.map(
+            (obj) => `${obj.languages}: ${obj.level}`
+          );
+          var newObj = {
+            username: signupdata.username,
+            preference_info: {
+              qualification: formdata.qualification,
+              year_of_experience: formdata.experience,
+              skills: skill,
+              linkedin: formdata.linkedin,
+              hackerrank: formdata.hackerrank,
+              github: formdata.github,
+              personal_website: formdata.website,
+              language: arrayOfStrings,
+            },
+          };
+          var update_data = await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}/`,
+              newObj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response.data;
+            });
+          if (
+            update_data.message ===
+            "User and Associated Info updated successfully"
+          ) {
+            setIsPage(e.target.id);
+            routeHandler();
+            setfinalerrorstatus(false);
+            setfinalerror(null);
+            setfinalerrortype(null);
+            setlanuageerror(false);
+            setlevelerror(false);
+          }
+        }
       }
-      setIsPage(e.target.id);
-      routeHandler();
     } else if (isPage === "page3") {
+      // const arrayOfStrings = travelrow.map(
+      //   (obj) =>
+      //     `${obj.country}: ${obj.year_of_travel}: ${obj.duration}: ${obj.purpose}: ${obj.type_of_visa}: ${obj.validity_of_visa}`
+      // );
+      // const arrayOfStrings1 = relocate.map(
+      //   (obj) =>
+      //     `${obj.are_you_willing}: ${obj.preferred_countries}: ${obj.how_long}`
+      // );
+      // var newobj1 = {
+      //   username: signupdata.username,
+      //   travel_info: {
+      //     travelled_to: arrayOfStrings,
+      //     relocate_for_word: arrayOfStrings1,
+      //     country: "",
+      //   },
+      // };
+      // var update1_data = await axios
+      //   .put(
+      //     `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}/`,
+      //     newobj1,
+      //     {
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         Authorization: `JWT ${token}`,
+      //       },
+      //     }
+      //   )
+      //   .then((res) => {
+      //     return res.data;
+      //   })
+      //   .catch((err) => {
+      //     return err.response.data;
+      //   });
       setIsPage(e.target.id);
       routeHandler();
     }
@@ -715,28 +765,43 @@ const CandidateRegistration = () => {
   const handleFileInputChange = async (e) => {
     formData.append("image", e.target.files[0]);
     formData.append("name", formtype);
-    try {
-      const response = await axios.post(
-        "https://fileserver-21t2.onrender.com/api/upload/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
-      setformdata((values) => ({
-        ...values,
-        [formtype]: response.data.img_url,
-      }));
-      fileInputRef.current.file = "";
-    } catch (error) {
-      console.error("Error sending FormData:", error);
-    }
+    setformdata((values) => ({
+      ...values,
+      [formtype]: response.data.img_url,
+    }));
+    fileInputRef.current.file = "";
   };
   const [row, setrow] = useState([{ languages: "", level: "" }]);
-  const [travelrow, settravelrow] = useState([{ languages: "", level: "" }]);
+
+  const [travelrow, settravelrow] = useState([
+    {
+      country: "",
+      year_of_travel: "",
+      duration: "",
+      purpose: "",
+      type_of_visa: "",
+      validity_of_visa: "",
+    },
+  ]);
+
+  const [relocate, setrelocate] = useState([
+    {
+      are_you_willing: "",
+      preferred_countries: "",
+      how_long: "",
+    },
+  ]);
+
   const addcount = () => {
     var newobj = {
       languages: "",
@@ -744,11 +809,43 @@ const CandidateRegistration = () => {
     };
     setrow((prevState) => [...prevState, newobj]);
   };
+
+  const addcounttravel = () => {
+    var newobj = {
+      country: "",
+      year_of_travel: "",
+      duration: "",
+      purpose: "",
+      type_of_visa: "",
+      validity_of_visa: "",
+    };
+    settravelrow((prevState) => [...prevState, newobj]);
+  };
+
+  const addcountrelocate = () => {
+    var newobj = {
+      are_you_willing: "",
+      preferred_countries: "",
+      how_long: "",
+    };
+    setrelocate((prevState) => [...prevState, newobj]);
+  };
+
   const get_value = (e, index) => {
     row[index]["languages"] = e;
     setrow([...row]);
   };
-  console.log(row, "row");
+
+  const handlechangetravel = (value, index, name) => {
+    travelrow[index][name] = value;
+    settravelrow([...travelrow]);
+  };
+
+  const handlechangerelocate = (value, index, name) => {
+    relocate[index][name] = value;
+    setrelocate([...relocate]);
+  };
+
   return (
     <>
       <div className="candidateRegistration">
@@ -878,11 +975,6 @@ const CandidateRegistration = () => {
                       onChange={handlechange}
                       defaultValue={formdata.address2}
                     />
-                    {formdataerror.address2 && (
-                      <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter Address line 2
-                      </h6>
-                    )}
                   </div>
                 </div>
                 <div className="candidateAddress">
@@ -1479,6 +1571,17 @@ const CandidateRegistration = () => {
                   ))
                 : null}
 
+              {lanuageerror && (
+                <h6 className="text-red-500 text-xs font-semibold mt-2">
+                  Please Enter Languages
+                </h6>
+              )}
+              {levelerror && (
+                <h6 className="text-red-500 text-xs font-semibold mt-2">
+                  Please Enter Proficiency
+                </h6>
+              )}
+
               <button className="addLanguagesButton" onClick={addcount}>
                 + Add more
               </button>
@@ -1531,52 +1634,126 @@ const CandidateRegistration = () => {
                 <h1>Share your Travel History</h1>
               </div>
               <div className="basicDetails">
-                <div className="travelDetails">
-                  <div className="candidateInfo h-full">
-                    <h3>Country</h3>
-                    <p>
-                      <input type="text" placeholder="Country" />
-                      <select name="" id="">
-                        <option value=""></option>
-                      </select>
-                    </p>
-                  </div>
-                  <div className="candidateInfo h-full">
-                    <h3>Year of travel</h3>
-                    <input type="text" placeholder="YYYY" />
-                  </div>
+                {travelrow.length !== 0
+                  ? travelrow.map((data, index) => (
+                      <div key={index}>
+                        <div className="travelDetails">
+                          <div className="candidateInfo h-full">
+                            <h3>Country</h3>
+                            <div className="candidateState">
+                              <select
+                                id=""
+                                name="country"
+                                onChange={(e) => {
+                                  handlechangetravel(
+                                    e.target.value,
+                                    index,
+                                    "country"
+                                  );
+                                }}
+                                defaultValue={data.country}
+                              >
+                                <option value="">Select Country</option>
+                                <option value="India">India</option>
+                              </select>
+                            </div>
+                            {formdataerror.state && (
+                              <h6 className="text-red-500 text-xs font-semibold mt-2">
+                                Please Select State
+                              </h6>
+                            )}
+                          </div>
+                          <div className="candidateInfo h-full">
+                            <h3>Year of travel</h3>
+                            <input
+                              type="text"
+                              placeholder="YYYY"
+                              onChange={(e) => {
+                                handlechangetravel(
+                                  e.target.value,
+                                  index,
+                                  "year_of_travel"
+                                );
+                              }}
+                              defaultValue={data.year_of_travel}
+                            />
+                          </div>
 
-                  <div className="candidateInfo h-full">
-                    <h3>Duration</h3>
-                    <p>
-                      <input type="number" placeholder="" />
-                      <select name="" id="">
-                        <option value=""></option>
-                      </select>
-                    </p>
-                  </div>
-                </div>
-                <div className="travelInfo">
-                  <div className="candidateInfo h-full">
-                    <h3>Purpose</h3>
-                    <p>
-                      <input type="text" placeholder="Work" />
-                      <select name="" id="">
-                        <option value=""></option>
-                      </select>
-                    </p>
-                  </div>
-                  <div className="candidateInfo h-full">
-                    <h3>Type of Visa</h3>
-                    <input type="text" placeholder="H-1B" />
-                  </div>
-                  <div className="candidateInfo h-full">
-                    <h3>Validity of Visa</h3>
-                    <input type="text" placeholder="DD/MM/YYYY" />
-                  </div>
-                </div>
-                
-                <button className="travelInfoButton">+ Add more</button>
+                          <div className="candidateInfo h-full">
+                            <h3>Duration</h3>
+                            <p>
+                              <input
+                                type="number"
+                                placeholder=""
+                                onChange={(e) => {
+                                  handlechangetravel(
+                                    e.target.value,
+                                    index,
+                                    "duration"
+                                  );
+                                }}
+                                defaultValue={data.duration}
+                              />
+                            </p>
+                          </div>
+                        </div>
+                        <div className="travelInfo">
+                          <div className="candidateInfo h-full">
+                            <h3>Purpose</h3>
+                            <p>
+                              <input
+                                type="text"
+                                placeholder="Work"
+                                onChange={(e) => {
+                                  handlechangetravel(
+                                    e.target.value,
+                                    index,
+                                    "purpose"
+                                  );
+                                }}
+                                defaultValue={data.purpose}
+                              />
+                            </p>
+                          </div>
+                          <div className="candidateInfo h-full">
+                            <h3>Type of Visa</h3>
+                            <input
+                              type="text"
+                              placeholder="H-1B"
+                              onChange={(e) => {
+                                handlechangetravel(
+                                  e.target.value,
+                                  index,
+                                  "type_of_visa"
+                                );
+                              }}
+                              defaultValue={data.type_of_visa}
+                            />
+                          </div>
+                          <div className="candidateInfo h-full">
+                            <h3>Validity of Visa</h3>
+                            <input
+                              type="date"
+                              placeholder="DD/MM/YYYY"
+                              onChange={(e) => {
+                                handlechangetravel(
+                                  e.target.value,
+                                  index,
+                                  "validity_of_visa"
+                                );
+                              }}
+                              defaultValue={data.validity_of_visa}
+                            />
+                          </div>
+                        </div>
+                        <hr className="border border-gray-400 my-5" />
+                      </div>
+                    ))
+                  : null}
+
+                <button className="travelInfoButton" onClick={addcounttravel}>
+                  + Add more
+                </button>
               </div>
             </div>
 
@@ -1648,40 +1825,75 @@ const CandidateRegistration = () => {
             </div>
             <div className="travelBottom">
               <h2>COUNTRIES YOU'RE WILLING TO RELOCATE FOR WORK</h2>
-
-              <div className="candidateInfo h-full">
-                <h3>Are you willing to relocate?</h3>
-                <p>
-                  <input type="text" placeholder="Yes" />
-                  <select name="" id="">
-                    <option value=""></option>
-                  </select>
-                </p>
-              </div>
-              <div className="candidateInfo h-full">
-                <div className="infoDetails">
-                  <h3>What are your preferred countries to relocate to?</h3>
-                  <h3 title="">Select up to 3 countries</h3>
+              {relocate.map((data, index) => (
+                <div key={index}>
+                  <div className="candidateInfo h-full">
+                    <h3>Are you willing to relocate?</h3>
+                    <p>
+                      <input
+                        type="text"
+                        placeholder="Yes"
+                        onChange={(e) => {
+                          handlechangerelocate(
+                            e.target.value,
+                            index,
+                            "are_you_willing"
+                          );
+                        }}
+                        defaultValue={relocate.are_you_willing}
+                      />
+                      {/* <select name="" id="">
+                        <option value=""></option>
+                      </select> */}
+                    </p>
+                  </div>
+                  <div className="candidateInfo h-full">
+                    <div className="infoDetails">
+                      <h3>What are your preferred countries to relocate to?</h3>
+                      <h3 title="">Select up to 3 countries</h3>
+                    </div>
+                    <p>
+                      <input
+                        type="text"
+                        placeholder=""
+                        onChange={(e) => {
+                          handlechangerelocate(
+                            e.target.value,
+                            index,
+                            "preferred_countries"
+                          );
+                        }}
+                        defaultValue={relocate.preferred_countries}
+                      />
+                    </p>
+                  </div>
+                  <div className="candidateInfo h-full">
+                    <h3>How long are you willing to relocate for?</h3>
+                    <p>
+                      <input
+                        type="text"
+                        placeholder="Country"
+                        onChange={(e) => {
+                          handlechangerelocate(
+                            e.target.value,
+                            index,
+                            "how_long"
+                          );
+                        }}
+                        defaultValue={relocate.how_long}
+                      />
+                      <select name="" id="">
+                        <option value=""></option>
+                      </select>
+                    </p>
+                  </div>
+                  <hr className="border border-gray-400 mt-5" />
                 </div>
+              ))}
 
-                <p>
-                  <input type="text" placeholder="" />
-                  <select name="" id="">
-                    <option value=""></option>
-                  </select>
-                </p>
-              </div>
-              <div className="candidateInfo h-full">
-                <h3>How long are you willing to relocate for?</h3>
-                <p>
-                  <input type="text" placeholder="Country" />
-                  <select name="" id="">
-                    <option value=""></option>
-                  </select>
-                </p>
-              </div>
-
-              <button className="travelBottomButton ">+ Add more</button>
+              <button className="travelBottomButton" onClick={addcountrelocate}>
+                + Add more
+              </button>
             </div>
 
             <div className="Bottombtns">
