@@ -4,11 +4,22 @@ import user from "../../../../assests/User.svg";
 import dropDown from "../../../../assests/arrowDown.svg";
 import edit from "../../../../assests/edit.svg";
 import dropUp from "../../../../assests/arrowUp.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { storeAction } from "../../../../Store/Store";
 
 const PersonalDetails = () => {
+  const dispatch = useDispatch();
   const [isArrow, setIsArrow] = useState(false);
   const dropDownhandler = () => {
     setIsArrow(!isArrow);
+  };
+
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+
+  const overLayHandler = () => {
+    dispatch(storeAction.isPopUpHander());
   };
   return (
     <div>
@@ -24,7 +35,12 @@ const PersonalDetails = () => {
               <h1>Personal Details</h1>
             </div>
             <div className="personalDetailsLeftIcon">
-              <img className="personalDetailsLeftIconSvg" src={edit} alt="" />
+              <img
+                className="personalDetailsLeftIconSvg"
+                onClick={overLayHandler}
+                src={edit}
+                alt=""
+              />
               {isArrow === true ? (
                 <img onClick={dropDownhandler} src={dropUp} alt="" />
               ) : (
@@ -67,6 +83,7 @@ const PersonalDetails = () => {
               </div>
             </div>
           )}
+          {/* {isPopUp && } */}
         </div>
       </div>
     </div>
