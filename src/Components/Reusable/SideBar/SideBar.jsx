@@ -31,27 +31,27 @@ const SideBar = (props) => {
   }, [token, userid]);
   const getUserinfo = useCallback(async () => {
     if (token !== null && userid !== null) {
-      var userinfo = await axios
-        .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
-        })
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response.data;
-        });
-      if (userinfo.id !== undefined) {
-        setusername(userinfo.first_name);
-      } else {
-        dispatch(storeAction.isloginHandler({ islogin: false }));
-        dispatch(storeAction.tokenHandler({ token: null }));
-        dispatch(storeAction.useridHandler({ userid: 5 }));
-        window.location.replace("/login");
-      }
+      // var userinfo = await axios
+      //   .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`, {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `JWT ${token}`,
+      //     },
+      //   })
+      //   .then((res) => {
+      //     return res.data;
+      //   })
+      //   .catch((err) => {
+      //     return err.response.data;
+      //   });
+      // if (userinfo.id !== undefined) {
+      //   setusername(userinfo.first_name);
+      // } else {
+      //   dispatch(storeAction.isloginHandler({ islogin: false }));
+      //   dispatch(storeAction.tokenHandler({ token: null }));
+      //   dispatch(storeAction.useridHandler({ userid: 5 }));
+      //   window.location.replace("/login");
+      // }
     } else {
       dispatch(storeAction.isloginHandler({ islogin: false }));
       dispatch(storeAction.tokenHandler({ token: null }));
