@@ -112,3 +112,45 @@
     font-size: 14px;
     padding-left: 20px;
 }
+
+/* overlay */
+.vedioOverlay {
+    width: 65%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.vedioResumeButtons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 30px;
+    padding-top: 5px;
+}
+
+.discard {
+    padding: 10px 30px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+
+}
+
+.save {
+    padding: 10px 30px;
+    border-radius: 8px;
+    color: var(--white);
+    border: 1px solid var(--borderColor);
+    background-color: var(--primaryColor);
+    margin-left: 20px;
+}
