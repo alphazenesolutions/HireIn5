@@ -128,3 +128,19 @@
     color: var(--textColorDark);
     margin-bottom: 20px;
 }
+
+/* overlay */
+.personalOverlay {
+    width: 65%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
