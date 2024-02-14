@@ -16,11 +16,12 @@ const VideoResume = () => {
   };
 
   const isPopUp = useSelector((store) => {
-    return store.isPopUp;
+    return store.isPopUp1;
   });
 
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander());
+    dispatch(storeAction.isPopUpHander1());
   };
   return (
     <div>
