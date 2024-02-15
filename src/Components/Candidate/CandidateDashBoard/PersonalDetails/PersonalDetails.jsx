@@ -84,7 +84,92 @@ const PersonalDetails = () => {
             </div>
           )}
           {isPopUp == "personal" && (
-            <div className="personalOverlay">helllo</div>
+            <div className="personalOverlay">
+              <div className="innerPersonalDetails">
+                <div
+                  className={
+                    isArrow === true ? "personalDetailsHead" : "bottomBorder"
+                  }
+                >
+                  <div className="personalDetailsHeadLeft">
+                    <img src={user} alt="" />
+                    <h1>Personal Details</h1>
+                  </div>
+                  <div className="personalDetailsLeftIcon">
+                    <img
+                      className="personalDetailsLeftIconSvg"
+                      onClick={overLayHandler}
+                      src={edit}
+                      alt=""
+                    />
+                    {isArrow === true ? (
+                      <img onClick={dropDownhandler} src={dropUp} alt="" />
+                    ) : (
+                      <img onClick={dropDownhandler} src={dropDown} alt="" />
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="updatePersonalDetails">
+                <h1>Tell us about yourself</h1>
+                <div className="updatePersonalDetailsFlex">
+                  <div className="updatePersonalDetailsLeft">
+                    <h2>Name</h2>
+                    <input placeholder="Yasir Quazi" type="text" />
+                    <h2>Date of Birth</h2>
+                    <input className="31 / 05 / 1991" type="date" />
+                    <h2>Phone Number</h2>
+                    <div className="personalDetailNumber">
+                      <select name="" id="">
+                        <option value="">IN</option>
+                      </select>
+                      <input placeholder="9876543210" type="number" />
+                    </div>
+                    <h2>AADHAAR / Govt. Issued ID</h2>
+                    <input
+                      className="inputColor"
+                      placeholder="48XX XXXX XX21"
+                      type="text"
+                    />
+                    <h2>PAN Card / Govt. Issued TAX ID</h2>
+                    <input
+                      className="inputColor"
+                      placeholder="48XX XXXX XX21"
+                      type="text"
+                    />
+                  </div>
+                  <div className="updatePersonalDetailsRight">
+                    <h2>Email ID</h2>
+                    <input placeholder="yasirquazi2000@gmail.com" type="text" />
+                    <h2>Current Residential Address</h2>
+                    <input
+                      placeholder="Lorem ipsum dolor sit amet, Richmond Road"
+                      type="date"
+                    />
+                    <div className="candidateAddressPersonal">
+                      <div className="city">
+                        <h2>City</h2>
+                        <input placeholder="Bengaluru" type="number" />
+                      </div>
+                      <div className="state">
+                        <h2>State</h2>
+                        <select name="" id="">
+                          <option value="">TamilNadu</option>
+                        </select>
+                      </div>
+                    </div>
+                    <h2>PINCODE</h2>
+                    <input placeholder="560005" type="number" />
+                    <h2>Country</h2>
+                    <input placeholder="India" type="text" />
+                  </div>
+                </div>
+              </div>
+              <div className="vedioResumeButtons">
+                <button className="discard">Discard Changes</button>
+                <button className="save">Save & Close</button>
+              </div>
+            </div>
           )}
         </div>
       </div>

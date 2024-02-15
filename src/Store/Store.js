@@ -37,12 +37,6 @@ const StoreSlice = createSlice({
     bookmarkdataHander(state, action) {
       state.bookmarkdata = action.payload.bookmarkdata;
     },
-    // isPopUpHander1(state) {
-    //   state.isPopUp1 = !state.isPopUp1;
-    // },
-    // isPopUpHander2(state) {
-    //   state.isPopUp2 = !state.isPopUp2;
-    // },
   },
 });
 
