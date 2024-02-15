@@ -16,12 +16,11 @@ const VideoResume = () => {
   };
 
   const isPopUp = useSelector((store) => {
-    return store.isPopUp1;
+    return store.isPopUp;
   });
 
   const overLayHandler = () => {
-    dispatch(storeAction.isPopUpHander());
-    dispatch(storeAction.isPopUpHander1());
+    dispatch(storeAction.isPopUpHander("video"));
   };
   return (
     <div>
@@ -85,7 +84,7 @@ const VideoResume = () => {
             </div>
           )}
 
-          {isPopUp && (
+          {isPopUp == "video" && (
             <div className="vedioOverlay">
               <div className="innerVideoResume">
                 <div
