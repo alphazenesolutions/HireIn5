@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "./RegistrationComp.css";
 import Head from "../../../Reusable/LogoHead/Head";
@@ -22,9 +23,6 @@ const RegistrationComp = () => {
   };
 
   const [isButton2, setIsButton2] = useState(false);
-  const buttonHandler2 = () => {
-    setIsButton2(true);
-  };
   const buttonHandlernew = () => {
     setIsButton(false);
   };
@@ -88,7 +86,6 @@ const RegistrationComp = () => {
   const [lookingdataerror, setlookingdataerror] = useState(false);
   const [durationdataerror, setdurationdataerror] = useState(false);
   const [agreedataerror, setagreedataerror] = useState(false);
-  const [notesdataerror, setnotesdataerror] = useState(false);
 
   const handlechange = (e) => {
     const { name, value } = e.target;
@@ -176,7 +173,7 @@ const RegistrationComp = () => {
           };
           var updatedata = await axios
             .put(
-              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`,
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
               new_obj,
               {
                 headers: {
@@ -187,10 +184,13 @@ const RegistrationComp = () => {
             )
             .then((res) => {
               return res.data;
+            })
+            .catch((err) => {
+              return err;
             });
           if (
             updatedata.message ===
-            "User and Associated CompanyInfo updated successfully"
+            "User and Associated Info updated successfully"
           ) {
             setIsPage(event.target.id);
           }
@@ -310,7 +310,7 @@ const RegistrationComp = () => {
         };
         var updatedatabilling = await axios
           .put(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`,
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
             new_obj1,
             {
               headers: {
@@ -324,7 +324,7 @@ const RegistrationComp = () => {
           });
         if (
           updatedatabilling.message ===
-          "User and Associated CompanyInfo updated successfully"
+          "User and Associated Info updated successfully"
         ) {
           setIsPage(event.target.id);
         }

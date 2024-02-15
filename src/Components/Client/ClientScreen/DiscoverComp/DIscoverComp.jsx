@@ -13,17 +13,53 @@ import { gsap } from "gsap";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import CandidateProfileCard from "../../../Reusable/CandidateProfileCard/CandidateProfileCard";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useDispatch } from "react-redux";
+import { storeAction } from "../../../../Store/Store";
+import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
+import glasses from "../../../../assests/glasses.png";
 
 const DiscoverComp = () => {
+  const dispatch = useDispatch();
   const token = useSelector((store) => store.token);
+  const userid = useSelector((store) => store.userid);
   const [isInput, setIsInput] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
   const [alldata, setalldata] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
+  const [searchuser, setsearchuser] = useState([]);
   const [isPage, setIsPage] = useState("page1");
-  const pageHandler = (event) => {
-    setIsPage(event);
+
+  const pageHandler = async (event, id) => {
+    if (event === "page2") {
+      setIsPage(event);
+      let data = JSON.stringify({
+        new_entry: id.toString(),
+      });
+      let config = {
+        method: "put",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/user/recentlyvisited/${userid}`,
+        headers: {
+          Authorization: `JWT ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      await axios
+        .request(config)
+        .then((response) => {
+          return response;
+        })
+        .catch((error) => {
+          return error;
+        });
+    } else if (event === "page1") {
+      setIsInput(false);
+      setIsDisable(false);
+      setIsPage(event);
+    } else {
+      setIsPage(event);
+    }
   };
   const InputHandler = async (e) => {
     if (e.target.value.length !== 0) {
@@ -76,6 +112,9 @@ const DiscoverComp = () => {
   useEffect(() => {
     getAlldata();
   }, []);
+  useEffect(() => {
+    getSearchuser();
+  }, [isPage]);
 
   const getAlldata = async () => {
     var allfacility = await axios
@@ -106,6 +145,103 @@ const DiscoverComp = () => {
       }
       setalldata(newarray);
     }
+
+    var config1 = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    };
+    var tabledata = await axios(config1)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        return error;
+      });
+    if (tabledata.length !== 0) {
+      const bookmarkedUserArray = tabledata.map((item) => item.bookmarked_user);
+      setnewstate(bookmarkedUserArray);
+      dispatch(
+        storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
+      );
+    }
+  };
+  const getSearchuser = async () => {
+    var allsearchfacility = await axios
+      .get(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/recentlyvisited/${userid}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (allsearchfacility.recently_visited.length !== 0) {
+      var unique = allsearchfacility.recently_visited.filter(
+        (value, index, array) => array.indexOf(value) === index
+      );
+      let data = JSON.stringify({
+        users_list: unique,
+      });
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}`,
+        headers: {
+          Authorization: `JWT ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      var alluserdata = await axios
+        .request(config)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error;
+        });
+      setsearchuser(alluserdata);
+    }
+  };
+
+  const [newstate, setnewstate] = useState([]);
+  const addbookmark = async (id) => {
+    var newarray = [...newstate, id];
+    setnewstate(newarray);
+    let data = JSON.stringify({
+      user: userid.toString(),
+      bookmarked_user: id.toString(),
+    });
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `https://hirein5-server.onrender.com/bookmark/`,
+      headers: {
+        Authorization: `JWT ${token}`,
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    await axios
+      .request(config)
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        return error;
+      });
+    dispatch(storeAction.bookmarkdataHander({ bookmarkdata: newarray }));
   };
   return (
     <div>
@@ -124,42 +260,45 @@ const DiscoverComp = () => {
             />
             {isInput === false ? (
               <div>
-                <div className="recentHead paddingRight100">
-                  <div className="recentHeadLeft">
-                    <h1>Recent Searches</h1>
-                    <button
-                      disabled={isDisable === true ? true : false}
-                      onClick={gsapHandlerReverse}
-                    >
-                      <img src={recentLeft} alt="" />
-                    </button>
-                    <button onClick={gsapHandler}>
-                      <img src={recentRight} alt="" />
-                    </button>
+                {searchuser.length !== 0 ? (
+                  <div className="recentHead paddingRight100">
+                    <div className="recentHeadLeft">
+                      <h1>Recent Searches</h1>
+                      <button
+                        disabled={isDisable === true ? true : false}
+                        onClick={gsapHandlerReverse}
+                      >
+                        <img src={recentLeft} alt="" />
+                      </button>
+                      <button onClick={gsapHandler}>
+                        <img src={recentRight} alt="" />
+                      </button>
+                    </div>
+                    <div className="recentHeadRight">
+                      <h2>Clear All</h2>
+                    </div>
                   </div>
-                  <div className="recentHeadRight">
-                    <h2>Clear All</h2>
-                  </div>
-                </div>
+                ) : (
+                  <DashBody
+                    Img={glasses}
+                    head="Begin your search to Hire in 5"
+                    desc="Find the right candidates, shortlist and schedule an interview with them here."
+                    button=""
+                    fun=""
+                  />
+                )}
+
                 <div className="recent ">
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
+                  {searchuser.length !== 0
+                    ? searchuser.map((datanew, index1) => (
+                        <div className="recentWrap" key={index1}>
+                          <SearchProfileCard
+                            datanew={datanew}
+                            addbookmark={addbookmark}
+                          />
+                        </div>
+                      ))
+                    : null}
                 </div>
                 <Table class="tableOne paddingRight100" />
               </div>
