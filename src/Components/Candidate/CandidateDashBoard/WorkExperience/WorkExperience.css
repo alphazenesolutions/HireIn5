@@ -67,3 +67,45 @@
     border-bottom-Right-radius: 8px;
     padding: 30px;
 }
+
+/* overlay */
+.workExperinceOverlay {
+    width: 65%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.workExperinceOverlay h6 {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 30px;
+    opacity: 0.5;
+    padding-bottom: 0px
+}
+
+.workExperinceOverlayFlex {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.workExperinceOverlayLeft {
+    width: 48%;
+    margin-right: 2%;
+    height: 300px;
+}
+
+.workExperinceOverlayRight {
+    width: 48%;
+    margin-left: 2%;
+    height: 300px;
+}

@@ -193,3 +193,279 @@
     font-weight: 500;
     opacity: 0.5;
 }
+
+/* overlay */
+.travelHistoryDescOverlay {
+    width: 65%;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.travelHistoryDescOverlayInner {
+    padding: 20px;
+}
+
+.travelHistoryDescOverlay h6 {
+    font-size: 14px;
+    opacity: 0.5;
+
+}
+
+.travelHistoryDescOverlayh6 {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 30px;
+    opacity: 0.5;
+    padding-bottom: 0%;
+
+}
+
+.travelRadio {
+    padding: 20px;
+    padding-bottom: 0px;
+
+}
+
+.travelRadioOne {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+
+}
+
+.travelRadioOneDesc h3 {
+    font-size: 15px;
+    font-weight: 600;
+
+}
+
+.travelRadioOneDesc p {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.4;
+}
+
+.travelRadioOne input {
+    margin-top: 5px;
+}
+
+.travelRadioOneDesc {
+    margin-left: 15px;
+}
+
+.travelRadio h6 {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.5;
+    margin-bottom: 15px;
+}
+
+.travelUpdate {
+    width: 100%;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.travelUpdateFlex {
+    display: flex;
+
+}
+
+.travelUpdateFlexLeft {
+    width: 31%;
+    margin-right: 3%;
+}
+
+.travelUpdateFlexCenter {
+    width: 31%;
+    margin-right: 3%;
+}
+
+.travelUpdateFlexRight {
+    width: 32%;
+}
+
+.travelUpdateFlexLeft h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.travelUpdateFlexLeft select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.travelUpdateFlexCenter h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.travelUpdateFlexCenter input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.travelUpdateFlexRight h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.travelUpdateFlexRight input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.travelUpdateFlexRight select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.travelUpdate button {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid var(--borderColor);
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+/* wiling */
+
+.willingTravel {
+    padding: 20px;
+    padding-top: 0%;
+}
+
+.willingTravelInner {
+    padding: 20px;
+    width: 100%;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+}
+
+.willingFlex {
+    display: flex;
+    align-items: flex-start;
+}
+
+.willingFlexLeft {
+    width: 50%;
+    margin-right: 2%;
+}
+
+.willingFlexRight {
+    width: 50%;
+    margin-left: 2%;
+}
+
+.willingFlexLeft h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.willingFlexLeft select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.willingFlexRight h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.willingFlexRight select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.upto {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.upto h3 {
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.5;
+}
+
+/* residency  */
+.HistoryOfTravel {
+    padding: 20px;
+    padding-bottom: 0px;
+}
+
+.residency {
+    padding: 15px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+}
+
+.residencyInner {
+    width: 100%;
+}
+
+.residencyInner h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.residencyInner input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.residencyInner select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.HistoryOfTravelH1 {
+    font-size: 16px;
+    font-weight: 600;
+    opacity: 0.5;
+    margin-bottom: 15px;
+}
