@@ -15,12 +15,11 @@ const PersonalDetails = () => {
   };
 
   const isPopUp = useSelector((store) => {
-    return store.isPopUp2;
+    return store.isPopUp;
   });
 
   const overLayHandler = () => {
-    dispatch(storeAction.isPopUpHander());
-    dispatch(storeAction.isPopUpHander2());
+    dispatch(storeAction.isPopUpHander("personal"));
   };
   return (
     <div>
@@ -84,7 +83,9 @@ const PersonalDetails = () => {
               </div>
             </div>
           )}
-          {isPopUp && <div className="personalOverlay">helllo</div>}
+          {isPopUp == "personal" && (
+            <div className="personalOverlay">helllo</div>
+          )}
         </div>
       </div>
     </div>

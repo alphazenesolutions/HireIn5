@@ -25,7 +25,9 @@ function App() {
           </PersistGate>
         </Router>
       </div>
-      {isPopUp && <div onClick={CloseOverlay} id="overlay"></div>}
+      {isPopUp == "video" || isPopUp == "personal" ? (
+        <div onClick={CloseOverlay} id="overlay"></div>
+      ) : null}
     </>
   );
 }
