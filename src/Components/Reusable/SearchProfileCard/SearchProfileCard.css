@@ -166,7 +166,8 @@
     padding: 10px;
     border-radius: 7px;
     border: 1px solid var(--borderColor);
-
+    cursor: pointer;
+    margin-top: 10px;
 }
 
 .cartbtnimgbutton1 {

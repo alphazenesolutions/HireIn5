@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SearchProfileCard.css";
 import candidateimges from "../../../assests/table.png";
 import courseIcons from "../../../assests/userCard.png";
@@ -7,8 +7,9 @@ import graduation_cap from "../../../assests/graduationCap.png";
 import user_check from "../../../assests/userCheck.png";
 import location from "../../../assests/mapPin.png";
 import BookMarkSimple from "../../../assests/colar.png";
+import Bookmarkwhite from "../../../assests/BookmarkSimplewhite.png";
 
-const SearchProfileCard = () => {
+const SearchProfileCard = ({ datanew, addbookmark }) => {
   return (
     <div>
       <div className="clientInterview">
@@ -21,8 +22,8 @@ const SearchProfileCard = () => {
                     <img src={candidateimges} alt="" />
                   </div>
                   <div className="candidateCartName">
-                    <h3>Surya Narreddi</h3>
-                    <h5>Java Developer</h5>
+                    <h3>{datanew.first_name}</h3>
+                    <h5>{datanew.title}</h5>
                   </div>
                 </div>
                 <div className="candidateHours">
@@ -75,7 +76,13 @@ const SearchProfileCard = () => {
               </div>
               <div className="candidateCartButton">
                 <div className="cartbtnimg">
-                  <img src={BookMarkSimple} alt="" />
+                  <img
+                    src={Bookmarkwhite}
+                    alt=""
+                    onClick={() => {
+                      addbookmark(datanew.id, datanew);
+                    }}
+                  />
                   <button className="cartbtnimgbutton1">
                     Reserve candidate
                   </button>

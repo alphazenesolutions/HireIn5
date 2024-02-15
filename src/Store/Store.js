@@ -13,6 +13,7 @@ const StoreSlice = createSlice({
     userid: null,
     islogin: false,
     isPopUp: null,
+    bookmarkdata: [],
   },
   reducers: {
     roleHandler(state, payload) {
@@ -32,6 +33,9 @@ const StoreSlice = createSlice({
     },
     isPopUpHander(state, action) {
       state.isPopUp = action.payload;
+    },
+    bookmarkdataHander(state, action) {
+      state.bookmarkdata = action.payload.bookmarkdata;
     },
     // isPopUpHander1(state) {
     //   state.isPopUp1 = !state.isPopUp1;

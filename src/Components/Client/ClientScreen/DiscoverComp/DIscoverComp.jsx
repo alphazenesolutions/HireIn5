@@ -13,17 +13,47 @@ import { gsap } from "gsap";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import CandidateProfileCard from "../../../Reusable/CandidateProfileCard/CandidateProfileCard";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useDispatch } from "react-redux";
+import { storeAction } from "../../../../Store/Store";
 
 const DiscoverComp = () => {
+  const dispatch = useDispatch();
   const token = useSelector((store) => store.token);
+  const userid = useSelector((store) => store.userid);
   const [isInput, setIsInput] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
   const [alldata, setalldata] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
+  const [searchuser, setsearchuser] = useState([]);
   const [isPage, setIsPage] = useState("page1");
-  const pageHandler = (event) => {
-    setIsPage(event);
+
+  const pageHandler = async (event, id) => {
+    if (event === "page2") {
+      let data = JSON.stringify({
+        new_entry: id.toString(),
+      });
+      let config = {
+        method: "put",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/user/recentlyvisited/${userid}`,
+        headers: {
+          Authorization: `JWT ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      await axios
+        .request(config)
+        .then((response) => {
+          return response;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      setIsPage(event);
+    } else {
+      setIsPage(event);
+    }
   };
   const InputHandler = async (e) => {
     if (e.target.value.length !== 0) {
@@ -75,6 +105,7 @@ const DiscoverComp = () => {
 
   useEffect(() => {
     getAlldata();
+    getSearchuser();
   }, []);
 
   const getAlldata = async () => {
@@ -106,6 +137,119 @@ const DiscoverComp = () => {
       }
       setalldata(newarray);
     }
+  };
+  const getSearchuser = async () => {
+    var allsearchfacility = await axios
+      .get(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/recentlyvisited/${userid}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (allsearchfacility.recently_visited.length !== 0) {
+      var unique = allsearchfacility.recently_visited.filter(
+        (value, index, array) => array.indexOf(value) === index
+      );
+      // let data = JSON.stringify({
+      //   users_list: unique,
+      // });
+
+      // let config = {
+      //   method: "get",
+      //   maxBodyLength: Infinity,
+      //   url: "https://hirein5-server.onrender.com/getUsersInformation/5",
+      //   headers: {
+      //     Authorization:
+      //       "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3OTgyMzQ5LCJpYXQiOjE3MDc5Nzg3NDksImp0aSI6ImVmOTZhNTdiZjZhNDRkODdhMmJiOGJkMjk2YjJiOTA5IiwidXNlcl9pZCI6NSwiZmlyc3RfbmFtZSI6IkRpbmVzaCBLdW1hciIsImVtYWlsIjoiZGtAZ21haWwuY29tIiwicGhvbmUiOiIxMjM0NTY3ODkwIiwidGl0bGUiOiJNYW5hZ2VyIiwibGlua2VkX2luIjoibGlua2VkaW4uY29tL2pvaG5kb2UiLCJyb2xlIjoiMyJ9.80cwUYD3rhmtg9JoqXFupmiSGK0UbsbB4pTVukXBun0",
+      //     "Content-Type": "application/json",
+      //   },
+      //   data: data,
+      // };
+
+      // axios
+      //   .request(config)
+      //   .then((response) => {
+      //     console.log(response);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+      var searchuser = [];
+      for (var i = 0; i < unique.length; i++) {
+        var userinfo = await axios
+          .get(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${unique[i]}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response.data;
+          });
+        searchuser.push(userinfo);
+      }
+      setsearchuser(searchuser);
+    }
+  };
+
+  const [newstate, setnewstate] = useState([]);
+  const addbookmark = async (id, datanew) => {
+    // var newarray = [...newstate, datanew];
+    // setnewstate(newarray);
+    // dispatch(storeAction.bookmarkdataHander({ bookmarkdata: newarray }));
+    // let data = JSON.stringify({
+    //   user: userid.toString(),
+    //   bookmarked_user: id.toString(),
+    // });
+    // let config = {
+    //   method: "post",
+    //   maxBodyLength: Infinity,
+    //   url: `https://hirein5-server.onrender.com/bookmark/`,
+    //   headers: {
+    //     Authorization: `JWT ${token}`,
+    //     "Content-Type": "application/json",
+    //   },
+    //   data: data,
+    // };
+    // await axios
+    //   .request(config)
+    //   .then((response) => {
+    //     return response;
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    var config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    };
+    var updateddata = await axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log(updateddata, "updateddata");
   };
   return (
     <div>
@@ -142,24 +286,16 @@ const DiscoverComp = () => {
                   </div>
                 </div>
                 <div className="recent ">
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
-                  <div className="recentWrap">
-                    <SearchProfileCard />
-                  </div>
+                  {searchuser.length !== 0
+                    ? searchuser.map((datanew, index1) => (
+                        <div className="recentWrap" key={index1}>
+                          <SearchProfileCard
+                            datanew={datanew}
+                            addbookmark={addbookmark}
+                          />
+                        </div>
+                      ))
+                    : null}
                 </div>
                 <Table class="tableOne paddingRight100" />
               </div>

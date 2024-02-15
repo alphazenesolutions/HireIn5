@@ -21,7 +21,7 @@ const ProfileCard = ({ filterdata, fun }) => {
               ? filterdata.map((data, index) => (
                   <div
                     id="page2"
-                    onClick={() => fun("page2")}
+                    onClick={() => fun("page2", data.id)}
                     className="clientDiscover1"
                     key={index}
                   >
@@ -31,7 +31,9 @@ const ProfileCard = ({ filterdata, fun }) => {
                           <img src={candidateimges} alt="" />
                         </div>
                         <div className="candidateDiscoverName">
-                          <h3>{data.first_name}</h3>
+                          <h3>
+                            {data.first_name}
+                          </h3>
                           <h5>{data.title}</h5>
                         </div>
                       </div>

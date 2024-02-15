@@ -457,7 +457,7 @@ const CandidateRegistration = () => {
         };
         var updatedata = await axios
           .put(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}/`,
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
             newobj,
             {
               headers: {
@@ -685,7 +685,7 @@ const CandidateRegistration = () => {
           };
           var update_data = await axios
             .put(
-              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}/`,
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
               newObj,
               {
                 headers: {

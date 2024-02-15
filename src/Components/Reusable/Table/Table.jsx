@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "./Table.css";
 import tabImg from "../../../assests/table.png";
 import tabFirst from "../../../assests/colar.png";
+import { useSelector } from "react-redux";
 
 const Table = (props) => {
+  const bookmarkdata = useSelector((store) => store.bookmarkdata);
   const [isSelect, setIsSelect] = useState(false);
   const buttonHandler = () => {
     setIsSelect(true);
@@ -42,7 +44,7 @@ const Table = (props) => {
       Skill3: "Java",
     },
   ];
-
+  console.log(bookmarkdata, "bookmarkdata 111");
   return (
     <div>
       {/* tableOne */}
@@ -75,37 +77,39 @@ const Table = (props) => {
               <th></th>
               {/* <th></th> */}
             </tr>
-            {profileData.map((data) => {
-              return (
-                <tr className="tableRow">
-                  <td className="profileBookMark">
-                    <img src={tabFirst} alt="" />
-                  </td>
-                  <td>
-                    <div className="profileData ">
-                      <img src={tabImg} alt="" />
-                      <h2>{data.name}</h2>
-                    </div>
-                  </td>
-                  <td>
-                    <h2>{data.role}</h2>
-                  </td>
-                  <td>
-                    <h2>{data.Experience}</h2>
-                  </td>
-                  <td className="skillData">
-                    <p>{data.Skill1}</p>
-                    <p>{data.Skill2}</p>
-                    <p>{data.Skill3}</p>
-                  </td>
-                  <td>
-                    <div>
-                      <button className="tdBtn">Schedule interview</button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+            {bookmarkdata.length !== 0
+              ? bookmarkdata.map((data, index) => {
+                  return (
+                    <tr className="tableRow" key={index}>
+                      <td className="profileBookMark">
+                        <img src={tabFirst} alt="" />
+                      </td>
+                      <td>
+                        <div className="profileData ">
+                          <img src={tabImg} alt="" />
+                          <h2>{data.name}</h2>
+                        </div>
+                      </td>
+                      <td>
+                        <h2>{data.role}</h2>
+                      </td>
+                      <td>
+                        <h2>{data.Experience}</h2>
+                      </td>
+                      <td className="skillData">
+                        <p>{data.Skill1}</p>
+                        <p>{data.Skill2}</p>
+                        <p>{data.Skill3}</p>
+                      </td>
+                      <td>
+                        <div>
+                          <button className="tdBtn">Schedule interview</button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              : null}
           </table>
         </div>
       </div>
