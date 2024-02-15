@@ -95,7 +95,6 @@ const VerificationComp = () => {
       });
     setIsLoading(true);
   };
-  console.log(finalerror, "finalerror");
   return (
     <>
       {/* ======================= verify Otp ======================= */}

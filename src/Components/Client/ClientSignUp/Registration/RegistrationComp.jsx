@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "./RegistrationComp.css";
 import Head from "../../../Reusable/LogoHead/Head";
@@ -22,9 +23,6 @@ const RegistrationComp = () => {
   };
 
   const [isButton2, setIsButton2] = useState(false);
-  const buttonHandler2 = () => {
-    setIsButton2(true);
-  };
   const buttonHandlernew = () => {
     setIsButton(false);
   };
@@ -88,7 +86,6 @@ const RegistrationComp = () => {
   const [lookingdataerror, setlookingdataerror] = useState(false);
   const [durationdataerror, setdurationdataerror] = useState(false);
   const [agreedataerror, setagreedataerror] = useState(false);
-  const [notesdataerror, setnotesdataerror] = useState(false);
 
   const handlechange = (e) => {
     const { name, value } = e.target;
@@ -191,7 +188,6 @@ const RegistrationComp = () => {
             .catch((err) => {
               return err;
             });
-          console.log(updatedata.message, "updatedata.message");
           if (
             updatedata.message ===
             "User and Associated Info updated successfully"
@@ -326,7 +322,6 @@ const RegistrationComp = () => {
           .then((res) => {
             return res.data;
           });
-        console.log(updatedatabilling.message, "updatedatabilling.message");
         if (
           updatedatabilling.message ===
           "User and Associated Info updated successfully"

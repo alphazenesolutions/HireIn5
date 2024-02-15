@@ -779,7 +779,7 @@ const CandidateRegistration = () => {
       ...values,
       [formtype]: response.data.img_url,
     }));
-    fileInputRef.current.file = "";
+    fileInputRef.current.value = "";
   };
   const [row, setrow] = useState([{ languages: "", level: "" }]);
 
@@ -1066,7 +1066,7 @@ const CandidateRegistration = () => {
                       </h3>
                       <div className="aadhaarFront">
                         <h3>
-                          Drop your files here or <a href=".">browse</a>
+                          Drop your files here or <a href="##">browse</a>
                         </h3>
                         <p>Maximum size: 5MB</p>
                         <p title=""> PDF JPEG and PNG accepted</p>
@@ -1097,7 +1097,7 @@ const CandidateRegistration = () => {
 
                       <div className="aadhaarFront">
                         <h3>
-                          Drop your files here or <a href=".">browse</a>
+                          Drop your files here or <a href="##">browse</a>
                         </h3>
                         <p>Maximum size: 5MB</p>
                         <p title=""> PDF JPEG and PNG accepted</p>
@@ -1142,7 +1142,7 @@ const CandidateRegistration = () => {
                     </h3>
                     <div className="aadhaarFront">
                       <h3>
-                        Drop your files here or <a href=".">browse</a>
+                        Drop your files here or <a href="##">browse</a>
                       </h3>
                       <p>Maximum size: 5MB</p>
                       <p title=""> PDF JPEG and PNG accepted</p>
@@ -1252,7 +1252,7 @@ const CandidateRegistration = () => {
                       </h3>
                       <div className="aadhaarFront">
                         <h3>
-                          Drop your files here or <a href=".">browse</a>
+                          Drop your files here or <a href="##">browse</a>
                         </h3>
                         <p>Maximum size: 5MB</p>
                         <p title=""> PDF JPEG and PNG accepted</p>
@@ -1277,7 +1277,7 @@ const CandidateRegistration = () => {
 
                       <div className="aadhaarFront">
                         <h3>
-                          Drop your files here or <a href=".x">browse</a>
+                          Drop your files here or <a href="##">browse</a>
                         </h3>
                         <p>Maximum size: 5MB</p>
                         <p title=""> PDF JPEG and PNG accepted</p>

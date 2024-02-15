@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./SearchProfileCard.css";
 import candidateimges from "../../../assests/table.png";
 import courseIcons from "../../../assests/userCard.png";
@@ -37,7 +37,7 @@ const SearchProfileCard = ({ datanew, addbookmark }) => {
         console.log(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        return error;
       });
   };
 

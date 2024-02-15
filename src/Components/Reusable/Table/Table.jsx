@@ -25,14 +25,15 @@ const Table = (props) => {
   useEffect(() => {
     getUserinfo();
   }, [bookmarkdata]);
+  const [alluserdata, setalluserdata] = useState([]);
   const getUserinfo = async () => {
     let data = JSON.stringify({
       users_list: bookmarkdata,
     });
     let config = {
-      method: "get",
+      method: "post",
       maxBodyLength: Infinity,
-      url: "https://hirein5-server.onrender.com/getUsersInformation/5/",
+      url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}`,
       headers: {
         Authorization: `JWT ${token}`,
         "Content-Type": "application/json",
@@ -43,82 +44,83 @@ const Table = (props) => {
     axios
       .request(config)
       .then((response) => {
-        console.log(response);
+        setalluserdata(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        return error;
       });
   };
-
-  console.log(bookmarkdata, "bookmarkdata 111");
   return (
     <div>
-      {/* tableOne */}
-      <div className={props.class}>
-        <h1>Candidates on review</h1>
-        <div className="tableButton marginTop20 marginBottom20">
-          <button
-            onClick={buttonHandler}
-            className={
-              isSelect === true ? "shortListedActive" : "shortListedInActive"
-            }
-          >
-            Shortlisted
-          </button>
-          <button
-            onClick={buttonHandler2}
-            className={isSelect2 === true ? "hiredActive" : "hired"}
-          >
-            Hired
-          </button>
+      {bookmarkdata.length !== 0 ? (
+        <div className={props.class}>
+          <h1>Candidates on review</h1>
+          <div className="tableButton marginTop20 marginBottom20">
+            <button
+              onClick={buttonHandler}
+              className={
+                isSelect === true ? "shortListedActive" : "shortListedInActive"
+              }
+            >
+              Shortlisted
+            </button>
+            <button
+              onClick={buttonHandler2}
+              className={isSelect2 === true ? "hiredActive" : "hired"}
+            >
+              Hired
+            </button>
+          </div>
+          <div className="innerTable">
+            <table className="table">
+              <tr className="tableHead">
+                <th className="tableFirst"></th>
+                <th>Candidate Name</th>
+                <th>Qualification</th>
+                <th>Experience</th>
+                <th>Key Skills</th>
+                <th></th>
+                {/* <th></th> */}
+              </tr>
+              {alluserdata.length !== 0
+                ? alluserdata.map((data, index) => {
+                    return (
+                      <tr className="tableRow" key={index}>
+                        <td className="profileBookMark">
+                          <img src={tabFirst} alt="" />
+                        </td>
+                        <td>
+                          <div className="profileData ">
+                            <img src={tabImg} alt="" />
+                            <h2>{data.first_name}</h2>
+                          </div>
+                        </td>
+                        <td>
+                          <h2>Java Developer</h2>
+                        </td>
+                        <td>
+                          <h2>2 years</h2>
+                        </td>
+                        <td className="skillData">
+                          <p>Java EEE</p>
+                          <p>JavaScript</p>
+                          <p>Java</p>
+                        </td>
+                        <td>
+                          <div>
+                            <button className="tdBtn">
+                              Schedule interview
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
+                : null}
+            </table>
+          </div>
         </div>
-        <div className="innerTable">
-          <table className="table">
-            <tr className="tableHead">
-              <th className="tableFirst"></th>
-              <th>Candidate Name</th>
-              <th>Qualification</th>
-              <th>Experience</th>
-              <th>Key Skills</th>
-              <th></th>
-              {/* <th></th> */}
-            </tr>
-            {bookmarkdata.length !== 0
-              ? bookmarkdata.map((data, index) => {
-                  return (
-                    <tr className="tableRow" key={index}>
-                      <td className="profileBookMark">
-                        <img src={tabFirst} alt="" />
-                      </td>
-                      <td>
-                        <div className="profileData ">
-                          <img src={tabImg} alt="" />
-                          <h2>Surya Narreddi</h2>
-                        </div>
-                      </td>
-                      <td>
-                        <h2>Java Developer</h2>
-                      </td>
-                      <td>
-                        <h2>2 years</h2>
-                      </td>
-                      <td className="skillData">
-                        <p>Java EEE</p>
-                        <p>JavaScript</p>
-                        <p>Java</p>
-                      </td>
-                      <td>
-                        <div>
-                          <button className="tdBtn">Schedule interview</button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              : null}
-          </table>
-        </div>
-      </div>
+      ) : null}
     </div>
   );
 };

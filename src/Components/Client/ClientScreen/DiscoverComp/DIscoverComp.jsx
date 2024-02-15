@@ -15,6 +15,8 @@ import { useSelector } from "react-redux";
 import CandidateProfileCard from "../../../Reusable/CandidateProfileCard/CandidateProfileCard";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
+import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
+import glasses from "../../../../assests/glasses.png";
 
 const DiscoverComp = () => {
   const dispatch = useDispatch();
@@ -49,7 +51,7 @@ const DiscoverComp = () => {
           return response;
         })
         .catch((error) => {
-          console.log(error);
+          return error;
         });
     } else if (event === "page1") {
       setIsInput(false);
@@ -112,7 +114,7 @@ const DiscoverComp = () => {
   }, []);
   useEffect(() => {
     getSearchuser();
-  }, [isPage, isInput]);
+  }, [isPage]);
 
   const getAlldata = async () => {
     var allfacility = await axios
@@ -157,10 +159,11 @@ const DiscoverComp = () => {
         return response.data;
       })
       .catch(function (error) {
-        console.log(error);
+        return error;
       });
     if (tabledata.length !== 0) {
       const bookmarkedUserArray = tabledata.map((item) => item.bookmarked_user);
+      setnewstate(bookmarkedUserArray);
       dispatch(
         storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
       );
@@ -187,53 +190,28 @@ const DiscoverComp = () => {
       var unique = allsearchfacility.recently_visited.filter(
         (value, index, array) => array.indexOf(value) === index
       );
-      // var unique = allsearchfacility.recently_visited;
-      // let data = JSON.stringify({
-      //   users_list: unique,
-      // });
-
-      // let config = {
-      //   method: "get",
-      //   maxBodyLength: Infinity,
-      //   url: "https://hirein5-server.onrender.com/getUsersInformation/5",
-      //   headers: {
-      //     Authorization:
-      //       "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3OTgyMzQ5LCJpYXQiOjE3MDc5Nzg3NDksImp0aSI6ImVmOTZhNTdiZjZhNDRkODdhMmJiOGJkMjk2YjJiOTA5IiwidXNlcl9pZCI6NSwiZmlyc3RfbmFtZSI6IkRpbmVzaCBLdW1hciIsImVtYWlsIjoiZGtAZ21haWwuY29tIiwicGhvbmUiOiIxMjM0NTY3ODkwIiwidGl0bGUiOiJNYW5hZ2VyIiwibGlua2VkX2luIjoibGlua2VkaW4uY29tL2pvaG5kb2UiLCJyb2xlIjoiMyJ9.80cwUYD3rhmtg9JoqXFupmiSGK0UbsbB4pTVukXBun0",
-      //     "Content-Type": "application/json",
-      //   },
-      //   data: data,
-      // };
-
-      // axios
-      //   .request(config)
-      //   .then((response) => {
-      //     console.log(response);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-      console.log(unique, "unique");
-      var searchuser = [];
-      for (var i = 0; i < unique.length; i++) {
-        var userinfo = await axios
-          .get(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${unique[i]}`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `JWT ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            return res.data;
-          })
-          .catch((err) => {
-            return err.response.data;
-          });
-        searchuser.push(userinfo);
-      }
-      setsearchuser(searchuser);
+      let data = JSON.stringify({
+        users_list: unique,
+      });
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}`,
+        headers: {
+          Authorization: `JWT ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      var alluserdata = await axios
+        .request(config)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error;
+        });
+      setsearchuser(alluserdata);
     }
   };
 
@@ -261,11 +239,10 @@ const DiscoverComp = () => {
         return response;
       })
       .catch((error) => {
-        console.log(error);
+        return error;
       });
     dispatch(storeAction.bookmarkdataHander({ bookmarkdata: newarray }));
   };
-  console.log(isInput, isInput, "isInput, isInput");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">
@@ -283,23 +260,34 @@ const DiscoverComp = () => {
             />
             {isInput === false ? (
               <div>
-                <div className="recentHead paddingRight100">
-                  <div className="recentHeadLeft">
-                    <h1>Recent Searches</h1>
-                    <button
-                      disabled={isDisable === true ? true : false}
-                      onClick={gsapHandlerReverse}
-                    >
-                      <img src={recentLeft} alt="" />
-                    </button>
-                    <button onClick={gsapHandler}>
-                      <img src={recentRight} alt="" />
-                    </button>
+                {searchuser.length !== 0 ? (
+                  <div className="recentHead paddingRight100">
+                    <div className="recentHeadLeft">
+                      <h1>Recent Searches</h1>
+                      <button
+                        disabled={isDisable === true ? true : false}
+                        onClick={gsapHandlerReverse}
+                      >
+                        <img src={recentLeft} alt="" />
+                      </button>
+                      <button onClick={gsapHandler}>
+                        <img src={recentRight} alt="" />
+                      </button>
+                    </div>
+                    <div className="recentHeadRight">
+                      <h2>Clear All</h2>
+                    </div>
                   </div>
-                  <div className="recentHeadRight">
-                    <h2>Clear All</h2>
-                  </div>
-                </div>
+                ) : (
+                  <DashBody
+                    Img={glasses}
+                    head="Begin your search to Hire in 5"
+                    desc="Find the right candidates, shortlist and schedule an interview with them here."
+                    button=""
+                    fun=""
+                  />
+                )}
+
                 <div className="recent ">
                   {searchuser.length !== 0
                     ? searchuser.map((datanew, index1) => (
