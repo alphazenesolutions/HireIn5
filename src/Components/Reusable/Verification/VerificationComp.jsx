@@ -20,26 +20,34 @@ const VerificationComp = () => {
   const [final, setfinal] = useState(null);
   const [phone, setphone] = useState("");
   const [show, setshow] = useState(true);
+  const [finalerror, setfinalerror] = useState(null);
 
   const PageHandler = (event) => {
+    setfinalerror(false);
     if (isPage === "page1") {
       // const email = "dineshkit15@gmail.com";
       // window.location.href = `mailto:${email}`;
       setIsPage(event.target.id);
     } else if (isPage === "page2") {
-      let verify = new firebase.auth.RecaptchaVerifier("recaptcha-container");
-      auth
-        .signInWithPhoneNumber(`+91${phone}`, verify)
-        .then((result) => {
-          setfinal(result);
-          setshow(false);
-          setIsPage(event.target.id);
-        })
-        .catch((err) => {
-          window.location.reload();
-        });
+      setfinalerror(false);
+      if (phone.length !== 0) {
+        let verify = new firebase.auth.RecaptchaVerifier("recaptcha-container");
+        auth
+          .signInWithPhoneNumber(`+91${phone}`, verify)
+          .then((result) => {
+            setfinal(result);
+            setshow(false);
+            setIsPage(event.target.id);
+          })
+          .catch((err) => {
+            window.location.reload();
+          });
+      } else {
+        setfinalerror(true);
+      }
     } else {
       setIsPage(event.target.id);
+      setfinalerror(false);
     }
   };
   const backHandler = (event) => {
@@ -51,7 +59,7 @@ const VerificationComp = () => {
     } else {
     }
   };
-  const [isChange, setIsChange] = useState(false);
+  const [isChange, setIsChange] = useState(true);
   const buttonHandler = () => {
     setIsChange(true);
   };
@@ -87,6 +95,7 @@ const VerificationComp = () => {
       });
     setIsLoading(true);
   };
+  console.log(finalerror, "finalerror");
   return (
     <>
       {/* ======================= verify Otp ======================= */}
@@ -130,6 +139,11 @@ const VerificationComp = () => {
             <div onClick={buttonHandler} className="">
               <MobileInput setphone={setphone} />
             </div>
+            {finalerror && (
+              <p className="text-red-500 text-xs font-semibold mt-2">
+                Please Enter Phone number
+              </p>
+            )}
             <div
               onClick={buttonHandler}
               id="recaptcha-container"

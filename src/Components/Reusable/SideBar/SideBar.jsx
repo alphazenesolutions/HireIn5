@@ -44,7 +44,6 @@ const SideBar = (props) => {
         .catch((err) => {
           return err.response.data;
         });
-      console.log(userinfo.id !== undefined, "userinfo");
       if (userinfo.id !== undefined) {
         setusername(userinfo.first_name);
       } else {

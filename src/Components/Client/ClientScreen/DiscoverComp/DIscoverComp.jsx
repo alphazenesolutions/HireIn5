@@ -29,6 +29,7 @@ const DiscoverComp = () => {
 
   const pageHandler = async (event, id) => {
     if (event === "page2") {
+      setIsPage(event);
       let data = JSON.stringify({
         new_entry: id.toString(),
       });
@@ -50,6 +51,9 @@ const DiscoverComp = () => {
         .catch((error) => {
           console.log(error);
         });
+    } else if (event === "page1") {
+      setIsInput(false);
+      setIsDisable(false);
       setIsPage(event);
     } else {
       setIsPage(event);
@@ -105,8 +109,10 @@ const DiscoverComp = () => {
 
   useEffect(() => {
     getAlldata();
-    getSearchuser();
   }, []);
+  useEffect(() => {
+    getSearchuser();
+  }, [isPage, isInput]);
 
   const getAlldata = async () => {
     var allfacility = await axios
@@ -137,6 +143,28 @@ const DiscoverComp = () => {
       }
       setalldata(newarray);
     }
+
+    var config1 = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    };
+    var tabledata = await axios(config1)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    if (tabledata.length !== 0) {
+      const bookmarkedUserArray = tabledata.map((item) => item.bookmarked_user);
+      dispatch(
+        storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
+      );
+    }
   };
   const getSearchuser = async () => {
     var allsearchfacility = await axios
@@ -159,6 +187,7 @@ const DiscoverComp = () => {
       var unique = allsearchfacility.recently_visited.filter(
         (value, index, array) => array.indexOf(value) === index
       );
+      // var unique = allsearchfacility.recently_visited;
       // let data = JSON.stringify({
       //   users_list: unique,
       // });
@@ -183,6 +212,7 @@ const DiscoverComp = () => {
       //   .catch((error) => {
       //     console.log(error);
       //   });
+      console.log(unique, "unique");
       var searchuser = [];
       for (var i = 0; i < unique.length; i++) {
         var userinfo = await axios
@@ -208,49 +238,34 @@ const DiscoverComp = () => {
   };
 
   const [newstate, setnewstate] = useState([]);
-  const addbookmark = async (id, datanew) => {
-    // var newarray = [...newstate, datanew];
-    // setnewstate(newarray);
-    // dispatch(storeAction.bookmarkdataHander({ bookmarkdata: newarray }));
-    // let data = JSON.stringify({
-    //   user: userid.toString(),
-    //   bookmarked_user: id.toString(),
-    // });
-    // let config = {
-    //   method: "post",
-    //   maxBodyLength: Infinity,
-    //   url: `https://hirein5-server.onrender.com/bookmark/`,
-    //   headers: {
-    //     Authorization: `JWT ${token}`,
-    //     "Content-Type": "application/json",
-    //   },
-    //   data: data,
-    // };
-    // await axios
-    //   .request(config)
-    //   .then((response) => {
-    //     return response;
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    var config = {
-      method: "get",
+  const addbookmark = async (id) => {
+    var newarray = [...newstate, id];
+    setnewstate(newarray);
+    let data = JSON.stringify({
+      user: userid.toString(),
+      bookmarked_user: id.toString(),
+    });
+    let config = {
+      method: "post",
       maxBodyLength: Infinity,
-      url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
+      url: `https://hirein5-server.onrender.com/bookmark/`,
       headers: {
         Authorization: `JWT ${token}`,
+        "Content-Type": "application/json",
       },
+      data: data,
     };
-    var updateddata = await axios(config)
-      .then(function (response) {
-        return response.data;
+    await axios
+      .request(config)
+      .then((response) => {
+        return response;
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
-    console.log(updateddata, "updateddata");
+    dispatch(storeAction.bookmarkdataHander({ bookmarkdata: newarray }));
   };
+  console.log(isInput, isInput, "isInput, isInput");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">

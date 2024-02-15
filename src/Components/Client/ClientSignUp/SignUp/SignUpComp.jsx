@@ -16,7 +16,7 @@ const SignUpComp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const role = useSelector((store) => store.role);
-  const [isButton, setIsButton] = useState(false);
+  const [isButton, setIsButton] = useState(true);
 
   const ButtonHandler = (e) => {
     setIsButton(true);

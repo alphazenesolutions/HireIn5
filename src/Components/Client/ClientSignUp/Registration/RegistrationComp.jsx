@@ -176,7 +176,7 @@ const RegistrationComp = () => {
           };
           var updatedata = await axios
             .put(
-              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`,
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
               new_obj,
               {
                 headers: {
@@ -187,10 +187,14 @@ const RegistrationComp = () => {
             )
             .then((res) => {
               return res.data;
+            })
+            .catch((err) => {
+              return err;
             });
+          console.log(updatedata.message, "updatedata.message");
           if (
             updatedata.message ===
-            "User and Associated CompanyInfo updated successfully"
+            "User and Associated Info updated successfully"
           ) {
             setIsPage(event.target.id);
           }
@@ -310,7 +314,7 @@ const RegistrationComp = () => {
         };
         var updatedatabilling = await axios
           .put(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`,
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
             new_obj1,
             {
               headers: {
@@ -322,9 +326,10 @@ const RegistrationComp = () => {
           .then((res) => {
             return res.data;
           });
+        console.log(updatedatabilling.message, "updatedatabilling.message");
         if (
           updatedatabilling.message ===
-          "User and Associated CompanyInfo updated successfully"
+          "User and Associated Info updated successfully"
         ) {
           setIsPage(event.target.id);
         }

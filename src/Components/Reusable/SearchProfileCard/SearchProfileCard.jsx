@@ -8,8 +8,39 @@ import user_check from "../../../assests/userCheck.png";
 import location from "../../../assests/mapPin.png";
 import BookMarkSimple from "../../../assests/colar.png";
 import Bookmarkwhite from "../../../assests/BookmarkSimplewhite.png";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { storeAction } from "../../../Store/Store";
+import axios from "axios";
 
 const SearchProfileCard = ({ datanew, addbookmark }) => {
+  const dispatch = useDispatch();
+  const bookmarkdata = useSelector((store) => store.bookmarkdata);
+  const token = useSelector((store) => store.token);
+
+  const removebookmark = async (id) => {
+    var newarray = (await bookmarkdata.includes(id))
+      ? bookmarkdata.filter((item) => item !== id)
+      : [...bookmarkdata, id];
+    dispatch(storeAction.bookmarkdataHander({ bookmarkdata: newarray }));
+    var config = {
+      method: "delete",
+      maxBodyLength: Infinity,
+      url: `https://hirein5-server.onrender.com/bookmark/${id}`,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <div className="clientInterview">
@@ -76,13 +107,24 @@ const SearchProfileCard = ({ datanew, addbookmark }) => {
               </div>
               <div className="candidateCartButton">
                 <div className="cartbtnimg">
-                  <img
-                    src={Bookmarkwhite}
-                    alt=""
-                    onClick={() => {
-                      addbookmark(datanew.id, datanew);
-                    }}
-                  />
+                  {bookmarkdata.includes(datanew.id) ? (
+                    <img
+                      src={BookMarkSimple}
+                      alt=""
+                      onClick={() => {
+                        removebookmark(datanew.id);
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={Bookmarkwhite}
+                      alt=""
+                      onClick={() => {
+                        addbookmark(datanew.id);
+                      }}
+                    />
+                  )}
+
                   <button className="cartbtnimgbutton1">
                     Reserve candidate
                   </button>
