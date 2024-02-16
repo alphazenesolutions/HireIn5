@@ -12,7 +12,7 @@ const DashHead = (props, fun) => {
   useEffect(() => {
     setTimeout(() => {
       getalldata();
-    }, 2000);
+    }, 1000);
   }, []);
   const getalldata = () => {
     if (token == null && userid == null) {

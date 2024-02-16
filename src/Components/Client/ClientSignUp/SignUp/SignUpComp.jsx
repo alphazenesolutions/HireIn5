@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import "./SignUpComp.css";
 import Head from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import Foot from "../../../Reusable/Terms&Conditions/Foot";
@@ -16,7 +17,7 @@ const SignUpComp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const role = useSelector((store) => store.role);
-  const [isButton, setIsButton] = useState(true);
+  const [isButton, setIsButton] = useState(false);
 
   const ButtonHandler = (e) => {
     setIsButton(true);
@@ -99,11 +100,24 @@ const SignUpComp = () => {
             },
           })
         );
-        navigate("/verification");
+        navigate("/emailverification");
       } else {
         setIsLoading(false);
         setfinalerror(true);
       }
+    }
+  };
+  useEffect(() => {
+    Checkdata();
+  }, [signupdata]);
+  const Checkdata = async () => {
+    setIsButton(false);
+    if (
+      signupdata.username.length !== 0 &&
+      signupdata.password.length !== 0 &&
+      signupdata.cpassword.length !== 0
+    ) {
+      setIsButton(true);
     }
   };
   return (

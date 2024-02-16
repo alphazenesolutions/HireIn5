@@ -6,6 +6,7 @@ import graduation_cap from "../../../assests/graduationCap.png";
 import user_check from "../../../assests/userCheck.png";
 import location from "../../../assests/mapPin.png";
 // import BookMarkSimple from "../../../assests/colar.png";
+import courseIcons from "../../../assests/userCard.png";
 
 const ProfileCard = ({ filterdata, fun }) => {
   return (
@@ -31,9 +32,7 @@ const ProfileCard = ({ filterdata, fun }) => {
                           <img src={candidateimges} alt="" />
                         </div>
                         <div className="candidateDiscoverName">
-                          <h3>
-                            {data.first_name}
-                          </h3>
+                          <h3>{data.first_name}</h3>
                           <h5>{data.title}</h5>
                         </div>
                       </div>
@@ -42,17 +41,18 @@ const ProfileCard = ({ filterdata, fun }) => {
                       </div>
                     </div>
                     <div className="candidateDiscoverSkills">
-                      {data.skill.length !== 0
-                        ? data.skill.map((datanew, index) => (
-                            <h4 key={index}>{datanew}</h4>
-                          ))
+                      {data.preference_info.skills.length !== 0
+                        ? data.preference_info.skills.map((datanew, index) =>
+                            index == 0 || index == 1 || index == 2 ? (
+                              <h4>
+                                <img src={courseIcons} alt="" />
+                                JavaScript
+                              </h4>
+                            ) : (
+                              <h4 key={index}>{datanew}</h4>
+                            )
+                          )
                         : null}
-                      {/* <h4>jQuery</h4>
-                      <h4>Android</h4>
-                      <h4>Kotlin</h4>
-                      <h4>REST</h4>
-                      <h4>Spring Framework</h4>
-                      <h4>Firebase Cloud Firestore</h4> */}
                     </div>
                     <div className="candidateDiscoverExperience">
                       <div className="candidateDiscoverExp">

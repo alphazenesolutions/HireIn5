@@ -42,7 +42,7 @@ const Resetpasswordcomp = () => {
           setcompareerror(false);
           var updatepassword = await axios
             .post(
-              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update_password/`,
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update_password`,
               {
                 new_password: password,
                 hashed_email: hash,

@@ -17,6 +17,7 @@ import Contract from "../pages/Contract";
 import Billing from "../pages/Billing";
 import { Resetpassword } from "../pages/Resetpassword";
 import Profile from "../pages/Profile";
+import Emailverification from "../Components/Reusable/Verification/Emailverification";
 
 const Routing = () => {
   return (
@@ -26,7 +27,8 @@ const Routing = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/clientsignup" element={<Signup />} />
-        <Route path="/verification" element={<Verification />} />
+        <Route path="/verification/:id" element={<Verification />} />
+        <Route path="/emailverification" element={<Emailverification />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/meeting" element={<OnBoardMeeting />} />
