@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { storeAction } from "../../../../Store/Store";
 import Dragoption from "./Dragoption";
+import { FiLoader } from "react-icons/fi";
 
 const CandidateRegistration = () => {
   const navigate = useNavigate();
@@ -29,9 +30,10 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page1");
+  const [isPage, setIsPage] = useState("page3");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [dropDownList, setdropDownList] = useState([
     "Algorithmic Problem Solving",
     "Data Structures",
@@ -271,6 +273,36 @@ const CandidateRegistration = () => {
   async function pageHandler(e) {
     setfinalerrorstatus(false);
     if (isPage === "page1") {
+      setformdataerror({
+        firstname: false,
+        lastname: false,
+        email: false,
+        phone: false,
+        dob: false,
+        address1: false,
+        address2: false,
+        city: false,
+        state: false,
+        title: false,
+        aadhaar_number: false,
+        aadhaarfront: false,
+        aadhaarback: false,
+        pan_number: false,
+        pan_front: false,
+        passport_no: false,
+        valid_until: false,
+        country: false,
+        passport_front: false,
+        passport_back: false,
+        qualification: false,
+        experience: false,
+        skill: false,
+        linkedin: false,
+        hackerrank: false,
+        github: false,
+        website: false,
+        languages: false,
+      });
       if (formdata.firstname.length === 0) {
         setformdataerror((values) => ({
           ...values,
@@ -428,6 +460,7 @@ const CandidateRegistration = () => {
           website: false,
           languages: false,
         });
+        setIsLoading(true);
         var newobj = {
           username: signupdata.username,
           phone: formdata.phone,
@@ -481,7 +514,9 @@ const CandidateRegistration = () => {
           setfinalerrorstatus(false);
           setfinalerror(null);
           setfinalerrortype(null);
+          setIsLoading(false);
         } else {
+          setIsLoading(false);
           if (updatedata.username === undefined) {
             if (updatedata.phone === undefined) {
               if (updatedata.title === undefined) {
@@ -558,6 +593,37 @@ const CandidateRegistration = () => {
         }
       }
     } else if (isPage === "page2") {
+      setformdataerror({
+        firstname: false,
+        lastname: false,
+        email: false,
+        phone: false,
+        dob: false,
+        address1: false,
+        address2: false,
+        city: false,
+        state: false,
+        title: false,
+        aadhaar_number: false,
+        aadhaarfront: false,
+        aadhaarback: false,
+        pan_number: false,
+        pan_front: false,
+        passport_no: false,
+        valid_until: false,
+        country: false,
+        passport_front: false,
+        passport_back: false,
+        qualification: false,
+        experience: false,
+        skill: false,
+        linkedin: false,
+        hackerrank: false,
+        github: false,
+        website: false,
+        languages: false,
+        skilllength: false,
+      });
       if (formdata.qualification.length === 0) {
         setformdataerror((values) => ({
           ...values,
@@ -658,6 +724,7 @@ const CandidateRegistration = () => {
           languages: false,
           skilllength: false,
         });
+        setIsLoading(true);
         if (row[0].languages.length === 0) {
           setlanuageerror(true);
           setlevelerror(false);
@@ -711,48 +778,59 @@ const CandidateRegistration = () => {
             setfinalerrortype(null);
             setlanuageerror(false);
             setlevelerror(false);
+            setIsLoading(false);
           }
         }
       }
     } else if (isPage === "page3") {
-      // const arrayOfStrings = travelrow.map(
-      //   (obj) =>
-      //     `${obj.country}: ${obj.year_of_travel}: ${obj.duration}: ${obj.purpose}: ${obj.type_of_visa}: ${obj.validity_of_visa}`
-      // );
-      // const arrayOfStrings1 = relocate.map(
-      //   (obj) =>
-      //     `${obj.are_you_willing}: ${obj.preferred_countries}: ${obj.how_long}`
-      // );
-      // var newobj1 = {
-      //   username: signupdata.username,
-      //   travel_info: {
-      //     travelled_to: arrayOfStrings,
-      //     relocate_for_word: arrayOfStrings1,
-      //     country: "",
-      //   },
-      // };
-      // var update1_data = await axios
-      //   .put(
-      //     `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}/`,
-      //     newobj1,
-      //     {
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //         Authorization: `JWT ${token}`,
-      //       },
-      //     }
-      //   )
-      //   .then((res) => {
-      //     return res.data;
-      //   })
-      //   .catch((err) => {
-      //     return err.response.data;
-      //   });
-      setIsPage(e.target.id);
-      routeHandler();
+      setIsLoading(true);
+      const arrayOfStrings = travelrow.map(
+        (obj) =>
+          `${obj.country}: ${obj.year_of_travel}: ${obj.duration}: ${obj.purpose}: ${obj.type_of_visa}: ${obj.validity_of_visa}`
+      );
+      const arrayOfStrings1 = relocate.map(
+        (obj) =>
+          `${obj.are_you_willing}: ${obj.preferred_countries}: ${obj.how_long}`
+      );
+      var newobj1 = {
+        username: signupdata.username,
+        travel_info: {
+          travelled_to: arrayOfStrings,
+          relocate_for_work: arrayOfStrings1,
+          country: travelform.country.split(","),
+          onlyfor: "test",
+          duration: travelform.duration,
+          travel_readlines: travelform.travel_readlines,
+        },
+        current_place_of_residence: travelform.current_place_of_residence,
+        lived_at_current_residence: travelform.lived_at_current_residence,
+      };
+      var update1_data = await axios
+        .put(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+          newobj1,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response.data;
+        });
+      setIsLoading(false);
+      if (
+        update1_data.message === "User and Associated Info updated successfully"
+      ) {
+        setIsLoading(false);
+        setIsPage(e.target.id);
+        routeHandler();
+      }
     }
-    // setIsPage(e.target.id);
-    // routeHandler();
   }
   const fileInputRef = useRef(null);
   const [formtype, setformtype] = useState(null);
@@ -793,6 +871,18 @@ const CandidateRegistration = () => {
       validity_of_visa: "",
     },
   ]);
+  const [travelform, settravelform] = useState({
+    current_place_of_residence: "",
+    lived_at_current_residence: "",
+    travel_readlines: "",
+    duration: "",
+    country: "",
+  });
+
+  const handlechange_travel = (e) => {
+    const { name, value } = e.target;
+    settravelform((values) => ({ ...values, [name]: value }));
+  };
 
   const [relocate, setrelocate] = useState([
     {
@@ -1301,10 +1391,17 @@ const CandidateRegistration = () => {
             </div>
 
             <div className="candidateBottom">
-              <button className="nextbtn" id="page2" onClick={pageHandler}>
-                Next
-              </button>
+              {isLoading === false ? (
+                <button className="nextbtn" id="page2" onClick={pageHandler}>
+                  Next
+                </button>
+              ) : (
+                <button id="Signup" className="signUpCompBodyButtonLoading">
+                  <FiLoader className="loadingIcon" />
+                </button>
+              )}
             </div>
+
             <div className="candidateTermsAndConditions">
               <h6>Terms & Conditions</h6>
               <h6>Privacy Policy</h6>
@@ -1593,9 +1690,16 @@ const CandidateRegistration = () => {
                 <span>terms & conditions </span> and{" "}
                 <span> privacy policy</span>
               </button> */}
-              <button className="nextbtn" id="page3" onClick={pageHandler}>
-                Next
-              </button>
+
+              {isLoading === false ? (
+                <button className="nextbtn" id="page3" onClick={pageHandler}>
+                  Next
+                </button>
+              ) : (
+                <button id="Signup" className="signUpCompBodyButtonLoading">
+                  <FiLoader className="loadingIcon" />
+                </button>
+              )}
             </div>
 
             <div className="candidateTermsAndConditions">
@@ -1762,19 +1866,25 @@ const CandidateRegistration = () => {
               <div className="candidateInfo h-full">
                 <h3>Current place of residence</h3>
                 <p>
-                  <input type="text" placeholder="Country" />
-                  <select name="" id="">
-                    <option value=""></option>
-                  </select>
+                  <input
+                    type="text"
+                    placeholder="Country"
+                    name="current_place_of_residence"
+                    defaultValue={travelform.current_place_of_residence}
+                    onChange={handlechange_travel}
+                  />
                 </p>
               </div>
               <div className="candidateInfo h-full">
                 <h3>How long have you lived at your current residence?</h3>
                 <p>
-                  <input type="text" placeholder="" />
-                  <select name="" id="">
-                    <option value=""></option>
-                  </select>
+                  <input
+                    type="text"
+                    placeholder=""
+                    name="lived_at_current_residence"
+                    defaultValue={travelform.lived_at_current_residence}
+                    onChange={handlechange_travel}
+                  />
                 </p>
               </div>
             </div>
@@ -1787,38 +1897,50 @@ const CandidateRegistration = () => {
                   <h3 title="">Select upto 3 countries</h3>
                 </div>
                 <p>
-                  <input type="text" placeholder="Country" />
-                  <select name="" id="">
-                    <option value=""></option>
-                  </select>
+                  <input
+                    type="text"
+                    placeholder="Country"
+                    name="country"
+                    defaultValue={travelform.country}
+                    onChange={handlechange_travel}
+                  />
                 </p>
               </div>
               <div className="candidateInfo h-full">
                 <h3>How long have you lived at your current residence?</h3>
                 <p>
-                  <input type="text" placeholder="" />
-                  <select name="" id="">
-                    <option value=""></option>
-                  </select>
+                  <input
+                    type="text"
+                    placeholder=""
+                    name="lived_at_current_residence"
+                    defaultValue={travelform.lived_at_current_residence}
+                    onChange={handlechange_travel}
+                  />
                 </p>
               </div>
               <div className="travelDuration">
                 <div className="candidateInfo h-full">
                   <h3>Duration</h3>
                   <p>
-                    <input type="number" placeholder="Short Term - 6 months" />
-                    <select name="" id="">
-                      <option value=""></option>
-                    </select>
+                    <input
+                      type="number"
+                      placeholder="Short Term - 6 months"
+                      name="duration"
+                      defaultValue={travelform.duration}
+                      onChange={handlechange_travel}
+                    />
                   </p>
                 </div>
                 <div className="candidateInfo h-full">
                   <h3>Travel Readlines</h3>
                   <p>
-                    <input type="text" placeholder="Immediate" />
-                    <select name="" id="">
-                      <option value=""></option>
-                    </select>
+                    <input
+                      type="text"
+                      placeholder="Immediate"
+                      name="travel_readlines"
+                      defaultValue={travelform.travel_readlines}
+                      onChange={handlechange_travel}
+                    />
                   </p>
                 </div>
               </div>
@@ -1897,9 +2019,19 @@ const CandidateRegistration = () => {
             </div>
 
             <div className="Bottombtns">
-              <button onClick={pageHandler} id="page4" className="nextbtn1">
-                Next
-              </button>
+              {isLoading === false ? (
+                <button
+                  className="signUpCompBodyButtonLoading"
+                  id="page4"
+                  onClick={pageHandler}
+                >
+                  Next
+                </button>
+              ) : (
+                <button id="Signup" className="signUpCompBodyButtonLoading">
+                  <FiLoader className="loadingIcon" />
+                </button>
+              )}
               <button onClick={pageHandler} id="page4" className="skipbtn">
                 Skip for now
               </button>

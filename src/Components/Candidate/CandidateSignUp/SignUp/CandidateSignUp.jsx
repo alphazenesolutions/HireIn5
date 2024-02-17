@@ -74,7 +74,7 @@ const CandidateSignUp = () => {
             },
           })
         );
-        navigate("/verification");
+        navigate("/emailverification");
       } else {
         setIsLoading(false);
         setfinalerror(true);

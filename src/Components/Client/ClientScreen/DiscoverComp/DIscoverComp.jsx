@@ -69,11 +69,13 @@ const DiscoverComp = () => {
         const isFirstNameMatch = data.first_name
           .toLowerCase()
           .includes(searchTerm);
-        const isSkillMatch = data.skill.some((skill) =>
-          skill.toLowerCase().includes(searchTerm)
-        );
+        if (data.preference_info !== null) {
+          const isSkillMatch = data.preference_info.skills.some((skill) =>
+            skill.toLowerCase().includes(searchTerm)
+          );
 
-        return isFirstNameMatch || isSkillMatch;
+          return isFirstNameMatch || isSkillMatch;
+        }
       });
       setfilterdata(filteredData);
     } else {
@@ -130,21 +132,7 @@ const DiscoverComp = () => {
       .catch((err) => {
         return err.response;
       });
-    var newobj = [
-      "PHP",
-      "Pytorch",
-      "Javascript",
-      "Node.Js",
-      "Firebase Cloud Firestore",
-    ];
-    if (allfacility.faculties.length !== 0) {
-      var newarray = [];
-      for (let i = 0; i < allfacility.faculties.length; i++) {
-        allfacility.faculties[i]["skill"] = newobj;
-        newarray.push(allfacility.faculties[i]);
-      }
-      setalldata(newarray);
-    }
+    setalldata(allfacility.faculties);
 
     var config1 = {
       method: "get",

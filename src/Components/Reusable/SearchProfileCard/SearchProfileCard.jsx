@@ -34,13 +34,12 @@ const SearchProfileCard = ({ datanew, addbookmark }) => {
 
     axios(config)
       .then(function (response) {
-        console.log(response.data);
+        return response.data;
       })
       .catch(function (error) {
         return error;
       });
   };
-
   return (
     <div>
       <div className="clientInterview">
@@ -62,37 +61,38 @@ const SearchProfileCard = ({ datanew, addbookmark }) => {
                 </div>
               </div>
               <div className="candidateCartSkills">
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  Java EEE
-                </h4>
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  JavaScript
-                </h4>
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  Java
-                </h4>
-                <h4>jQuery</h4>
-                <h4>Android</h4>
-                <h4>Kotlin</h4>
-                <h4>REST</h4>
-                <h4>Spring Framework</h4>
-                <h4>Firebase Cloud Firestore</h4>
+                {datanew.preference_info.skills.length !== 0
+                  ? datanew.preference_info.skills.map((item, index) =>
+                      index == 0 || index == 1 || index == 2 ? (
+                        <h4>
+                          <img src={courseIcons} alt="" />
+                          JavaScript
+                        </h4>
+                      ) : (
+                        <h4 key={index}>{item}</h4>
+                      )
+                    )
+                  : null}
               </div>
               <div className="candidateCartExperience">
-                <div className="candidateCartExp">
-                  <p>
-                    <img src={briefcase} alt="" /> 2 years of experience
-                  </p>
-                </div>
-                <div className="candidateCartExp">
-                  <p>
-                    <img src={graduation_cap} alt="" /> Bachelors in Computer
-                    Science
-                  </p>
-                </div>
+                {datanew.preference_info !== null ? (
+                  <>
+                    <div className="candidateCartExp">
+                      <p>
+                        <img src={briefcase} alt="" />{" "}
+                        {datanew.preference_info.year_of_experience} years of
+                        experience
+                      </p>
+                    </div>
+                    <div className="candidateCartExp">
+                      <p>
+                        <img src={graduation_cap} alt="" />{" "}
+                        {datanew.preference_info.qualification}
+                      </p>
+                    </div>
+                  </>
+                ) : null}
+
                 <div className="candidateCartExp">
                   <p>
                     <img src={user_check} alt="" /> Part-time availability

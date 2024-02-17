@@ -11,21 +11,13 @@ const Table = (props) => {
   const token = useSelector((store) => store.token);
   const bookmarkdata = useSelector((store) => store.bookmarkdata);
 
-  const [isSelect, setIsSelect] = useState(false);
-  const buttonHandler = () => {
-    setIsSelect(true);
-    setIsSelect2(false);
-  };
+  const [isSelect, setIsSelect] = useState("Shortlisted");
+  const [alluserdata, setalluserdata] = useState([]);
 
-  const [isSelect2, setIsSelect2] = useState(false);
-  const buttonHandler2 = () => {
-    setIsSelect(false);
-    setIsSelect2(true);
-  };
   useEffect(() => {
     getUserinfo();
   }, [bookmarkdata]);
-  const [alluserdata, setalluserdata] = useState([]);
+
   const getUserinfo = async () => {
     let data = JSON.stringify({
       users_list: bookmarkdata,
@@ -57,68 +49,79 @@ const Table = (props) => {
           <h1>Candidates on review</h1>
           <div className="tableButton marginTop20 marginBottom20">
             <button
-              onClick={buttonHandler}
+              onClick={() => {
+                setIsSelect("Shortlisted");
+              }}
               className={
-                isSelect === true ? "shortListedActive" : "shortListedInActive"
+                isSelect === "Shortlisted"
+                  ? "shortListedActive"
+                  : "shortListedInActive"
               }
             >
               Shortlisted
             </button>
             <button
-              onClick={buttonHandler2}
-              className={isSelect2 === true ? "hiredActive" : "hired"}
+              onClick={() => {
+                setIsSelect("Hired");
+              }}
+              className={
+                isSelect === "Hired"
+                  ? "shortListedActive"
+                  : "shortListedInActive"
+              }
             >
               Hired
             </button>
           </div>
-          <div className="innerTable">
-            <table className="table">
-              <tr className="tableHead">
-                <th className="tableFirst"></th>
-                <th>Candidate Name</th>
-                <th>Qualification</th>
-                <th>Experience</th>
-                <th>Key Skills</th>
-                <th></th>
-                {/* <th></th> */}
-              </tr>
-              {alluserdata.length !== 0
-                ? alluserdata.map((data, index) => {
-                    return (
-                      <tr className="tableRow" key={index}>
-                        <td className="profileBookMark">
-                          <img src={tabFirst} alt="" />
-                        </td>
-                        <td>
-                          <div className="profileData ">
-                            <img src={tabImg} alt="" />
-                            <h2>{data.first_name}</h2>
-                          </div>
-                        </td>
-                        <td>
-                          <h2>Java Developer</h2>
-                        </td>
-                        <td>
-                          <h2>2 years</h2>
-                        </td>
-                        <td className="skillData">
-                          <p>Java EEE</p>
-                          <p>JavaScript</p>
-                          <p>Java</p>
-                        </td>
-                        <td>
-                          <div>
-                            <button className="tdBtn">
-                              Schedule interview
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })
-                : null}
-            </table>
-          </div>
+          {isSelect === "Shortlisted" ? (
+            <div className="innerTable">
+              <table className="table">
+                <tr className="tableHead">
+                  <th className="tableFirst"></th>
+                  <th>Candidate Name</th>
+                  <th>Qualification</th>
+                  <th>Experience</th>
+                  <th>Key Skills</th>
+                  <th></th>
+                </tr>
+                {alluserdata.length !== 0
+                  ? alluserdata.map((data, index) => {
+                      return (
+                        <tr className="tableRow" key={index}>
+                          <td className="profileBookMark">
+                            <img src={tabFirst} alt="" />
+                          </td>
+                          <td>
+                            <div className="profileData ">
+                              <img src={tabImg} alt="" />
+                              <h2>{data.first_name}</h2>
+                            </div>
+                          </td>
+                          <td>
+                            <h2>Java Developer</h2>
+                          </td>
+                          <td>
+                            <h2>2 years</h2>
+                          </td>
+                          <td className="skillData">
+                            <p>Java EEE</p>
+                            <p>JavaScript</p>
+                            <p>Java</p>
+                          </td>
+                          <td>
+                            <div>
+                              <button className="tdBtn">
+                                Schedule interview
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : null}
+              </table>
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>

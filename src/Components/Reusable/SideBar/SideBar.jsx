@@ -27,7 +27,7 @@ const SideBar = (props) => {
   useEffect(() => {
     setTimeout(() => {
       getUserinfo();
-    }, 2000);
+    }, 1000);
   }, [token, userid]);
   const getUserinfo = useCallback(async () => {
     if (token !== null && userid !== null) {
