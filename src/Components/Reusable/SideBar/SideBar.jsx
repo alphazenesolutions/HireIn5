@@ -4,11 +4,7 @@ import "./SideBar.css";
 import profile from "../../../assests/profile.png";
 import wallet from "../../../assests/wallet.png";
 import logout from "../../../assests/logout.png";
-import discover from "../../../assests/Discover.svg";
-import interview from "../../../assests/User.svg";
-import contract from "../../../assests/Contracts.svg";
-import billing from "../../../assests/Billing.svg";
-import help from "../../../assests/help.svg";
+
 import logo from "../../../assests/Logo.png";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -45,6 +41,7 @@ const SideBar = (props) => {
           return err.response.data;
         });
       if (userinfo.id !== undefined) {
+        dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
         setusername(userinfo.first_name);
       } else {
         dispatch(storeAction.isloginHandler({ islogin: false }));
@@ -138,7 +135,7 @@ const SideBar = (props) => {
         <div className="sideNavInner">
           <div className="sideNavTop">
             <div
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/discover")}
               className="sideNavHead marginBottom15"
             >
               <img src={logo} alt="" />

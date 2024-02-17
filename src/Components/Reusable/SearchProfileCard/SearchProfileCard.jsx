@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import "./SearchProfileCard.css";
 import candidateimges from "../../../assests/table.png";
 import courseIcons from "../../../assests/userCard.png";
@@ -17,28 +18,62 @@ const SearchProfileCard = ({ datanew, addbookmark }) => {
   const dispatch = useDispatch();
   const bookmarkdata = useSelector((store) => store.bookmarkdata);
   const token = useSelector((store) => store.token);
+  const userid = useSelector((store) => store.userid);
+  const [tabledata, settabledata] = useState([]);
 
   const removebookmark = async (id) => {
-    var newarray = (await bookmarkdata.includes(id))
-      ? bookmarkdata.filter((item) => item !== id)
-      : [...bookmarkdata, id];
-    dispatch(storeAction.bookmarkdataHander({ bookmarkdata: newarray }));
-    var config = {
-      method: "delete",
+    var checkdata = await tabledata.filter((data) => {
+      return data.bookmarked_user == id;
+    });
+    if (checkdata.length !== 0) {
+      var config = {
+        method: "delete",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/bookmark/${checkdata[0].id}`,
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      };
+      await axios(config)
+        .then(function (response) {
+          return response;
+        })
+        .catch(function (error) {
+          return error;
+        });
+      GetTabledata();
+    }
+  };
+  useEffect(() => {
+    GetTabledata();
+  }, []);
+  const GetTabledata = async () => {
+    var config1 = {
+      method: "get",
       maxBodyLength: Infinity,
-      url: `https://hirein5-server.onrender.com/bookmark/${id}`,
+      url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
       headers: {
         Authorization: `JWT ${token}`,
       },
     };
-
-    axios(config)
+    var table_data = await axios(config1)
       .then(function (response) {
         return response.data;
       })
       .catch(function (error) {
         return error;
       });
+    if (table_data.length !== 0) {
+      const bookmarkedUserArray = table_data.map(
+        (item) => item.bookmarked_user
+      );
+      dispatch(
+        storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
+      );
+    } else {
+      dispatch(storeAction.bookmarkdataHander({ bookmarkdata: [] }));
+    }
+    settabledata(table_data);
   };
   return (
     <div>
