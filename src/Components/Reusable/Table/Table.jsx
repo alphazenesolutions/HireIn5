@@ -42,6 +42,7 @@ const Table = (props) => {
         return error;
       });
   };
+  console.log(alluserdata, "alluserdata");
   return (
     <div>
       {bookmarkdata.length !== 0 ? (
@@ -97,17 +98,32 @@ const Table = (props) => {
                               <h2>{data.first_name}</h2>
                             </div>
                           </td>
-                          <td>
-                            <h2>Java Developer</h2>
-                          </td>
-                          <td>
-                            <h2>2 years</h2>
-                          </td>
-                          <td className="skillData">
-                            <p>Java EEE</p>
-                            <p>JavaScript</p>
-                            <p>Java</p>
-                          </td>
+                          {data.preference_info !== null ? (
+                            <>
+                              {" "}
+                              <td>
+                                <h2>{data.preference_info.qualification}</h2>
+                              </td>
+                              <td>
+                                <h2>
+                                  {data.preference_info.year_of_experience}{" "}
+                                  years
+                                </h2>
+                              </td>
+                              <td className="skillData">
+                                {data.preference_info.skills.length !== 0
+                                  ? data.preference_info.skills.map(
+                                      (data, index) => <p key={index}>{data}</p>
+                                    )
+                                  : "-"}
+                              </td>
+                            </>
+                          ) : (
+                            <>
+                              <td>-</td> <td>-</td> <td>-</td>
+                            </>
+                          )}
+
                           <td>
                             <div>
                               <button className="tdBtn">
