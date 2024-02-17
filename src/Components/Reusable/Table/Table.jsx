@@ -3,46 +3,117 @@ import React, { useEffect, useState } from "react";
 import "./Table.css";
 import tabImg from "../../../assests/table.png";
 import tabFirst from "../../../assests/colar.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { storeAction } from "../../../Store/Store";
 
 const Table = (props) => {
+  const dispatch = useDispatch();
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
   const bookmarkdata = useSelector((store) => store.bookmarkdata);
 
   const [isSelect, setIsSelect] = useState("Shortlisted");
   const [alluserdata, setalluserdata] = useState([]);
+  const [tabledata, settabledata] = useState([]);
 
   useEffect(() => {
     getUserinfo();
   }, [bookmarkdata]);
 
   const getUserinfo = async () => {
-    let data = JSON.stringify({
-      users_list: bookmarkdata,
-    });
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}`,
-      headers: {
-        Authorization: `JWT ${token}`,
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        setalluserdata(response.data);
-      })
-      .catch((error) => {
-        return error;
+    if (bookmarkdata.length !== 0) {
+      var unique = bookmarkdata.filter(
+        (value, index, array) => array.indexOf(value) === index
+      );
+      let data = JSON.stringify({
+        users_list: unique,
       });
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}`,
+        headers: {
+          Authorization: `JWT ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      axios
+        .request(config)
+        .then((response) => {
+          setalluserdata(response.data);
+        })
+        .catch((error) => {
+          return error;
+        });
+
+      var config1 = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      };
+      var tabledata = await axios(config1)
+        .then(function (response) {
+          return response.data;
+        })
+        .catch(function (error) {
+          return error;
+        });
+      settabledata(tabledata);
+    }
   };
-  console.log(alluserdata, "alluserdata");
+  const removebtn = async (id) => {
+    var checkdata = await tabledata.filter((data) => {
+      return data.bookmarked_user == id;
+    });
+    if (checkdata.length !== 0) {
+      var config = {
+        method: "delete",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/bookmark/${checkdata[0].id}`,
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      };
+      await axios(config)
+        .then(function (response) {
+          return response;
+        })
+        .catch(function (error) {
+          return error;
+        });
+
+      var config1 = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      };
+      var table_data = await axios(config1)
+        .then(function (response) {
+          return response.data;
+        })
+        .catch(function (error) {
+          return error;
+        });
+      if (table_data.length !== 0) {
+        const bookmarkedUserArray = table_data.map(
+          (item) => item.bookmarked_user
+        );
+        dispatch(
+          storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
+        );
+      } else {
+        dispatch(storeAction.bookmarkdataHander({ bookmarkdata: [] }));
+      }
+    }
+  };
   return (
     <div>
       {bookmarkdata.length !== 0 ? (
@@ -89,7 +160,12 @@ const Table = (props) => {
                   ? alluserdata.map((data, index) => {
                       return (
                         <tr className="tableRow" key={index}>
-                          <td className="profileBookMark">
+                          <td
+                            className="profileBookMark"
+                            onClick={() => {
+                              removebtn(data.id);
+                            }}
+                          >
                             <img src={tabFirst} alt="" />
                           </td>
                           <td>

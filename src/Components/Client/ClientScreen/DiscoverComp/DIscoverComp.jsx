@@ -151,7 +151,6 @@ const DiscoverComp = () => {
       });
     if (tabledata.length !== 0) {
       const bookmarkedUserArray = tabledata.map((item) => item.bookmarked_user);
-      setnewstate(bookmarkedUserArray);
       dispatch(
         storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
       );
@@ -174,7 +173,6 @@ const DiscoverComp = () => {
       .catch((err) => {
         return err.response;
       });
-    console.log(allsearchfacility, "allsearchfacility");
     if (allsearchfacility.recently_visited.length !== 0) {
       var unique = allsearchfacility.recently_visited.filter(
         (value, index, array) => array.indexOf(value) === index
@@ -201,13 +199,12 @@ const DiscoverComp = () => {
           return error;
         });
       setsearchuser(alluserdata);
+    } else {
+      setsearchuser([]);
     }
   };
 
-  const [newstate, setnewstate] = useState([]);
   const addbookmark = async (id) => {
-    var newarray = [...newstate, id];
-    setnewstate(newarray);
     let data = JSON.stringify({
       user: userid.toString(),
       bookmarked_user: id.toString(),
@@ -230,7 +227,27 @@ const DiscoverComp = () => {
       .catch((error) => {
         return error;
       });
-    dispatch(storeAction.bookmarkdataHander({ bookmarkdata: newarray }));
+    getAlldata();
+  };
+  const clearall = async () => {
+    let config = {
+      method: "delete",
+      maxBodyLength: Infinity,
+      url: `https://hirein5-server.onrender.com/remove/recentlyvisited/${userid}`,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+    getSearchuser();
   };
   return (
     <div>
@@ -264,7 +281,9 @@ const DiscoverComp = () => {
                       </button>
                     </div>
                     <div className="recentHeadRight">
-                      <h2>Clear All</h2>
+                      <h2 onClick={clearall} className="cursor-pointer">
+                        Clear All
+                      </h2>
                     </div>
                   </div>
                 ) : (

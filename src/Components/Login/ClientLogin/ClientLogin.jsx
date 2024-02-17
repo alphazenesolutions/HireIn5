@@ -74,7 +74,7 @@ const ClientLogin = () => {
         dispatch(storeAction.tokenHandler({ token: loginuser.access }));
         dispatch(storeAction.useridHandler({ userid: 1 }));
         dispatch(storeAction.isloginHandler({ islogin: true }));
-        navigate("/dashboard");
+        navigate("/discover");
       } else {
         setIsLoading(false);
         setfinalerror(true);
