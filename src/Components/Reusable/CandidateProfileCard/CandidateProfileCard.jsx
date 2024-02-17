@@ -58,7 +58,7 @@ const CandidateProfileCard = (props) => {
           <div className="profileLeft">
             <div className="profileLeftTop">
               <img src={candidatePropoic} alt="" />
-              <h1>Yasir Quazi</h1>
+              <h1>Yasir Quazi 333</h1>
               <h2>USD 80 / HR</h2>
               <div className="available">
                 <p>Available from</p>

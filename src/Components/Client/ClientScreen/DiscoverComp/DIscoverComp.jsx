@@ -174,6 +174,7 @@ const DiscoverComp = () => {
       .catch((err) => {
         return err.response;
       });
+    console.log(allsearchfacility, "allsearchfacility");
     if (allsearchfacility.recently_visited.length !== 0) {
       var unique = allsearchfacility.recently_visited.filter(
         (value, index, array) => array.indexOf(value) === index
