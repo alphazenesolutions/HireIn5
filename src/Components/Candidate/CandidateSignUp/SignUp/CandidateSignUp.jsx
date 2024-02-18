@@ -98,7 +98,7 @@ const CandidateSignUp = () => {
 
             <div className="candidateSignUpCompBody">
               <div className="candidateSignUpCompBodyEmail">
-                <h4>Company Email</h4>
+                <h4>Email</h4>
                 <input
                   placeholder="you@gmail.com"
                   type="text"
@@ -107,7 +107,7 @@ const CandidateSignUp = () => {
                 />
                 {usernameerror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">
-                    Please Enter Company Email
+                    Please Enter Email
                   </p>
                 )}
               </div>
