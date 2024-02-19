@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import axios from "axios";
 
-const SearchProfileCard = ({ datanew, addbookmark }) => {
+const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
   const dispatch = useDispatch();
   const bookmarkdata = useSelector((store) => store.bookmarkdata);
   const token = useSelector((store) => store.token);
@@ -160,7 +160,10 @@ const SearchProfileCard = ({ datanew, addbookmark }) => {
                     />
                   )}
 
-                  <button className="cartbtnimgbutton1">
+                  <button
+                    onClick={() => reserve("reserve")}
+                    className="cartbtnimgbutton1"
+                  >
                     Reserve candidate
                   </button>
                   <button className="cartbtnimgbutton2">view</button>

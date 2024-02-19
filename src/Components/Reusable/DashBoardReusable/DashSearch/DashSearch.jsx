@@ -27,7 +27,7 @@ const DashSearch = (props) => {
   });
 
   const FilterHandler = () => {
-    dispatch(storeAction.isPopUpHander());
+    dispatch(storeAction.isPopUpHander("filter"));
   };
 
   const [isToggle, setIsToggle] = useState(false);
@@ -194,7 +194,7 @@ const DashSearch = (props) => {
             </div>
           </div>
         )}
-        {isPopUp && (
+        {isPopUp === "filter" && (
           <div className="allFilter">
             <div className="allFilterHead">
               <div className="allFilterHeadLeft">

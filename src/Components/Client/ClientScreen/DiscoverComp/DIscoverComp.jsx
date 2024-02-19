@@ -17,6 +17,11 @@ import { useDispatch } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
 import glasses from "../../../../assests/glasses.png";
+import close from "../../../../assests/billingX.png";
+import profile from "../../../../assests/CandidateProfile.png";
+import courseIcons from "../../../../assests/userCard.png";
+import brief from "../../../../assests/briefCase.png";
+import SingleRange from "../../../MaterialUi/SingleRange/SingleRange";
 
 const DiscoverComp = () => {
   const dispatch = useDispatch();
@@ -155,6 +160,15 @@ const DiscoverComp = () => {
       );
     }
   };
+
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+
+  const overLayHandler = (e) => {
+    dispatch(storeAction.isPopUpHander(e));
+  };
+
   const getSearchuser = async () => {
     var allsearchfacility = await axios
       .get(
@@ -302,6 +316,7 @@ const DiscoverComp = () => {
                           <SearchProfileCard
                             datanew={datanew}
                             addbookmark={addbookmark}
+                            reserve={overLayHandler}
                           />
                         </div>
                       ))
@@ -324,6 +339,116 @@ const DiscoverComp = () => {
           />
         )}
       </div>
+      {isPopUp === "reserve" && (
+        <div className="reserveCandidate">
+          <div className="reserveHead">
+            <h1>Reserve candidate</h1>
+            <img src={close} alt="" />
+          </div>
+          <div className="reserveCandidateFlex">
+            <div className="reserveCandidateFlexLeft">
+              <h2>What is reserving?</h2>
+              <ul>
+                <li>
+                  By paying the Reserve Fees, the candidate will be{" "}
+                  <span className="darkHighter">
+                    blocked for you exclusively for a period of 5 days.
+                  </span>{" "}
+                  This feature is available only to Pro Subscribers.
+                </li>
+                <li>
+                  During the 5 days, our{" "}
+                  <span className="darkHighter">
+                    {" "}
+                    Customer Success team will work to ensure{" "}
+                  </span>
+                  that you are able to sign the engagement contract for the
+                  candidate.
+                </li>
+                <li>
+                  The amount paid towards reserving the candidate will be
+                  <span className="darkHighter">
+                    {" "}
+                    adjusted against the first invoice
+                  </span>{" "}
+                  against the same candidate.
+                </li>
+                <li>
+                  Start date of the engagement for a candidate who has been
+                  "Reserved" on the system, cannot be more than 30 days.
+                </li>
+                <li>
+                  After reserving a candidate, in case you are unable to
+                  complete the signing formalities within 5 days, the
+                  candidate's profile will be automatically opened up for others
+                  to hire / reserve, and the reserve fees shall be refunded to
+                  you within 3-4 working days.
+                </li>
+                <li>
+                  For any reason whatsoever, if the candidate shortlisted by you
+                  is not available, you will have the choice to either get the
+                  refund or use that credit against the next invoice.
+                </li>
+              </ul>
+            </div>
+            <div className="reserveCandidateFlexRight">
+              <div className="reserveCandidateFlexRightHead">
+                <div className="reserveCandidateFlexRightHeadLeft">
+                  <img src={profile} alt="" />
+                  <div className="reserveCandidateFlexRightHeadLeftDesc">
+                    <h3>Surya Narreddi</h3>
+                    <h4>Java Developer</h4>
+                  </div>
+                </div>
+                <div className="reserveCandidateFlexRightHeadRight">
+                  <h5 className="rateHour">₹4500/hr</h5>
+                </div>
+              </div>
+              <div className="candidateCartSkills">
+                <h4>
+                  <img src={courseIcons} alt="" />
+                  Java EEE
+                </h4>
+                <h4>
+                  <img src={courseIcons} alt="" />
+                  JavaScript
+                </h4>
+                <h4>
+                  <img src={courseIcons} alt="" />
+                  Java
+                </h4>
+              </div>
+              <div className="reserveCandidateBrief">
+                <h5>
+                  <img src={brief} alt="" />2 years of experience
+                </h5>
+                <h5>
+                  <img src={brief} alt="" />
+                  Part-time availability
+                </h5>
+              </div>
+              <h2>Start date</h2>
+              <input type="date" />
+              <h2>Duration of engagement</h2>
+              <SingleRange />
+              <div className="durationmMonths">
+                <h4>3 months</h4>
+                <h4>1 year</h4>
+              </div>
+              <h5>
+                Candidate will be reserved from{" "}
+                <span>Feb 07, 2024 - May 07, 2024.</span>
+              </h5>
+              <div className="fees">
+                <h4>Reserve Fees</h4>
+                <h4>₹ 15,000</h4>
+              </div>
+              <button>Continue to Payment</button>
+              <p>You’ll be taken to Razorpay to complete the transaction</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* <div contenteditable="true" className="h-[100px] w-full bg-grey-400">
         <div contenteditable="true">I'm Editable. Edit me!</div>

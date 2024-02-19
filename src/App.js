@@ -32,6 +32,8 @@ function App() {
       isPopUp == "education" ||
       isPopUp == "certificate" ||
       isPopUp == "travel" ||
+      isPopUp == "reserve" ||
+      isPopUp == "filter" ||
       isPopUp == "project" ? (
         <div onClick={CloseOverlay} id="overlay"></div>
       ) : null}

@@ -114,6 +114,8 @@
 
 .candidateCartSkills img {
     margin-right: 5px;
+    object-fit: cover;
+    height: 20px;
 }
 
 .candidateCartExperience {
