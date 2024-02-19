@@ -118,8 +118,7 @@ const ForgetComp = () => {
               Check your email inbox
             </h1>
             <p>
-              We’ve sent you a confirmation link to{" "}
-              <span>{email}</span>
+              We’ve sent you a confirmation link to <span>{email}</span>
             </p>
             <p title="">Please click the link to confirm your email address.</p>
             <div className="forgotemailBox">
@@ -136,7 +135,14 @@ const ForgetComp = () => {
             <div className="forgotVerificationBottom">
               <p>Check your spam folder if you can’t see an email.</p>
               <p title="">
-                Incorrect email? <span>Re-enter your email id </span>
+                Incorrect email?
+                <span
+                  onClick={() => {
+                    setIsPage("page1");
+                  }}
+                >
+                  Re-enter your email id
+                </span>
               </p>
             </div>
           </div>

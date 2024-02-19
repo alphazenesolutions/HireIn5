@@ -8,6 +8,7 @@ import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { FiLoader } from "react-icons/fi";
 
 const RegistrationComp = () => {
   const navigate = useNavigate();
@@ -18,13 +19,14 @@ const RegistrationComp = () => {
   const [isPage, setIsPage] = useState("page1");
 
   const [isButton, setIsButton] = useState(false);
+  const [checked, setchecked] = useState(false);
   const buttonHandler = () => {
     setIsButton(true);
   };
 
   const [isButton2, setIsButton2] = useState(false);
   const buttonHandlernew = () => {
-    setIsButton(false);
+    setchecked(!checked);
   };
   const backHandler = (event) => {
     setIsPage(event.target.id);
@@ -94,7 +96,6 @@ const RegistrationComp = () => {
   const handlechangenew = (e) => {
     const { name, value } = e.target;
     if (name === "secondary_email") {
-      setIsButton2(true);
       setbillingdata((values) => ({ ...values, [name]: value }));
     }
     setbillingdata((values) => ({ ...values, [name]: value }));
@@ -151,6 +152,16 @@ const RegistrationComp = () => {
           setagreedataerror(true);
         } else {
           setagreedataerror(false);
+          setregistationdataerror({
+            company_name: false,
+            company_location: false,
+            company_url: false,
+            first_name: false,
+            phone: false,
+            title: false,
+            linked_in: false,
+          });
+          setIsButton(true);
           var new_obj = {
             username: signupdata.username,
             first_name: registationdata.first_name,
@@ -193,6 +204,9 @@ const RegistrationComp = () => {
             "User and Associated Info updated successfully"
           ) {
             setIsPage(event.target.id);
+            setIsButton(false);
+          } else {
+            setIsButton(false);
           }
         }
       }
@@ -279,6 +293,7 @@ const RegistrationComp = () => {
           ...values,
           secondary_email: false,
         }));
+        setIsButton2(true);
         var new_obj1 = {
           username: signupdata.username,
           first_name: registationdata.first_name,
@@ -321,12 +336,18 @@ const RegistrationComp = () => {
           )
           .then((res) => {
             return res.data;
+          })
+          .catch((err) => {
+            return err;
           });
         if (
           updatedatabilling.message ===
           "User and Associated Info updated successfully"
         ) {
           setIsPage(event.target.id);
+          setIsButton2(false);
+        } else {
+          setIsButton2(false);
         }
       }
     }
@@ -749,13 +770,11 @@ const RegistrationComp = () => {
               </div>
               <div className="agree marginBottom20">
                 <input
-                  onClick={
-                    isButton === false ? buttonHandler : buttonHandlernew
-                  }
+                  onClick={buttonHandlernew}
                   type="checkbox"
                   name=""
                   id=""
-                  checked={isButton === true}
+                  checked={checked === true}
                 />
                 <h5 className="terms">
                   I agree to the Hirein5
@@ -764,15 +783,20 @@ const RegistrationComp = () => {
                 </h5>
               </div>
               <div className="registerBottom">
-                {isButton === true ? (
+                {isButton === false ? (
                   <button id="page2" onClick={pageHandler} className="nextbtn">
                     Next
                   </button>
                 ) : (
-                  <button id="page2" className="nextbtnDisable" disabled>
-                    Next
+                  <button
+                    id="page2"
+                    className="clientLoginCompBodyButtonLoading"
+                    disabled
+                  >
+                    <FiLoader className="loadingIcon" />
                   </button>
                 )}
+
                 <h5>
                   If you require any help or clarification, please connect with
                   our team at <br />
@@ -970,13 +994,17 @@ const RegistrationComp = () => {
               </div>
 
               <div className="registerBottom">
-                {isButton2 === true ? (
-                  <button id="page3" onClick={pageHandler} className="nextbtn1">
+                {isButton2 === false ? (
+                  <button id="page2" onClick={pageHandler} className="nextbtn">
                     Next
                   </button>
                 ) : (
-                  <button className="nextbtnDisable" disabled>
-                    Next
+                  <button
+                    id="page2"
+                    className="clientLoginCompBodyButtonLoading"
+                    disabled
+                  >
+                    <FiLoader className="loadingIcon" />
                   </button>
                 )}
                 <button className="skipbtn">Skip for now</button>

@@ -159,7 +159,7 @@ const SideBar = (props) => {
                 <h4 onClick={() => navigate("/discover")} className="menuName">
                   {props.one}
                 </h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
               <div
                 onClick={HoverHandler1}
@@ -167,7 +167,7 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.two}</h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
               <div
                 onClick={HoverHandler2}
@@ -175,7 +175,7 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.three}</h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
               <div
                 onClick={HoverHandler3}
@@ -183,7 +183,7 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.four}</h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
               <div
                 onClick={HoverHandler4}
@@ -191,7 +191,7 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.five}</h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
               <div
                 onClick={HoverHandler5}
@@ -199,7 +199,7 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.six}</h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
             </div>
           </div>

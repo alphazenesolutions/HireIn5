@@ -91,7 +91,6 @@ const PersonalDetails = () => {
         pan_number: formdata.pan,
       },
     };
-    console.log(newobj, "newobj");
     var updatedata = await axios
       .put(
         `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
@@ -116,7 +115,6 @@ const PersonalDetails = () => {
       dispatch(storeAction.isPopUpHander());
     }
   };
-  console.log(userdata,'iii');
   return (
     <div>
       <div className="personalDetails">

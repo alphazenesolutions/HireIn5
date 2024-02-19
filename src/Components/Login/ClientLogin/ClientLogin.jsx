@@ -10,6 +10,8 @@ import { FiLoader } from "react-icons/fi";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
+import { FiEye } from "react-icons/fi";
+import { FiEyeOff } from "react-icons/fi";
 
 const ClientLogin = () => {
   const dispatch = useDispatch();
@@ -72,7 +74,7 @@ const ClientLogin = () => {
         });
       if (loginuser.access !== undefined) {
         dispatch(storeAction.tokenHandler({ token: loginuser.access }));
-        dispatch(storeAction.useridHandler({ userid: 1 }));
+        dispatch(storeAction.useridHandler({ userid: 11 }));
         dispatch(storeAction.isloginHandler({ islogin: true }));
         navigate("/discover");
       } else {
@@ -126,13 +128,19 @@ const ClientLogin = () => {
                     type={show === true ? "text" : "password"}
                     name="password"
                   />
-                  <img
-                    id="loginPassword"
-                    onClick={showPassword}
-                    className="eyeOne"
-                    src={eye}
-                    alt=""
-                  />
+                  {show === false ? (
+                    <FiEyeOff
+                      className="text-gray-500 eyeOne"
+                      onClick={showPassword}
+                      id="loginPassword"
+                    />
+                  ) : (
+                    <FiEye
+                      className="text-gray-500 eyeOne"
+                      onClick={showPassword}
+                      id="loginPassword"
+                    />
+                  )}
                 </div>
                 {passworderror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">

@@ -3,8 +3,10 @@ import React, { useEffect } from "react";
 import Head from "../LogoHead/Head";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Emailverification = () => {
+  const navigate = useNavigate();
   const signupdata = useSelector((store) => store.signupdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
@@ -39,7 +41,6 @@ const Emailverification = () => {
   };
   return (
     <div>
-      {" "}
       <div className="verificationSuccess">
         <div className=" ">
           <Head />
@@ -61,7 +62,14 @@ const Emailverification = () => {
           <div className="verificationBottom">
             <p>Check your spam folder if you can’t see an email.</p>
             <p title="">
-              Incorrect email? <span>Re-enter your email id </span>
+              Incorrect email?{" "}
+              <span
+                onClick={() => {
+                  navigate("/clientsignup");
+                }}
+              >
+                Re-enter your email id{" "}
+              </span>
             </p>
           </div>
         </div>
