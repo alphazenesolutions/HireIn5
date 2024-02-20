@@ -115,7 +115,6 @@ const DashSearch = (props) => {
     setIsToggle1(false);
     setIsToggle(false);
   };
-
   return (
     <div>
       <div className={props.class}>
@@ -148,7 +147,7 @@ const DashSearch = (props) => {
             <img src={downArrow} alt="" />
           </button>
           <button onClick={FilterHandler} className="dashBoardMainSelectbutton">
-            <p>All Filters</p>
+            <p>All Filters </p>
             {allfilter.length !== 0 ? <h6>{allfilter.length}</h6> : null}
             <img src={downArrow} alt="" />
           </button>

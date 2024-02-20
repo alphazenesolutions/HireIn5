@@ -4,12 +4,13 @@ import user from "../../../../assests/User.svg";
 import dropDown from "../../../../assests/arrowDown.svg";
 import edit from "../../../../assests/edit.svg";
 import dropUp from "../../../../assests/arrowUp.svg";
-import star from "../../../../assests/star.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
-import plus from "../../../../assests/plus.svg";
 
 const TravelHistory = () => {
+  const userdata = useSelector((store) => store.userdata);
+  const userid = useSelector((store) => store.userid);
+  const token = useSelector((store) => store.token);
   const dispatch = useDispatch();
   const [isArrow, setIsArrow] = useState(false);
   const dropDownhandler = () => {
@@ -28,6 +29,7 @@ const TravelHistory = () => {
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("travel"));
   };
+  console.log(userdata, "userdata");
   return (
     <div>
       <div className="travelHistory">
@@ -56,68 +58,73 @@ const TravelHistory = () => {
           {isArrow === true && (
             <div className="travelHistoryDesc">
               <h1>
-                Add certification / course Details here to enhance your profile
+                Add your travel history here to stand out from other candidates
               </h1>
-              <div className="travelGrid">
-                <div className="travelGridOne">
-                  <h1>Countries you’ve travelled to</h1>
-                  <h2>Country</h2>
-                  <h3>
-                    Year of Travel:<p></p>
-                  </h3>
-                  <h3 className="marginBottom20">
-                    Duration :<p>Pending</p>
-                  </h3>
-                  <h3>
-                    Purpose:<p>Pending</p>
-                  </h3>
-                  <h3>
-                    Type of Visa:<p>Pending</p>
-                  </h3>
-                  <h3>
-                    Validity of Visa:<p>Pending</p>
-                  </h3>
+              {userdata.length !== 0 ? (
+                <div className="travelGrid">
+                  {userdata[0].travel_info !== null ? (
+                    <div className="travelGridOne">
+                      <h1>Countries you’ve travelled to</h1>
+                      <h2>Country</h2>
+                      <h3>
+                        Year of Travel:<p></p>
+                      </h3>
+                      <h3 className="marginBottom20">
+                        Duration :<p>Pending</p>
+                      </h3>
+                      <h3>
+                        Purpose:<p>Pending</p>
+                      </h3>
+                      <h3>
+                        Type of Visa:<p>Pending</p>
+                      </h3>
+                      <h3>
+                        Validity of Visa:<p>Pending</p>
+                      </h3>
+                    </div>
+                  ) : null}
+
+                  <div className="travelGridOne">
+                    <h1>Countries you’re willing to travel to for work</h1>
+                    <h2>Country 1</h2>
+                    <h2>Country 2</h2>
+                    <h2>Country 3</h2>
+                    <h3 className="marginTop20">
+                      Only For:
+                      <p>Pending</p>
+                    </h3>
+                    <h3>
+                      Duration:
+                      <p>Pending</p>
+                    </h3>
+                    <h3>
+                      Travel Readiness:
+                      <p>Pending</p>
+                    </h3>
+                  </div>
+                  <div className="travelGridOne">
+                    <h1>Residency details</h1>
+                    <h3 className="marginTop20">
+                      Current Place of Residence:
+                      <p>Pending</p>
+                    </h3>
+                    <h3 className="marginTop20">
+                      Duration:
+                      <p>Pending</p>
+                    </h3>
+                  </div>
+                  <div className="travelGridOne">
+                    <h1>Countries you’re willing to travel to for work</h1>
+                    <h2>Country 1</h2>
+                    <h2>Country 2</h2>
+                    <h2>Country 3</h2>
+                    <h3 className="marginTop20">
+                      Preferred Duration:
+                      <p>Pending</p>
+                    </h3>
+                  </div>
                 </div>
-                <div className="travelGridOne">
-                  <h1>Countries you’re willing to travel to for work</h1>
-                  <h2>Country 1</h2>
-                  <h2>Country 2</h2>
-                  <h2>Country 3</h2>
-                  <h3 className="marginTop20">
-                    Only For:
-                    <p>Pending</p>
-                  </h3>
-                  <h3>
-                    Duration:
-                    <p>Pending</p>
-                  </h3>
-                  <h3>
-                    Travel Readiness:
-                    <p>Pending</p>
-                  </h3>
-                </div>
-                <div className="travelGridOne">
-                  <h1>Residency details</h1>
-                  <h3 className="marginTop20">
-                    Current Place of Residence:
-                    <p>Pending</p>
-                  </h3>
-                  <h3 className="marginTop20">
-                    Duration:
-                    <p>Pending</p>
-                  </h3>
-                </div>
-                <div className="travelGridOne">
-                  <h1>Countries you’re willing to travel to for work</h1>
-                  <h2>Country 1</h2>
-                  <h2>Country 2</h2>
-                  <h2>Country 3</h2>
-                  <h3 className="marginTop20">
-                    Preferred Duration:
-                    <p>Pending</p>
-                  </h3>
-                </div>
-              </div>
+              ) : null}
             </div>
           )}
           {isPopUp === "travel" && (

@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { FiLoader } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 
 const SignUpComp = () => {
   const navigate = useNavigate();
@@ -158,12 +158,17 @@ const SignUpComp = () => {
                     name="password"
                     onChange={handlechange}
                   />
-                  <img
-                    onClick={showPassword}
-                    className="eyeOne"
-                    src={eye}
-                    alt=""
-                  />
+                  {show === false ? (
+                    <FiEyeOff
+                      className="text-gray-500 eyeOne"
+                      onClick={showPassword}
+                    />
+                  ) : (
+                    <FiEye
+                      className="text-gray-500 eyeOne"
+                      onClick={showPassword}
+                    />
+                  )}
                 </div>
                 {passworderror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">
@@ -181,12 +186,18 @@ const SignUpComp = () => {
                     type={show1 === true ? "text" : "password"}
                     name="cpassword"
                   />
-                  <img
-                    onClick={showConfirmPassword}
-                    className="eyeTwo"
-                    src={eye}
-                    alt=""
-                  />
+
+                  {show1 === false ? (
+                    <FiEyeOff
+                      className="text-gray-500 eyeTwo"
+                      onClick={showConfirmPassword}
+                    />
+                  ) : (
+                    <FiEye
+                      className="text-gray-500 eyeTwo"
+                      onClick={showConfirmPassword}
+                    />
+                  )}
                 </div>
                 {passwordmatch && (
                   <p className="text-red-500 text-xs font-semibold mt-2">

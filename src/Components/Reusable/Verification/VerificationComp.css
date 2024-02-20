@@ -84,6 +84,7 @@
 
 p[title] span {
     color: var(--primaryColor);
+    cursor: pointer;
 }
 
 

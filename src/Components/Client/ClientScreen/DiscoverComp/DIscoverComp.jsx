@@ -110,7 +110,6 @@ const DiscoverComp = () => {
     totalHandler();
     tl1.to(".recentWrap", { x: card * -530 });
   };
-
   const gsapHandlerReverse = () => {
     totalHandler1();
     tl1.to(".recentWrap", { x: card * -530 });

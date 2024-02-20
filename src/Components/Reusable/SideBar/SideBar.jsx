@@ -18,8 +18,8 @@ const SideBar = (props) => {
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
+  const userdata = useSelector((store) => store.userdata);
 
-  const [username, setusername] = useState("");
   useEffect(() => {
     setTimeout(() => {
       getUserinfo();
@@ -42,7 +42,6 @@ const SideBar = (props) => {
         });
       if (userinfo.id !== undefined) {
         dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
-        setusername(userinfo.first_name);
       } else {
         dispatch(storeAction.isloginHandler({ islogin: false }));
         dispatch(storeAction.tokenHandler({ token: null }));
@@ -143,7 +142,10 @@ const SideBar = (props) => {
             </div>
             <div className="dashProfile">
               <div className="profileName">
-                <h2>{username}</h2>
+                {userdata.length !== 0 ? (
+                  <h2>{userdata[0].first_name}</h2>
+                ) : null}
+
                 {/* <p>Apple Inc.</p> */}
               </div>
               <div className="profilePic">
@@ -159,7 +161,7 @@ const SideBar = (props) => {
                 <h4 onClick={() => navigate("/discover")} className="menuName">
                   {props.one}
                 </h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
               <div
                 onClick={HoverHandler1}
@@ -167,7 +169,7 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.two}</h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
               <div
                 onClick={HoverHandler2}
@@ -175,7 +177,7 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.three}</h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
               <div
                 onClick={HoverHandler3}
@@ -183,7 +185,7 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.four}</h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
               <div
                 onClick={HoverHandler4}
@@ -191,7 +193,7 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.five}</h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
               <div
                 onClick={HoverHandler5}
@@ -199,7 +201,7 @@ const SideBar = (props) => {
               >
                 <img className="menuImg" src={props.img1} alt="" />
                 <h4 className="menuName">{props.six}</h4>
-                <p className="number">5</p>
+                {/* <p className="number">5</p> */}
               </div>
             </div>
           </div>

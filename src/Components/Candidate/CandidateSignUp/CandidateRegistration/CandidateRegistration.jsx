@@ -509,7 +509,7 @@ const CandidateRegistration = () => {
         if (
           updatedata.message === "User and Associated Info updated successfully"
         ) {
-          setIsPage(e.target.id);
+          setIsPage("page2");
           routeHandler();
           setfinalerrorstatus(false);
           setfinalerror(null);
@@ -771,7 +771,7 @@ const CandidateRegistration = () => {
             update_data.message ===
             "User and Associated Info updated successfully"
           ) {
-            setIsPage(e.target.id);
+            setIsPage("page3");
             routeHandler();
             setfinalerrorstatus(false);
             setfinalerror(null);
@@ -827,7 +827,7 @@ const CandidateRegistration = () => {
         update1_data.message === "User and Associated Info updated successfully"
       ) {
         setIsLoading(false);
-        setIsPage(e.target.id);
+        setIsPage("page4");
         routeHandler();
       }
     }

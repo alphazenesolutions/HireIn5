@@ -36,6 +36,7 @@
     border-radius: 10px;
     background-color: var(--white);
     border: 1px solid var(--borderColor);
+    cursor: pointer;
 
 }
 

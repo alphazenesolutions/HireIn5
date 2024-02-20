@@ -25,6 +25,7 @@ const VerificationComp = () => {
   const [finalerror, setfinalerror] = useState(null);
 
   const PageHandler = (event) => {
+    console.log(event.target.id, "event.target.id");
     setfinalerror(false);
     if (isPage === "page1") {
       // const email = "dineshkit15@gmail.com";
@@ -34,6 +35,7 @@ const VerificationComp = () => {
       setfinalerror(false);
       if (phone.length !== 0) {
         if (phone.length === 10) {
+          setIsChange(true);
           setTimeout(() => {
             setshow(false);
           }, 2000);
@@ -45,20 +47,24 @@ const VerificationComp = () => {
             .then((result) => {
               setfinal(result);
               setshow(false);
-              setIsPage(event.target.id);
+              setIsChange(false);
+              setIsPage("page3");
             })
             .catch((err) => {
               window.location.reload();
             });
         } else {
           setfinalerror(true);
+          setIsChange(false);
         }
       } else {
         setfinalerror(true);
+        setIsChange(false);
       }
     } else {
       setIsPage(event.target.id);
       setfinalerror(false);
+      setIsChange(false);
     }
   };
   const backHandler = (event) => {
@@ -70,10 +76,7 @@ const VerificationComp = () => {
     } else {
     }
   };
-  const [isChange, setIsChange] = useState(true);
-  const buttonHandler = () => {
-    setIsChange(true);
-  };
+  const [isChange, setIsChange] = useState(false);
   const routeTimeout = setTimeout(routeHandler, 1500);
 
   const handleInputChange = (index, event) => {
@@ -164,6 +167,7 @@ const VerificationComp = () => {
         return error;
       });
   };
+  console.log(isPage, "isPage");
   return (
     <>
       {isPage === "page2" && (
@@ -174,7 +178,7 @@ const VerificationComp = () => {
               title="Email verification successful!"
               des="Please verify your mobile number before as the last step"
             />
-            <div onClick={buttonHandler} className="">
+            <div className="w-full mt-5">
               <MobileInput setphone={setphone} />
             </div>
             {finalerror && (
@@ -182,28 +186,19 @@ const VerificationComp = () => {
                 Please Enter valid Phone number
               </p>
             )}
-            <div
-              onClick={buttonHandler}
-              id="recaptcha-container"
-              className="forget mt-5"
-            ></div>
+            <div id="recaptcha-container" className="forget mt-5"></div>
             {show === true ? (
-              isChange === true ? (
+              isChange === false ? (
                 <button
                   id="page3"
                   onClick={PageHandler}
-                  className="marginTop20 marginBottom20 mobileVerificationButtonActive"
+                  className="clientLoginCompBodyButtonEnable"
                 >
                   Verify mobile number
                 </button>
               ) : (
-                <button
-                  id="page3"
-                  // disabled
-                  onClick={PageHandler}
-                  className="marginTop20 marginBottom20 mobileVerificationButtonDisable"
-                >
-                  Verify mobile number
+                <button className="clientLoginCompBodyButtonLoading mt-5">
+                  <FiLoader className="loadingIcon" />
                 </button>
               )
             ) : null}
