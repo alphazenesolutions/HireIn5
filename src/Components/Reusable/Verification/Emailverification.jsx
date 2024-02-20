@@ -40,7 +40,7 @@ const Emailverification = () => {
     }
   };
   return (
-    <div>
+    <>
       <div className="verificationSuccess">
         <div className=" ">
           <Head />
@@ -74,7 +74,7 @@ const Emailverification = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

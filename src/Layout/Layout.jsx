@@ -7,21 +7,38 @@ import discover from "../assests/Discover.svg";
 
 const Layout = () => {
   const islogin = useSelector((store) => store.islogin);
+  var role = 1;
   return (
     <div>
       {islogin && (
         <div className="dashboard">
           <div className="sideNavComp">
-            <SideBar
-              one={islogin && "Discover"}
-              img1={discover}
-              two="Interviews"
-              three="Contracts"
-              four="Billing"
-              five="Help & FAQs"
-              six="profile"
-            />
+            {role == 1 && (
+              <SideBar
+                role={1}
+                menu={[
+                  { title: "discover", icon: discover, router: "discover" },
+                  { title: "Interview", icon: discover, router: "interview" },
+                  { title: "Contracts", icon: discover, router: "contract" },
+                  { title: "Billing", icon: discover, router: "billing" },
+                  { title: "Help & FAQs", icon: discover, router: "faq" },
+                ]}
+              />
+            )}
+            {role == 2 && (
+              <SideBar
+                role={2}
+                menu={[
+                  { title: "discover", icon: discover, router: "discover" },
+                  { title: "Interview", icon: discover, router: "interview" },
+                  { title: "Contracts", icon: discover, router: "contract" },
+                  { title: "Billing", icon: discover, router: "billing" },
+                  { title: "Help & FAQs", icon: discover, router: "faq" },
+                ]}
+              />
+            )}
           </div>
+
           <div className="main">
             <Routing />
           </div>

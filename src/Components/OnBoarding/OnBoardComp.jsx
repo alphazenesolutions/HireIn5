@@ -134,7 +134,6 @@ const OnBoardComp = () => {
                     : "OnBoardCompBodyRightImg"
                 }
               >
-                {/* <img src={work} alt="" /> */}
                 {isChange2 === true ? (
                   <svg
                     width="60"
