@@ -4,7 +4,6 @@ import Head from "../../Reusable/LogoHead/Head";
 import "./ClientLogin.css";
 import Foot from "../../Reusable/Terms&Conditions/Foot";
 import SectionHead from "../../Reusable/SectionHead/SectionHead";
-import eye from "../../../assests/eye.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
@@ -74,7 +73,7 @@ const ClientLogin = () => {
         });
       if (loginuser.access !== undefined) {
         dispatch(storeAction.tokenHandler({ token: loginuser.access }));
-        dispatch(storeAction.useridHandler({ userid: 11 }));
+        dispatch(storeAction.useridHandler({ userid: 5 }));
         dispatch(storeAction.isloginHandler({ islogin: true }));
         navigate("/discover");
       } else {

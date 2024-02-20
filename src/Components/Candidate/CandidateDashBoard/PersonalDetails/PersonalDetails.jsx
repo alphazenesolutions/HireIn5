@@ -8,13 +8,17 @@ import dropUp from "../../../../assests/arrowUp.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import axios from "axios";
+import { FiLoader } from "react-icons/fi";
 
 const PersonalDetails = () => {
   const userdata = useSelector((store) => store.userdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
+
   const dispatch = useDispatch();
   const [isArrow, setIsArrow] = useState(false);
+  const [loading, setloading] = useState(false);
+
   const dropDownhandler = () => {
     setIsArrow(!isArrow);
   };
@@ -51,10 +55,12 @@ const PersonalDetails = () => {
         email: userdata[0].email,
         dob: userdata[0].date_of_birth,
         phone: userdata[0].phone,
-        current_address: userdata[0].lived_at_current_residence,
-        city: "",
-        state: "",
-        pincode: "",
+        current_address:
+          userdata[0].address !== null ? userdata[0].address.address : null,
+        city: userdata[0].address !== null ? userdata[0].address.city : null,
+        state: userdata[0].address !== null ? userdata[0].address.state : null,
+        pincode:
+          userdata[0].address !== null ? userdata[0].address.pincode : null,
         aadhar:
           userdata[0].kyc_info !== null
             ? userdata[0].kyc_info.aadhar_number
@@ -63,7 +69,8 @@ const PersonalDetails = () => {
           userdata[0].kyc_info !== null
             ? userdata[0].kyc_info.pan_number
             : null,
-        country: "",
+        country:
+          userdata[0].address !== null ? userdata[0].address.country : null,
       });
     }
   };
@@ -72,6 +79,7 @@ const PersonalDetails = () => {
     setformdata((values) => ({ ...values, [name]: value }));
   };
   const savebtn = async () => {
+    // setloading(true);
     var newobj = {
       first_name: formdata.name,
       email: formdata.email,
@@ -91,6 +99,7 @@ const PersonalDetails = () => {
         pan_number: formdata.pan,
       },
     };
+    console.log(newobj, "newobj");
     var updatedata = await axios
       .put(
         `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
@@ -114,6 +123,9 @@ const PersonalDetails = () => {
       dispatch(storeAction.userdataHander({ userdata: [updatedata.user] }));
       dispatch(storeAction.isPopUpHander());
     }
+  };
+  const cancelbtn = () => {
+    dispatch(storeAction.isPopUpHander());
   };
   return (
     <div>
@@ -151,7 +163,7 @@ const PersonalDetails = () => {
                     <h2>Name</h2>
                     <h3>{userdata[0].first_name}</h3>
                     <h2>Date of Birth</h2>
-                    <h3>31/05/1991</h3>
+                    <h3>{userdata[0].date_of_birth}</h3>
                     <h2>Phone Number</h2>
                     <h3>{userdata[0].phone}</h3>
                     {userdata[0].kyc_info !== null ? (
@@ -170,14 +182,18 @@ const PersonalDetails = () => {
                   <div className="personalDetailsDescRight">
                     <h2>Email ID</h2>
                     <h3>{userdata[0].email}</h3>
-                    <h2>Current Residential Address</h2>
-                    <h3>{userdata[0].lived_at_current_residence}</h3>
-                    <h2>City</h2>
-                    <h3>Bengaluru, KA</h3>
-                    <h2>PINCODE</h2>
-                    <h3>560005</h3>
-                    <h2>Country</h2>
-                    <h3>India</h3>
+                    {userdata[0].address !== null ? (
+                      <>
+                        <h2>Current Residential Address</h2>
+                        <h3>{userdata[0].address.address}</h3>
+                        <h2>City</h2>
+                        <h3>{userdata[0].address.city}</h3>
+                        <h2>PINCODE</h2>
+                        <h3>{userdata[0].address.pincode}</h3>
+                        <h2>Country</h2>
+                        <h3>{userdata[0].address.country}</h3>
+                      </>
+                    ) : null}
                   </div>
                 </div>
               ) : null}
@@ -321,10 +337,21 @@ const PersonalDetails = () => {
                 </div>
               </div>
               <div className="vedioResumeButtons">
-                <button className="discard">Discard Changes</button>
-                <button className="save" onClick={savebtn}>
-                  Save & Close
+                <button className="discard" onClick={cancelbtn}>
+                  Discard Changes
                 </button>
+                {loading === false ? (
+                  <button className="save" onClick={savebtn}>
+                    Save & Close
+                  </button>
+                ) : (
+                  <button
+                    className="save w-[10rem] flex justify-center items-center"
+                    onClick={savebtn}
+                  >
+                    <FiLoader className="loadingIcon" />
+                  </button>
+                )}
               </div>
             </div>
           )}

@@ -18,8 +18,8 @@ const SideBar = (props) => {
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
+  const userdata = useSelector((store) => store.userdata);
 
-  const [username, setusername] = useState("");
   useEffect(() => {
     setTimeout(() => {
       getUserinfo();
@@ -42,7 +42,6 @@ const SideBar = (props) => {
         });
       if (userinfo.id !== undefined) {
         dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
-        setusername(userinfo.first_name);
       } else {
         dispatch(storeAction.isloginHandler({ islogin: false }));
         dispatch(storeAction.tokenHandler({ token: null }));
@@ -143,7 +142,10 @@ const SideBar = (props) => {
             </div>
             <div className="dashProfile">
               <div className="profileName">
-                <h2>{username}</h2>
+                {userdata.length !== 0 ? (
+                  <h2>{userdata[0].first_name}</h2>
+                ) : null}
+
                 {/* <p>Apple Inc.</p> */}
               </div>
               <div className="profilePic">
