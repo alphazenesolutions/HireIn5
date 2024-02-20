@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./Table.css";
-import tabImg from "../../../assests/table.png";
-import tabFirst from "../../../assests/colar.png";
+import tabImg from "../../../../../assests/table.png";
+import tabFirst from "../../../../../assests/colar.png";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { storeAction } from "../../../Store/Store";
+import { storeAction } from "../../../../../Store/Store";
 
 const Table = (props) => {
   const dispatch = useDispatch();

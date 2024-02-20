@@ -14,6 +14,7 @@ import { storeAction } from "../../../Store/Store";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = (props) => {
+  console.log(props.menu);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.userid);
@@ -62,70 +63,12 @@ const SideBar = (props) => {
     window.location.replace("/login");
   };
 
-  const [isHover, setIsHover] = useState(false);
-  const HoverHandler = () => {
-    navigate("/discover");
-    setIsHover(true);
-    setIsHover1(false);
-    setIsHover2(false);
-    setIsHover3(false);
-    setIsHover4(false);
-    setIsHover5(false);
-  };
+  const [isHover, setIsHover] = useState("discover");
+  const HoverHandler = (e) => {
+    console.log(e.target.id);
 
-  const [isHover1, setIsHover1] = useState(false);
-  const HoverHandler1 = () => {
-    navigate("/interview");
-    setIsHover(false);
-    setIsHover1(true);
-    setIsHover2(false);
-    setIsHover3(false);
-    setIsHover4(false);
-    setIsHover5(false);
-  };
-
-  const [isHover2, setIsHover2] = useState(false);
-  const HoverHandler2 = () => {
-    navigate("/contract");
-    setIsHover(false);
-    setIsHover1(false);
-    setIsHover2(true);
-    setIsHover3(false);
-    setIsHover4(false);
-    setIsHover5(false);
-  };
-
-  const [isHover3, setIsHover3] = useState(false);
-  const HoverHandler3 = () => {
-    navigate("/billing");
-    setIsHover(false);
-    setIsHover1(false);
-    setIsHover2(false);
-    setIsHover3(true);
-    setIsHover4(false);
-    setIsHover5(false);
-  };
-
-  const [isHover4, setIsHover4] = useState(false);
-  const HoverHandler4 = () => {
-    navigate("");
-    setIsHover(false);
-    setIsHover1(false);
-    setIsHover2(false);
-    setIsHover3(false);
-    setIsHover4(true);
-    setIsHover5(false);
-  };
-
-  const [isHover5, setIsHover5] = useState(false);
-  const HoverHandler5 = () => {
-    navigate("/profile");
-    setIsHover(false);
-    setIsHover1(false);
-    setIsHover2(false);
-    setIsHover3(false);
-    setIsHover4(false);
-    setIsHover5(true);
+    navigate(e.target.id);
+    setIsHover(e.target.id);
   };
 
   return (
@@ -153,56 +96,47 @@ const SideBar = (props) => {
               </div>
             </div>
             <div className="navMenu">
-              <div
-                onClick={HoverHandler}
-                className={isHover === true ? "menu1Active" : "menu1"}
-              >
-                <img className="menuImg" src={props.img1} alt="" />
-                <h4 onClick={() => navigate("/discover")} className="menuName">
-                  {props.one}
-                </h4>
-                {/* <p className="number">5</p> */}
-              </div>
-              <div
-                onClick={HoverHandler1}
-                className={isHover1 === true ? "menu1Active" : "menu1"}
-              >
-                <img className="menuImg" src={props.img1} alt="" />
-                <h4 className="menuName">{props.two}</h4>
-                {/* <p className="number">5</p> */}
-              </div>
-              <div
-                onClick={HoverHandler2}
-                className={isHover2 === true ? "menu1Active" : "menu1"}
-              >
-                <img className="menuImg" src={props.img1} alt="" />
-                <h4 className="menuName">{props.three}</h4>
-                {/* <p className="number">5</p> */}
-              </div>
-              <div
-                onClick={HoverHandler3}
-                className={isHover3 === true ? "menu1Active" : "menu1"}
-              >
-                <img className="menuImg" src={props.img1} alt="" />
-                <h4 className="menuName">{props.four}</h4>
-                {/* <p className="number">5</p> */}
-              </div>
-              <div
-                onClick={HoverHandler4}
-                className={isHover4 === true ? "menu1Active" : "menu1"}
-              >
-                <img className="menuImg" src={props.img1} alt="" />
-                <h4 className="menuName">{props.five}</h4>
-                {/* <p className="number">5</p> */}
-              </div>
-              <div
-                onClick={HoverHandler5}
-                className={isHover5 === true ? "menu1Active" : "menu1"}
-              >
-                <img className="menuImg" src={props.img1} alt="" />
-                <h4 className="menuName">{props.six}</h4>
-                {/* <p className="number">5</p> */}
-              </div>
+              {props.menu.map((data) => {
+                if (data.title == isHover) {
+                  return (
+                    <div
+                      onClick={HoverHandler}
+                      id={data.router}
+                      className="menu1Active"
+                    >
+                      <img
+                        id={data.router}
+                        className="menuImg"
+                        src={data.icon}
+                        alt=""
+                      />
+                      <h4 id={data.router} className="menuName">
+                        {data.title}
+                      </h4>
+                      {/* <p className="number">5</p> */}
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div
+                      id={data.router}
+                      onClick={HoverHandler}
+                      className="menu1"
+                    >
+                      <img
+                        id={data.router}
+                        className="menuImg"
+                        src={data.icon}
+                        alt=""
+                      />
+                      <h4 id={data.router} className="menuName">
+                        {data.title}
+                      </h4>
+                      {/* <p className="number">5</p> */}
+                    </div>
+                  );
+                }
+              })}
             </div>
           </div>
           <div className="sideNavBottom">

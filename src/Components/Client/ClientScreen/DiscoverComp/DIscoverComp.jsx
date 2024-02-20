@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "./DiscoverComp.css";
 import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import DashSearch from "../../../Reusable/DashBoardReusable/DashSearch/DashSearch";
-import Table from "../../../Reusable/Table/Table";
+import Table from "./Table/Table";
 import SearchProfileCard from "../../../Reusable/SearchProfileCard/SearchProfileCard";
 import recentLeft from "../../../../assests/recentLeft.png";
 import recentRight from "../../../../assests/recentRight.png";
