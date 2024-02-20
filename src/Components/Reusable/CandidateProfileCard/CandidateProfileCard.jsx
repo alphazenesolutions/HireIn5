@@ -54,6 +54,16 @@ const CandidateProfileCard = (props) => {
           <img src={back} alt="" />
           <h2>Back to results</h2>
         </div>
+        <div className="vedioNotes">
+          {/* <img src={star} alt="" /> */}
+          <div className="notes">
+            <h4>
+              If you don’t have a personality assessment certificate, you can
+              take one here at{" "}
+              <span className="certificateHighLight">Mettl</span>
+            </h4>
+          </div>
+        </div>
         <div className="mainProfile">
           <div className="profileLeft">
             <div className="profileLeftTop">

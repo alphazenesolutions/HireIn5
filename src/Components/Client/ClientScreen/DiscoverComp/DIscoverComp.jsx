@@ -22,8 +22,12 @@ import profile from "../../../../assests/CandidateProfile.png";
 import courseIcons from "../../../../assests/userCard.png";
 import brief from "../../../../assests/briefCase.png";
 import SingleRange from "../../../MaterialUi/SingleRange/SingleRange";
+import userCheck from "../../../../assests/userCheck.png";
+import success from "../../../../assests/Succcess.png";
+import { useNavigate } from "react-router-dom";
 
 const DiscoverComp = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((store) => store.token);
   const userid = useSelector((store) => store.userid);
@@ -167,6 +171,15 @@ const DiscoverComp = () => {
 
   const overLayHandler = (e) => {
     dispatch(storeAction.isPopUpHander(e));
+  };
+
+  const overLayHandler1 = () => {
+    dispatch(storeAction.isPopUpHander("reserveSuccess"));
+  };
+
+  const profileRouter = () => {
+    setIsPage("page2");
+    dispatch(storeAction.isPopUpHander());
   };
 
   const getSearchuser = async () => {
@@ -419,17 +432,18 @@ const DiscoverComp = () => {
                 </h4>
               </div>
               <div className="reserveCandidateBrief">
-                <h5>
-                  <img src={brief} alt="" />2 years of experience
-                </h5>
-                <h5>
+                <h6 className="briefH5">
                   <img src={brief} alt="" />
-                  Part-time availability
-                </h5>
+                  <p>2 years of experience </p>
+                </h6>
+                <h6 className="briefH5">
+                  <img src={userCheck} alt="" />
+                  <p>Part-time availability</p>
+                </h6>
               </div>
               <h2>Start date</h2>
               <input type="date" />
-              <h2>Duration of engagement</h2>
+              <h2 className="marginBottom35">Duration of engagement</h2>
               <SingleRange />
               <div className="durationmMonths">
                 <h4>3 months</h4>
@@ -437,19 +451,34 @@ const DiscoverComp = () => {
               </div>
               <h5>
                 Candidate will be reserved from{" "}
-                <span>Feb 07, 2024 - May 07, 2024.</span>
+                <span className="darkHighter">
+                  Feb 07, 2024 - May 07, 2024.
+                </span>
               </h5>
               <div className="fees">
                 <h4>Reserve Fees</h4>
                 <h4>₹ 15,000</h4>
               </div>
-              <button>Continue to Payment</button>
-              <p>You’ll be taken to Razorpay to complete the transaction</p>
+              <button onClick={overLayHandler1}>Continue to Payment</button>
+              <p>
+                You’ll be taken to <span className="darkHighter">Razorpay</span>{" "}
+                to complete the transaction
+              </p>
             </div>
           </div>
         </div>
       )}
-
+      {isPopUp === "reserveSuccess" && (
+        <div className="reserveSuccess">
+          <div className="reserveSuccessClose">
+            {/* <img className="closeImage" src={close} alt="" /> */}
+          </div>
+          <img src={success} alt="" />
+          <h1>Candidate reserved</h1>
+          <p>Our team customer success team will contact you shortly! </p>
+          <button onClick={profileRouter}>Check candidate</button>
+        </div>
+      )}
       {/* <div contenteditable="true" className="h-[100px] w-full bg-grey-400">
         <div contenteditable="true">I'm Editable. Edit me!</div>
       </div> */}
