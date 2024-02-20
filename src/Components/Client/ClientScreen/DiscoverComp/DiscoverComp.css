@@ -42,7 +42,7 @@
 /* overlay */
 
 .reserveCandidate {
-    width: 55%;
+    width: 60%;
     /* height: 640px; */
     background-color: white;
     display: flex;
@@ -61,6 +61,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    border-bottom: 1px solid var(--borderColor);
+    padding-bottom: 20px;
 }
 
 .reserveCandidateBrief h5 {
@@ -99,7 +101,7 @@
 }
 
 .reserveCandidateFlexLeft {
-    width: 60%;
+    width: 55%;
 }
 
 .reserveCandidateFlexLeft h2 {
@@ -128,7 +130,7 @@
 }
 
 .reserveCandidateFlexRight {
-    width: 40%;
+    width: 45%;
     padding: 20px;
     border-radius: 8px;
     border: 1px solid var(--borderColor);
@@ -222,7 +224,7 @@
 .reserveCandidateFlexRight h5 {
     font-size: 14px;
     font-weight: 400;
-    opacity: 0.5;
+    color: var(--textColor);
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -239,8 +241,79 @@
 }
 
 .reserveCandidateFlexRight p {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--textColor);
+}
+
+.briefH5 {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+
+    margin-left: 7px;
+    /* opacity: 0.5; */
+}
+
+.briefH5 img {
+    height: 20px;
+    opacity: 1;
+    object-fit: cover;
+}
+
+/* success */
+.reserveSuccess {
+    width: 500px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    padding-bottom: 30px;
+}
+
+.reserveSuccessClose {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.closeImage {
+    width: 40px;
+    height: 40px;
+}
+
+.reserveSuccess img {
+    width: 70px;
+    height: 70px;
+}
+
+.reserveSuccess h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.reserveSuccess p {
+    width: 55%;
     font-size: 14px;
     font-weight: 400;
-    opacity: 0.5;
-    margin-top: 10px;
+    color: var(--textColor);
+    text-align: center;
+}
+
+.reserveSuccess button {
+    padding: 8px 15px;
+    border-radius: 8px;
+    background-color: var(--primaryColor);
+    color: var(--white);
+    margin-top: 15px;
+    margin-bottom: 15px;
 }

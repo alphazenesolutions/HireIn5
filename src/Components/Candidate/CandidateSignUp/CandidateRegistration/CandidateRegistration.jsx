@@ -1106,7 +1106,7 @@ const CandidateRegistration = () => {
                     </div>
                   </div>
                   <div className="candidateInfo h-full">
-                    <h3>Job title</h3>
+                    <h3>Pinode</h3>
                     <input
                       type="text"
                       placeholder="E.g. HR Manager"
@@ -1116,7 +1116,7 @@ const CandidateRegistration = () => {
                     />
                     {formdataerror.title && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter Job title
+                        Please Enter Pincode
                       </h6>
                     )}
                   </div>
