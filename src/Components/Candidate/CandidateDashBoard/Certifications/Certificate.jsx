@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import "./Certificate.css";
 import user from "../../../../assests/User.svg";
 import dropDown from "../../../../assests/arrowDown.svg";
@@ -10,8 +11,14 @@ import { storeAction } from "../../../../Store/Store";
 import plus from "../../../../assests/plus.svg";
 import gallery from "../../../../assests/gallery.svg";
 import trash from "../../../../assests/trash-2.svg";
+import { FiLoader } from "react-icons/fi";
+import axios from "axios";
 
 const Certificate = () => {
+  const userdata = useSelector((store) => store.userdata);
+  const userid = useSelector((store) => store.userid);
+  const token = useSelector((store) => store.token);
+
   const dispatch = useDispatch();
   const [isArrow, setIsArrow] = useState(false);
   const dropDownhandler = () => {
@@ -24,9 +31,46 @@ const Certificate = () => {
   };
 
   const [isShow, setIsShow] = useState(false);
-  const displayHandler = () => {
-    setIsShow(!isShow);
-    dispatch(storeAction.isPopUpHander());
+
+  const displayHandler = async () => {
+    setloading(true);
+    var newobj = {
+      username: userdata[0].username,
+      certificate_info: {
+        course_name: educationdata.course_name,
+        date_issued: educationdata.date_issued,
+        description: educationdata.description,
+        url: educationdata.url,
+        skills: educationdata.skills.split(),
+      },
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+        newobj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response.data;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      dispatch(storeAction.userdataHander({ userdata: [updatedata.user] }));
+      dispatch(storeAction.isPopUpHander());
+      setIsShow(!isShow);
+      setloading(false);
+    } else {
+      setloading(false);
+    }
   };
 
   const isPopUp = useSelector((store) => {
@@ -36,6 +80,55 @@ const Certificate = () => {
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("certificate"));
   };
+
+  const [educationdata, seteducationdata] = useState({
+    course_name: "",
+    date_issued: "",
+    description: "",
+    url: "",
+    skills: "",
+  });
+  const [loading, setloading] = useState(false);
+
+  useEffect(() => {
+    getUserinfo();
+  }, [userdata]);
+
+  const getUserinfo = async () => {
+    if (userdata.length !== 0) {
+      seteducationdata({
+        course_name:
+          userdata[0].certificate_info !== null
+            ? userdata[0].certificate_info.course_name
+            : "",
+        date_issued:
+          userdata[0].certificate_info !== null
+            ? userdata[0].certificate_info.date_issued
+            : "",
+        description:
+          userdata[0].certificate_info !== null
+            ? userdata[0].certificate_info.description
+            : "",
+        url:
+          userdata[0].certificate_info !== null
+            ? userdata[0].certificate_info.url
+            : "",
+
+        skills:
+          userdata[0].certificate_info !== null
+            ? userdata[0].certificate_info.skills !== undefined
+              ? userdata[0].certificate_info.skills.toString(" , ")
+              : ""
+            : "",
+      });
+      console.log(userdata[0].certificate_info.skills);
+    }
+  };
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    seteducationdata((values) => ({ ...values, [name]: value }));
+  };
+  console.log(educationdata, "ooo");
   return (
     <div>
       <div className="certificate">
@@ -61,84 +154,82 @@ const Certificate = () => {
               )}
             </div>
           </div>
-          {isArrow === true && (
-            <div className="certificateDesc">
-              <div className="certificateDescUpload">
-                <div className="certificateDescUploadDesc">
-                  <h1>Add your personality assessment test result</h1>
-                  {isShow === false && (
-                    <div className="uploadVedioRes">
-                      <h5>Your PDF here</h5>
-                      <h3>
-                        Maximum size: 5MB MP4,
-                        <br /> MOV, AVI and WMV accepted
-                      </h3>
-                    </div>
-                  )}
-                  {isShow === false && (
-                    <div className="vedioNotes">
-                      <img src={star} alt="" />
-                      <div className="notes">
-                        <h4>
-                          If you don’t have a personality assessment
-                          certificate, you can take one here at{" "}
-                          <span className="certificateHighLight">Mettl</span>
-                        </h4>
+          {isArrow === true &&
+            (userdata.length !== 0 ? (
+              <div className="certificateDesc">
+                <div className="certificateDescUpload">
+                  <div className="certificateDescUploadDesc">
+                    <h1>Add your personality assessment test result</h1>
+                    {isShow === false && (
+                      <div className="uploadVedioRes">
+                        <h5>Your PDF here</h5>
+                        <h3>
+                          Maximum size: 5MB MP4,
+                          <br /> MOV, AVI and WMV accepted
+                        </h3>
                       </div>
-                    </div>
-                  )}
-                  {isShow === true && (
-                    <div className="gradeCertificate">
-                      <img src={gallery} alt="" />
-                      <div className="gradeCertificateDesc">
-                        <h2>certificate01.jpeg</h2>
-                        <p>4 MB</p>
+                    )}
+                    {isShow === false && (
+                      <div className="vedioNotes">
+                        <img src={star} alt="" />
+                        <div className="notes">
+                          <h4>
+                            If you don’t have a personality assessment
+                            certificate, you can take one here at{" "}
+                            <span className="certificateHighLight">Mettl</span>
+                          </h4>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="innerCertificateDesc">
-                <h1>
-                  Add certification / course Details here to enhance your
-                  profile
-                </h1>
-                <h2>Course Name</h2>
-
-                <div className="certificateDescFlex">
-                  <h3>Issue Body: </h3>
-                  <p>Pending </p>
-                </div>
-                <div className="certificateDescFlex">
-                  <h3>Date Issued:</h3>
-                  <p>Pending</p>
-                </div>
-                <div className="certificateDescFlex">
-                  <h3>URL:</h3>
-                  <p>Pending </p>
-                </div>
-                <div className="certificateDescFlexLast">
-                  <h4>Key Skills:</h4>
-                  <p>Pending</p>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-              </div>
-              {isShow === true && (
-                <div className="gradeCertificate">
-                  <img src={gallery} alt="" />
-                  <div className="gradeCertificateDesc">
-                    <h2>certificate01.jpeg</h2>
-                    <p>4 MB</p>
+                    )}
+                    {isShow === true && (
+                      <div className="gradeCertificate">
+                        <img src={gallery} alt="" />
+                        <div className="gradeCertificateDesc">
+                          <h2>certificate01.jpeg</h2>
+                          <p>4 MB</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              )}
-            </div>
-          )}
+                {userdata[0].certificate_info !== null ? (
+                  <div className="innerCertificateDesc">
+                    <h1>
+                      Add certification / course Details here to enhance your
+                      profile
+                    </h1>
+                    <h2>{userdata[0].certificate_info.course_name}</h2>
+                    {/* <div className="certificateDescFlex">
+                      <h3>Issue Body: </h3>
+                      <p>Pending </p>
+                    </div> */}
+                    <div className="certificateDescFlex">
+                      <h3>Date Issued:</h3>
+                      <p>{userdata[0].certificate_info.date_issued}</p>
+                    </div>
+                    <div className="certificateDescFlex">
+                      <h3>URL:</h3>
+                      <p>{userdata[0].certificate_info.url}</p>
+                    </div>
+                    <div className="certificateDescFlexLast">
+                      <h4>Key Skills:</h4>
+                      <p>{userdata[0].certificate_info.skills.toString()}</p>
+                    </div>
+                    <p>{userdata[0].certificate_info.description}</p>
+                  </div>
+                ) : null}
+
+                {isShow === true && (
+                  <div className="gradeCertificate">
+                    <img src={gallery} alt="" />
+                    <div className="gradeCertificateDesc">
+                      <h2>certificate01.jpeg</h2>
+                      <p>4 MB</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : null)}
           {isPopUp == "certificate" && (
             <div className="certificateDescOverlay">
               <div className="innerCertificate">
@@ -201,19 +292,44 @@ const Certificate = () => {
                 <div className="certificateDescOverlayFlex">
                   <div className="certificateDescOverlayFlexLeft">
                     <h2>Course name</h2>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      name="course_name"
+                      onChange={handlechange}
+                      defaultValue={educationdata.course_name}
+                    />
                     <h2>Issuing body</h2>
                     <input type="text" />
                     <h2>URL</h2>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      name="url"
+                      onChange={handlechange}
+                      defaultValue={educationdata.url}
+                    />
                   </div>
                   <div className="certificateDescOverlayFlexRight">
                     <h2>Date Issued</h2>
-                    <input type="date" />
+                    <input
+                      type="date"
+                      name="date_issued"
+                      onChange={handlechange}
+                      defaultValue={educationdata.date_issued}
+                    />
                     <h2>Skills</h2>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      name="skills"
+                      onChange={handlechange}
+                      defaultValue={educationdata.skills}
+                    />
                     <h2>Description</h2>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      name="description"
+                      onChange={handlechange}
+                      defaultValue={educationdata.description}
+                    />
                   </div>
                 </div>
                 {isUpload === true ? (
@@ -260,10 +376,23 @@ const Certificate = () => {
                 </button>
               </div>
               <div className="vedioResumeButtons">
-                <button className="discard">Discard Changes</button>
-                <button onClick={displayHandler} className="save">
-                  Save & Close
+                <button
+                  className="discard"
+                  onClick={() => {
+                    dispatch(storeAction.isPopUpHander());
+                  }}
+                >
+                  Discard Changes
                 </button>
+                {loading === false ? (
+                  <button className="save" onClick={displayHandler}>
+                    Save & Close
+                  </button>
+                ) : (
+                  <button className="save w-[10rem] flex justify-center items-center">
+                    <FiLoader className="loadingIcon" />
+                  </button>
+                )}
               </div>
             </div>
           )}

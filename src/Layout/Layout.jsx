@@ -22,6 +22,7 @@ const Layout = () => {
                   { title: "Contracts", icon: discover, router: "contract" },
                   { title: "Billing", icon: discover, router: "billing" },
                   { title: "Help & FAQs", icon: discover, router: "faq" },
+                  { title: "Profile", icon: discover, router: "profile" },
                 ]}
               />
             )}
@@ -33,7 +34,7 @@ const Layout = () => {
                   { title: "Interview", icon: discover, router: "interview" },
                   { title: "Contracts", icon: discover, router: "contract" },
                   { title: "Billing", icon: discover, router: "billing" },
-                  { title: "Help & FAQs", icon: discover, router: "faq" },
+                  { title: "Profile", icon: discover, router: "profile" },
                 ]}
               />
             )}
