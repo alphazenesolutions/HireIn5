@@ -1,20 +1,32 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 
-const SingleRange = () => {
-  const [value, setValue] = useState([20, 37]);
+const SingleRange = ({ setmonth }) => {
+  const [value, setValue] = useState(3);
 
-  //   const handleChange = (event, newValue) => {
-  //     setValue(newValue);
-  //     setrangevalue(newValue);
-  //   };
-  function valuetext(value) {
-    return `${value} USD`;
-  }
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    setmonth(newValue);
+    // setrangevalue(newValue);
+  };
+  const valueLabelFormat = (value) => {
+    if (value == 12) {
+      return `1 Year`;
+    } else {
+      return `${value} month`;
+    }
+  };
   return (
     <div>
-      <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" />
+      <Slider
+        value={value}
+        onChange={handleChange}
+        min={3}
+        max={12}
+        step={12 / 4}
+        valueLabelDisplay="auto" // or 'on' to always display, 'off' to hide
+        valueLabelFormat={valueLabelFormat}
+      />
     </div>
   );
 };

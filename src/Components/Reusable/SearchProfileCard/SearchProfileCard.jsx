@@ -161,7 +161,7 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
                   )}
 
                   <button
-                    onClick={() => reserve("reserve")}
+                    onClick={() => reserve("reserve", datanew)}
                     className="cartbtnimgbutton1"
                   >
                     Reserve candidate

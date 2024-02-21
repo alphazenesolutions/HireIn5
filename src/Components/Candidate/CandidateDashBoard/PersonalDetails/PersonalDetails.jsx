@@ -79,7 +79,7 @@ const PersonalDetails = () => {
     setformdata((values) => ({ ...values, [name]: value }));
   };
   const savebtn = async () => {
-    // setloading(true);
+    setloading(true);
     var newobj = {
       first_name: formdata.name,
       email: formdata.email,
@@ -99,7 +99,6 @@ const PersonalDetails = () => {
         pan_number: formdata.pan,
       },
     };
-    console.log(newobj, "newobj");
     var updatedata = await axios
       .put(
         `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
@@ -345,10 +344,7 @@ const PersonalDetails = () => {
                     Save & Close
                   </button>
                 ) : (
-                  <button
-                    className="save w-[10rem] flex justify-center items-center"
-                    onClick={savebtn}
-                  >
+                  <button className="save w-[10rem] flex justify-center items-center">
                     <FiLoader className="loadingIcon" />
                   </button>
                 )}

@@ -11,8 +11,10 @@ const TravelHistory = () => {
   const userdata = useSelector((store) => store.userdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
+
   const dispatch = useDispatch();
   const [isArrow, setIsArrow] = useState(false);
+  const [status, setstatus] = useState(false);
   const dropDownhandler = () => {
     setIsArrow(!isArrow);
   };
@@ -28,6 +30,31 @@ const TravelHistory = () => {
 
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("travel"));
+  };
+  const [travelrow, settravelrow] = useState([
+    {
+      country: "",
+      year_of_travel: "",
+      duration: "",
+      purpose: "",
+      type_of_visa: "",
+      validity_of_visa: "",
+    },
+  ]);
+  const addcounttravel = () => {
+    var newobj = {
+      country: "",
+      year_of_travel: "",
+      duration: "",
+      purpose: "",
+      type_of_visa: "",
+      validity_of_visa: "",
+    };
+    settravelrow((prevState) => [...prevState, newobj]);
+  };
+  const handlechangetravel = (value, index, name) => {
+    travelrow[index][name] = value;
+    settravelrow([...travelrow]);
   };
   console.log(userdata, "userdata");
   return (
@@ -62,47 +89,58 @@ const TravelHistory = () => {
               </h1>
               {userdata.length !== 0 ? (
                 <div className="travelGrid">
+                  {userdata[0].travel_info !== null
+                    ? userdata[0].travel_info.travelled_to.length !== 0
+                      ? userdata[0].travel_info.travelled_to.map(
+                          (data, index) => (
+                            <div className="travelGridOne" key={index}>
+                              <h1>Countries you’ve travelled to</h1>
+                              <h2>{data.split(":")[0]}</h2>
+                              <h3>
+                                Year of Travel : <p>{data.split(":")[1]}</p>
+                              </h3>
+                              <h3 className="marginBottom20">
+                                Duration : <p>{data.split(":")[2]}</p>
+                              </h3>
+                              <h3>
+                                Purpose : <p>{data.split(":")[3]}</p>
+                              </h3>
+                              <h3>
+                                Type of Visa : <p>{data.split(":")[4]}</p>
+                              </h3>
+                              <h3>
+                                Validity of Visa : <p>{data.split(":")[5]}</p>
+                              </h3>
+                            </div>
+                          )
+                        )
+                      : null
+                    : null}
+
                   {userdata[0].travel_info !== null ? (
                     <div className="travelGridOne">
-                      <h1>Countries you’ve travelled to</h1>
-                      <h2>Country</h2>
-                      <h3>
-                        Year of Travel:<p></p>
-                      </h3>
-                      <h3 className="marginBottom20">
-                        Duration :<p>Pending</p>
-                      </h3>
-                      <h3>
-                        Purpose:<p>Pending</p>
-                      </h3>
-                      <h3>
-                        Type of Visa:<p>Pending</p>
+                      <h1>Countries you’re willing to travel to for work</h1>
+
+                      {userdata[0].travel_info.country.length !== 0
+                        ? userdata[0].travel_info.country.map((item, index) => (
+                            <h2 key={index}>{item}</h2>
+                          ))
+                        : null}
+
+                      <h3 className="marginTop20">
+                        Only For : <p>{userdata[0].travel_info.onlyfor}</p>
                       </h3>
                       <h3>
-                        Validity of Visa:<p>Pending</p>
+                        Duration : <p>{userdata[0].travel_info.duration}</p>
+                      </h3>
+                      <h3>
+                        Travel Readiness :
+                        <p>{userdata[0].travel_info.travel_readlines}</p>
                       </h3>
                     </div>
                   ) : null}
 
-                  <div className="travelGridOne">
-                    <h1>Countries you’re willing to travel to for work</h1>
-                    <h2>Country 1</h2>
-                    <h2>Country 2</h2>
-                    <h2>Country 3</h2>
-                    <h3 className="marginTop20">
-                      Only For:
-                      <p>Pending</p>
-                    </h3>
-                    <h3>
-                      Duration:
-                      <p>Pending</p>
-                    </h3>
-                    <h3>
-                      Travel Readiness:
-                      <p>Pending</p>
-                    </h3>
-                  </div>
-                  <div className="travelGridOne">
+                  {/* <div className="travelGridOne">
                     <h1>Residency details</h1>
                     <h3 className="marginTop20">
                       Current Place of Residence:
@@ -122,7 +160,7 @@ const TravelHistory = () => {
                       Preferred Duration:
                       <p>Pending</p>
                     </h3>
-                  </div>
+                  </div> */}
                 </div>
               ) : null}
             </div>
@@ -145,8 +183,19 @@ const TravelHistory = () => {
                     otherwise?
                   </h1>
                   <div className="travelRadioOne">
-                    <input type="radio" />
-                    <div className="travelRadioOneDesc">
+                    <input
+                      type="radio"
+                      onChange={() => {
+                        setstatus(true);
+                      }}
+                      checked={status === true}
+                    />
+                    <div
+                      className="travelRadioOneDesc"
+                      onClick={() => {
+                        setstatus(true);
+                      }}
+                    >
                       <h3>Yes</h3>
                       <p>
                         Add your travel history here to stand out from other
@@ -155,8 +204,19 @@ const TravelHistory = () => {
                     </div>
                   </div>
                   <div className="travelRadioOne">
-                    <input type="radio" />
-                    <div className="travelRadioOneDesc">
+                    <input
+                      type="radio"
+                      onChange={() => {
+                        setstatus(false);
+                      }}
+                      checked={status === false}
+                    />
+                    <div
+                      className="travelRadioOneDesc"
+                      onClick={() => {
+                        setstatus(false);
+                      }}
+                    >
                       <h3>No</h3>
                       <p>
                         Travel History section will be left blank on your
@@ -165,7 +225,14 @@ const TravelHistory = () => {
                     </div>
                   </div>
                   <div className="vedioResumeButtons">
-                    <button className="discard">Close</button>
+                    <button
+                      className="discard"
+                      onClick={() => {
+                        dispatch(storeAction.isPopUpHander());
+                      }}
+                    >
+                      Close
+                    </button>
                     <button id="page2" onClick={pagehandler} className="save">
                       Proceed
                     </button>
@@ -181,39 +248,46 @@ const TravelHistory = () => {
                   <div className="travelHistoryDescOverlayInner">
                     <div className="travelUpdate">
                       <h6>Countries you’ve travelled to</h6>
-                      <div className="travelUpdateFlex">
-                        <div className="travelUpdateFlexLeft">
-                          <h2>Country</h2>
-                          <select name="" id="">
-                            <option value="">USA</option>
-                            <option value="">INDIA</option>
-                          </select>
-                          <h2>Purpose</h2>
-                          <select name="" id="">
-                            <option value="">Work </option>
-                            <option value="">Travel</option>
-                          </select>
-                        </div>
-                        <div className="travelUpdateFlexCenter">
-                          <h2>Year of travel</h2>
-                          <input type="text" name="" id="" />
-                          <h2>Type of Visa</h2>
-                          <input type="text" name="" id="" />
-                        </div>
-                        <div className="travelUpdateFlexRight">
-                          <h2>Duration</h2>
-                          <select name="" id="">
-                            <option value="">1 month</option>
-                            <option value="">2 month</option>
-                            <option value="">3 month</option>
-                            <option value="">4 month</option>
-                            <option value="">5 month</option>
-                          </select>
-                          <h2>Validity of Visa</h2>
-                          <input type="date" name="" id="" />
-                        </div>
-                      </div>
-                      <button>+ Add more</button>
+                      {travelrow.length !== 0
+                        ? travelrow.map((data, index) => (
+                            <div key={index}>
+                              <div className="travelUpdateFlex">
+                                <div className="travelUpdateFlexLeft">
+                                  <h2>Country</h2>
+                                  <select name="" id="">
+                                    <option value="">USA</option>
+                                    <option value="">INDIA</option>
+                                  </select>
+                                  <h2>Purpose</h2>
+                                  <select name="" id="">
+                                    <option value="">Work </option>
+                                    <option value="">Travel</option>
+                                  </select>
+                                </div>
+                                <div className="travelUpdateFlexCenter">
+                                  <h2>Year of travel</h2>
+                                  <input type="text" name="" id="" />
+                                  <h2>Type of Visa</h2>
+                                  <input type="text" name="" id="" />
+                                </div>
+                                <div className="travelUpdateFlexRight">
+                                  <h2>Duration</h2>
+                                  <select name="" id="">
+                                    <option value="">1 month</option>
+                                    <option value="">2 month</option>
+                                    <option value="">3 month</option>
+                                    <option value="">4 month</option>
+                                    <option value="">5 month</option>
+                                  </select>
+                                  <h2>Validity of Visa</h2>
+                                  <input type="date" name="" id="" />
+                                </div>
+                              </div>
+                              <hr className="border border-gray-400 my-5" />
+                            </div>
+                          ))
+                        : null}
+                      <button onClick={addcounttravel}>+ Add more</button>
                     </div>
                   </div>
                   <div className="willingTravel">

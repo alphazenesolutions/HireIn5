@@ -25,6 +25,7 @@ import SingleRange from "../../../MaterialUi/SingleRange/SingleRange";
 import userCheck from "../../../../assests/userCheck.png";
 import success from "../../../../assests/Succcess.png";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const DiscoverComp = () => {
   const navigate = useNavigate();
@@ -36,7 +37,10 @@ const DiscoverComp = () => {
   const [alldata, setalldata] = useState([]);
   const [filterdata, setfilterdata] = useState([]);
   const [searchuser, setsearchuser] = useState([]);
+  const [reserveduser, setreserveduser] = useState([]);
   const [isPage, setIsPage] = useState("page1");
+  const [startdate, setstartdate] = useState(moment().format("YYYY-MM-DD"));
+  const [month, setmonth] = useState(3);
 
   const pageHandler = async (event, id) => {
     if (event === "page2") {
@@ -169,11 +173,39 @@ const DiscoverComp = () => {
     return store.isPopUp;
   });
 
-  const overLayHandler = (e) => {
+  const overLayHandler = (e, data) => {
     dispatch(storeAction.isPopUpHander(e));
+    setreserveduser([data]);
   };
 
   const overLayHandler1 = () => {
+    let data = JSON.stringify({
+      candidate_id: reserveduser[0].id,
+      duration: month,
+      amount_paid: 15000,
+      blocked_by_id: userid,
+    });
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `${process.env.REACT_APP_LOCAL_HOST_URL}/reservation/blockcandidate/`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${token}`,
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+    setmonth(3);
     dispatch(storeAction.isPopUpHander("reserveSuccess"));
   };
 
@@ -275,6 +307,7 @@ const DiscoverComp = () => {
       });
     getSearchuser();
   };
+  console.log(reserveduser, startdate, month, "reserveduser");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">
@@ -349,6 +382,7 @@ const DiscoverComp = () => {
             main="candidateProfile"
             fun={pageHandler}
             back="candidateBack"
+            reserveduser={reserveduser}
           />
         )}
       </div>
@@ -358,114 +392,135 @@ const DiscoverComp = () => {
             <h1>Reserve candidate</h1>
             <img src={close} alt="" />
           </div>
-          <div className="reserveCandidateFlex">
-            <div className="reserveCandidateFlexLeft">
-              <h2>What is reserving?</h2>
-              <ul>
-                <li>
-                  By paying the Reserve Fees, the candidate will be{" "}
-                  <span className="darkHighter">
-                    blocked for you exclusively for a period of 5 days.
-                  </span>{" "}
-                  This feature is available only to Pro Subscribers.
-                </li>
-                <li>
-                  During the 5 days, our{" "}
-                  <span className="darkHighter">
-                    {" "}
-                    Customer Success team will work to ensure{" "}
-                  </span>
-                  that you are able to sign the engagement contract for the
-                  candidate.
-                </li>
-                <li>
-                  The amount paid towards reserving the candidate will be
-                  <span className="darkHighter">
-                    {" "}
-                    adjusted against the first invoice
-                  </span>{" "}
-                  against the same candidate.
-                </li>
-                <li>
-                  Start date of the engagement for a candidate who has been
-                  "Reserved" on the system, cannot be more than 30 days.
-                </li>
-                <li>
-                  After reserving a candidate, in case you are unable to
-                  complete the signing formalities within 5 days, the
-                  candidate's profile will be automatically opened up for others
-                  to hire / reserve, and the reserve fees shall be refunded to
-                  you within 3-4 working days.
-                </li>
-                <li>
-                  For any reason whatsoever, if the candidate shortlisted by you
-                  is not available, you will have the choice to either get the
-                  refund or use that credit against the next invoice.
-                </li>
-              </ul>
-            </div>
-            <div className="reserveCandidateFlexRight">
-              <div className="reserveCandidateFlexRightHead">
-                <div className="reserveCandidateFlexRightHeadLeft">
-                  <img src={profile} alt="" />
-                  <div className="reserveCandidateFlexRightHeadLeftDesc">
-                    <h3>Surya Narreddi</h3>
-                    <h4>Java Developer</h4>
+          {reserveduser.length !== 0 ? (
+            <div className="reserveCandidateFlex">
+              <div className="reserveCandidateFlexLeft">
+                <h2>What is reserving?</h2>
+                <ul>
+                  <li>
+                    By paying the Reserve Fees, the candidate will be{" "}
+                    <span className="darkHighter">
+                      blocked for you exclusively for a period of 5 days.
+                    </span>{" "}
+                    This feature is available only to Pro Subscribers.
+                  </li>
+                  <li>
+                    During the 5 days, our{" "}
+                    <span className="darkHighter">
+                      {" "}
+                      Customer Success team will work to ensure{" "}
+                    </span>
+                    that you are able to sign the engagement contract for the
+                    candidate.
+                  </li>
+                  <li>
+                    The amount paid towards reserving the candidate will be
+                    <span className="darkHighter">
+                      {" "}
+                      adjusted against the first invoice
+                    </span>{" "}
+                    against the same candidate.
+                  </li>
+                  <li>
+                    Start date of the engagement for a candidate who has been
+                    "Reserved" on the system, cannot be more than 30 days.
+                  </li>
+                  <li>
+                    After reserving a candidate, in case you are unable to
+                    complete the signing formalities within 5 days, the
+                    candidate's profile will be automatically opened up for
+                    others to hire / reserve, and the reserve fees shall be
+                    refunded to you within 3-4 working days.
+                  </li>
+                  <li>
+                    For any reason whatsoever, if the candidate shortlisted by
+                    you is not available, you will have the choice to either get
+                    the refund or use that credit against the next invoice.
+                  </li>
+                </ul>
+              </div>
+              <div className="reserveCandidateFlexRight">
+                <div className="reserveCandidateFlexRightHead">
+                  <div className="reserveCandidateFlexRightHeadLeft">
+                    <img src={profile} alt="" />
+                    <div className="reserveCandidateFlexRightHeadLeftDesc">
+                      <h3>{reserveduser[0].first_name}</h3>
+                      <h4>{reserveduser[0].title}</h4>
+                    </div>
+                  </div>
+                  <div className="reserveCandidateFlexRightHeadRight">
+                    <h5 className="rateHour">₹4500/hr</h5>
                   </div>
                 </div>
-                <div className="reserveCandidateFlexRightHeadRight">
-                  <h5 className="rateHour">₹4500/hr</h5>
+                {reserveduser[0].preference_info !== null ? (
+                  <>
+                    {" "}
+                    <div className="candidateCartSkills">
+                      {reserveduser[0].preference_info.skills.length !== 0
+                        ? reserveduser[0].preference_info.skills.map(
+                            (data, index) => (
+                              <h4 key={index}>
+                                <img src={courseIcons} alt="" />
+                                {data}
+                              </h4>
+                            )
+                          )
+                        : null}
+                    </div>
+                    <div className="reserveCandidateBrief">
+                      <h6 className="briefH5">
+                        <img src={brief} alt="" />
+                        <p>
+                          {reserveduser[0].preference_info.year_of_experience}{" "}
+                          years of experience{" "}
+                        </p>
+                      </h6>
+                      <h6 className="briefH5">
+                        <img src={userCheck} alt="" />
+                        <p>Part-time availability</p>
+                      </h6>
+                    </div>
+                  </>
+                ) : null}
+
+                <h2>Start date</h2>
+                <input
+                  type="date"
+                  onChange={(e) => {
+                    setstartdate(e.target.value);
+                  }}
+                  defaultValue={startdate}
+                />
+                <h2 className="marginBottom35">Duration of engagement</h2>
+                <SingleRange setmonth={setmonth} />
+                <div className="durationmMonths">
+                  <h4>3 months</h4>
+                  <h4>1 year</h4>
                 </div>
+                <h5>
+                  Candidate will be reserved from{" "}
+                  {startdate !== null ? (
+                    <span className="darkHighter">
+                      {moment(startdate).format("MMM DD, YYYY")} -{" "}
+                      {moment(startdate)
+                        .add(month, "month")
+                        .format("MMM DD, YYYY")}
+                    </span>
+                  ) : null}
+                </h5>
+                <div className="fees">
+                  <h4>Reserve Fees</h4>
+                  <h4>₹ 15,000</h4>
+                </div>
+                <button onClick={overLayHandler1}>Continue to Payment</button>
+                <p>
+                  You’ll be taken to{" "}
+                  <span className="darkHighter">Razorpay</span> to complete the
+                  transaction
+                </p>
               </div>
-              <div className="candidateCartSkills">
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  Java EEE
-                </h4>
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  JavaScript
-                </h4>
-                <h4>
-                  <img src={courseIcons} alt="" />
-                  Java
-                </h4>
-              </div>
-              <div className="reserveCandidateBrief">
-                <h6 className="briefH5">
-                  <img src={brief} alt="" />
-                  <p>2 years of experience </p>
-                </h6>
-                <h6 className="briefH5">
-                  <img src={userCheck} alt="" />
-                  <p>Part-time availability</p>
-                </h6>
-              </div>
-              <h2>Start date</h2>
-              <input type="date" />
-              <h2 className="marginBottom35">Duration of engagement</h2>
-              <SingleRange />
-              <div className="durationmMonths">
-                <h4>3 months</h4>
-                <h4>1 year</h4>
-              </div>
-              <h5>
-                Candidate will be reserved from{" "}
-                <span className="darkHighter">
-                  Feb 07, 2024 - May 07, 2024.
-                </span>
-              </h5>
-              <div className="fees">
-                <h4>Reserve Fees</h4>
-                <h4>₹ 15,000</h4>
-              </div>
-              <button onClick={overLayHandler1}>Continue to Payment</button>
-              <p>
-                You’ll be taken to <span className="darkHighter">Razorpay</span>{" "}
-                to complete the transaction
-              </p>
             </div>
-          </div>
+          ) : null}
         </div>
       )}
       {isPopUp === "reserveSuccess" && (

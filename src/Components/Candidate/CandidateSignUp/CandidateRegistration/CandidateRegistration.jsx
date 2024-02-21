@@ -214,7 +214,7 @@ const CandidateRegistration = () => {
     address2: "",
     city: "",
     state: "",
-    title: "",
+    title: "11",
     aadhaar_number: "",
     aadhaarfront: "",
     aadhaarback: "",
@@ -234,6 +234,7 @@ const CandidateRegistration = () => {
     github: "",
     website: "",
     languages: "",
+    pincode: "",
   });
   const [formdataerror, setformdataerror] = useState({
     firstname: false,
@@ -264,6 +265,7 @@ const CandidateRegistration = () => {
     github: false,
     website: false,
     languages: false,
+    pincode: false,
   });
 
   const handlechange = (e) => {
@@ -302,6 +304,7 @@ const CandidateRegistration = () => {
         github: false,
         website: false,
         languages: false,
+        pincode: false,
       });
       if (formdata.firstname.length === 0) {
         setformdataerror((values) => ({
@@ -371,19 +374,19 @@ const CandidateRegistration = () => {
           ...values,
           state: true,
         }));
-      } else if (formdata.title.length === 0) {
+      } else if (formdata.pincode.length === 0) {
         setformdataerror((values) => ({
           ...values,
           state: false,
         }));
         setformdataerror((values) => ({
           ...values,
-          title: true,
+          pincode: true,
         }));
       } else if (formdata.aadhaar_number.length === 0) {
         setformdataerror((values) => ({
           ...values,
-          title: false,
+          pincode: false,
         }));
         setformdataerror((values) => ({
           ...values,
@@ -459,12 +462,14 @@ const CandidateRegistration = () => {
           github: false,
           website: false,
           languages: false,
+          pincode: false,
         });
         setIsLoading(true);
         var newobj = {
           username: signupdata.username,
           phone: formdata.phone,
           title: formdata.title,
+          date_of_birth: formdata.dob,
           first_name: `${formdata.firstname} ${formdata.lastname}`,
           role: "3",
           address: {
@@ -1110,9 +1115,9 @@ const CandidateRegistration = () => {
                     <input
                       type="text"
                       placeholder="E.g. HR Manager"
-                      name="title"
+                      name="pincode"
                       onChange={handlechange}
-                      defaultValue={formdata.title}
+                      defaultValue={formdata.pincode}
                     />
                     {formdataerror.title && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
