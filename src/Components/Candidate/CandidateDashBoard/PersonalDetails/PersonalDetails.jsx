@@ -121,6 +121,7 @@ const PersonalDetails = () => {
     ) {
       dispatch(storeAction.userdataHander({ userdata: [updatedata.user] }));
       dispatch(storeAction.isPopUpHander());
+      setloading(false);
     }
   };
   const cancelbtn = () => {

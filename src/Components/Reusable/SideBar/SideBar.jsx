@@ -14,7 +14,6 @@ import { storeAction } from "../../../Store/Store";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = (props) => {
-  console.log(props.menu);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.userid);
@@ -65,8 +64,6 @@ const SideBar = (props) => {
 
   const [isHover, setIsHover] = useState("discover");
   const HoverHandler = (e) => {
-    console.log(e.target.id);
-
     navigate(e.target.id);
     setIsHover(e.target.id);
   };

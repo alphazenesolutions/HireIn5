@@ -15,6 +15,29 @@ const TravelHistory = () => {
   const dispatch = useDispatch();
   const [isArrow, setIsArrow] = useState(false);
   const [status, setstatus] = useState(false);
+  const [travelrow, settravelrow] = useState([
+    {
+      country: "",
+      year_of_travel: "",
+      duration: "",
+      purpose: "",
+      type_of_visa: "",
+      validity_of_visa: "",
+    },
+  ]);
+
+  const addcounttravel = () => {
+    var newobj = {
+      country: "",
+      year_of_travel: "",
+      duration: "",
+      purpose: "",
+      type_of_visa: "",
+      validity_of_visa: "",
+    };
+    settravelrow((prevState) => [...prevState, newobj]);
+  };
+
   const dropDownhandler = () => {
     setIsArrow(!isArrow);
   };
@@ -31,32 +54,11 @@ const TravelHistory = () => {
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("travel"));
   };
-  const [travelrow, settravelrow] = useState([
-    {
-      country: "",
-      year_of_travel: "",
-      duration: "",
-      purpose: "",
-      type_of_visa: "",
-      validity_of_visa: "",
-    },
-  ]);
-  const addcounttravel = () => {
-    var newobj = {
-      country: "",
-      year_of_travel: "",
-      duration: "",
-      purpose: "",
-      type_of_visa: "",
-      validity_of_visa: "",
-    };
-    settravelrow((prevState) => [...prevState, newobj]);
-  };
+
   const handlechangetravel = (value, index, name) => {
     travelrow[index][name] = value;
     settravelrow([...travelrow]);
   };
-  console.log(userdata, "userdata");
   return (
     <div>
       <div className="travelHistory">
