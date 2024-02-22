@@ -46,7 +46,7 @@ const ProfileCard = ({ filterdata, fun }) => {
                             index == 0 || index == 1 || index == 2 ? (
                               <h4>
                                 <img src={courseIcons} alt="" />
-                                JavaScript
+                                {datanew}
                               </h4>
                             ) : (
                               <h4 key={index}>{datanew}</h4>

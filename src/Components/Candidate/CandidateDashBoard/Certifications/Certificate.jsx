@@ -64,7 +64,11 @@ const Certificate = () => {
     if (
       updatedata.message === "User and Associated Info updated successfully"
     ) {
-      dispatch(storeAction.userdataHander({ userdata: [updatedata.user] }));
+      let updatedObject = {
+        ...userdata[0],
+        certificate_info: updatedata.user.certificate_info,
+      };
+      dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
       dispatch(storeAction.isPopUpHander());
       setIsShow(!isShow);
       setloading(false);
@@ -121,14 +125,12 @@ const Certificate = () => {
               : ""
             : "",
       });
-      console.log(userdata[0].certificate_info.skills);
     }
   };
   const handlechange = (e) => {
     const { name, value } = e.target;
     seteducationdata((values) => ({ ...values, [name]: value }));
   };
-  console.log(educationdata, "ooo");
   return (
     <div>
       <div className="certificate">

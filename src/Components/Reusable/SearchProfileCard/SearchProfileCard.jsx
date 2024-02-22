@@ -101,7 +101,7 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
                       index == 0 || index == 1 || index == 2 ? (
                         <h4>
                           <img src={courseIcons} alt="" />
-                          JavaScript
+                          {item}
                         </h4>
                       ) : (
                         <h4 key={index}>{item}</h4>

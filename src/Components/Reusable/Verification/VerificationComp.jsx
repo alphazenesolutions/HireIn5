@@ -25,7 +25,6 @@ const VerificationComp = () => {
   const [finalerror, setfinalerror] = useState(null);
 
   const PageHandler = (event) => {
-    console.log(event.target.id, "event.target.id");
     setfinalerror(false);
     if (isPage === "page1") {
       // const email = "dineshkit15@gmail.com";
@@ -167,7 +166,6 @@ const VerificationComp = () => {
         return error;
       });
   };
-  console.log(isPage, "isPage");
   return (
     <>
       {isPage === "page2" && (

@@ -79,15 +79,16 @@ const DiscoverComp = () => {
       setIsInput(true);
       const searchTerm = e.target.value.toLowerCase();
       const filteredData = alldata.filter((data) => {
-        const isFirstNameMatch = data.first_name
-          .toLowerCase()
-          .includes(searchTerm);
+        // const isFirstNameMatch = data.first_name
+        //   .toLowerCase()
+        //   .includes(searchTerm);
         if (data.preference_info !== null) {
           const isSkillMatch = data.preference_info.skills.some((skill) =>
             skill.toLowerCase().includes(searchTerm)
           );
 
-          return isFirstNameMatch || isSkillMatch;
+          return isSkillMatch;
+          // return isFirstNameMatch || isSkillMatch;
         }
       });
       setfilterdata(filteredData);
@@ -307,7 +308,6 @@ const DiscoverComp = () => {
       });
     getSearchuser();
   };
-  console.log(reserveduser, startdate, month, "reserveduser");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">

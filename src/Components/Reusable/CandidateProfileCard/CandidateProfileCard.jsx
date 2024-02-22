@@ -7,7 +7,6 @@ import user from "../../../assests/User.svg";
 import map from "../../../assests/mapPin.png";
 
 const CandidateProfileCard = (props) => {
-  console.log(props, "ppp");
   const [isSelect1, setIsSelect1] = useState(false);
   const buttonHandler1 = () => {
     setIsSelect1(true);

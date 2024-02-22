@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./VideoResume.css";
 import user from "../../../../assests/User.svg";
 import dropDown from "../../../../assests/arrowDown.svg";
@@ -7,8 +7,14 @@ import dropUp from "../../../../assests/arrowUp.svg";
 import star from "../../../../assests/star.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
+import axios from "axios";
+import { FiLoader } from "react-icons/fi";
 
 const VideoResume = () => {
+  const userdata = useSelector((store) => store.userdata);
+  const userid = useSelector((store) => store.userid);
+  const token = useSelector((store) => store.token);
+
   const dispatch = useDispatch();
   const [isArrow, setIsArrow] = useState(false);
   const dropDownhandler = () => {
@@ -21,6 +27,70 @@ const VideoResume = () => {
 
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("video"));
+  };
+
+  const fileInputRef = useRef(null);
+
+  const uploadHandler = (data) => {
+    fileInputRef.current.click();
+  };
+  const [resumevideo, setresumevideo] = useState(null);
+  const [formData, setFormData] = useState(new FormData());
+  const [loading, setloading] = useState(false);
+
+  const handleFileInputChange = async (e) => {
+    setloading(true);
+    formData.append("image", e.target.files[0]);
+    formData.append("name", `resume${userid}`);
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    setresumevideo(response.data.img_url);
+    fileInputRef.current.value = "";
+    setloading(false);
+  };
+  const displayHandler = async () => {
+    setloading(true);
+    var newobj = {
+      username: userdata[0].username,
+      video_resume: resumevideo,
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+        newobj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response.data;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      let updatedObject = {
+        ...userdata[0],
+        education_info: updatedata.user.education_info,
+      };
+      dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      dispatch(storeAction.isPopUpHander());
+      setloading(false);
+    } else {
+      setloading(false);
+    }
   };
   return (
     <div>
@@ -59,6 +129,7 @@ const VideoResume = () => {
                   <br /> MOV, AVI and WMV accepted
                 </h3>
               </div>
+
               <div className="vedioNotes">
                 <img src={star} alt="" />
                 <div className="notes">
@@ -116,13 +187,20 @@ const VideoResume = () => {
                   upload a video resume to showcase your personality & stand
                   out!
                 </h1>
-                <div className="uploadVedioRes">
+                <div className="uploadVedioRes" onClick={uploadHandler}>
                   <h2>Your video file here</h2>
                   <h3>
                     Maximum size: 5MB MP4,
                     <br /> MOV, AVI and WMV accepted
                   </h3>
                 </div>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  name="aadhaarfront"
+                  onChange={handleFileInputChange}
+                />
                 <div className="vedioNotes">
                   <img src={star} alt="" />
                   <div className="notes">
@@ -152,8 +230,24 @@ const VideoResume = () => {
                 </div>
               </div>
               <div className="vedioResumeButtons">
-                <button className="discard">Discard Changes</button>
-                <button className="save">Save & Close</button>
+                <button
+                  className="discard"
+                  onClick={() => {
+                    dispatch(storeAction.isPopUpHander());
+                  }}
+                >
+                  Discard Changes
+                </button>
+
+                {loading === false ? (
+                  <button className="save" onClick={displayHandler}>
+                    Save & Close
+                  </button>
+                ) : (
+                  <button className="save w-[10rem] flex justify-center items-center">
+                    <FiLoader className="loadingIcon" />
+                  </button>
+                )}
               </div>
             </div>
           )}
