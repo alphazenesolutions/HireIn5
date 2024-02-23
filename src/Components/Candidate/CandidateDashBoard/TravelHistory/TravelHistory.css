@@ -301,6 +301,14 @@
     margin-top: 20px;
 }
 
+.travelUpdateFlexLeft input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
 .travelUpdateFlexLeft select {
     width: 100%;
     padding: 10px;
@@ -353,6 +361,14 @@
     border-radius: 8px;
 }
 
+.residency button {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid var(--borderColor);
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
 /* wiling */
 
 .willingTravel {
@@ -396,6 +412,14 @@
     border: 1px solid var(--borderColor);
 }
 
+.willingFlexLeft input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
 .willingFlexRight h2 {
     font-size: 14px;
     font-weight: 600;
@@ -403,6 +427,14 @@
 }
 
 .willingFlexRight select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.willingFlexRight input {
     width: 100%;
     padding: 10px;
     border-radius: 8px;

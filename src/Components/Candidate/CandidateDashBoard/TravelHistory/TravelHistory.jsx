@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import "./TravelHistory.css";
 import user from "../../../../assests/User.svg";
 import dropDown from "../../../../assests/arrowDown.svg";
@@ -6,6 +7,8 @@ import edit from "../../../../assests/edit.svg";
 import dropUp from "../../../../assests/arrowUp.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
+import axios from "axios";
+import { FiLoader } from "react-icons/fi";
 
 const TravelHistory = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -25,6 +28,14 @@ const TravelHistory = () => {
       validity_of_visa: "",
     },
   ]);
+  const [travelform, settravelform] = useState({
+    current_place_of_residence: "",
+    lived_at_current_residence: "",
+    travel_readlines: "",
+    duration: "",
+    country: "",
+    onlyfor: "",
+  });
 
   const addcounttravel = () => {
     var newobj = {
@@ -58,6 +69,191 @@ const TravelHistory = () => {
   const handlechangetravel = (value, index, name) => {
     travelrow[index][name] = value;
     settravelrow([...travelrow]);
+  };
+  const handlechange_travel = (e) => {
+    const { name, value } = e.target;
+    settravelform((values) => ({ ...values, [name]: value }));
+  };
+
+  useEffect(() => {
+    Getalldata();
+  }, [userdata]);
+  const Getalldata = async () => {
+    if (userdata.length !== 0) {
+      if (userdata[0].travel_info !== null) {
+        if (userdata[0].travel_info.travelled_to.length !== 0) {
+          var newarray = [];
+          for (
+            var i = 0;
+            i < userdata[0].travel_info.travelled_to.length;
+            i++
+          ) {
+            newarray.push({
+              country:
+                userdata[0].travel_info.travelled_to[i].split(":")[0].length !==
+                0
+                  ? userdata[0].travel_info.travelled_to[i]
+                      .split(":")[0]
+                      .replace(/\s/g, "")
+                  : "",
+              year_of_travel:
+                userdata[0].travel_info.travelled_to[i].split(":")[1].length !==
+                0
+                  ? userdata[0].travel_info.travelled_to[i]
+                      .split(":")[1]
+                      .replace(/\s/g, "")
+                  : "",
+              duration:
+                userdata[0].travel_info.travelled_to[i].split(":")[2].length !==
+                0
+                  ? userdata[0].travel_info.travelled_to[i]
+                      .split(":")[2]
+                      .replace(/\s/g, "")
+                  : "",
+              purpose:
+                userdata[0].travel_info.travelled_to[i].split(":")[3].length !==
+                0
+                  ? userdata[0].travel_info.travelled_to[i]
+                      .split(":")[3]
+                      .replace(/\s/g, "")
+                  : "",
+              type_of_visa:
+                userdata[0].travel_info.travelled_to[i].split(":")[4].length !==
+                0
+                  ? userdata[0].travel_info.travelled_to[i]
+                      .split(":")[4]
+                      .replace(/\s/g, "")
+                  : "",
+              validity_of_visa:
+                userdata[0].travel_info.travelled_to[i].split(":")[5].length !==
+                0
+                  ? userdata[0].travel_info.travelled_to[i]
+                      .split(":")[5]
+                      .replace(/\s/g, "")
+                  : "",
+            });
+          }
+          settravelrow(newarray);
+        }
+        settravelform({
+          current_place_of_residence: userdata[0].current_place_of_residence,
+          lived_at_current_residence: userdata[0].lived_at_current_residence,
+          travel_readlines: userdata[0].travel_info.travel_readlines,
+          duration: userdata[0].travel_info.duration,
+          country: userdata[0].travel_info.country.toString(),
+          onlyfor: userdata[0].travel_info.onlyfor,
+        });
+
+        if (userdata[0].travel_info.relocate_for_work.length !== 0) {
+          var new_array = [];
+          for (
+            var j = 0;
+            j < userdata[0].travel_info.relocate_for_work.length;
+            j++
+          ) {
+            new_array.push({
+              are_you_willing:
+                userdata[0].travel_info.relocate_for_work[j].split(":")[0]
+                  .length !== 0
+                  ? userdata[0].travel_info.relocate_for_work[j]
+                      .split(":")[0]
+                      .replace(/\s/g, "")
+                  : "",
+              preferred_countries:
+                userdata[0].travel_info.relocate_for_work[j].split(":")[1]
+                  .length !== 0
+                  ? userdata[0].travel_info.relocate_for_work[j]
+                      .split(":")[1]
+                      .replace(/\s/g, "")
+                  : "",
+              how_long:
+                userdata[0].travel_info.relocate_for_work[j].split(":")[2]
+                  .length !== 0
+                  ? userdata[0].travel_info.relocate_for_work[j]
+                      .split(":")[2]
+                      .replace(/\s/g, "")
+                  : "",
+            });
+          }
+          setrelocate(new_array);
+        }
+      }
+    }
+  };
+  const [relocate, setrelocate] = useState([
+    {
+      are_you_willing: "",
+      preferred_countries: "",
+      how_long: "",
+    },
+  ]);
+  const [loading, setloading] = useState(false);
+  const addcountrelocate = () => {
+    var newobj = {
+      are_you_willing: "",
+      preferred_countries: "",
+      how_long: "",
+    };
+    setrelocate((prevState) => [...prevState, newobj]);
+  };
+
+  const handlechangerelocate = (value, index, name) => {
+    relocate[index][name] = value;
+    setrelocate([...relocate]);
+  };
+  const submitbtn = async () => {
+    setloading(true);
+    const arrayOfStrings = travelrow.map(
+      (obj) =>
+        `${obj.country}: ${obj.year_of_travel}: ${obj.duration}: ${obj.purpose}: ${obj.type_of_visa}: ${obj.validity_of_visa}`
+    );
+    const arrayOfStrings1 = relocate.map(
+      (obj) =>
+        `${obj.are_you_willing}: ${obj.preferred_countries}: ${obj.how_long}`
+    );
+    var newobj1 = {
+      username: userdata[0].username,
+      travel_info: {
+        travelled_to: arrayOfStrings,
+        relocate_for_work: arrayOfStrings1,
+        country: travelform.country.split(","),
+        onlyfor: "test",
+        duration: travelform.duration,
+        travel_readlines: travelform.travel_readlines,
+      },
+      current_place_of_residence: travelform.current_place_of_residence,
+      lived_at_current_residence: travelform.lived_at_current_residence,
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+        newobj1,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response.data;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      let updatedObject = {
+        ...userdata[0],
+        travel_info: updatedata.user.travel_info,
+      };
+      dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      dispatch(storeAction.isPopUpHander());
+      setloading(false);
+    } else {
+      setloading(false);
+    }
   };
   return (
     <div>
@@ -256,33 +452,96 @@ const TravelHistory = () => {
                               <div className="travelUpdateFlex">
                                 <div className="travelUpdateFlexLeft">
                                   <h2>Country</h2>
-                                  <select name="" id="">
-                                    <option value="">USA</option>
-                                    <option value="">INDIA</option>
+                                  <select
+                                    name=""
+                                    id=""
+                                    defaultValue={data.country}
+                                    onChange={(e) => {
+                                      handlechangetravel(
+                                        e.target.value,
+                                        index,
+                                        "country"
+                                      );
+                                    }}
+                                  >
+                                    <option value="USA">USA</option>
+                                    <option value="India">INDIA</option>
                                   </select>
                                   <h2>Purpose</h2>
-                                  <select name="" id="">
-                                    <option value="">Work </option>
-                                    <option value="">Travel</option>
-                                  </select>
+                                  <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    defaultValue={data.purpose}
+                                    onChange={(e) => {
+                                      handlechangetravel(
+                                        e.target.value,
+                                        index,
+                                        "purpose"
+                                      );
+                                    }}
+                                  />
                                 </div>
+
                                 <div className="travelUpdateFlexCenter">
                                   <h2>Year of travel</h2>
-                                  <input type="text" name="" id="" />
+                                  <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    onChange={(e) => {
+                                      handlechangetravel(
+                                        e.target.value,
+                                        index,
+                                        "year_of_travel"
+                                      );
+                                    }}
+                                    defaultValue={data.year_of_travel}
+                                  />
                                   <h2>Type of Visa</h2>
-                                  <input type="text" name="" id="" />
+                                  <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    onChange={(e) => {
+                                      handlechangetravel(
+                                        e.target.value,
+                                        index,
+                                        "type_of_visa"
+                                      );
+                                    }}
+                                    defaultValue={data.type_of_visa}
+                                  />
                                 </div>
                                 <div className="travelUpdateFlexRight">
                                   <h2>Duration</h2>
-                                  <select name="" id="">
-                                    <option value="">1 month</option>
-                                    <option value="">2 month</option>
-                                    <option value="">3 month</option>
-                                    <option value="">4 month</option>
-                                    <option value="">5 month</option>
-                                  </select>
+                                  <input
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    defaultValue={data.duration}
+                                    onChange={(e) => {
+                                      handlechangetravel(
+                                        e.target.value,
+                                        index,
+                                        "duration"
+                                      );
+                                    }}
+                                  />
                                   <h2>Validity of Visa</h2>
-                                  <input type="date" name="" id="" />
+                                  <input
+                                    type="date"
+                                    name=""
+                                    id=""
+                                    defaultValue={data.validity_of_visa}
+                                    onChange={(e) => {
+                                      handlechangetravel(
+                                        e.target.value,
+                                        index,
+                                        "validity_of_visa"
+                                      );
+                                    }}
+                                  />
                                 </div>
                               </div>
                               <hr className="border border-gray-400 my-5" />
@@ -301,33 +560,48 @@ const TravelHistory = () => {
                             <h2>Country</h2>
                             <h3>Select upto 3 countries</h3>
                           </div>
-                          <select name="" id="">
-                            <option value="">USA</option>
-                            <option value="">INDIA</option>
-                          </select>
+                          <input
+                            type="text"
+                            name="country"
+                            defaultValue={travelform.country}
+                            onChange={handlechange_travel}
+                          />
                           <h2>Duration</h2>
-                          <select name="" id="">
-                            <option value="">Short Term </option>
-                            <option value="">Long Term</option>
-                          </select>
+                          <input
+                            type="text"
+                            name="duration"
+                            defaultValue={travelform.duration}
+                            onChange={handlechange_travel}
+                          />
                         </div>
                         <div className="willingFlexRight">
-                          <h2>Duration</h2>
-                          <select name="" id="">
-                            <option value="">work </option>
-                            <option value="">Travel</option>
-                          </select>
-                          <h2>Duration</h2>
-                          <select name="" id="">
-                            <option value="">Immediate</option>
-                            <option value="">Notice period</option>
-                          </select>
+                          <h2>Only For</h2>
+                          <input
+                            type="text"
+                            name="onlyfor"
+                            defaultValue={travelform.onlyfor}
+                            onChange={handlechange_travel}
+                          />
+                          <h2>Travel Readlines</h2>
+                          <input
+                            type="text"
+                            name="travel_readlines"
+                            defaultValue={travelform.travel_readlines}
+                            onChange={handlechange_travel}
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="vedioResumeButtons">
-                    <button className="discard">Discard Changes</button>
+                    <button
+                      className="discard"
+                      onClick={() => {
+                        dispatch(storeAction.isPopUpHander());
+                      }}
+                    >
+                      Discard Changes
+                    </button>
                     <button id="page3" onClick={pagehandler} className="save">
                       Save & Close
                     </button>
@@ -344,43 +618,98 @@ const TravelHistory = () => {
                     <div className="residencyInner">
                       <h6>Residency Details</h6>
                       <h2>Current place of residence</h2>
-                      <input type="text" name="" id="" />
+                      <input
+                        type="text"
+                        id=""
+                        name="current_place_of_residence"
+                        defaultValue={travelform.current_place_of_residence}
+                        onChange={handlechange_travel}
+                      />
                       <h2>
                         How long have you lived at your current residence?
                       </h2>
-                      <input type="text" name="" id="" />
+                      <input
+                        type="text"
+                        id=""
+                        name="lived_at_current_residence"
+                        defaultValue={travelform.lived_at_current_residence}
+                        onChange={handlechange_travel}
+                      />
                     </div>
                   </div>
                   <div className="residency">
-                    <div className="residencyInner">
-                      <h6>Countries you’re willing to Relocate for work</h6>
-                      <h2>Are you willing to relocate?</h2>
-                      <select name="" id="">
-                        <option value="">No</option>
-                        <option value="">yes</option>
-                      </select>
-                      <div className="upto">
-                        <h2>
-                          What are your preferred countries to relocate to?
-                        </h2>
-                        <h3>Select up to 3 countries</h3>
-                      </div>
-                      <select name="" id="">
-                        <option value="">No</option>
-                        <option value="">yes</option>
-                      </select>
-                      <h2>How long are you willing to relocate for?</h2>
-                      <select name="" id="">
-                        <option value="">upto 6 months</option>
-                        <option value="">upto 3 months</option>
-                      </select>
-                    </div>
+                    {relocate.length !== 0
+                      ? relocate.map((data, index) => (
+                          <div className="residencyInner" key={index}>
+                            <h6>
+                              Countries you’re willing to Relocate for work
+                            </h6>
+                            <h2>Are you willing to relocate?</h2>
+                            <select
+                              onChange={(e) => {
+                                handlechangerelocate(
+                                  e.target.value,
+                                  index,
+                                  "are_you_willing"
+                                );
+                              }}
+                              defaultValue={data.are_you_willing}
+                            >
+                              <option value="No">No</option>
+                              <option value="Yes">yes</option>
+                            </select>
+                            <div className="upto">
+                              <h2>
+                                What are your preferred countries to relocate
+                                to?
+                              </h2>
+                              <h3>Select up to 3 countries</h3>
+                            </div>
+                            <input
+                              onChange={(e) => {
+                                handlechangerelocate(
+                                  e.target.value,
+                                  index,
+                                  "preferred_countries"
+                                );
+                              }}
+                              defaultValue={data.preferred_countries}
+                            />
+                            <h2>How long are you willing to relocate for?</h2>
+                            <input
+                              onChange={(e) => {
+                                handlechangerelocate(
+                                  e.target.value,
+                                  index,
+                                  "how_long"
+                                );
+                              }}
+                              defaultValue={data.how_long}
+                            />
+                          </div>
+                        ))
+                      : null}
+
+                    <button onClick={addcountrelocate}>+ Add more</button>
                   </div>
                   <div className="vedioResumeButtons">
-                    <button className="discard">Discard Changes</button>
-                    <button id="page3" onClick={pagehandler} className="save">
-                      Save & Close
+                    <button
+                      className="discard"
+                      onClick={() => {
+                        setIsPage("page2");
+                      }}
+                    >
+                      Discard Changes
                     </button>
+                    {loading === false ? (
+                      <button className="save" onClick={submitbtn}>
+                        Save & Close
+                      </button>
+                    ) : (
+                      <button className="save w-[10rem] flex justify-center items-center">
+                        <FiLoader className="loadingIcon" />
+                      </button>
+                    )}
                   </div>
                 </div>
               )}

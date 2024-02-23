@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./ProfessionalDetails.css";
@@ -36,7 +37,7 @@ const ProfessionalDetails = () => {
     company_name: "",
     description: "",
     location: "",
-    titile: "",
+    title: "",
     years_active: "",
     years_active_start: "",
     years_active_end: "",
@@ -67,9 +68,9 @@ const ProfessionalDetails = () => {
           userdata[0].professional_details_info !== null
             ? userdata[0].professional_details_info.location
             : "",
-        titile:
+        title:
           userdata[0].professional_details_info !== null
-            ? userdata[0].professional_details_info.titile
+            ? userdata[0].professional_details_info.title
             : "",
         years_active_start:
           userdata[0].professional_details_info !== null
@@ -106,7 +107,7 @@ const ProfessionalDetails = () => {
         company_name: educationdata.company_name,
         description: educationdata.description,
         location: educationdata.location,
-        titile: educationdata.titile,
+        title: educationdata.title,
         years_active: `${educationdata.years_active_start},${educationdata.years_active_end}`,
         skills: educationdata.skills.split(),
       },
@@ -177,7 +178,7 @@ const ProfessionalDetails = () => {
                     <h1>
                       Add your current & Past professional experience here
                     </h1>
-                    <h2>{userdata[0].professional_details_info.titile}</h2>
+                    <h2>{userdata[0].professional_details_info.title}</h2>
                     <h3>
                       {userdata[0].professional_details_info.company_name}
                     </h3>
@@ -247,9 +248,9 @@ const ProfessionalDetails = () => {
                   <input
                     placeholder="Java Developer"
                     type="text"
-                    name="titile"
+                    name="title"
                     onChange={handlechange}
-                    defaultValue={educationdata.titile}
+                    defaultValue={educationdata.title}
                   />
                   <h2>Company Name</h2>
                   <input

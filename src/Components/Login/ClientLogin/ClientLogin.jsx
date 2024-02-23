@@ -21,10 +21,8 @@ const ClientLogin = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [show, setShow] = useState("false");
-  const showPassword = () => {
-    setShow(!show);
-  };
+  const [show, setShow] = useState(false);
+
   const [logindata, setlogindata] = useState({
     username: "",
     password: "",
@@ -130,13 +128,17 @@ const ClientLogin = () => {
                   {show === false ? (
                     <FiEyeOff
                       className="text-gray-500 eyeOne"
-                      onClick={showPassword}
+                      onClick={() => {
+                        setShow(true);
+                      }}
                       id="loginPassword"
                     />
                   ) : (
                     <FiEye
                       className="text-gray-500 eyeOne"
-                      onClick={showPassword}
+                      onClick={() => {
+                        setShow(false);
+                      }}
                       id="loginPassword"
                     />
                   )}

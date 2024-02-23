@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
@@ -76,6 +77,9 @@ const Education = () => {
             ? userdata[0].education_info.year_of_graduation
             : "",
       });
+      if (userdata[0].education_info !== null) {
+        setcertificate(userdata[0].education_info.upload_file);
+      }
     }
   };
   const handlechange = (e) => {
@@ -205,15 +209,17 @@ const Education = () => {
                     <h4>CGPA : </h4>
                     <p>{userdata[0].education_info.cgpa}</p>
                   </div>
-                  {isUpload == true && (
-                    <div className="gradeCertificate">
-                      <img src={gallery} alt="" />
-                      <div className="gradeCertificateDesc">
-                        <h2>certificate01.jpeg</h2>
-                        <p>4 MB</p>
-                      </div>
-                    </div>
-                  )}
+                  {certificate.length !== 0
+                    ? certificate.map((data, index) => (
+                        <div className="gradeCertificate">
+                          <img src={gallery} alt="" />
+                          <div className="gradeCertificateDesc">
+                            <h2>certificate0{index + 1}.jpeg</h2>
+                            {/* <p>4 MB</p> */}
+                          </div>
+                        </div>
+                      ))
+                    : null}
                 </div>
               ) : null)
             : null}

@@ -1,7 +1,7 @@
-import { Provider, useDispatch, useSelector } from "react-redux";
+/* eslint-disable eqeqeq */
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import Routing from "./Routing/Routing";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { persistor } from "./Store/Store";
 import { PersistGate } from "redux-persist/integration/react";
 import Layout from "./Layout/Layout";

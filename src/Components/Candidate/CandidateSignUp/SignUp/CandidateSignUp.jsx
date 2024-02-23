@@ -17,7 +17,7 @@ const CandidateSignUp = () => {
   const dispatch = useDispatch();
   const [isButton, setIsButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [show, setShow] = useState("false");
+  const [show, setShow] = useState(false);
 
   const showPassword = () => {
     setShow(!show);
