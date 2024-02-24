@@ -4,7 +4,6 @@ import "./SignUpComp.css";
 import Head from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import Foot from "../../../Reusable/Terms&Conditions/Foot";
 import SectionHead from "../../../Reusable/SectionHead/SectionHead";
-import eye from "../../../../assests/eye.png";
 import { useNavigate } from "react-router-dom";
 import back from "../../../../assests/back.png";
 import { useDispatch } from "react-redux";
@@ -25,12 +24,12 @@ const SignUpComp = () => {
   };
   const [isLoading, setIsLoading] = useState(false);
 
-  const [show, setShow] = useState("false");
+  const [show, setShow] = useState(false);
   const showPassword = () => {
     setShow(!show);
   };
 
-  const [show1, setShow1] = useState("false");
+  const [show1, setShow1] = useState(false);
   const showConfirmPassword = () => {
     setShow1(!show1);
   };
