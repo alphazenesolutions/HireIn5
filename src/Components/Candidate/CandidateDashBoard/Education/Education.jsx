@@ -1,6 +1,4 @@
-/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import "./Education.css";
 import user from "../../../../assests/User.svg";
@@ -46,9 +44,11 @@ const Education = () => {
     year_of_graduation: "",
   });
   const [loading, setloading] = useState(false);
+
   useEffect(() => {
     getUserinfo();
   }, [userdata]);
+  
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
       seteducationdata({
@@ -138,7 +138,7 @@ const Education = () => {
     fileInputRef.current.click();
   };
   var [certificate, setcertificate] = useState([]);
-  const [formData, setFormData] = useState(new FormData());
+  const [formData] = useState(new FormData());
   const handleFileInputChange = async (e) => {
     formData.append("image", e.target.files[0]);
     formData.append("name", `certificate${userid}`);
@@ -221,9 +221,13 @@ const Education = () => {
                       ))
                     : null}
                 </div>
-              ) : null)
+              ) : (
+                <div className="educationDesc">
+                  <h1>Add your education and degrees here</h1>
+                </div>
+              ))
             : null}
-          {isPopUp == "education" && (
+          {isPopUp === "education" && (
             <div className="educationDescOverlay">
               <div className="innerEducation">
                 <div

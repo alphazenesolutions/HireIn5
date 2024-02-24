@@ -232,7 +232,7 @@ const Certificate = () => {
                 )}
               </div>
             ) : null)}
-          {isPopUp == "certificate" && (
+          {isPopUp === "certificate" && (
             <div className="certificateDescOverlay">
               <div className="innerCertificate">
                 <div

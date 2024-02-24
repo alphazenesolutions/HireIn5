@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./ProfessionalDetails.css";
@@ -215,10 +214,12 @@ const ProfessionalDetails = () => {
                       </p>
                     </div>
                   </>
-                ) : null}
+                ) : (
+                  <h1>Add your current & Past professional experience here</h1>
+                )}
               </div>
             ) : null)}
-          {isPopUp == "professional" && (
+          {isPopUp === "professional" && (
             <div className="professionalDetailsOverlay">
               <div className="innerprofessionalDetails">
                 <div className="projectDetailsHead">

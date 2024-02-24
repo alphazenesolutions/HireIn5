@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "./RegistrationComp.css";
 import Head from "../../../Reusable/LogoHead/Head";
@@ -20,10 +19,6 @@ const RegistrationComp = () => {
 
   const [isButton, setIsButton] = useState(false);
   const [checked, setchecked] = useState(false);
-  const buttonHandler = () => {
-    setIsButton(true);
-  };
-
   const [isButton2, setIsButton2] = useState(false);
   const buttonHandlernew = () => {
     setchecked(!checked);
@@ -38,7 +33,7 @@ const RegistrationComp = () => {
     } else {
     }
   };
-  const routeTimeout = setTimeout(routeHandler, 1500);
+  setTimeout(routeHandler, 1500);
   const [registationdata, setregistationdata] = useState({
     company_name: "",
     company_location: "",
@@ -102,6 +97,15 @@ const RegistrationComp = () => {
   };
   const pageHandler = async (event) => {
     if (isPage === "page1") {
+      setregistationdataerror({
+        company_name: false,
+        company_location: false,
+        company_url: false,
+        first_name: false,
+        phone: false,
+        title: false,
+        linked_in: false,
+      });
       if (registationdata.company_name.length === 0) {
         setregistationdataerror((values) => ({
           ...values,
@@ -116,16 +120,10 @@ const RegistrationComp = () => {
           ...values,
           company_location: true,
         }));
-      } else if (registationdata.company_url.length === 0) {
-        setregistationdataerror((values) => ({
-          ...values,
-          company_location: false,
-        }));
-        setregistationdataerror((values) => ({ ...values, company_url: true }));
       } else if (registationdata.first_name.length === 0) {
         setregistationdataerror((values) => ({
           ...values,
-          company_url: false,
+          company_location: false,
         }));
         setregistationdataerror((values) => ({ ...values, first_name: true }));
       } else if (registationdata.phone.length === 0) {
@@ -211,6 +209,17 @@ const RegistrationComp = () => {
         }
       }
     } else {
+      setbillingdataerror({
+        billing_company: false,
+        billing_address: false,
+        company_pan: false,
+        primary_name: false,
+        primary_email: false,
+        primary_phone: false,
+        secondary_name: false,
+        secondary_email: false,
+        secondary_phone: false,
+      });
       if (billingdata.billing_company.length === 0) {
         setbillingdataerror((values) => ({
           ...values,
@@ -261,38 +270,18 @@ const RegistrationComp = () => {
           ...values,
           primary_phone: false,
         }));
-      } else if (billingdata.secondary_name.length === 0) {
-        setbillingdataerror((values) => ({
-          ...values,
-          secondary_name: true,
-        }));
-        setbillingdataerror((values) => ({
-          ...values,
-          primary_email: false,
-        }));
-      } else if (billingdata.secondary_phone.length === 0) {
-        setbillingdataerror((values) => ({
-          ...values,
-          secondary_phone: true,
-        }));
-        setbillingdataerror((values) => ({
-          ...values,
-          secondary_name: false,
-        }));
-      } else if (billingdata.secondary_email.length === 0) {
-        setbillingdataerror((values) => ({
-          ...values,
-          secondary_email: true,
-        }));
-        setbillingdataerror((values) => ({
-          ...values,
-          secondary_phone: false,
-        }));
       } else {
-        setbillingdataerror((values) => ({
-          ...values,
+        setbillingdataerror({
+          billing_company: false,
+          billing_address: false,
+          company_pan: false,
+          primary_name: false,
+          primary_email: false,
+          primary_phone: false,
+          secondary_name: false,
           secondary_email: false,
-        }));
+          secondary_phone: false,
+        });
         setIsButton2(true);
         var new_obj1 = {
           username: signupdata.username,
@@ -344,7 +333,7 @@ const RegistrationComp = () => {
           updatedatabilling.message ===
           "User and Associated Info updated successfully"
         ) {
-          setIsPage(event.target.id);
+          setIsPage("page3");
           setIsButton2(false);
         } else {
           setIsButton2(false);
@@ -784,9 +773,23 @@ const RegistrationComp = () => {
               </div>
               <div className="registerBottom">
                 {isButton === false ? (
-                  <button id="page2" onClick={pageHandler} className="nextbtn">
-                    Next
-                  </button>
+                  checked === true ? (
+                    <button
+                      id="page2"
+                      onClick={pageHandler}
+                      className="nextbtn"
+                    >
+                      Next
+                    </button>
+                  ) : (
+                    <button
+                      id="page2"
+                      onClick={pageHandler}
+                      className="clientLoginCompBodyButtonLoading"
+                    >
+                      Next
+                    </button>
+                  )
                 ) : (
                   <button
                     id="page2"

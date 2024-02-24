@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "./VerificationComp.css";
@@ -263,7 +264,12 @@ const VerificationComp = () => {
                   Verify
                 </button>
               )}
-              <p>
+              <p
+                onClick={() => {
+                  window.location.reload();
+                }}
+                className="cursor-pointer"
+              >
                 Didn’t receive OTP? <span>Resend</span>
               </p>
             </div>

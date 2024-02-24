@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
@@ -24,11 +25,9 @@ import brief from "../../../../assests/briefCase.png";
 import SingleRange from "../../../MaterialUi/SingleRange/SingleRange";
 import userCheck from "../../../../assests/userCheck.png";
 import success from "../../../../assests/Succcess.png";
-import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 const DiscoverComp = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((store) => store.token);
   const userid = useSelector((store) => store.userid);
@@ -43,6 +42,10 @@ const DiscoverComp = () => {
   const [month, setmonth] = useState(3);
 
   const pageHandler = async (event, id) => {
+    var checkdata = await filterdata.filter((data) => {
+      return data.id == id;
+    });
+    setreserveduser(checkdata);
     if (event === "page2") {
       setIsPage(event);
       let data = JSON.stringify({
@@ -308,6 +311,7 @@ const DiscoverComp = () => {
       });
     getSearchuser();
   };
+  console.log(reserveduser, "reserveduser");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">

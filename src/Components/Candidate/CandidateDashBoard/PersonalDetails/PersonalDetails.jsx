@@ -199,7 +199,7 @@ const PersonalDetails = () => {
               ) : null}
             </div>
           )}
-          {isPopUp == "personal" && (
+          {isPopUp === "personal" && (
             <div className="personalOverlay">
               <div className="innerPersonalDetails">
                 <div
