@@ -158,8 +158,7 @@ const ProjectDetails = () => {
                 {userdata[0].project_details_info !== null ? (
                   <>
                     <h1>
-                      Add certification / course Details here to enhance your
-                      profile
+                      Add details of projects you worked on in your career
                     </h1>
                     <h2>{userdata[0].project_details_info.project_title}</h2>
                     <div className="projectDetailsDescFlex">
@@ -192,10 +191,12 @@ const ProjectDetails = () => {
                       </p>
                     </div>
                   </>
-                ) : null}
+                ) : (
+                  <h1>Add details of projects you worked on in your career</h1>
+                )}
               </div>
             ) : null)}
-          {isPopUp == "project" && (
+          {isPopUp === "project" && (
             <div className="projectDetailsOverlay">
               <div className="innerprojectDetails">
                 <div

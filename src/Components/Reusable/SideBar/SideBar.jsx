@@ -5,13 +5,11 @@ import "./SideBar.css";
 import profile from "../../../assests/profile.png";
 import wallet from "../../../assests/wallet.png";
 import logout from "../../../assests/logout.png";
-
 import logo from "../../../assests/Logo.png";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = (props) => {

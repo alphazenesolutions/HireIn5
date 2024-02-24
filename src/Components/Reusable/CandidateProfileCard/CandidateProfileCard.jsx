@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useState } from "react";
 import "./CandidateProfileCard.css";
 import back from "../../../assests/back.png";
