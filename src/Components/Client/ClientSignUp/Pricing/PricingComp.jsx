@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import "./PricingComp.css";
 import OptionAvailable from "../../../Reusable/OptionAvailable/OptionAvailable";
 import correct from "../../../../assests/correct.png";
-import wrong from "../../../../assests/wrong.png";
+import wrong from "../../../../assests/wrong.svg";
 import arrowDown from "../../../../assests/arrowDown.png";
 import Head from "../../../Reusable/LogoHead/Head";
 import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import { useNavigate } from "react-router-dom";
+import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 
 const PricingComp = () => {
   const navigate = useNavigate();
@@ -61,11 +62,24 @@ const PricingComp = () => {
           <div className="pricingCompInner">
             <Head />
             <div className="pricingCompHead">
-              <h1>Pricing</h1>
-              <p>
-                Get the best hires for your company, with complete transparency
-                and ease
-              </p>
+              <div className="pricingDashHead">
+                <DashHead
+                  head="Pricing"
+                  desc="Get the best hires for your company, with complete transparency and ease Need help in selecting a plan?"
+                  highLight="Contact us"
+                  descClass="dashBoardMainHeadDescBetween"
+                />
+              </div>
+
+              {/* <h1>Pricing</h1>
+              <div className="pricingCompHeadDesc">
+                <p>
+                  Get the best hires for your company, with complete
+                  transparency and ease Need help in selecting a plan?
+                </p>
+                
+              </div> */}
+
               <div className="pricingToggle">
                 <p>Monthly</p>
                 <div

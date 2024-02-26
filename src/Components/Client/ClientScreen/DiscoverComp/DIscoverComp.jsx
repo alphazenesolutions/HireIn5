@@ -94,6 +94,7 @@ const DiscoverComp = () => {
           // return isFirstNameMatch || isSkillMatch;
         }
       });
+      console.log(searchTerm);
       setfilterdata(filteredData);
     } else {
       setIsInput(false);
@@ -312,6 +313,10 @@ const DiscoverComp = () => {
     getSearchuser();
   };
   console.log(reserveduser, "reserveduser");
+  // this funtion is for onClick dashBody display
+  // const searchHandler = () => {
+  //   searchuser(true);
+  // };
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">
@@ -326,6 +331,7 @@ const DiscoverComp = () => {
             <DashSearch
               class="dashBoardMainSearch paddingRight100"
               function={InputHandler}
+              // function2={searchHandler}
             />
             {isInput === false ? (
               <div>
@@ -534,7 +540,7 @@ const DiscoverComp = () => {
           </div>
           <img src={success} alt="" />
           <h1>Candidate reserved</h1>
-          <p>Our team customer success team will contact you shortly! </p>
+          <p>Our customer success team will contact you shortly! </p>
           <button onClick={profileRouter}>Check candidate</button>
         </div>
       )}

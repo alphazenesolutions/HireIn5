@@ -93,7 +93,7 @@ const SideBar = (props) => {
             </div>
             <div className="navMenu">
               {props.menu.map((data) => {
-                if (data.title == isHover) {
+                if (data.router == isHover) {
                   return (
                     <div
                       onClick={HoverHandler}

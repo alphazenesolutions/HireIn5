@@ -26,11 +26,11 @@ const DashHead = (props, fun) => {
     <div>
       <div className="dashBoardMainHead">
         <div className="upgradeTop">
-          <h3 id={props.billingId} onClick={props.fun}>
+          <h3 id={props.billingId} onClick={props.fun2}>
             {props.left}
           </h3>{" "}
           <h5>{props.center}</h5>
-          <h4 id={props.upgradeId} onClick={props.fun}>
+          <h4 id={props.upgradeId} onClick={props.fun3}>
             {props.right}
           </h4>
         </div>

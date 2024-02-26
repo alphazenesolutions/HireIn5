@@ -18,6 +18,7 @@ import Billing from "../pages/Billing";
 import { Resetpassword } from "../pages/Resetpassword";
 import Profile from "../pages/Profile";
 import Emailverification from "../Components/Reusable/Verification/Emailverification";
+import Upgrade from "../pages/Upgrade";
 
 const Routing = () => {
   return (
@@ -39,6 +40,7 @@ const Routing = () => {
         <Route path="/billing" element={<Billing />} />
         <Route path="/resetpassword/:hash" element={<Resetpassword />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/upgrade" element={<Upgrade />} />
       </Routes>
     </div>
   );
