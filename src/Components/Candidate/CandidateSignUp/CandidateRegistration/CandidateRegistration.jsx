@@ -1441,7 +1441,7 @@ const CandidateRegistration = () => {
               <div className="basicDetails">
                 <div className="CandidateInformation">
                   <div className="candidateInfo h-full">
-                    <h3>Your Current Qualification</h3>
+                    <h3>Primary Technical Skill</h3>
                     <input
                       type="text"
                       placeholder="e.g. Java Developer"
@@ -1456,7 +1456,7 @@ const CandidateRegistration = () => {
                   </div>
 
                   <div className="candidateInfo h-full">
-                    <h3>Years of Experience (all time)</h3>
+                    <h3>Total years of Experience</h3>
                     <p>
                       <input
                         type="number"

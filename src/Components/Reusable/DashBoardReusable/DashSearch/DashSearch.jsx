@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./DashSearch.css";
 import Range from "../../../MaterialUi/Range/RangeSlider";
 import search from "../../../../assests/search.png";
@@ -115,16 +115,36 @@ const DashSearch = (props) => {
     setIsToggle1(false);
     setIsToggle(false);
   };
+  const searchRef = useRef("null");
+  const searching = searchRef.current;
+  console.log(searchRef);
+  const [isButton, setIsButton] = useState();
+  const buttonHandler = () => {
+    console.log(searchRef.current.value);
+    if (searching.value.length > 0) {
+      setIsButton(true);
+    } else {
+      setIsButton(false);
+    }
+  };
   return (
     <div>
       <div className={props.class}>
         <img className="searchImg" src={search} alt="" />
         <input
           className="mainInput"
-          onChange={props.function}
+          ref={searchRef}
+          onChange={buttonHandler}
+          onClick={props.function2}
           placeholder="Search Candidates"
           type="text"
         />
+        <button
+          className={isButton === true ? "searchButtonActive" : "searchButton"}
+          // className="searchButtonActive"
+        >
+          Search
+        </button>
         <div className="dashBoardMainSelect">
           <button onClick={HourlyHandler} className="dashBoardMainSelectbutton">
             <p>

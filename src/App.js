@@ -34,6 +34,7 @@ function App() {
       isPopUp == "travel" ||
       isPopUp == "reserve" ||
       isPopUp == "filter" ||
+      isPopUp == "monthly" ||
       isPopUp == "reserveSuccess" ||
       isPopUp == "project" ? (
         <div onClick={CloseOverlay} id="overlay"></div>

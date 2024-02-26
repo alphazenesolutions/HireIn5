@@ -215,12 +215,12 @@
 
 .billingSub button {
     width: auto;
+    border: 1px solid var(--borderColor);
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: 13px;
     border-radius: 7px;
-    border: none;
     outline: none;
     font-family: 'Inter', sans-serif;
 
@@ -233,7 +233,7 @@
 }
 
 .billingSub button h2 {
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 600;
 }
 
