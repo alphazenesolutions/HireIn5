@@ -10,14 +10,14 @@ import back from "../../../../assests/back.png";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
-import { FiLoader } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 
 const CandidateSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isButton, setIsButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [show, setShow] = useState("false");
+  const [show, setShow] = useState(false);
 
   const showPassword = () => {
     setShow(!show);
@@ -74,7 +74,7 @@ const CandidateSignUp = () => {
             },
           })
         );
-        navigate("/verification");
+        navigate("/emailverification");
       } else {
         setIsLoading(false);
         setfinalerror(true);
@@ -98,7 +98,7 @@ const CandidateSignUp = () => {
 
             <div className="candidateSignUpCompBody">
               <div className="candidateSignUpCompBodyEmail">
-                <h4>Company Email</h4>
+                <h4>Email</h4>
                 <input
                   placeholder="you@gmail.com"
                   type="text"
@@ -107,7 +107,7 @@ const CandidateSignUp = () => {
                 />
                 {usernameerror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">
-                    Please Enter Company Email
+                    Please Enter Email
                   </p>
                 )}
               </div>
@@ -125,12 +125,18 @@ const CandidateSignUp = () => {
                     name="password"
                     onChange={handlechange}
                   />
-                  <img
-                    onClick={showPassword}
-                    className="candidateEye"
-                    src={eye}
-                    alt=""
-                  />
+
+                  {show === false ? (
+                    <FiEyeOff
+                      className="text-gray-500 candidateEye"
+                      onClick={showPassword}
+                    />
+                  ) : (
+                    <FiEye
+                      className="text-gray-500 candidateEye"
+                      onClick={showPassword}
+                    />
+                  )}
                 </div>
                 {passworderror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">

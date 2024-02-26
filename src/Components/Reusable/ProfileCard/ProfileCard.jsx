@@ -1,15 +1,14 @@
 import React from "react";
 import "./ProfileCard.css";
 import candidateimges from "../../../assests/table.png";
-import courseIcons from "../../../assests/userCard.png";
 import briefcase from "../../../assests/briefCase.png";
 import graduation_cap from "../../../assests/graduationCap.png";
 import user_check from "../../../assests/userCheck.png";
 import location from "../../../assests/mapPin.png";
 // import BookMarkSimple from "../../../assests/colar.png";
+import courseIcons from "../../../assests/userCard.png";
 
-const ProfileCard = ({ filterdata }) => {
-  console.log(filterdata, "filterdata");
+const ProfileCard = ({ filterdata, fun }) => {
   return (
     <div>
       <div className="clientDiscoverOuter paddingRight100">
@@ -21,7 +20,12 @@ const ProfileCard = ({ filterdata }) => {
           <div className="clientDiscover">
             {filterdata.length !== 0
               ? filterdata.map((data, index) => (
-                  <div className="clientDiscover1" key={index}>
+                  <div
+                    id="page2"
+                    onClick={() => fun("page2", data.id)}
+                    className="clientDiscover1"
+                    key={index}
+                  >
                     <div className="candidateDiscoverProfile">
                       <div className="candidateDiscoverProfile1">
                         <div className="candidateDiscoverImage">
@@ -37,17 +41,18 @@ const ProfileCard = ({ filterdata }) => {
                       </div>
                     </div>
                     <div className="candidateDiscoverSkills">
-                      {data.skill.length !== 0
-                        ? data.skill.map((datanew, index) => (
-                            <h4 key={index}>{datanew}</h4>
-                          ))
+                      {data.preference_info.skills.length !== 0
+                        ? data.preference_info.skills.map((datanew, index) =>
+                            index == 0 || index == 1 || index == 2 ? (
+                              <h4>
+                                <img src={courseIcons} alt="" />
+                                {datanew}
+                              </h4>
+                            ) : (
+                              <h4 key={index}>{datanew}</h4>
+                            )
+                          )
                         : null}
-                      {/* <h4>jQuery</h4>
-                      <h4>Android</h4>
-                      <h4>Kotlin</h4>
-                      <h4>REST</h4>
-                      <h4>Spring Framework</h4>
-                      <h4>Firebase Cloud Firestore</h4> */}
                     </div>
                     <div className="candidateDiscoverExperience">
                       <div className="candidateDiscoverExp">

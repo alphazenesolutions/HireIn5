@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -14,6 +15,10 @@ import Discover from "../pages/Discover";
 import Interview from "../pages/Interview";
 import Contract from "../pages/Contract";
 import Billing from "../pages/Billing";
+import { Resetpassword } from "../pages/Resetpassword";
+import Profile from "../pages/Profile";
+import Emailverification from "../Components/Reusable/Verification/Emailverification";
+import Upgrade from "../pages/Upgrade";
 
 const Routing = () => {
   return (
@@ -23,7 +28,8 @@ const Routing = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/clientsignup" element={<Signup />} />
-        <Route path="/verification" element={<Verification />} />
+        <Route path="/verification/:id" element={<Verification />} />
+        <Route path="/emailverification" element={<Emailverification />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/meeting" element={<OnBoardMeeting />} />
@@ -32,6 +38,9 @@ const Routing = () => {
         <Route path="/interview" element={<Interview />} />
         <Route path="/contract" element={<Contract />} />
         <Route path="/billing" element={<Billing />} />
+        <Route path="/resetpassword/:hash" element={<Resetpassword />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/upgrade" element={<Upgrade />} />
       </Routes>
     </div>
   );

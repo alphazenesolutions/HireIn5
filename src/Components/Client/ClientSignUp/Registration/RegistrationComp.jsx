@@ -7,6 +7,7 @@ import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { FiLoader } from "react-icons/fi";
 
 const RegistrationComp = () => {
   const navigate = useNavigate();
@@ -17,16 +18,10 @@ const RegistrationComp = () => {
   const [isPage, setIsPage] = useState("page1");
 
   const [isButton, setIsButton] = useState(false);
-  const buttonHandler = () => {
-    setIsButton(true);
-  };
-
+  const [checked, setchecked] = useState(false);
   const [isButton2, setIsButton2] = useState(false);
-  const buttonHandler2 = () => {
-    setIsButton2(true);
-  };
   const buttonHandlernew = () => {
-    setIsButton(false);
+    setchecked(!checked);
   };
   const backHandler = (event) => {
     setIsPage(event.target.id);
@@ -38,7 +33,7 @@ const RegistrationComp = () => {
     } else {
     }
   };
-  const routeTimeout = setTimeout(routeHandler, 1500);
+  setTimeout(routeHandler, 1500);
   const [registationdata, setregistationdata] = useState({
     company_name: "",
     company_location: "",
@@ -88,7 +83,6 @@ const RegistrationComp = () => {
   const [lookingdataerror, setlookingdataerror] = useState(false);
   const [durationdataerror, setdurationdataerror] = useState(false);
   const [agreedataerror, setagreedataerror] = useState(false);
-  const [notesdataerror, setnotesdataerror] = useState(false);
 
   const handlechange = (e) => {
     const { name, value } = e.target;
@@ -97,13 +91,21 @@ const RegistrationComp = () => {
   const handlechangenew = (e) => {
     const { name, value } = e.target;
     if (name === "secondary_email") {
-      setIsButton2(true);
       setbillingdata((values) => ({ ...values, [name]: value }));
     }
     setbillingdata((values) => ({ ...values, [name]: value }));
   };
   const pageHandler = async (event) => {
     if (isPage === "page1") {
+      setregistationdataerror({
+        company_name: false,
+        company_location: false,
+        company_url: false,
+        first_name: false,
+        phone: false,
+        title: false,
+        linked_in: false,
+      });
       if (registationdata.company_name.length === 0) {
         setregistationdataerror((values) => ({
           ...values,
@@ -118,16 +120,10 @@ const RegistrationComp = () => {
           ...values,
           company_location: true,
         }));
-      } else if (registationdata.company_url.length === 0) {
-        setregistationdataerror((values) => ({
-          ...values,
-          company_location: false,
-        }));
-        setregistationdataerror((values) => ({ ...values, company_url: true }));
       } else if (registationdata.first_name.length === 0) {
         setregistationdataerror((values) => ({
           ...values,
-          company_url: false,
+          company_location: false,
         }));
         setregistationdataerror((values) => ({ ...values, first_name: true }));
       } else if (registationdata.phone.length === 0) {
@@ -154,6 +150,16 @@ const RegistrationComp = () => {
           setagreedataerror(true);
         } else {
           setagreedataerror(false);
+          setregistationdataerror({
+            company_name: false,
+            company_location: false,
+            company_url: false,
+            first_name: false,
+            phone: false,
+            title: false,
+            linked_in: false,
+          });
+          setIsButton(true);
           var new_obj = {
             username: signupdata.username,
             first_name: registationdata.first_name,
@@ -176,7 +182,7 @@ const RegistrationComp = () => {
           };
           var updatedata = await axios
             .put(
-              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`,
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
               new_obj,
               {
                 headers: {
@@ -187,16 +193,33 @@ const RegistrationComp = () => {
             )
             .then((res) => {
               return res.data;
+            })
+            .catch((err) => {
+              return err;
             });
           if (
             updatedata.message ===
-            "User and Associated CompanyInfo updated successfully"
+            "User and Associated Info updated successfully"
           ) {
             setIsPage(event.target.id);
+            setIsButton(false);
+          } else {
+            setIsButton(false);
           }
         }
       }
     } else {
+      setbillingdataerror({
+        billing_company: false,
+        billing_address: false,
+        company_pan: false,
+        primary_name: false,
+        primary_email: false,
+        primary_phone: false,
+        secondary_name: false,
+        secondary_email: false,
+        secondary_phone: false,
+      });
       if (billingdata.billing_company.length === 0) {
         setbillingdataerror((values) => ({
           ...values,
@@ -247,38 +270,19 @@ const RegistrationComp = () => {
           ...values,
           primary_phone: false,
         }));
-      } else if (billingdata.secondary_name.length === 0) {
-        setbillingdataerror((values) => ({
-          ...values,
-          secondary_name: true,
-        }));
-        setbillingdataerror((values) => ({
-          ...values,
-          primary_email: false,
-        }));
-      } else if (billingdata.secondary_phone.length === 0) {
-        setbillingdataerror((values) => ({
-          ...values,
-          secondary_phone: true,
-        }));
-        setbillingdataerror((values) => ({
-          ...values,
-          secondary_name: false,
-        }));
-      } else if (billingdata.secondary_email.length === 0) {
-        setbillingdataerror((values) => ({
-          ...values,
-          secondary_email: true,
-        }));
-        setbillingdataerror((values) => ({
-          ...values,
-          secondary_phone: false,
-        }));
       } else {
-        setbillingdataerror((values) => ({
-          ...values,
+        setbillingdataerror({
+          billing_company: false,
+          billing_address: false,
+          company_pan: false,
+          primary_name: false,
+          primary_email: false,
+          primary_phone: false,
+          secondary_name: false,
           secondary_email: false,
-        }));
+          secondary_phone: false,
+        });
+        setIsButton2(true);
         var new_obj1 = {
           username: signupdata.username,
           first_name: registationdata.first_name,
@@ -310,7 +314,7 @@ const RegistrationComp = () => {
         };
         var updatedatabilling = await axios
           .put(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/${userid}`,
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
             new_obj1,
             {
               headers: {
@@ -321,12 +325,18 @@ const RegistrationComp = () => {
           )
           .then((res) => {
             return res.data;
+          })
+          .catch((err) => {
+            return err;
           });
         if (
           updatedatabilling.message ===
-          "User and Associated CompanyInfo updated successfully"
+          "User and Associated Info updated successfully"
         ) {
-          setIsPage(event.target.id);
+          setIsPage("page3");
+          setIsButton2(false);
+        } else {
+          setIsButton2(false);
         }
       }
     }
@@ -749,13 +759,11 @@ const RegistrationComp = () => {
               </div>
               <div className="agree marginBottom20">
                 <input
-                  onClick={
-                    isButton === false ? buttonHandler : buttonHandlernew
-                  }
+                  onClick={buttonHandlernew}
                   type="checkbox"
                   name=""
                   id=""
-                  checked={isButton === true}
+                  checked={checked === true}
                 />
                 <h5 className="terms">
                   I agree to the Hirein5
@@ -764,15 +772,34 @@ const RegistrationComp = () => {
                 </h5>
               </div>
               <div className="registerBottom">
-                {isButton === true ? (
-                  <button id="page2" onClick={pageHandler} className="nextbtn">
-                    Next
-                  </button>
+                {isButton === false ? (
+                  checked === true ? (
+                    <button
+                      id="page2"
+                      onClick={pageHandler}
+                      className="nextbtn"
+                    >
+                      Next
+                    </button>
+                  ) : (
+                    <button
+                      id="page2"
+                      onClick={pageHandler}
+                      className="clientLoginCompBodyButtonLoading"
+                    >
+                      Next
+                    </button>
+                  )
                 ) : (
-                  <button id="page2" className="nextbtnDisable" disabled>
-                    Next
+                  <button
+                    id="page2"
+                    className="clientLoginCompBodyButtonLoading"
+                    disabled
+                  >
+                    <FiLoader className="loadingIcon" />
                   </button>
                 )}
+
                 <h5>
                   If you require any help or clarification, please connect with
                   our team at <br />
@@ -970,13 +997,17 @@ const RegistrationComp = () => {
               </div>
 
               <div className="registerBottom">
-                {isButton2 === true ? (
-                  <button id="page3" onClick={pageHandler} className="nextbtn1">
+                {isButton2 === false ? (
+                  <button id="page2" onClick={pageHandler} className="nextbtn">
                     Next
                   </button>
                 ) : (
-                  <button className="nextbtnDisable" disabled>
-                    Next
+                  <button
+                    id="page2"
+                    className="clientLoginCompBodyButtonLoading"
+                    disabled
+                  >
+                    <FiLoader className="loadingIcon" />
                   </button>
                 )}
                 <button className="skipbtn">Skip for now</button>

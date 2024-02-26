@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./DashSearch.css";
 import Range from "../../../MaterialUi/Range/RangeSlider";
 import search from "../../../../assests/search.png";
@@ -27,19 +27,44 @@ const DashSearch = (props) => {
   });
 
   const FilterHandler = () => {
-    dispatch(storeAction.isPopUpHander());
+    dispatch(storeAction.isPopUpHander("filter"));
   };
 
   const [isToggle, setIsToggle] = useState(false);
+  const [allfilter, setallfilter] = useState([]);
   const toggleHandler = () => {
     setIsToggle(!isToggle);
+    const updatedItems = allfilter.includes("Currently")
+      ? allfilter.filter((datanew) => datanew !== "Currently")
+      : [...allfilter, "Currently"];
+    setallfilter(updatedItems);
   };
 
   const [isToggle1, setIsToggle1] = useState(false);
   const toggleHandler1 = () => {
     setIsToggle1(!isToggle1);
+    const updatedItems = allfilter.includes("Eligible")
+      ? allfilter.filter((datanew) => datanew !== "Eligible")
+      : [...allfilter, "Eligible"];
+    setallfilter(updatedItems);
+  };
+  const [locationlist, setlocationlist] = useState([]);
+  const countHandler = (data) => {
+    const updatedItems = locationlist.includes(data)
+      ? locationlist.filter((datanew) => datanew !== data)
+      : [...locationlist, data];
+    setlocationlist(updatedItems);
+  };
+  const [Cost, setCost] = useState(false);
+  const [rangevalue, setrangevalue] = useState(null);
+  const CostHandler = () => {
+    setCost(true);
+    setIsHourly(false);
   };
 
+  const ResetHandler = () => {
+    setCost(false);
+  };
   const locationData = [
     {
       loc1: "India",
@@ -81,39 +106,87 @@ const DashSearch = (props) => {
       loc1: "Netherlands",
     },
   ];
+  const setbtn = () => {
+    dispatch(storeAction.isPopUpHander());
+  };
+  const resetbtn = () => {
+    setallfilter([]);
+    dispatch(storeAction.isPopUpHander());
+    setIsToggle1(false);
+    setIsToggle(false);
+  };
+  const searchRef = useRef("null");
+  const searching = searchRef.current;
+  console.log(searchRef);
+  const [isButton, setIsButton] = useState();
+  const buttonHandler = () => {
+    console.log(searchRef.current.value);
+    if (searching.value.length > 0) {
+      setIsButton(true);
+    } else {
+      setIsButton(false);
+    }
+  };
   return (
     <div>
       <div className={props.class}>
         <img className="searchImg" src={search} alt="" />
         <input
           className="mainInput"
-          onChange={props.function}
+          ref={searchRef}
+          onChange={buttonHandler}
+          onClick={props.function2}
           placeholder="Search Candidates"
           type="text"
         />
+        <button
+          className={isButton === true ? "searchButtonActive" : "searchButton"}
+          // className="searchButtonActive"
+        >
+          Search
+        </button>
         <div className="dashBoardMainSelect">
           <button onClick={HourlyHandler} className="dashBoardMainSelectbutton">
-            <p>Hourly Rate</p> <img src={downArrow} alt="" />
+            <p>
+              {Cost === true
+                ? rangevalue !== null
+                  ? `USD ${rangevalue[0]}-${rangevalue[1]}`
+                  : "Hourly Rate"
+                : "Hourly Rate"}
+            </p>{" "}
+            <img src={downArrow} alt="" />
           </button>
           <button
             onClick={LocationHandler}
             className="dashBoardMainSelectbutton"
           >
-            <p>Location</p> <img src={downArrow} alt="" />
+            <p>Location</p>
+            {locationlist.length !== 0 ? (
+              <h6>{locationlist.length}</h6>
+            ) : null}{" "}
+            <img src={downArrow} alt="" />
           </button>
           <button onClick={FilterHandler} className="dashBoardMainSelectbutton">
-            <p>All Filters</p>
+            <p>All Filters </p>
+            {allfilter.length !== 0 ? <h6>{allfilter.length}</h6> : null}
             <img src={downArrow} alt="" />
           </button>
         </div>
         {isHourly === true && (
           <div className="hourlyRate">
             <h1>Select an estimated budget within this range</h1>
-            <Range />
+            <Range setrangevalue={setrangevalue} />
             <h3>615 candidates found</h3>
             <div className="hourlyButton">
-              <button className="hourlyButtonReset marginTop15">Reset</button>
-              <button className="hourlyButtonFilter">Set Filter</button>
+              <button
+                onClick={ResetHandler}
+                className="hourlyButtonReset marginTop15"
+              >
+                Reset
+              </button>
+              <button onClick={CostHandler} className="hourlyButtonFilter">
+                Set Filter
+              </button>
             </div>
           </div>
         )}
@@ -129,6 +202,10 @@ const DashSearch = (props) => {
                       type="checkbox"
                       name=""
                       id=""
+                      onClick={() => {
+                        countHandler(data.loc1);
+                      }}
+                      checked={locationlist.includes(data.loc1)}
                     />
                     <p>{data.loc1}</p>
                   </div>
@@ -137,7 +214,7 @@ const DashSearch = (props) => {
             </div>
           </div>
         )}
-        {isPopUp && (
+        {isPopUp === "filter" && (
           <div className="allFilter">
             <div className="allFilterHead">
               <div className="allFilterHeadLeft">
@@ -181,8 +258,13 @@ const DashSearch = (props) => {
                   <h2>Hourly Rate</h2>
                   <h3>Select a price range</h3>
                 </div>
-                <h4>USD 50 - 250</h4>
-                <RangeSlider />
+                {rangevalue !== null ? (
+                  <h4>
+                    USD {rangevalue[0]} - {rangevalue[1]}
+                  </h4>
+                ) : null}
+
+                <RangeSlider setrangevalue={setrangevalue} />
               </div>
               <div className="fliterLocation">
                 <h2>Location</h2>
@@ -200,8 +282,12 @@ const DashSearch = (props) => {
               </div>
             </div>
             <div className="allFilterBodyButton">
-              <button className="ResetAll">Reset All</button>
-              <button className="SetFilter">Set Filters</button>
+              <button className="ResetAll" onClick={resetbtn}>
+                Reset All
+              </button>
+              <button className="SetFilter" onClick={setbtn}>
+                Set Filters
+              </button>
             </div>
           </div>
         )}

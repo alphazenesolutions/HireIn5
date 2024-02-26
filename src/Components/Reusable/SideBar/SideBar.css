@@ -164,3 +164,17 @@
     border-radius: 8px;
     margin-bottom: 10px;
 }
+
+.number {
+    height: 18px;
+    width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    /* padding: 1px 5px; */
+    background-color: #e4deff;
+    border-radius: 50%;
+    margin-left: 6px;
+}

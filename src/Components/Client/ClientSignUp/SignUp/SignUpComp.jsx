@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import "./SignUpComp.css";
 import Head from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import Foot from "../../../Reusable/Terms&Conditions/Foot";
 import SectionHead from "../../../Reusable/SectionHead/SectionHead";
-import eye from "../../../../assests/eye.png";
 import { useNavigate } from "react-router-dom";
 import back from "../../../../assests/back.png";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { FiLoader } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 
 const SignUpComp = () => {
   const navigate = useNavigate();
@@ -24,12 +24,12 @@ const SignUpComp = () => {
   };
   const [isLoading, setIsLoading] = useState(false);
 
-  const [show, setShow] = useState("false");
+  const [show, setShow] = useState(false);
   const showPassword = () => {
     setShow(!show);
   };
 
-  const [show1, setShow1] = useState("false");
+  const [show1, setShow1] = useState(false);
   const showConfirmPassword = () => {
     setShow1(!show1);
   };
@@ -99,11 +99,24 @@ const SignUpComp = () => {
             },
           })
         );
-        navigate("/verification");
+        navigate("/emailverification");
       } else {
         setIsLoading(false);
         setfinalerror(true);
       }
+    }
+  };
+  useEffect(() => {
+    Checkdata();
+  }, [signupdata]);
+  const Checkdata = async () => {
+    setIsButton(false);
+    if (
+      signupdata.username.length !== 0 &&
+      signupdata.password.length !== 0 &&
+      signupdata.cpassword.length !== 0
+    ) {
+      setIsButton(true);
     }
   };
   return (
@@ -144,12 +157,17 @@ const SignUpComp = () => {
                     name="password"
                     onChange={handlechange}
                   />
-                  <img
-                    onClick={showPassword}
-                    className="eyeOne"
-                    src={eye}
-                    alt=""
-                  />
+                  {show === false ? (
+                    <FiEyeOff
+                      className="text-gray-500 eyeOne"
+                      onClick={showPassword}
+                    />
+                  ) : (
+                    <FiEye
+                      className="text-gray-500 eyeOne"
+                      onClick={showPassword}
+                    />
+                  )}
                 </div>
                 {passworderror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">
@@ -167,12 +185,18 @@ const SignUpComp = () => {
                     type={show1 === true ? "text" : "password"}
                     name="cpassword"
                   />
-                  <img
-                    onClick={showConfirmPassword}
-                    className="eyeTwo"
-                    src={eye}
-                    alt=""
-                  />
+
+                  {show1 === false ? (
+                    <FiEyeOff
+                      className="text-gray-500 eyeTwo"
+                      onClick={showConfirmPassword}
+                    />
+                  ) : (
+                    <FiEye
+                      className="text-gray-500 eyeTwo"
+                      onClick={showConfirmPassword}
+                    />
+                  )}
                 </div>
                 {passwordmatch && (
                   <p className="text-red-500 text-xs font-semibold mt-2">

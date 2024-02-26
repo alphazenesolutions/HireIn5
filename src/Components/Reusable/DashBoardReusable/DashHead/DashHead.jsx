@@ -5,14 +5,14 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 
-const DashHead = (props) => {
+const DashHead = (props, fun) => {
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
   useEffect(() => {
     setTimeout(() => {
       getalldata();
-    }, 2000);
+    }, 1000);
   }, []);
   const getalldata = () => {
     if (token == null && userid == null) {
@@ -26,18 +26,22 @@ const DashHead = (props) => {
     <div>
       <div className="dashBoardMainHead">
         <div className="upgradeTop">
-          <h3 id={props.billingId} onClick={props.fun}>
+          <h3 id={props.billingId} onClick={props.fun2}>
             {props.left}
           </h3>{" "}
           <h5>{props.center}</h5>
-          <h4 id={props.upgradeId} onClick={props.fun}>
+          <h4 id={props.upgradeId} onClick={props.fun3}>
             {props.right}
           </h4>
         </div>
         <h1>{props.head}</h1>
-        <div className="dashBoardMainHeadDesc">
+        <div className={props.descClass}>
           <p>{props.desc}</p>
           <a href="">{props.highLight}</a>
+          <button onClick={props.fun} className={props.btnClass}>
+            <img src={props.btnImg} alt="" />
+            {props.button}
+          </button>
         </div>
       </div>
     </div>

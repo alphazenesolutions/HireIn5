@@ -4,12 +4,13 @@ import Head from "../../Reusable/LogoHead/Head";
 import "./ClientLogin.css";
 import Foot from "../../Reusable/Terms&Conditions/Foot";
 import SectionHead from "../../Reusable/SectionHead/SectionHead";
-import eye from "../../../assests/eye.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
+import { FiEye } from "react-icons/fi";
+import { FiEyeOff } from "react-icons/fi";
 
 const ClientLogin = () => {
   const dispatch = useDispatch();
@@ -20,10 +21,8 @@ const ClientLogin = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [show, setShow] = useState("false");
-  const showPassword = () => {
-    setShow(!show);
-  };
+  const [show, setShow] = useState(false);
+
   const [logindata, setlogindata] = useState({
     username: "",
     password: "",
@@ -72,9 +71,9 @@ const ClientLogin = () => {
         });
       if (loginuser.access !== undefined) {
         dispatch(storeAction.tokenHandler({ token: loginuser.access }));
-        dispatch(storeAction.useridHandler({ userid: 5 }));
+        dispatch(storeAction.useridHandler({ userid: 9 }));
         dispatch(storeAction.isloginHandler({ islogin: true }));
-        navigate("/dashboard");
+        navigate("/discover");
       } else {
         setIsLoading(false);
         setfinalerror(true);
@@ -126,13 +125,23 @@ const ClientLogin = () => {
                     type={show === true ? "text" : "password"}
                     name="password"
                   />
-                  <img
-                    id="loginPassword"
-                    onClick={showPassword}
-                    className="eyeOne"
-                    src={eye}
-                    alt=""
-                  />
+                  {show === false ? (
+                    <FiEyeOff
+                      className="text-gray-500 eyeOne"
+                      onClick={() => {
+                        setShow(true);
+                      }}
+                      id="loginPassword"
+                    />
+                  ) : (
+                    <FiEye
+                      className="text-gray-500 eyeOne"
+                      onClick={() => {
+                        setShow(false);
+                      }}
+                      id="loginPassword"
+                    />
+                  )}
                 </div>
                 {passworderror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">

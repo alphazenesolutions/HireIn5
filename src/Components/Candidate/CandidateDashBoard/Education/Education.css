@@ -1,0 +1,349 @@
+.education {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 15px;
+}
+
+.innerEducation {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--dropBorderColor);
+}
+
+.educationHeadLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.educationHead {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    border-bottom: 1px solid var(--dropBorderColor);
+    background-color: var(--dropColor);
+}
+
+.bottomBorder {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    background-color: var(--dropColor);
+}
+
+.educationHead h1 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.educationLeftIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.educationLeftIconSvg {
+    margin-right: 10px;
+    height: 18px;
+}
+
+.educationDesc {
+    width: 100%;
+    /* height: 300px; */
+    background-color: var(--white);
+    border-bottom-left-radius: 8px;
+    border-bottom-Right-radius: 8px;
+    padding: 30px;
+}
+
+.educationDesc h1 {
+    font-size: 15px;
+    color: var(--textColor);
+    margin-bottom: 20px;
+}
+
+.educationDesc h2 {
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0.6;
+    margin-bottom: 3px;
+}
+
+.educationDescFlex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+
+
+.educationDescFlex h3 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.educationDescFlex p {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.2;
+    margin-left: 5px;
+}
+
+.educationDescFlex h4 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.educationDescFlexLast {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+
+.educationDescFlexLast p {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.2;
+    margin-left: 5px;
+}
+
+.educationDescFlexLast h4 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* overlay */
+.educationDescOverlay {
+    width: 65%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.educationDescOverlay h6 {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 30px;
+    opacity: 0.5;
+    padding-bottom: 0px
+}
+
+.educationDescOverlayFlex {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    padding-top: 5px;
+}
+
+.educationDescOverlayFlexLeft {
+    width: 38%;
+    margin-right: 2%;
+}
+
+.educationDescOverlayFlexLeft h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.educationDescOverlayFlexLeft input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.educationDescOverlayFlexRight {
+    width: 58%;
+    height: 100%;
+    margin-left: 2%;
+}
+
+.educationDescOverlayFlexRight h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.educationDescOverlayFlexRight input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.educationDescOverlayFlexRight select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.educationUpload {
+    width: 93.5%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    display: flex;
+    padding: 15px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border: 1px dashed var(--borderColor);
+}
+
+.educationUpload h2 {
+    font-size: 14px;
+    font-weight: 600;
+
+}
+
+.educationUpload h5 {
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.4;
+}
+
+.browser {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 4px;
+    color: var(--primaryColor);
+}
+
+/* range */
+.educationUploaded {
+    width: 93.5%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    display: flex;
+    padding: 15px;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border: 1px dashed var(--borderColor);
+}
+
+.educationUploadedFlex {
+    width: 100%;
+    display: flex;
+    align-items: first baseline;
+    justify-content: space-between
+}
+
+.educationUploadedFlexLeft {
+    display: flex;
+    align-items: flex-start;
+}
+
+.educationUploadedFlexLeft img {
+    /* height: 36px; */
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+
+}
+
+.educationUploadedFlexLeft h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+.educationUploadedFlexLeft p {
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 15px;
+    text-align: left;
+    opacity: 0.4;
+}
+
+.percent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.percent h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 15px;
+
+}
+
+.range {
+    width: 100%;
+    height: 10px;
+    /* background-color: var(--primaryColor); */
+    background-color: var(--disableColor);
+    position: relative;
+    border-radius: 10px;
+
+}
+
+.InnerRange {
+    width: 100%;
+    height: 10px;
+    background-color: var(--primaryColor);
+    position: absolute;
+    border-radius: 10px;
+}
+
+/* certificate */
+.gradeCertificate {
+    width: 25%;
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--borderColor);
+}
+
+.gradeCertificate img {
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid var(--borderColor);
+}
+
+.gradeCertificateDesc {
+    margin-left: 10px;
+}
+
+.gradeCertificateDesc h2 {
+    font-size: 14px;
+    font-weight: 600;
+
+}
+
+.gradeCertificateDesc p {
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.4;
+}

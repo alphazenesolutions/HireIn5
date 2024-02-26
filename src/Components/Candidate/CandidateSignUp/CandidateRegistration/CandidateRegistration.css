@@ -488,7 +488,7 @@
 .searchContent {
     margin: 0px 0px;
     padding: 10px;
-    /* height: 180px; */
+    height: 180px;
     overflow-y: scroll;
 }
 
@@ -529,7 +529,7 @@
     display: flex;
     flex-direction: column;
     padding: 5px 5px 5px 0px;
-    height: 300px;
+    /* height: 300px; */
     border: 1px solid var(--borderColor);
     border-radius: 7px;
 }
@@ -538,9 +538,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-
     padding: 20px;
-    height: 300px;
     overflow-y: scroll;
 }
 
@@ -673,6 +671,7 @@
     background-color: white;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
     width: 600px;
@@ -689,7 +688,10 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    flex-direction: column;
+}
+
+.addLanguageInner {
+    width: 70%;
 }
 
 .addLanguages h3 {
@@ -714,8 +716,8 @@
     outline: none;
 }
 
-.addLanguages button {
-    width: 100%;
+.addLanguagesButton {
+    width: 68.5%;
     height: 42px;
     border: 1px solid var(--borderColor);
     border-radius: 7px;
@@ -730,7 +732,7 @@
 }
 
 .selectLanguages {
-    width: 40%;
+    width: 28%;
     height: 100%;
     margin-left: 20px;
 
@@ -751,7 +753,7 @@
 }
 
 .lanSearch input {
-    width: 130px;
+    width: 110px;
     height: 100%;
     outline: none;
     border: none;
@@ -912,7 +914,7 @@
     background-color: white;
 }
 
-.travelBottom button {
+.travelBottomButton {
     width: 100%;
     height: 42px;
     border: 1px solid var(--borderColor);
@@ -927,7 +929,7 @@
     justify-content: center;
 }
 
-.travelInfo button {
+.travelInfoButton {
     width: 100%;
     height: 42px;
     border: 1px solid var(--borderColor);

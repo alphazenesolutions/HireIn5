@@ -70,6 +70,7 @@ const ContractComp = () => {
           head="Contracts with Hirein5"
           desc="All contracts in one place for ease of reference"
           highLight=""
+          descClass="dashBoardMainHeadDescBetween"
         />
         <div className="tableButton marginBottom20">
           <button
