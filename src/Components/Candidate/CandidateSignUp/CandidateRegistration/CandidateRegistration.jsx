@@ -5,6 +5,7 @@ import React from "react";
 import "./CandidateRegistration.css";
 import aadhaarimg from "../../../../assests/info.png";
 import { FaAngleDown } from "react-icons/fa6";
+import { PiWarningCircle } from "react-icons/pi";
 import { CiSearch } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { CiStar } from "react-icons/ci";
@@ -30,7 +31,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page1");
+  const [isPage, setIsPage] = useState("page2");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -160,7 +161,13 @@ const CandidateRegistration = () => {
   const [finalerrortype, setfinalerrortype] = useState(null);
   const [skill, setskill] = useState([]);
   const [indexvalue, setindexvalue] = useState(null);
-
+  const [displaymessages, setdisplaymessages] = useState(false)
+function displaymsg(params) {
+  setdisplaymessages(!displaymessages)
+}
+function displaymsg1(params) {
+  setdisplaymessages(false)
+}
   function dropDownHandler(params) {
     const inputvalue = inputref.current.value.toLowerCase();
     setdropDown("");
@@ -1103,7 +1110,7 @@ const CandidateRegistration = () => {
                           <option value="TamilNadu">TamilNadu</option>
                         </select>
                       </div>
-                      {formdataerror.state && (
+                     {formdataerror.state && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
                           Please Select State
                         </h6>
@@ -1570,7 +1577,10 @@ const CandidateRegistration = () => {
               </div>
               <div className="candidateInfo h-full">
                 <div className="addressLine">
-                  <h3>HackerRank</h3>
+                 {displaymessages && <div className="warningmessage">
+                    <h6>In case you have not taken a HackerRack Test but have undertaken another globally recognised test, please mention the name of the test and the score</h6>
+                  </div>}
+                  <h3>HackerRank <PiWarningCircle className="warningicon" onMouseLeave={displaymsg1} onMouseOver={displaymsg}/></h3>
                   <h3>Optional</h3>
                 </div>
                 <input
