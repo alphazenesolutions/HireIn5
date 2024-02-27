@@ -38,21 +38,21 @@
 
 .mainProfile {
     width: 100%;
-    height: 80vh;
     margin-top: 25px;
     background-color: var(--white);
     border-radius: 8px;
     border: 1px solid var(--borderColor);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    margin-bottom: 40px;
 }
 
 .profileLeft {
     width: 30%;
     height: 100%;
     border-radius: 8px;
-    border-right: 1px solid var(--borderColor);
+    /* border-right: 1px solid var(--borderColor); */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -211,51 +211,93 @@
     border-radius: 8px;
     height: 100%;
     background-color: #fff;
-    padding: 30px;
+    padding-top: 0px;
 }
 
 .profileRightHead {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-top: 20px;
+    justify-content: space-between;
+    padding: 10px;
     margin-bottom: 20px;
-    padding-bottom: 5px;
+    background-color: #f6fafe;
+    border-bottom: 1px solid var(--borderColor);
+    border-radius: 8px;
+    border-bottom-left-radius: 0px;
+    /* border-bottom: 2px solid var(--borderColor); */
+}
+
+.profileRightHeadH2 {
+    padding: 8px 20px;
+    /* background-color: var(--primaryColor); */
+    color: var(--textColorDark);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.profileRightHeadH2Active {
+    padding: 8px 20px;
+    background-color: var(--primaryColor);
+    color: var(--white);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.profileRightSubHead {
+    padding-left: 40px;
+    padding-right: 20px;
+}
+
+.profileRightHead2 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 10px;
+    margin-bottom: 20px;
     /* border-bottom: 2px solid var(--borderColor); */
 }
 
 .work {
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding-bottom: 10px;
-    padding-left: 22px;
     padding-right: 22px;
     border-bottom: 2px solid var(--borderColor);
 }
 
 .workActive {
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     color: var(--primaryColor);
     border-bottom: 2px solid var(--primaryColor);
-    padding-left: 22px;
     padding-right: 22px;
     padding-bottom: 10px;
     transition: 0.5s;
 }
 
-.workActive h5 {
+.workActiveh5 {
     margin-left: 10px;
     font-size: 14px;
     font-weight: 500;
+    margin-left: 10px;
+    padding-bottom: 10px;
+    color: var(--primaryColor);
+    border-bottom: 2px solid var(--primaryColor);
+
+
 }
 
 .work h5 {
     margin-left: 10px;
     font-size: 14px;
     font-weight: 500;
+    margin-right: 10px;
 }
 
 .profileDetails {
