@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import Login from "../pages/Login";
 import OnBoard from "../pages/OnBoard";
 import Signup from "../pages/Signup";
