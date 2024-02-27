@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-redeclare */
 import React, { useState } from "react";
 import "./DashSearch.css";
 import Range from "../../../MaterialUi/Range/RangeSlider";
@@ -75,6 +77,9 @@ const DashSearch = (props) => {
       }
       props.setfilterdata(filterdata);
       props.setIsInput(true);
+    } else {
+      props.setfilterdata([]);
+      props.setIsInput(true);
     }
     setlocationlist(updatedItems);
   };
@@ -130,18 +135,80 @@ const DashSearch = (props) => {
   ];
 
   const setbtn = async () => {
+    var finaldata = [];
     if (props.alldata.length !== 0) {
       for (var i = 0; i < props.alldata.length; i++) {
         if (props.alldata[i].preference_info !== null) {
           if (props.alldata[i].preference_info.skills.length !== 0) {
             if (allfilterdata.skill.length !== 0) {
-              console.log(allfilterdata.skill.split(","));
+              for (
+                var j = 0;
+                j < props.alldata[i].preference_info.skills.length;
+                j++
+              ) {
+                for (
+                  var a = 0;
+                  a < allfilterdata.skill.split(",").length;
+                  a++
+                ) {
+                  if (
+                    props.alldata[i].preference_info.skills[j].toLowerCase() ===
+                    allfilterdata.skill.split(",")[a].toLowerCase()
+                  ) {
+                    finaldata.push(props.alldata[i]);
+                  }
+                }
+              }
             }
-            console.log(props.alldata[i].preference_info);
+          } else {
+            finaldata.push(props.alldata[i]);
+          }
+        }
+      }
+
+      for (var i = 0; i < props.alldata.length; i++) {
+        if (
+          props.alldata[i].hourly_rate >= rangevalue[0] &&
+          props.alldata[i].hourly_rate <= rangevalue[1]
+        ) {
+          finaldata.push(props.alldata[i]);
+        }
+      }
+      if (allfilterdata.location.length !== 0) {
+        for (var i = 0; i < props.alldata.length; i++) {
+          var locationlist = allfilterdata.location.split(",");
+          const checkdata = locationlist.includes(
+            props.alldata[i].current_place_of_residence
+          );
+          if (checkdata === true) {
+            finaldata.push(props.alldata[i]);
+          }
+        }
+      }
+      if (allfilterdata.experience.length !== 0) {
+        for (var i = 0; i < props.alldata.length; i++) {
+          if (props.alldata[i].preference_info !== null) {
+            if (
+              props.alldata[i].preference_info.year_of_experience ==
+              allfilterdata.experience
+            ) {
+              finaldata.push(props.alldata[i]);
+            }
           }
         }
       }
     }
+    const uniqueObjectsMap = {};
+    const uniqueObjects = finaldata.filter((obj) => {
+      const id = obj.id;
+      if (!uniqueObjectsMap[id]) {
+        uniqueObjectsMap[id] = true;
+        return true;
+      }
+      return false;
+    });
+    props.setfilterdata(uniqueObjects);
+    props.setIsInput(true);
     dispatch(storeAction.isPopUpHander());
   };
   const resetbtn = () => {
@@ -321,7 +388,7 @@ const DashSearch = (props) => {
                   defaultValue={allfilterdata.experience}
                 />
               </div>
-              <div className="language">
+              {/* <div className="language">
                 <h2>Languages</h2>
                 <input
                   placeholder="e.g French"
@@ -330,7 +397,7 @@ const DashSearch = (props) => {
                   onChange={handlechange}
                   defaultValue={allfilterdata.languages}
                 />
-              </div>
+              </div> */}
             </div>
             <div className="allFilterBodyButton">
               <button className="ResetAll" onClick={resetbtn}>

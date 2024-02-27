@@ -57,11 +57,16 @@ const ProfileCard = ({ filterdata, fun }) => {
                         : null}
                     </div>
                     <div className="candidateDiscoverExperience">
-                      <div className="candidateDiscoverExp">
-                        <p>
-                          <img src={briefcase} alt="" /> 2 years of experience
-                        </p>
-                      </div>
+                      {data.preference_info !== null ? (
+                        <div className="candidateDiscoverExp">
+                          <p>
+                            <img src={briefcase} alt="" />
+                            {data.preference_info.year_of_experience} years of
+                            experience
+                          </p>
+                        </div>
+                      ) : null}
+
                       <div className="candidateDiscoverExp">
                         <p>
                           <img src={graduation_cap} alt="" /> Bachelors in

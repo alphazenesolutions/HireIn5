@@ -39,7 +39,6 @@ function App() {
           return err.response.data;
         });
       if (userinfo.id !== undefined) {
-        console.log(userinfo, "userinfo");
         dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
       }
     }
@@ -49,7 +48,6 @@ function App() {
       <div className="App">
         <Router>
           <PersistGate loading={null} persistor={persistor}>
-            {/* <Routing /> */}
             <Layout />
           </PersistGate>
         </Router>
