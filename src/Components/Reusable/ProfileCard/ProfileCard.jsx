@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from "react";
 import "./ProfileCard.css";
 import candidateimges from "../../../assests/table.png";
@@ -5,7 +6,6 @@ import briefcase from "../../../assests/briefCase.png";
 import graduation_cap from "../../../assests/graduationCap.png";
 import user_check from "../../../assests/userCheck.png";
 import location from "../../../assests/mapPin.png";
-// import BookMarkSimple from "../../../assests/colar.png";
 import courseIcons from "../../../assests/userCard.png";
 
 const ProfileCard = ({ filterdata, fun }) => {
@@ -37,21 +37,23 @@ const ProfileCard = ({ filterdata, fun }) => {
                         </div>
                       </div>
                       <div className="candidateDiscoverHours">
-                        <h2>&#8377; 4500/hr</h2>
+                        <h2>&#8377; {data.hourly_rate}/hr</h2>
                       </div>
                     </div>
                     <div className="candidateDiscoverSkills">
-                      {data.preference_info.skills.length !== 0
-                        ? data.preference_info.skills.map((datanew, index) =>
-                            index == 0 || index == 1 || index == 2 ? (
-                              <h4>
-                                <img src={courseIcons} alt="" />
-                                {datanew}
-                              </h4>
-                            ) : (
-                              <h4 key={index}>{datanew}</h4>
+                      {data.preference_info !== null
+                        ? data.preference_info.skills.length !== 0
+                          ? data.preference_info.skills.map((datanew, index) =>
+                              index == 0 || index == 1 || index == 2 ? (
+                                <h4>
+                                  <img src={courseIcons} alt="" />
+                                  {datanew}
+                                </h4>
+                              ) : (
+                                <h4 key={index}>{datanew}</h4>
+                              )
                             )
-                          )
+                          : null
                         : null}
                     </div>
                     <div className="candidateDiscoverExperience">

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "./DashSearch.css";
 import Range from "../../../MaterialUi/Range/RangeSlider";
 import search from "../../../../assests/search.png";
@@ -21,7 +21,17 @@ const DashSearch = (props) => {
     setIsLoction(!isLocation);
     setIsHourly(false);
   };
+  const [allfilterdata, setallfilterdata] = useState({
+    skill: "",
+    experience: "",
+    location: "",
+    languages: "",
+  });
 
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    setallfilterdata((values) => ({ ...values, [name]: value }));
+  };
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
@@ -53,17 +63,44 @@ const DashSearch = (props) => {
     const updatedItems = locationlist.includes(data)
       ? locationlist.filter((datanew) => datanew !== data)
       : [...locationlist, data];
+    if (updatedItems.length !== 0) {
+      var filterdata = [];
+      for (var i = 0; i < props.alldata.length; i++) {
+        const checkdata = updatedItems.includes(
+          props.alldata[i].current_place_of_residence
+        );
+        if (checkdata === true) {
+          filterdata.push(props.alldata[i]);
+        }
+      }
+      props.setfilterdata(filterdata);
+      props.setIsInput(true);
+    }
     setlocationlist(updatedItems);
   };
   const [Cost, setCost] = useState(false);
-  const [rangevalue, setrangevalue] = useState(null);
+  const [rangevalue, setrangevalue] = useState([50, 250]);
   const CostHandler = () => {
+    if (props.alldata.length !== 0) {
+      var filterdata = [];
+      for (var i = 0; i < props.alldata.length; i++) {
+        if (
+          props.alldata[i].hourly_rate >= rangevalue[0] &&
+          props.alldata[i].hourly_rate <= rangevalue[1]
+        ) {
+          filterdata.push(props.alldata[i]);
+        }
+      }
+      props.setfilterdata(filterdata);
+      props.setIsInput(true);
+    }
     setCost(true);
     setIsHourly(false);
   };
 
   const ResetHandler = () => {
     setCost(false);
+    setIsHourly(false);
   };
   const locationData = [
     {
@@ -85,28 +122,26 @@ const DashSearch = (props) => {
       loc1: "Japan",
     },
     {
-      loc1: "Germany",
-    },
-    {
       loc1: "Netherlands",
     },
     {
-      loc1: "Saudi Arabia",
-    },
-    {
-      loc1: "Indonesia",
-    },
-    {
-      loc1: "Japan",
-    },
-    {
       loc1: "Germany",
-    },
-    {
-      loc1: "Netherlands",
     },
   ];
-  const setbtn = () => {
+
+  const setbtn = async () => {
+    if (props.alldata.length !== 0) {
+      for (var i = 0; i < props.alldata.length; i++) {
+        if (props.alldata[i].preference_info !== null) {
+          if (props.alldata[i].preference_info.skills.length !== 0) {
+            if (allfilterdata.skill.length !== 0) {
+              console.log(allfilterdata.skill.split(","));
+            }
+            console.log(props.alldata[i].preference_info);
+          }
+        }
+      }
+    }
     dispatch(storeAction.isPopUpHander());
   };
   const resetbtn = () => {
@@ -115,32 +150,25 @@ const DashSearch = (props) => {
     setIsToggle1(false);
     setIsToggle(false);
   };
-  const searchRef = useRef("null");
-  const searching = searchRef.current;
-  console.log(searchRef);
-  const [isButton, setIsButton] = useState();
-  const buttonHandler = () => {
-    console.log(searchRef.current.value);
-    if (searching.value.length > 0) {
-      setIsButton(true);
-    } else {
-      setIsButton(false);
-    }
-  };
+
   return (
     <div>
       <div className={props.class}>
         <img className="searchImg" src={search} alt="" />
         <input
           className="mainInput"
-          ref={searchRef}
-          onChange={buttonHandler}
+          onChange={(e) => {
+            props.buttonHandler(e.target.value);
+          }}
           onClick={props.function2}
           placeholder="Search Candidates"
           type="text"
         />
         <button
-          className={isButton === true ? "searchButtonActive" : "searchButton"}
+          className={
+            props.isButton === true ? "searchButtonActive" : "searchButton"
+          }
+          onClick={props.seachuser}
           // className="searchButtonActive"
         >
           Search
@@ -250,7 +278,13 @@ const DashSearch = (props) => {
                 <h2>Skill / Role</h2>
                 <h3>Type a skill or a job role here</h3>
               </div>
-              <input type="text" name="" id=""></input>
+              <input
+                type="text"
+                id=""
+                name="skill"
+                onChange={handlechange}
+                defaultValue={allfilterdata.skill}
+              ></input>
             </div>
             <div className="allFilterBody">
               <div className="filterRate">
@@ -268,17 +302,34 @@ const DashSearch = (props) => {
               </div>
               <div className="fliterLocation">
                 <h2>Location</h2>
-                <input type="text" />
+                <input
+                  type="text"
+                  name="location"
+                  onChange={handlechange}
+                  defaultValue={allfilterdata.location}
+                />
               </div>
             </div>
             <div className="allFilterBodyBottom">
               <div className="workExp">
                 <h2>Years of Work Experience</h2>
-                <input placeholder="3" type="text" />
+                <input
+                  placeholder="3"
+                  type="text"
+                  name="experience"
+                  onChange={handlechange}
+                  defaultValue={allfilterdata.experience}
+                />
               </div>
               <div className="language">
                 <h2>Languages</h2>
-                <input placeholder="e.g French" type="text" />
+                <input
+                  placeholder="e.g French"
+                  type="text"
+                  name="languages"
+                  onChange={handlechange}
+                  defaultValue={allfilterdata.languages}
+                />
               </div>
             </div>
             <div className="allFilterBodyButton">

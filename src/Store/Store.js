@@ -15,6 +15,7 @@ const StoreSlice = createSlice({
     isPopUp: null,
     bookmarkdata: [],
     userdata: [],
+    loginrole: null,
   },
   reducers: {
     roleHandler(state, payload) {
@@ -41,6 +42,9 @@ const StoreSlice = createSlice({
     userdataHander(state, action) {
       state.userdata = action.payload.userdata;
     },
+    loginroleHander(state, action) {
+      state.loginrole = action.payload.loginrole;
+    },
   },
 });
 
@@ -48,7 +52,7 @@ const StoreSlice = createSlice({
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["role", "userid", "islogin", "token", "signupdata"],
+  whitelist: ["role", "userid", "islogin", "token", "signupdata", "loginrole"],
 };
 
 const persistedReducer = persistReducer(persistConfig, StoreSlice.reducer);

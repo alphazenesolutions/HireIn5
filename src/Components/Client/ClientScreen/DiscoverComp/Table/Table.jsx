@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./Table.css";
@@ -189,7 +190,12 @@ const Table = (props) => {
                               <td className="skillData">
                                 {data.preference_info.skills.length !== 0
                                   ? data.preference_info.skills.map(
-                                      (data, index) => <p key={index}>{data}</p>
+                                      (data, index) =>
+                                        index == 0 ||
+                                        index == 1 ||
+                                        index == 2 ? (
+                                          <p key={index}>{data}</p>
+                                        ) : null
                                     )
                                   : "-"}
                               </td>

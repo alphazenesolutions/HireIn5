@@ -206,7 +206,7 @@ function displaymsg1(params) {
   const routeHandler = () => {
     if (isPage === "page4") {
       dispatch(storeAction.isloginHandler({ islogin: true }));
-      navigate("/dashboard");
+      navigate("/profile");
     } else {
     }
   };
