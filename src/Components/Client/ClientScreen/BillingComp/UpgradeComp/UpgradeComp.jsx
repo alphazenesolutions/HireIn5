@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import correct from "../../../../../assests/correct.png";
 import wrong from "../../../../../assests/wrong.svg";

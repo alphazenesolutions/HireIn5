@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./SearchProfileCard.css";
@@ -92,7 +93,7 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
                   </div>
                 </div>
                 <div className="candidateHours">
-                  <h2>&#8377; 4500/hr</h2>
+                  <h2>&#8377; {datanew.hourly_rate}/hr</h2>
                 </div>
               </div>
               <div className="candidateCartSkills">

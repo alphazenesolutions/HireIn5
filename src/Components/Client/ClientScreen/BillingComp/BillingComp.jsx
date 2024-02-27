@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useState } from "react";
 import "./BillingComp.css";
 import billingTable from "../../../../assests/billingTable.png";
@@ -120,7 +121,7 @@ const BillingComp = () => {
               <div className="billCard">
                 <div className="billHead">
                   <h1>Details</h1>
-                  <h2></h2>
+                  {/* <h2></h2> */}
                 </div>
                 <div className="billDesc">
                   <div className="billDescOne">

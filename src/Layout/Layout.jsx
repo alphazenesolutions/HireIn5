@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from "react";
 import "./Layout.css";
 import Routing from "../Routing/Routing";
@@ -7,13 +8,13 @@ import discover from "../assests/Discover.svg";
 
 const Layout = () => {
   const islogin = useSelector((store) => store.islogin);
-  var role = 1;
+  const loginrole = useSelector((store) => store.loginrole);
   return (
     <div>
       {islogin && (
         <div className="dashboard">
           <div className="sideNavComp">
-            {role == 1 && (
+            {loginrole == 2 && (
               <SideBar
                 role={1}
                 menu={[
@@ -22,34 +23,14 @@ const Layout = () => {
                   { title: "Contracts", icon: discover, router: "contract" },
                   { title: "Billing", icon: discover, router: "billing" },
                   { title: "Help & FAQs", icon: discover, router: "faq" },
-                  { title: "Profile", icon: discover, router: "profile" },
                 ]}
               />
             )}
-            {role == 2 && (
+            {loginrole == 3 && (
               <SideBar
                 role={2}
                 menu={[
-                  {
-                    title: "discover",
-                    icon: discover,
-                    router: "discover",
-                  },
-                  {
-                    title: "Interview",
-                    icon: discover,
-                    router: "interview",
-                  },
-                  {
-                    title: "Contracts",
-                    icon: discover,
-                    router: "contract",
-                  },
-                  {
-                    title: "Billing",
-                    icon: discover,
-                    router: "billing",
-                  },
+                  { title: "Help & FAQs", icon: discover, router: "faq" },
                   {
                     title: "Profile",
                     icon: discover,
