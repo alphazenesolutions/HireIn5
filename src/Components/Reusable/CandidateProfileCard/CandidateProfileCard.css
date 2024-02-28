@@ -247,7 +247,7 @@
 
 .profileRightSubHead {
     padding-left: 40px;
-    padding-right: 20px;
+    padding-right: 40px;
 }
 
 .profileRightHead2 {
@@ -298,8 +298,51 @@
     font-size: 14px;
     font-weight: 500;
     margin-right: 10px;
+    cursor: pointer;
 }
 
+/* personal */
+
+.personal {
+    width: 100%;
+    padding: 0px 40px;
+
+}
+
+.personalFlex {
+    width: 100%;
+    display: flex;
+    line-height: 50px;
+}
+
+.personalFlexLeft {
+    width: 40%;
+
+
+}
+
+.personalFlexRight {
+    width: 100%;
+
+}
+
+.personal h1 {
+    font-size: 15px;
+    font-weight: 600;
+    /* margin-top: 20px;
+        margin-bottom: 20px; */
+    color: var(--textColorDark);
+}
+
+.personal h2 {
+    font-size: 15px;
+    font-weight: 400;
+    /* margin-top: 20px;
+        margin-bottom: 20px; */
+    color: var(--textColor);
+}
+
+/* profileDetail */
 .profileDetails {
     width: 100%;
     padding-bottom: 20px;
@@ -384,4 +427,13 @@
     font-weight: 500;
     font-size: 14px;
     padding-left: 20px;
+}
+
+/* backgroung */
+.backgrundFlexLeft {
+    width: 45%;
+}
+
+.backgrundFlexRight {
+    width: 50%;
 }

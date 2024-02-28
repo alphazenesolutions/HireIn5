@@ -14,6 +14,12 @@ const CandidateProfileCard = (props) => {
     console.log(isSelect);
   };
 
+  const [isSelect1, setIsSelect1] = useState("personal");
+  const buttonHandler1 = (e) => {
+    setIsSelect1(e.target.id);
+    console.log(isSelect1);
+  };
+
   return (
     <div>
       <div className={props.main}>
@@ -170,8 +176,12 @@ const CandidateProfileCard = (props) => {
                 <div className="profileRightHead2">
                   {isSelect === "demographic" && (
                     <div className="work">
-                      <h5 className="">Personal Details</h5>
-                      <h5>Background Verification</h5>
+                      <h5 onClick={buttonHandler1} id="personal">
+                        Personal Details
+                      </h5>
+                      <h5 onClick={buttonHandler1} id="background">
+                        Background Verification
+                      </h5>
                     </div>
                   )}
                   {isSelect === "assessments" && (
@@ -203,6 +213,54 @@ const CandidateProfileCard = (props) => {
                   )}
                 </div>
               </div>
+              {isSelect1 == "personal" && (
+                <div className="personal">
+                  <div className="personalFlex">
+                    <div className="personalFlexLeft">
+                      <h1>First Name</h1>
+                      <h1>Last Name</h1>
+                      <h1>Email ID</h1>
+                      <h1>Phone no.</h1>
+                      <h1>Date of birth</h1>
+                      <h1>Address Line 1</h1>
+                      <h1>Address Line 2</h1>
+                      <h1>Country</h1>
+                      <h1>City</h1>
+                      <h1>State</h1>
+                      <h1>Pincode</h1>
+                    </div>
+                    <div className="personalFlexRight">
+                      <h2>Surya</h2>
+                      <h2>Narreddi</h2>
+                      <h2>suryanarreddi@gmail.com</h2>
+                      <h2>+91 9876543210</h2>
+                      <h2>01/01/1990</h2>
+                      <h2>Richmond Par, Avenue 2, 13th Cross Road</h2>
+                      <h2>Ponyglyph Layout, Bangalore</h2>
+                      <h2>India</h2>
+                      <h2>Bangalore</h2>
+                      <h2>Karnataka</h2>
+                      <h2>560013</h2>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {isSelect1 == "background" && (
+                <div className="personal">
+                  <div className="personalFlex">
+                    <div className="backgrundFlexLeft">
+                      <h1>Aadhaar number</h1>
+                      <h1>PAN number</h1>
+                      <h1>Background Verification</h1>
+                    </div>
+                    <div className="backgroundFlexRight">
+                      <h2>48XX XXXX XX21</h2>
+                      <h2>48XX XXXX XX21</h2>
+                      <h2>Uploaded</h2>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ) : null}
