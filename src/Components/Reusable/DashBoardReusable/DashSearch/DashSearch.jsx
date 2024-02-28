@@ -334,35 +334,49 @@ const DashSearch = (props) => {
     Getskill();
   }, [searchvalue]);
   const Getskill = async () => {
-    var myHeaders = new Headers();
-    myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-      headers: myHeaders,
-    };
-    var skilldata = await fetch(
-      `https://api.apilayer.com/skills?q=${searchvalue}`,
-      requestOptions
-    ).then((response) => {
-      return response.text();
-    });
-    var newarray = JSON.parse(skilldata);
-    if (newarray.length !== 0) {
-      var filter = [];
-      for (var i = 0; i < newarray.length; i++) {
-        filter.push({
-          value: newarray[i],
-          label: newarray[i],
-        });
+    if (searchvalue.length !== 0) {
+      var myHeaders = new Headers();
+      myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
+      var requestOptions = {
+        method: "GET",
+        redirect: "follow",
+        headers: myHeaders,
+      };
+      var skilldata = await fetch(
+        `https://api.apilayer.com/skills?q=${searchvalue}`,
+        requestOptions
+      ).then((response) => {
+        return response.text();
+      });
+      var newarray = JSON.parse(skilldata);
+      if (newarray.length !== 0) {
+        var filter = [];
+        for (var i = 0; i < newarray.length; i++) {
+          filter.push({
+            value: newarray[i],
+            label: newarray[i],
+          });
+        }
+        setskilloption(filter);
       }
-      setskilloption(filter);
     }
   };
   const [isDrop, setIsDrop] = useState(false);
+  const [value, setvalue] = useState("");
   const dropHandler = () => {
     setIsDrop(!isDrop);
   };
+  const handleCombinedClick = () => {
+    props.function2();
+    dropHandler();
+  };
+  const selectskill = async (skill) => {
+    props.setsearchvalue(skill);
+    setvalue(skill);
+    setIsDrop(false);
+    document.getElementById("valuetag").value = skill;
+  };
+
   return (
     <div>
       <div className={props.class}>
@@ -372,10 +386,11 @@ const DashSearch = (props) => {
           onChange={(e) => {
             props.buttonHandler(e.target.value);
           }}
-          onClick={(props.function2, dropHandler)}
-          // onClick={props.function2}
+          onClick={handleCombinedClick}
           placeholder="Search candidates by role or skills"
           type="text"
+          id="valuetag"
+          defaultValue={value}
         />
         <button
           className={
@@ -540,7 +555,7 @@ const DashSearch = (props) => {
                   defaultValue={allfilterdata.experience}
                 />
               </div>
-              {/* <div className="language">
+              <div className="language">
                 <h2>Languages</h2>
                 <input
                   placeholder="e.g French"
@@ -549,7 +564,7 @@ const DashSearch = (props) => {
                   onChange={handlechange}
                   defaultValue={allfilterdata.languages}
                 />
-              </div> */}
+              </div>
             </div>
             <div className="allFilterBodyButton">
               <button className="ResetAll" onClick={resetbtn}>
@@ -563,11 +578,19 @@ const DashSearch = (props) => {
         )}
         {isDrop == true && (
           <div className="searchDropDown">
-            <h2 onClick={dropHandler}>javascript</h2>
-            <h2 onClick={dropHandler}>javascript</h2>
-            <h2 onClick={dropHandler}>javascript</h2>
-            <h2 onClick={dropHandler}>javascript</h2>
-            <h2 onClick={dropHandler}>javascript</h2>
+            {props.skilldata.length !== 0
+              ? props.skilldata.map((item, index) => (
+                  <h2
+                    onClick={() => {
+                      selectskill(item);
+                    }}
+                    className="cursor-pointer"
+                    key={index}
+                  >
+                    {item}
+                  </h2>
+                ))
+              : null}
           </div>
         )}
       </div>

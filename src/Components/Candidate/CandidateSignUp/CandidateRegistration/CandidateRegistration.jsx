@@ -161,22 +161,39 @@ const CandidateRegistration = () => {
   const [finalerrortype, setfinalerrortype] = useState(null);
   const [skill, setskill] = useState([]);
   const [indexvalue, setindexvalue] = useState(null);
-  const [displaymessages, setdisplaymessages] = useState(false)
-function displaymsg(params) {
-  setdisplaymessages(!displaymessages)
-}
-function displaymsg1(params) {
-  setdisplaymessages(false)
-}
-  function dropDownHandler(params) {
+  const [displaymessages, setdisplaymessages] = useState(false);
+  function displaymsg(params) {
+    setdisplaymessages(!displaymessages);
+  }
+  function displaymsg1(params) {
+    setdisplaymessages(false);
+  }
+  async function dropDownHandler(params) {
     const inputvalue = inputref.current.value.toLowerCase();
     setdropDown("");
-
-    const dropdownvalue = dropDownList.filter((getvalue) =>
-      getvalue.toLowerCase().includes(inputvalue)
-    );
-    setdropDownClose(dropdownvalue);
-    setdropDown(inputvalue.length > 0 && dropdownvalue.length > 0);
+    if (inputvalue.length !== 0) {
+      var myHeaders = new Headers();
+      myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
+      var requestOptions = {
+        method: "GET",
+        redirect: "follow",
+        headers: myHeaders,
+      };
+      var skilldata = await fetch(
+        `https://api.apilayer.com/skills?q=${inputvalue}`,
+        requestOptions
+      ).then((response) => {
+        return response.text();
+      });
+      var newarray = JSON.parse(skilldata);
+      // const dropdownvalue = dropDownList.filter((getvalue) =>
+      //   getvalue.toLowerCase().includes(inputvalue)
+      // );
+      setdropDownClose(newarray);
+      setdropDown(inputvalue.length > 0 && newarray.length > 0);
+    } else {
+      setdropDown(inputvalue.length > 0);
+    }
   }
   function dropDownHandler1(index) {
     setindexvalue(index);
@@ -947,7 +964,7 @@ function displaymsg1(params) {
     relocate[index][name] = value;
     setrelocate([...relocate]);
   };
-
+  console.log(dropDownOpen, "dropDownOpen1");
   return (
     <>
       <div className="candidateRegistration">
@@ -1110,7 +1127,7 @@ function displaymsg1(params) {
                           <option value="TamilNadu">TamilNadu</option>
                         </select>
                       </div>
-                     {formdataerror.state && (
+                      {formdataerror.state && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
                           Please Select State
                         </h6>
@@ -1577,10 +1594,23 @@ function displaymsg1(params) {
               </div>
               <div className="candidateInfo h-full">
                 <div className="addressLine">
-                 {displaymessages && <div className="warningmessage">
-                    <h6>In case you have not taken a HackerRack Test but have undertaken another globally recognised test, please mention the name of the test and the score</h6>
-                  </div>}
-                  <h3>HackerRank <PiWarningCircle className="warningicon" onMouseLeave={displaymsg1} onMouseOver={displaymsg}/></h3>
+                  {displaymessages && (
+                    <div className="warningmessage">
+                      <h6>
+                        In case you have not taken a HackerRack Test but have
+                        undertaken another globally recognised test, please
+                        mention the name of the test and the score
+                      </h6>
+                    </div>
+                  )}
+                  <h3>
+                    HackerRank{" "}
+                    <PiWarningCircle
+                      className="warningicon"
+                      onMouseLeave={displaymsg1}
+                      onMouseOver={displaymsg}
+                    />
+                  </h3>
                   <h3>Optional</h3>
                 </div>
                 <input

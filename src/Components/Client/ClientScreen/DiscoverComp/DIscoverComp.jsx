@@ -46,6 +46,7 @@ const DiscoverComp = () => {
       return data.id == id;
     });
     setreserveduser(checkdata);
+    dispatch(storeAction.singleuserHander({ singleuser: checkdata }));
     if (event === "page2") {
       setIsPage(event);
       let data = JSON.stringify({
@@ -157,6 +158,7 @@ const DiscoverComp = () => {
   const overLayHandler = (e, data) => {
     dispatch(storeAction.isPopUpHander(e));
     setreserveduser([data]);
+    dispatch(storeAction.singleuserHander({ singleuser: [data] }));
   };
 
   const overLayHandler1 = () => {
@@ -294,13 +296,31 @@ const DiscoverComp = () => {
   const [isButton, setIsButton] = useState(null);
   const [selectseacrh, setselectseacrh] = useState(false);
   const [searchvalue, setsearchvalue] = useState("");
-  const buttonHandler = (e) => {
+  const [skilldata, setskilldata] = useState([]);
+
+  const buttonHandler = async (e) => {
     setsearchvalue(e);
     if (e.length > 0) {
+      var myHeaders = new Headers();
+      myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
+      var requestOptions = {
+        method: "GET",
+        redirect: "follow",
+        headers: myHeaders,
+      };
+      var skilldata = await fetch(
+        `https://api.apilayer.com/skills?q=${e}`,
+        requestOptions
+      ).then((response) => {
+        return response.text();
+      });
+      var newarray = JSON.parse(skilldata);
+      setskilldata(newarray);
       setIsButton(true);
     } else {
       setselectseacrh(false);
       setIsButton(false);
+      setskilldata([]);
     }
   };
   const seachuser = async () => {
@@ -342,11 +362,13 @@ const DiscoverComp = () => {
               class="dashBoardMainSearch paddingRight100"
               function2={searchHandler}
               buttonHandler={buttonHandler}
+              skilldata={skilldata}
               isButton={isButton}
               seachuser={seachuser}
               alldata={alldata}
               setfilterdata={setfilterdata}
               setIsInput={setIsInput}
+              setsearchvalue={setsearchvalue}
             />
             {isInput === false ? (
               <div>
@@ -398,6 +420,7 @@ const DiscoverComp = () => {
                             datanew={datanew}
                             addbookmark={addbookmark}
                             reserve={overLayHandler}
+                            setIsPage={setIsPage}
                           />
                         </div>
                       ))
@@ -417,7 +440,6 @@ const DiscoverComp = () => {
             main="candidateProfile"
             fun={pageHandler}
             back="candidateBack"
-            reserveduser={reserveduser}
           />
         )}
       </div>

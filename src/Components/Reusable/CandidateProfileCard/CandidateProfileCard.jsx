@@ -6,8 +6,10 @@ import candidatePropoic from "../../../assests/CandidateProfile.png";
 import brief from "../../../assests/briefCase.png";
 import user from "../../../assests/User.svg";
 import map from "../../../assests/mapPin.png";
+import { useSelector } from "react-redux";
 
 const CandidateProfileCard = (props) => {
+  const singleuser = useSelector((store) => store.singleuser);
   const [isSelect, setIsSelect] = useState("demographic");
   const buttonHandler = (e) => {
     setIsSelect(e.target.id);
@@ -19,7 +21,7 @@ const CandidateProfileCard = (props) => {
     setIsSelect1(e.target.id);
     console.log(isSelect1);
   };
-
+  console.log(singleuser, "singleuser");
   return (
     <div>
       <div className={props.main}>
@@ -37,13 +39,13 @@ const CandidateProfileCard = (props) => {
             </h4>
           </div>
         </div>
-        {props.reserveduser.length !== 0 ? (
+        {singleuser.length !== 0 ? (
           <div className="mainProfile">
             <div className="profileLeft">
               <div className="profileLeftTop">
                 <img src={candidatePropoic} alt="" />
-                <h1>{props.reserveduser[0].first_name}</h1>
-                <h2>USD 80 / HR</h2>
+                <h1>{singleuser[0].first_name}</h1>
+                <h2>USD {singleuser[0].hourly_rate} / HR</h2>
                 <div className="available">
                   <p>Available from</p>
                   <h5>03 Aug 2024</h5>
@@ -51,10 +53,10 @@ const CandidateProfileCard = (props) => {
               </div>
               <div className="profileLeftMiddle">
                 <h3>TOP SKILLS</h3>
-                {props.reserveduser[0].preference_info !== null ? (
+                {singleuser[0].preference_info !== null ? (
                   <div className="proSkills">
-                    {props.reserveduser[0].preference_info.skills.length !== 0
-                      ? props.reserveduser[0].preference_info.skills.map(
+                    {singleuser[0].preference_info.skills.length !== 0
+                      ? singleuser[0].preference_info.skills.map(
                           (data, index) =>
                             index == 0 || index == 1 || index == 2 ? (
                               <div className="skillOne" key={index}>
@@ -79,15 +81,12 @@ const CandidateProfileCard = (props) => {
                 ) : null}
 
                 <div className="proExperienceWrap">
-                  {props.reserveduser[0].preference_info !== null ? (
+                  {singleuser[0].preference_info !== null ? (
                     <div className="proExperience">
                       <img src={brief} alt="" />
                       <h5>
-                        {
-                          props.reserveduser[0].preference_info
-                            .year_of_experience
-                        }{" "}
-                        years of experience
+                        {singleuser[0].preference_info.year_of_experience} years
+                        of experience
                       </h5>
                     </div>
                   ) : null}
@@ -217,30 +216,68 @@ const CandidateProfileCard = (props) => {
                 <div className="personal">
                   <div className="personalFlex">
                     <div className="personalFlexLeft">
-                      <h1>First Name</h1>
-                      <h1>Last Name</h1>
+                      <h1>Full Name</h1>
+                      {/* <h1>Last Name</h1> */}
                       <h1>Email ID</h1>
                       <h1>Phone no.</h1>
                       <h1>Date of birth</h1>
-                      <h1>Address Line 1</h1>
-                      <h1>Address Line 2</h1>
+                      <h1>Address</h1>
+                      {/* <h1>Address Line 2</h1> */}
                       <h1>Country</h1>
                       <h1>City</h1>
                       <h1>State</h1>
                       <h1>Pincode</h1>
                     </div>
+
                     <div className="personalFlexRight">
-                      <h2>Surya</h2>
-                      <h2>Narreddi</h2>
-                      <h2>suryanarreddi@gmail.com</h2>
-                      <h2>+91 9876543210</h2>
-                      <h2>01/01/1990</h2>
-                      <h2>Richmond Par, Avenue 2, 13th Cross Road</h2>
-                      <h2>Ponyglyph Layout, Bangalore</h2>
-                      <h2>India</h2>
-                      <h2>Bangalore</h2>
-                      <h2>Karnataka</h2>
-                      <h2>560013</h2>
+                      <h2>{singleuser[0].first_name}</h2>
+                      {/* <h2>Narreddi</h2> */}
+                      <h2>{singleuser[0].email}</h2>
+                      <h2>{singleuser[0].phone}</h2>
+                      <h2>
+                        {singleuser[0].date_of_birth.length === 0
+                          ? "-"
+                          : singleuser[0].date_of_birth}
+                      </h2>
+                      <h2>
+                        {singleuser[0].address !== null
+                          ? singleuser[0].address.address.length !== 0
+                            ? singleuser[0].address.address
+                            : "-"
+                          : ""}
+                      </h2>
+
+                      <h2>
+                        {" "}
+                        {singleuser[0].address !== null
+                          ? singleuser[0].address.country.length !== 0
+                            ? singleuser[0].address.country
+                            : "-"
+                          : ""}
+                      </h2>
+                      <h2>
+                        {" "}
+                        {singleuser[0].address !== null
+                          ? singleuser[0].address.state.length !== 0
+                            ? singleuser[0].address.state
+                            : "-"
+                          : "-"}
+                      </h2>
+                      <h2>
+                        {" "}
+                        {singleuser[0].address !== null
+                          ? singleuser[0].address.city.length !== 0
+                            ? singleuser[0].address.city
+                            : "-"
+                          : "-"}
+                      </h2>
+                      <h2>
+                        {singleuser[0].address !== null
+                          ? singleuser[0].address.pincode.length !== 0
+                            ? singleuser[0].address.pincode
+                            : "-"
+                          : "-"}
+                      </h2>
                     </div>
                   </div>
                 </div>
@@ -254,8 +291,19 @@ const CandidateProfileCard = (props) => {
                       <h1>Background Verification</h1>
                     </div>
                     <div className="backgroundFlexRight">
-                      <h2>48XX XXXX XX21</h2>
-                      <h2>48XX XXXX XX21</h2>
+                      <h2>
+                        {" "}
+                        {singleuser[0].kyc_info !== null
+                          ? singleuser[0].kyc_info.aadhar_number.length !== 0
+                            ? singleuser[0].kyc_info.aadhar_number
+                            : "-"
+                          : "-"}
+                      </h2>
+                      <h2> {singleuser[0].kyc_info !== null
+                          ? singleuser[0].kyc_info.pan_number.length !== 0
+                            ? singleuser[0].kyc_info.pan_number
+                            : "-"
+                          : "-"}</h2>
                       <h2>Uploaded</h2>
                     </div>
                   </div>
