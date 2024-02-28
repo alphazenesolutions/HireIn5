@@ -359,17 +359,22 @@ const DashSearch = (props) => {
       setskilloption(filter);
     }
   };
+  const [isDrop, setIsDrop] = useState(false);
+  const dropHandler = () => {
+    setIsDrop(!isDrop);
+  };
   return (
     <div>
       <div className={props.class}>
-        <img className="searchImg" src={search} alt="" />
+        <img onClick={dropHandler} className="searchImg" src={search} alt="" />
         <input
           className="mainInput"
           onChange={(e) => {
             props.buttonHandler(e.target.value);
           }}
-          onClick={props.function2}
-          placeholder="Search Candidates"
+          onClick={(props.function2, dropHandler)}
+          // onClick={props.function2}
+          placeholder="Search candidates by role or skills"
           type="text"
         />
         <button
@@ -554,6 +559,15 @@ const DashSearch = (props) => {
                 Set Filters
               </button>
             </div>
+          </div>
+        )}
+        {isDrop == true && (
+          <div className="searchDropDown">
+            <h2 onClick={dropHandler}>javascript</h2>
+            <h2 onClick={dropHandler}>javascript</h2>
+            <h2 onClick={dropHandler}>javascript</h2>
+            <h2 onClick={dropHandler}>javascript</h2>
+            <h2 onClick={dropHandler}>javascript</h2>
           </div>
         )}
       </div>
