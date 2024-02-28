@@ -36,7 +36,7 @@ function App() {
           return res.data;
         })
         .catch((err) => {
-          return err.response.data;
+          return err.response;
         });
       if (userinfo.id !== undefined) {
         dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
