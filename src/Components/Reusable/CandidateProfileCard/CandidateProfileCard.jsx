@@ -15,6 +15,21 @@ const CandidateProfileCard = (props) => {
   const singleuser = useSelector((store) => store.singleuser);
   const [isSelect, setIsSelect] = useState("demographic");
   const buttonHandler = (e) => {
+    if (isSelect == "demographic") {
+      setIsSelect1("personal");
+    }
+    if (isSelect == "assessments") {
+      setIsSelect1("technical");
+    }
+    if (isSelect == "workhistory") {
+      setIsSelect1("employ");
+    }
+    if (isSelect == "availability") {
+      setIsSelect1("available");
+    }
+    if (isSelect == "Rate Card") {
+      setIsSelect1("remote");
+    }
     setIsSelect(e.target.id);
   };
 

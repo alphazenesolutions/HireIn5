@@ -693,6 +693,7 @@
 
 .projectFlex {
     display: flex;
+    margin-top: 3px;
 }
 
 .projectFlex h2 {
