@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
 /* eslint-disable no-redeclare */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DashSearch.css";
 import Range from "../../../MaterialUi/Range/RangeSlider";
 import search from "../../../../assests/search.png";
@@ -10,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import close from "../../../../assests/billingX.png";
 import filter from "../../../../assests/allFilters.png";
 import RangeSlider from "../../../MaterialUi/Range/RangeSlider";
+import Select from "react-select";
 
 const DashSearch = (props) => {
   const dispatch = useDispatch();
@@ -140,20 +142,16 @@ const DashSearch = (props) => {
       for (var i = 0; i < props.alldata.length; i++) {
         if (props.alldata[i].preference_info !== null) {
           if (props.alldata[i].preference_info.skills.length !== 0) {
-            if (allfilterdata.skill.length !== 0) {
+            if (skill_list.length !== 0) {
               for (
                 var j = 0;
                 j < props.alldata[i].preference_info.skills.length;
                 j++
               ) {
-                for (
-                  var a = 0;
-                  a < allfilterdata.skill.split(",").length;
-                  a++
-                ) {
+                for (var a = 0; a < skill_list.length; a++) {
                   if (
                     props.alldata[i].preference_info.skills[j].toLowerCase() ===
-                    allfilterdata.skill.split(",")[a].toLowerCase()
+                    skill_list[a].toLowerCase()
                   ) {
                     finaldata.push(props.alldata[i]);
                   }
@@ -174,9 +172,9 @@ const DashSearch = (props) => {
           finaldata.push(props.alldata[i]);
         }
       }
-      if (allfilterdata.location.length !== 0) {
+      if (location_list.length !== 0) {
         for (var i = 0; i < props.alldata.length; i++) {
-          var locationlist = allfilterdata.location.split(",");
+          var locationlist = location_list;
           const checkdata = locationlist.includes(
             props.alldata[i].current_place_of_residence
           );
@@ -217,7 +215,150 @@ const DashSearch = (props) => {
     setIsToggle1(false);
     setIsToggle(false);
   };
-
+  const options = [
+    { value: "Afghanistan", label: "Afghanistan" },
+    { value: "Albania", label: "Albania" },
+    { value: "Algeria", label: "Algeria" },
+    { value: "Andorra", label: "Andorra" },
+    { value: "Angola", label: "Angola" },
+    { value: "Antigua and Barbuda", label: "Antigua and Barbuda" },
+    { value: "Argentina", label: "Argentina" },
+    { value: "Armenia", label: "Armenia" },
+    { value: "Australia", label: "Australia" },
+    { value: "Austria", label: "Austria" },
+    { value: "Azerbaijan", label: "Azerbaijan" },
+    { value: "Bahamas", label: "Bahamas" },
+    { value: "Bahrain", label: "Bahrain" },
+    { value: "Bangladesh", label: "Bangladesh" },
+    { value: "Barbados", label: "Barbados" },
+    { value: "Belarus", label: "Belarus" },
+    { value: "Belgium", label: "Belgium" },
+    { value: "Belize", label: "Belize" },
+    { value: "Benin", label: "Benin" },
+    { value: "Bhutan", label: "Bhutan" },
+    { value: "Bolivia", label: "Bolivia" },
+    { value: "Bosnia and Herzegovina", label: "Bosnia and Herzegovina" },
+    { value: "Botswana", label: "Botswana" },
+    { value: "Brazil", label: "Brazil" },
+    { value: "Brunei", label: "Brunei" },
+    { value: "Bulgaria", label: "Bulgaria" },
+    { value: "Burkina Faso", label: "Burkina Faso" },
+    { value: "Burundi", label: "Burundi" },
+    { value: "Cambodia", label: "Cambodia" },
+    { value: "Cameroon", label: "Cameroon" },
+    { value: "Canada", label: "Canada" },
+    { value: "Cape Verde", label: "Cape Verde" },
+    { value: "Central African Republic", label: "Central African Republic" },
+    { value: "Chad", label: "Chad" },
+    { value: "Chile", label: "Chile" },
+    { value: "China", label: "China" },
+    { value: "Colombia", label: "Colombia" },
+    { value: "Comoros", label: "Comoros" },
+    { value: "Congo", label: "Congo" },
+    { value: "Costa Rica", label: "Costa Rica" },
+    { value: "Croatia", label: "Croatia" },
+    { value: "Cuba", label: "Cuba" },
+    { value: "Cyprus", label: "Cyprus" },
+    { value: "Czech Republic", label: "Czech Republic" },
+    { value: "Denmark", label: "Denmark" },
+    { value: "Djibouti", label: "Djibouti" },
+    { value: "Dominica", label: "Dominica" },
+    { value: "Dominican Republic", label: "Dominican Republic" },
+    { value: "East Timor (Timor-Leste)", label: "East Timor (Timor-Leste)" },
+    { value: "Ecuador", label: "Ecuador" },
+    { value: "Egypt", label: "Egypt" },
+    { value: "El Salvador", label: "El Salvador" },
+    { value: "Equatorial Guinea", label: "Equatorial Guinea" },
+    { value: "Eritrea", label: "Eritrea" },
+    { value: "Estonia", label: "Estonia" },
+    { value: "Ethiopia", label: "Ethiopia" },
+    { value: "Fiji", label: "Fiji" },
+    { value: "Finland", label: "Finland" },
+    { value: "France", label: "France" },
+    { value: "Gabon", label: "Gabon" },
+    { value: "Gambia", label: "Gambia" },
+    { value: "Georgia", label: "Georgia" },
+    { value: "Germany", label: "Germany" },
+    { value: "Ghana", label: "Ghana" },
+    { value: "Greece", label: "Greece" },
+    { value: "Grenada", label: "Grenada" },
+    { value: "Guatemala", label: "Guatemala" },
+    { value: "Guinea", label: "Guinea" },
+    { value: "Guinea-Bissau", label: "Guinea-Bissau" },
+    { value: "Guyana", label: "Guyana" },
+    { value: "Haiti", label: "Haiti" },
+    { value: "Honduras", label: "Honduras" },
+    { value: "Hungary", label: "Hungary" },
+    { value: "Iceland", label: "Iceland" },
+    { value: "India", label: "India" },
+    { value: "Indonesia", label: "Indonesia" },
+    { value: "Iran", label: "Iran" },
+    { value: "Iraq", label: "Iraq" },
+    { value: "Ireland", label: "Ireland" },
+    { value: "Israel", label: "Israel" },
+    { value: "Italy", label: "Italy" },
+    { value: "Ivory Coast", label: "Ivory Coast" },
+    { value: "Jamaica", label: "Jamaica" },
+    { value: "Japan", label: "Japan" },
+    { value: "Jordan", label: "Jordan" },
+    { value: "Kazakhstan", label: "Kazakhstan" },
+    { value: "Kenya", label: "Kenya" },
+    { value: "Kiribati", label: "Kiribati" },
+    { value: "Korea, North", label: "Korea, North" },
+    { value: "Korea, South", label: "Korea, South" },
+    { value: "Kuwait", label: "Kuwait" },
+  ];
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptionskill, setSelectedOptionskill] = useState(null);
+  const [location_list, setlocation_list] = useState([]);
+  const [skill_list, setskill_list] = useState([]);
+  useEffect(() => {
+    getLocationdata();
+  }, [selectedOption, selectedOptionskill]);
+  const getLocationdata = async () => {
+    if (selectedOption !== null) {
+      const valuesArray = selectedOption.map((country) => country.value);
+      setlocation_list(valuesArray);
+    }
+    if (selectedOptionskill !== null) {
+      const values_Array = selectedOptionskill.map((country) => country.value);
+      setskill_list(values_Array);
+    }
+  };
+  const [skilloption, setskilloption] = useState([]);
+  const [searchvalue, setsearchvalue] = useState("");
+  const handleInputChangeNew = (value) => {
+    setsearchvalue(value);
+  };
+  useEffect(() => {
+    Getskill();
+  }, [searchvalue]);
+  const Getskill = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+      headers: myHeaders,
+    };
+    var skilldata = await fetch(
+      `https://api.apilayer.com/skills?q=${searchvalue}`,
+      requestOptions
+    ).then((response) => {
+      return response.text();
+    });
+    var newarray = JSON.parse(skilldata);
+    if (newarray.length !== 0) {
+      var filter = [];
+      for (var i = 0; i < newarray.length; i++) {
+        filter.push({
+          value: newarray[i],
+          label: newarray[i],
+        });
+      }
+      setskilloption(filter);
+    }
+  };
   return (
     <div>
       <div className={props.class}>
@@ -345,13 +486,13 @@ const DashSearch = (props) => {
                 <h2>Skill / Role</h2>
                 <h3>Type a skill or a job role here</h3>
               </div>
-              <input
-                type="text"
-                id=""
-                name="skill"
-                onChange={handlechange}
-                defaultValue={allfilterdata.skill}
-              ></input>
+              <Select
+                defaultValue={selectedOptionskill}
+                onChange={setSelectedOptionskill}
+                options={skilloption}
+                isMulti
+                onInputChange={handleInputChangeNew}
+              />
             </div>
             <div className="allFilterBody">
               <div className="filterRate">
@@ -369,11 +510,17 @@ const DashSearch = (props) => {
               </div>
               <div className="fliterLocation">
                 <h2>Location</h2>
-                <input
+                {/* <input
                   type="text"
                   name="location"
                   onChange={handlechange}
                   defaultValue={allfilterdata.location}
+                /> */}
+                <Select
+                  defaultValue={selectedOption}
+                  onChange={setSelectedOption}
+                  options={options}
+                  isMulti
                 />
               </div>
             </div>
