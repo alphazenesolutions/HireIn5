@@ -23,7 +23,8 @@ const SideBar = (props) => {
     setTimeout(() => {
       getUserinfo();
     }, 1000);
-  }, [token, userid]);
+  }, [token, userid, userdata]);
+
   const getUserinfo = useCallback(async () => {
     if (token !== null && userid !== null) {
       var userinfo = await axios
@@ -37,7 +38,7 @@ const SideBar = (props) => {
           return res.data;
         })
         .catch((err) => {
-          return err.response.data;
+          return err.response;
         });
       if (userinfo.id !== undefined) {
         dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
@@ -150,8 +151,8 @@ const SideBar = (props) => {
           </div>
         </div>
         <div className="logout cursor-pointer" onClick={logoutbtn}>
-          <img src={logout} alt="" />
-          <h6>Log out</h6>
+          <img src={logout} alt="" onClick={logoutbtn} />
+          <h6 onClick={logoutbtn}>Log out</h6>
         </div>
       </div>
     </div>

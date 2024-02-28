@@ -46,7 +46,7 @@ const ProfessionalDetails = () => {
 
   useEffect(() => {
     getUserinfo();
-  }, [userdata]);
+  }, []);
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
@@ -126,7 +126,7 @@ const ProfessionalDetails = () => {
         return res.data;
       })
       .catch((err) => {
-        return err.response.data;
+        return err.response;
       });
     if (
       updatedata.message === "User and Associated Info updated successfully"
@@ -142,8 +142,8 @@ const ProfessionalDetails = () => {
     } else {
       setloading(false);
     }
+    getUserinfo();
   };
-
   return (
     <div>
       <div className="professionalDetails">

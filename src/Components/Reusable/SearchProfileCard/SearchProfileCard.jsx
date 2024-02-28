@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./SearchProfileCard.css";
@@ -14,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import axios from "axios";
 
-const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
+const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
   const dispatch = useDispatch();
   const bookmarkdata = useSelector((store) => store.bookmarkdata);
   const token = useSelector((store) => store.token);
@@ -75,6 +76,10 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
     }
     settabledata(table_data);
   };
+  const viewbtn = (data) => {
+    setIsPage("page2");
+    dispatch(storeAction.singleuserHander({ singleuser: [data] }));
+  };
   return (
     <div>
       <div className="clientInterview">
@@ -92,7 +97,7 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
                   </div>
                 </div>
                 <div className="candidateHours">
-                  <h2>&#8377; 4500/hr</h2>
+                  <h2>&#8377; {datanew.hourly_rate}/hr</h2>
                 </div>
               </div>
               <div className="candidateCartSkills">
@@ -166,7 +171,12 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
                   >
                     Reserve candidate
                   </button>
-                  <button className="cartbtnimgbutton2">view</button>
+                  <button
+                    className="cartbtnimgbutton2"
+                    onClick={() => viewbtn(datanew)}
+                  >
+                    view
+                  </button>
                 </div>
               </div>
             </div>

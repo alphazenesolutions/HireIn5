@@ -59,7 +59,7 @@ const Certificate = () => {
         return res.data;
       })
       .catch((err) => {
-        return err.response.data;
+        return err.response;
       });
     if (
       updatedata.message === "User and Associated Info updated successfully"
@@ -75,6 +75,7 @@ const Certificate = () => {
     } else {
       setloading(false);
     }
+    getUserinfo();
   };
 
   const isPopUp = useSelector((store) => {
@@ -96,7 +97,7 @@ const Certificate = () => {
 
   useEffect(() => {
     getUserinfo();
-  }, [userdata]);
+  }, []);
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {

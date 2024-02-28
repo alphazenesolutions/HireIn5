@@ -46,6 +46,7 @@ const DiscoverComp = () => {
       return data.id == id;
     });
     setreserveduser(checkdata);
+    dispatch(storeAction.singleuserHander({ singleuser: checkdata }));
     if (event === "page2") {
       setIsPage(event);
       let data = JSON.stringify({
@@ -75,30 +76,6 @@ const DiscoverComp = () => {
       setIsPage(event);
     } else {
       setIsPage(event);
-    }
-  };
-  const InputHandler = async (e) => {
-    if (e.target.value.length !== 0) {
-      setIsInput(true);
-      const searchTerm = e.target.value.toLowerCase();
-      const filteredData = alldata.filter((data) => {
-        // const isFirstNameMatch = data.first_name
-        //   .toLowerCase()
-        //   .includes(searchTerm);
-        if (data.preference_info !== null) {
-          const isSkillMatch = data.preference_info.skills.some((skill) =>
-            skill.toLowerCase().includes(searchTerm)
-          );
-
-          return isSkillMatch;
-          // return isFirstNameMatch || isSkillMatch;
-        }
-      });
-      console.log(searchTerm);
-      setfilterdata(filteredData);
-    } else {
-      setIsInput(false);
-      setfilterdata([]);
     }
   };
 
@@ -181,6 +158,7 @@ const DiscoverComp = () => {
   const overLayHandler = (e, data) => {
     dispatch(storeAction.isPopUpHander(e));
     setreserveduser([data]);
+    dispatch(storeAction.singleuserHander({ singleuser: [data] }));
   };
 
   const overLayHandler1 = () => {
@@ -312,11 +290,63 @@ const DiscoverComp = () => {
       });
     getSearchuser();
   };
-  console.log(reserveduser, "reserveduser");
-  // this funtion is for onClick dashBody display
-  // const searchHandler = () => {
-  //   searchuser(true);
-  // };
+  const searchHandler = () => {
+    setselectseacrh(true);
+  };
+  const [isButton, setIsButton] = useState(null);
+  const [selectseacrh, setselectseacrh] = useState(false);
+  const [searchvalue, setsearchvalue] = useState("");
+  const [skilldata, setskilldata] = useState([]);
+
+  const buttonHandler = async (e) => {
+    setsearchvalue(e);
+    if (e.length > 0) {
+      var myHeaders = new Headers();
+      myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
+      var requestOptions = {
+        method: "GET",
+        redirect: "follow",
+        headers: myHeaders,
+      };
+      var skilldata = await fetch(
+        `https://api.apilayer.com/skills?q=${e}`,
+        requestOptions
+      ).then((response) => {
+        return response.text();
+      });
+      var newarray = JSON.parse(skilldata);
+      setskilldata(newarray);
+      setIsButton(true);
+    } else {
+      setselectseacrh(false);
+      setIsButton(false);
+      setskilldata([]);
+    }
+  };
+  const seachuser = async () => {
+    if (searchvalue.length !== 0) {
+      setIsInput(true);
+      const searchTerm = searchvalue.toLowerCase();
+      const filteredData = alldata.filter((data) => {
+        // const isFirstNameMatch = data.first_name
+        //   .toLowerCase()
+        //   .includes(searchTerm);
+        if (data.preference_info !== null) {
+          const isSkillMatch = data.preference_info.skills.some((skill) =>
+            skill.toLowerCase().includes(searchTerm)
+          );
+
+          return isSkillMatch;
+          // return isFirstNameMatch || isSkillMatch;
+        }
+      });
+      setfilterdata(filteredData);
+    } else {
+      setIsInput(false);
+      setfilterdata([]);
+      setselectseacrh(false);
+    }
+  };
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">
@@ -330,31 +360,48 @@ const DiscoverComp = () => {
             />
             <DashSearch
               class="dashBoardMainSearch paddingRight100"
-              function={InputHandler}
-              // function2={searchHandler}
+              function2={searchHandler}
+              buttonHandler={buttonHandler}
+              skilldata={skilldata}
+              isButton={isButton}
+              seachuser={seachuser}
+              alldata={alldata}
+              setfilterdata={setfilterdata}
+              setIsInput={setIsInput}
+              setsearchvalue={setsearchvalue}
             />
             {isInput === false ? (
               <div>
-                {searchuser.length !== 0 ? (
-                  <div className="recentHead paddingRight100">
-                    <div className="recentHeadLeft">
-                      <h1>Recent Searches</h1>
-                      <button
-                        disabled={isDisable === true ? true : false}
-                        onClick={gsapHandlerReverse}
-                      >
-                        <img src={recentLeft} alt="" />
-                      </button>
-                      <button onClick={gsapHandler}>
-                        <img src={recentRight} alt="" />
-                      </button>
+                {selectseacrh === false ? (
+                  searchuser.length !== 0 ? (
+                    <div className="recentHead paddingRight100">
+                      <div className="recentHeadLeft">
+                        <h1>Recent Searches</h1>
+                        <button
+                          disabled={isDisable === true ? true : false}
+                          onClick={gsapHandlerReverse}
+                        >
+                          <img src={recentLeft} alt="" />
+                        </button>
+                        <button onClick={gsapHandler}>
+                          <img src={recentRight} alt="" />
+                        </button>
+                      </div>
+                      <div className="recentHeadRight">
+                        <h2 onClick={clearall} className="cursor-pointer">
+                          Clear All
+                        </h2>
+                      </div>
                     </div>
-                    <div className="recentHeadRight">
-                      <h2 onClick={clearall} className="cursor-pointer">
-                        Clear All
-                      </h2>
-                    </div>
-                  </div>
+                  ) : (
+                    <DashBody
+                      Img={glasses}
+                      head="Begin your search to Hire in 5"
+                      desc="Find the right candidates, shortlist and schedule an interview with them here."
+                      button=""
+                      fun=""
+                    />
+                  )
                 ) : (
                   <DashBody
                     Img={glasses}
@@ -373,6 +420,7 @@ const DiscoverComp = () => {
                             datanew={datanew}
                             addbookmark={addbookmark}
                             reserve={overLayHandler}
+                            setIsPage={setIsPage}
                           />
                         </div>
                       ))
@@ -392,7 +440,6 @@ const DiscoverComp = () => {
             main="candidateProfile"
             fun={pageHandler}
             back="candidateBack"
-            reserveduser={reserveduser}
           />
         )}
       </div>
@@ -459,7 +506,9 @@ const DiscoverComp = () => {
                     </div>
                   </div>
                   <div className="reserveCandidateFlexRightHeadRight">
-                    <h5 className="rateHour">₹4500/hr</h5>
+                    <h5 className="rateHour">
+                      {reserveduser[0].hourly_rate}/hr
+                    </h5>
                   </div>
                 </div>
                 {reserveduser[0].preference_info !== null ? (
@@ -497,7 +546,7 @@ const DiscoverComp = () => {
                 <input
                   type="date"
                   onChange={(e) => {
-                    setstartdate(e.target.value);
+                    setstartdate(searchvalue);
                   }}
                   defaultValue={startdate}
                 />

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useRef } from "react";
 import { useState } from "react";
 import Head from "../../Reusable/LogoHead/Head";
@@ -11,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
+import { jwtDecode } from "jwt-decode";
 
 const ClientLogin = () => {
   const dispatch = useDispatch();
@@ -52,7 +54,6 @@ const ClientLogin = () => {
       setpassworderror(true);
     } else {
       setIsLoading(true);
-
       var newobj = {
         username: logindata.username,
         email: logindata.username,
@@ -67,13 +68,22 @@ const ClientLogin = () => {
           return res.data;
         })
         .catch((err) => {
-          return err.response.data;
+          return err.response;
         });
       if (loginuser.access !== undefined) {
-        dispatch(storeAction.tokenHandler({ token: loginuser.access }));
-        dispatch(storeAction.useridHandler({ userid: 9 }));
-        dispatch(storeAction.isloginHandler({ islogin: true }));
-        navigate("/discover");
+        const token = loginuser.access;
+        const decoded = jwtDecode(token);
+        if (decoded.user_id !== null) {
+          dispatch(storeAction.tokenHandler({ token: loginuser.access }));
+          dispatch(storeAction.useridHandler({ userid: decoded.user_id }));
+          dispatch(storeAction.isloginHandler({ islogin: true }));
+          dispatch(storeAction.loginroleHander({ loginrole: decoded.role }));
+          if (decoded.role == "2") {
+            navigate("/discover");
+          } else {
+            navigate("/profile");
+          }
+        }
       } else {
         setIsLoading(false);
         setfinalerror(true);

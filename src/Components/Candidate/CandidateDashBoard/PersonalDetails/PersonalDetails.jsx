@@ -32,7 +32,7 @@ const PersonalDetails = () => {
   };
   useEffect(() => {
     getUserinfo();
-  }, [userdata]);
+  }, []);
 
   const [formdata, setformdata] = useState({
     name: "",
@@ -114,7 +114,7 @@ const PersonalDetails = () => {
         return res.data;
       })
       .catch((err) => {
-        return err.response.data;
+        return err.response;
       });
     if (
       updatedata.message === "User and Associated Info updated successfully"
@@ -123,6 +123,7 @@ const PersonalDetails = () => {
       dispatch(storeAction.isPopUpHander());
       setloading(false);
     }
+    getUserinfo();
   };
   const cancelbtn = () => {
     dispatch(storeAction.isPopUpHander());

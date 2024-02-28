@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 import React, { useRef, useState } from "react";
 import "./VideoResume.css";
 import user from "../../../../assests/User.svg";
@@ -76,7 +78,7 @@ const VideoResume = () => {
         return res.data;
       })
       .catch((err) => {
-        return err.response.data;
+        return err.response;
       });
     if (
       updatedata.message === "User and Associated Info updated successfully"

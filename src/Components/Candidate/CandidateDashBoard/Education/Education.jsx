@@ -47,8 +47,8 @@ const Education = () => {
 
   useEffect(() => {
     getUserinfo();
-  }, [userdata]);
-  
+  }, []);
+
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
       seteducationdata({
@@ -115,7 +115,7 @@ const Education = () => {
         return res.data;
       })
       .catch((err) => {
-        return err.response.data;
+        return err.response;
       });
     if (
       updatedata.message === "User and Associated Info updated successfully"
@@ -131,6 +131,7 @@ const Education = () => {
     } else {
       setloading(false);
     }
+    getUserinfo();
   };
   const fileInputRef = useRef(null);
 
