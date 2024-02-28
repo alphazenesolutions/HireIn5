@@ -6,12 +6,30 @@ import candidatePropoic from "../../../assests/CandidateProfile.png";
 import brief from "../../../assests/briefCase.png";
 import user from "../../../assests/User.svg";
 import map from "../../../assests/mapPin.png";
+import vedio from "../../../assests/Image.jpg";
+import gallery from "../../../assests/gallery.svg";
+import info from "../../../assests/help.svg";
 import { useSelector } from "react-redux";
 
 const CandidateProfileCard = (props) => {
   const singleuser = useSelector((store) => store.singleuser);
   const [isSelect, setIsSelect] = useState("demographic");
   const buttonHandler = (e) => {
+    if (isSelect == "demographic") {
+      setIsSelect1("personal");
+    }
+    if (isSelect == "assessments") {
+      setIsSelect1("technical");
+    }
+    if (isSelect == "workhistory") {
+      setIsSelect1("employ");
+    }
+    if (isSelect == "availability") {
+      setIsSelect1("available");
+    }
+    if (isSelect == "Rate Card") {
+      setIsSelect1("remote");
+    }
     setIsSelect(e.target.id);
   };
 
@@ -182,29 +200,51 @@ const CandidateProfileCard = (props) => {
                   )}
                   {isSelect === "assessments" && (
                     <div className="work">
-                      <h5 className="">Technical (Self)</h5>
-                      <h5>Certifications</h5>
-                      <h5>Hackerrank</h5>
-                      <h5>Personality</h5>
+                      <h5 onClick={buttonHandler1} id="technical">
+                        Technical (Self)
+                      </h5>
+                      <h5 onClick={buttonHandler1} id="certificate">
+                        Certifications
+                      </h5>
+                      <h5 onClick={buttonHandler1} id="hacker">
+                        Hackerrank
+                      </h5>
+                      <h5 onClick={buttonHandler1} id="personality">
+                        Personality
+                      </h5>
                     </div>
                   )}
                   {isSelect === "workhistory" && (
                     <div className="work">
-                      <h5 className="">Employment</h5>
-                      <h5>Projects</h5>
-                      <h5>Achievements</h5>
+                      <h5 onClick={buttonHandler1} id="employ">
+                        Employment
+                      </h5>
+                      <h5 onClick={buttonHandler1} id="project">
+                        Projects
+                      </h5>
+                      <h5 onClick={buttonHandler1} id="achievements">
+                        Achievements
+                      </h5>
                     </div>
                   )}
                   {isSelect === "availability" && (
                     <div className="work">
-                      <h5 className=""> Availability</h5>
-                      <h5>Travel History</h5>
+                      <h5 onClick={buttonHandler1} id="available">
+                        Availability
+                      </h5>
+                      <h5 onClick={buttonHandler1} id="travel">
+                        Travel History
+                      </h5>
                     </div>
                   )}
                   {isSelect === "Rate Card" && (
                     <div className="work">
-                      <h5 className="">Remote</h5>
-                      <h5>On-Site</h5>
+                      <h5 onClick={buttonHandler1} id="remote">
+                        Remote
+                      </h5>
+                      <h5 onClick={buttonHandler1} id="onSite">
+                        On-Site
+                      </h5>
                     </div>
                   )}
                 </div>
@@ -296,13 +336,219 @@ const CandidateProfileCard = (props) => {
                             : "-"
                           : "-"}
                       </h2>
-                      <h2> {singleuser[0].kyc_info !== null
+                      <h2>
+                        {" "}
+                        {singleuser[0].kyc_info !== null
                           ? singleuser[0].kyc_info.pan_number.length !== 0
                             ? singleuser[0].kyc_info.pan_number
                             : "-"
-                          : "-"}</h2>
+                          : "-"}
+                      </h2>
                       <h2>Uploaded</h2>
                     </div>
+                  </div>
+                </div>
+              )}
+              {isSelect1 === "technical" && (
+                <div className="technical">
+                  <div className="video">
+                    {/* <video controls src={vedio}></video> */}
+                    <img src={vedio} alt="" />
+                    <h1>Yasir Quazi’s Video Resume</h1>
+                    <h2>
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </h2>
+                  </div>
+                  <div className="bio">
+                    <h3>Bio</h3>
+                    <h4>
+                      “Lorem ipsum dolor sit amet consectetur. Mauris auctor
+                      faucibus suspendisse purus tristique morbi mattis nec.
+                      Neque sollicitudin proin egestas malesuada iaculis.
+                      Ultrices vulputate quis egestas sit metus velit leo a
+                      nibh. Amet odio purus risus sodales nunc tellus felis
+                      aliquam. Elit fringilla semper amet ut euismod.”
+                    </h4>
+                  </div>
+                </div>
+              )}
+              {isSelect1 === "certificate" && (
+                <div className="certification">
+                  <div className="certify">
+                    <h1>UI / UX Course by Google</h1>
+                    <h2>Google India </h2>
+                    <div className="date">
+                      <h3>Date Issued:</h3>
+                      <h4>23 / 04 / 2018</h4>
+                    </div>
+                    <div className="date">
+                      <h3>Skills:</h3>
+                      <h4>User Experience / User Interface Design</h4>
+                    </div>
+                    <h5>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed
+                    </h5>
+                    <div className="gradeCertificate1">
+                      <img src={gallery} alt="" />
+                      <div className="gradeCertificateDesc1">
+                        <h6>certificate01.jpeg</h6>
+                        <p>4 MB</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {isSelect1 === "hacker" && (
+                <div className="hacker">
+                  <div className="hackerInner">
+                    <h1>Link to Hackerrank score</h1>
+                    <a href="">https://hackerrank.com/test-score/yasirquazi</a>
+                  </div>
+                </div>
+              )}
+              {isSelect1 === "personality" && (
+                <div className="personality">
+                  <div className="personalityTest">
+                    <h1>personality assessment test result </h1>
+                    <div className="gradeCertificate1">
+                      <img src={gallery} alt="" />
+                      <div className="gradeCertificateDesc1">
+                        <h6>PersonalityTestResult.PDF</h6>
+                        <p>12 MB</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {isSelect1 === "employ" && (
+                <div className="employ">
+                  <h2>Java Developer</h2>
+                  <h3>PhonePe </h3>
+                  <h4>January 2018 - June 2024</h4>
+                  <h4>Hyderabad, India</h4>
+                  <h5>
+                    As always, all Htmlstream products are excellent with a very
+                    good personalization.
+                  </h5>
+                  <h6>
+                    Key Skills: <h5>Java,User Research,React.JSS</h5>
+                  </h6>
+                  <h2>Java Developer</h2>
+                  <h3>PhonePe </h3>
+                  <h4>January 2018 - June 2024</h4>
+                  <h4>Hyderabad, India</h4>
+                  <h5>
+                    As always, all Htmlstream products are excellent with a very
+                    good personalization.
+                  </h5>
+                  <h6>
+                    Gross Annual Salary: <h5>20,000</h5>
+                  </h6>
+                </div>
+              )}
+              {isSelect1 === "project" && (
+                <div className="project">
+                  <div className="projectInner">
+                    <h1>
+                      GreenScape City: Sustainable Urban Development Simulator
+                    </h1>
+                    <div className="projectFlex">
+                      <h2>Role:</h2>
+                      <h3>Lead Software Developer</h3>
+                    </div>
+                    <div className="projectFlex">
+                      <h2>Reporting to:</h2>
+                      <h3>Head of Development, CEO</h3>
+                    </div>
+                    <div className="projectFlex">
+                      <h2>Duration:</h2>
+                      <h3>January 2018 - December 2018</h3>
+                    </div>
+                    <div className="projectFlex1">
+                      <h2>Key Skills: </h2>
+                      <h3> Java, Python, React, JSS</h3>
+                    </div>
+                    <h4>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </h4>
+                  </div>
+                </div>
+              )}
+              {isSelect1 === "achievements" && (
+                <div className="achieve">
+                  <h2>No achievements to show</h2>
+                </div>
+              )}
+              {isSelect1 === "available" && (
+                <div className="available">
+                  <div className="availableFlex">
+                    <div className="availableFlexLeft">
+                      <h1>Availability</h1>
+                      <h1>Available from </h1>
+                      <h1>Full time /Part time?</h1>
+                      <h1>Preferred Work Timings</h1>
+                      <h1>Preferred method of working</h1>
+                      <h1>Preferred Work Locations</h1>
+                    </div>
+                    <div className="availableFlexRight">
+                      <h2>Yes</h2>
+                      <h2>03 / 08 / 2024</h2>
+                      <h2>Part time</h2>
+                      <h4>10:00 IST - 18:00 IST</h4>
+                      <h4>Remote, Hybrid</h4>
+                      <h4>Japan, United Kingdom, Singapore</h4>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {isSelect1 === "travel" && "travel history"}
+              {isSelect1 === "remote" && (
+                <div className="remote">
+                  <div className="remoteFlex">
+                    <div className="remoteFlexLeft">
+                      <h1>Hourly</h1>
+                      <h1>Monthly</h1>
+                      <h1>Annual</h1>
+                    </div>
+                    <div className="remoteFlexRight">
+                      <h2>USD 80</h2>
+                      <h2>USD 100</h2>
+                      <h2>USD 2000</h2>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {isSelect1 === "onSite" && (
+                <div className="remote">
+                  <div className="remoteFlex">
+                    <div className="remoteFlexLeft">
+                      <h1>Hourly</h1>
+                      <h1>Monthly</h1>
+                      <h1>Annual</h1>
+                    </div>
+                    <div className="remoteFlexRight">
+                      <h2>USD 80</h2>
+                      <h2>USD 100</h2>
+                      <h2>USD 2000</h2>
+                    </div>
+                  </div>
+                  <div className="onsiteNote">
+                    <img src={info} alt="" />
+                    <h5>
+                      Should you want the candidate to be based out of your
+                      location, and work on-site in your office, we can make
+                      that happen (for most countries).
+                      <h6>
+                        Please connect with your Customer Success Manager for
+                        further information.
+                      </h6>
+                    </h5>
                   </div>
                 </div>
               )}
