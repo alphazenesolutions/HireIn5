@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 import React, { useRef, useState } from "react";
 import "./VideoResume.css";
 import user from "../../../../assests/User.svg";
