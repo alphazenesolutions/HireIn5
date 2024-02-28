@@ -43,7 +43,7 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     getUserinfo();
-  }, [userdata]);
+  }, []);
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
@@ -110,7 +110,7 @@ const ProjectDetails = () => {
         return res.data;
       })
       .catch((err) => {
-        return err.response.data;
+        return err.response;
       });
     if (
       updatedata.message === "User and Associated Info updated successfully"
@@ -126,6 +126,7 @@ const ProjectDetails = () => {
     } else {
       setloading(false);
     }
+    getUserinfo();
   };
   return (
     <div>

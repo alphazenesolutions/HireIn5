@@ -36,115 +36,115 @@ const CandidateRegistration = () => {
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [dropDownList, setdropDownList] = useState([
-    "Algorithmic Problem Solving",
-    "Data Structures",
-    "Object-Oriented Programming (OOP)",
-    "Functional Programming",
-    "Concurrency",
-    "Error Handling and Debugging",
-    "Version Control (e.g., Git)",
-    "Code Collaboration",
-    "Code Review",
-    "Software Design Patterns",
-    "Refactoring",
-    "Unit Testing",
-    "Integration Testing",
-    "Test-Driven Development (TDD)",
-    "Continuous Integration/Continuous Deployment (CI/CD)",
-    "Maven",
-    "Gradle",
-    "npm",
-    "pip",
-    "Python",
-    "Ruby",
-    "Shell Scripting",
-    "Database Design",
-    "SQL and Database Management",
-    "NoSQL Databases",
-    "RESTful API Design",
-    "Web Services",
-    "Microservices Architecture",
-    "Docker",
-    "Kubernetes",
-    "Serverless Computing",
-    "AWS",
-    "Azure",
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React.js",
-    "Angular",
-    "Vue.js",
-    "Frontend Frameworks",
-    "Web Security Best Practices",
-    "Web Performance Optimization",
-    "Responsive Web Design",
-    "Mobile App Development (Native or Cross-platform)",
-    "React Native",
-    "Mobile App Design Principles",
-    "Progressive Web Apps (PWAs)",
-    "Desktop Application Development",
-    "Game Development",
-    "Augmented Reality (AR)",
-    "Virtual Reality (VR)",
-    "Machine Learning",
-    "Deep Learning",
-    "Natural Language Processing (NLP)",
-    "Computer Vision",
-    "Data Analysis and Visualization",
-    "Big Data Technologies",
-    "Hadoop",
-    "Spark",
-    "IoT (Internet of Things) Programming",
-    "Embedded Systems Programming",
-    "Network Programming",
-    "Blockchain Development",
-    "Smart Contracts",
-    "Security Programming",
-    "Cryptography",
-    "Reverse Engineering",
-    "API Integration",
-    "GraphQL",
-    "WebAssembly",
-    "Geospatial Programming",
-    "Parallel Programming",
-    "Distributed Systems",
-    "Functional Reactive Programming (FRP)",
-    "Cross-platform Development",
-    "Localization",
-    "Internationalization",
-    "Compiler Design",
-    "Computer Graphics Programming",
-    "Robotics Programming",
-    "Quantum Computing",
-    "Bioinformatics Programming",
-    "Natural Computing",
-    "Ethical Hacking",
-    "DevOps Practices",
-    "Server-side Rendering (SSR)",
-    "Static Site Generators",
-    "Progressive Enhancement",
-    "Web Accessibility (A11y)",
-    "Chatbot Development",
-    "Voice User Interface (VUI) Development",
-    "Human-Computer Interaction (HCI)",
-    "Agile Methodologies",
-    "Scrum",
-    "Kanban",
-    "Lean Software Development",
-    "Behavior-Driven Development (BDD)",
-    "User Acceptance Testing (UAT)",
-    "Pair Programming",
-    "Code Metrics",
-    "Code Analysis",
-    "Code Optimization",
-    "Technical Documentation",
-    "API Documentation",
-    "Knowledge of Design Thinking",
-    "Critical Thinking",
-    "Problem Solving",
-    "Adaptability",
-    "Effective Communication",
+    // "Algorithmic Problem Solving",
+    // "Data Structures",
+    // "Object-Oriented Programming (OOP)",
+    // "Functional Programming",
+    // "Concurrency",
+    // "Error Handling and Debugging",
+    // "Version Control (e.g., Git)",
+    // "Code Collaboration",
+    // "Code Review",
+    // "Software Design Patterns",
+    // "Refactoring",
+    // "Unit Testing",
+    // "Integration Testing",
+    // "Test-Driven Development (TDD)",
+    // "Continuous Integration/Continuous Deployment (CI/CD)",
+    // "Maven",
+    // "Gradle",
+    // "npm",
+    // "pip",
+    // "Python",
+    // "Ruby",
+    // "Shell Scripting",
+    // "Database Design",
+    // "SQL and Database Management",
+    // "NoSQL Databases",
+    // "RESTful API Design",
+    // "Web Services",
+    // "Microservices Architecture",
+    // "Docker",
+    // "Kubernetes",
+    // "Serverless Computing",
+    // "AWS",
+    // "Azure",
+    // "HTML",
+    // "CSS",
+    // "JavaScript",
+    // "React.js",
+    // "Angular",
+    // "Vue.js",
+    // "Frontend Frameworks",
+    // "Web Security Best Practices",
+    // "Web Performance Optimization",
+    // "Responsive Web Design",
+    // "Mobile App Development (Native or Cross-platform)",
+    // "React Native",
+    // "Mobile App Design Principles",
+    // "Progressive Web Apps (PWAs)",
+    // "Desktop Application Development",
+    // "Game Development",
+    // "Augmented Reality (AR)",
+    // "Virtual Reality (VR)",
+    // "Machine Learning",
+    // "Deep Learning",
+    // "Natural Language Processing (NLP)",
+    // "Computer Vision",
+    // "Data Analysis and Visualization",
+    // "Big Data Technologies",
+    // "Hadoop",
+    // "Spark",
+    // "IoT (Internet of Things) Programming",
+    // "Embedded Systems Programming",
+    // "Network Programming",
+    // "Blockchain Development",
+    // "Smart Contracts",
+    // "Security Programming",
+    // "Cryptography",
+    // "Reverse Engineering",
+    // "API Integration",
+    // "GraphQL",
+    // "WebAssembly",
+    // "Geospatial Programming",
+    // "Parallel Programming",
+    // "Distributed Systems",
+    // "Functional Reactive Programming (FRP)",
+    // "Cross-platform Development",
+    // "Localization",
+    // "Internationalization",
+    // "Compiler Design",
+    // "Computer Graphics Programming",
+    // "Robotics Programming",
+    // "Quantum Computing",
+    // "Bioinformatics Programming",
+    // "Natural Computing",
+    // "Ethical Hacking",
+    // "DevOps Practices",
+    // "Server-side Rendering (SSR)",
+    // "Static Site Generators",
+    // "Progressive Enhancement",
+    // "Web Accessibility (A11y)",
+    // "Chatbot Development",
+    // "Voice User Interface (VUI) Development",
+    // "Human-Computer Interaction (HCI)",
+    // "Agile Methodologies",
+    // "Scrum",
+    // "Kanban",
+    // "Lean Software Development",
+    // "Behavior-Driven Development (BDD)",
+    // "User Acceptance Testing (UAT)",
+    // "Pair Programming",
+    // "Code Metrics",
+    // "Code Analysis",
+    // "Code Optimization",
+    // "Technical Documentation",
+    // "API Documentation",
+    // "Knowledge of Design Thinking",
+    // "Critical Thinking",
+    // "Problem Solving",
+    // "Adaptability",
+    // "Effective Communication",
   ]);
   const [dropDownOpen, setdropDownClose] = useState(dropDownList);
   const [dropDownList1, setdropDownList1] = useState([
@@ -259,6 +259,7 @@ const CandidateRegistration = () => {
     website: "",
     languages: "",
     pincode: "",
+    countryaddress: "",
   });
   const [formdataerror, setformdataerror] = useState({
     firstname: false,
@@ -290,6 +291,7 @@ const CandidateRegistration = () => {
     website: false,
     languages: false,
     pincode: false,
+    countryaddress: false,
   });
 
   const handlechange = (e) => {
@@ -329,6 +331,7 @@ const CandidateRegistration = () => {
         website: false,
         languages: false,
         pincode: false,
+        countryaddress: false,
       });
       if (formdata.firstname.length === 0) {
         setformdataerror((values) => ({
@@ -487,6 +490,7 @@ const CandidateRegistration = () => {
           website: false,
           languages: false,
           pincode: false,
+          countryaddress: false,
         });
         setIsLoading(true);
         var newobj = {
@@ -500,6 +504,8 @@ const CandidateRegistration = () => {
             address: `${formdata.address1} ${formdata.address2}`,
             city: formdata.city,
             state: formdata.state,
+            pincode: formdata.pincode,
+            country: formdata.countryaddress,
           },
           kyc_info: {
             aadhar_number: formdata.aadhaar_number,
@@ -532,7 +538,7 @@ const CandidateRegistration = () => {
             return res.data;
           })
           .catch((err) => {
-            return err.response.data;
+            return err.response;
           });
 
         if (
@@ -794,7 +800,7 @@ const CandidateRegistration = () => {
               return res.data;
             })
             .catch((err) => {
-              return err.response.data;
+              return err.response;
             });
           if (
             update_data.message ===
@@ -827,7 +833,7 @@ const CandidateRegistration = () => {
           travelled_to: arrayOfStrings,
           relocate_for_work: arrayOfStrings1,
           country: travelform.country.split(","),
-          onlyfor: "test",
+          onlyfor: travelform.onlyfor,
           duration: travelform.duration,
           travel_readlines: travelform.travel_readlines,
         },
@@ -849,7 +855,7 @@ const CandidateRegistration = () => {
           return res.data;
         })
         .catch((err) => {
-          return err.response.data;
+          return err.response;
         });
       setIsLoading(false);
       if (
@@ -906,6 +912,7 @@ const CandidateRegistration = () => {
     travel_readlines: "",
     duration: "",
     country: "",
+    onlyfor: "",
   });
 
   const handlechange_travel = (e) => {
@@ -964,7 +971,6 @@ const CandidateRegistration = () => {
     relocate[index][name] = value;
     setrelocate([...relocate]);
   };
-  console.log(dropDownOpen, "dropDownOpen1");
   return (
     <>
       <div className="candidateRegistration">
@@ -1134,20 +1140,31 @@ const CandidateRegistration = () => {
                       )}
                     </div>
                   </div>
-                  <div className="candidateInfo h-full">
-                    <h3>Pinode</h3>
-                    <input
-                      type="text"
-                      placeholder="E.g. HR Manager"
-                      name="pincode"
-                      onChange={handlechange}
-                      defaultValue={formdata.pincode}
-                    />
-                    {formdataerror.title && (
-                      <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter Pincode
-                      </h6>
-                    )}
+                  <div className="candidatePlace">
+                    <div className="candidateInfo h-full">
+                      <h3>Country</h3>
+                      <input
+                        type="text"
+                        placeholder="Country"
+                        name="countryaddress"
+                        onChange={handlechange}
+                      />
+                    </div>
+                    <div className="candidateInfo h-full">
+                      <h3>Pinode</h3>
+                      <input
+                        type="text"
+                        placeholder="123456"
+                        name="pincode"
+                        onChange={handlechange}
+                        defaultValue={formdata.pincode}
+                      />
+                      {formdataerror.title && (
+                        <h6 className="text-red-500 text-xs font-semibold mt-2">
+                          Please Enter Pincode
+                        </h6>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1952,15 +1969,27 @@ const CandidateRegistration = () => {
                 </p>
               </div>
               <div className="candidateInfo h-full">
-                <h3>How long have you lived at your current residence?</h3>
+                <h3>Only for</h3>
                 <p>
-                  <input
+                  {/* <input
                     type="text"
                     placeholder=""
-                    name="lived_at_current_residence"
-                    defaultValue={travelform.lived_at_current_residence}
+                    name="onlyfor"
+                    defaultValue={travelform.onlyfor}
                     onChange={handlechange_travel}
-                  />
+                  /> */}
+                  <select
+                    name="onlyfor"
+                    defaultValue={travelform.onlyfor}
+                    onChange={handlechange_travel}
+                    className="w-full"
+                  >
+                    <option value="">Select Only for</option>
+                    <option value="Work Onsite">Work Onsite</option>
+                    <option value="Short-term business visit">
+                      Short-term business visit
+                    </option>
+                  </select>
                 </p>
               </div>
               <div className="travelDuration">

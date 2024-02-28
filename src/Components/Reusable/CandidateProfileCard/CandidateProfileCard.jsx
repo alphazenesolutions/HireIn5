@@ -13,15 +13,12 @@ const CandidateProfileCard = (props) => {
   const [isSelect, setIsSelect] = useState("demographic");
   const buttonHandler = (e) => {
     setIsSelect(e.target.id);
-    console.log(isSelect);
   };
 
   const [isSelect1, setIsSelect1] = useState("personal");
   const buttonHandler1 = (e) => {
     setIsSelect1(e.target.id);
-    console.log(isSelect1);
   };
-  console.log(singleuser, "singleuser");
   return (
     <div>
       <div className={props.main}>

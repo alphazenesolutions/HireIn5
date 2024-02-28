@@ -68,7 +68,7 @@ const ClientLogin = () => {
           return res.data;
         })
         .catch((err) => {
-          return err.response.data;
+          return err.response;
         });
       if (loginuser.access !== undefined) {
         const token = loginuser.access;
