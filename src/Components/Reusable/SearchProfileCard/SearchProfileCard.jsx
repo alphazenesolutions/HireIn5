@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import axios from "axios";
 
-const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
+const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
   const dispatch = useDispatch();
   const bookmarkdata = useSelector((store) => store.bookmarkdata);
   const token = useSelector((store) => store.token);
@@ -75,6 +75,10 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
       dispatch(storeAction.bookmarkdataHander({ bookmarkdata: [] }));
     }
     settabledata(table_data);
+  };
+  const viewbtn = (data) => {
+    setIsPage("page2");
+    dispatch(storeAction.singleuserHander({ singleuser: [data] }));
   };
   return (
     <div>
@@ -167,7 +171,12 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve }) => {
                   >
                     Reserve candidate
                   </button>
-                  <button className="cartbtnimgbutton2">view</button>
+                  <button
+                    className="cartbtnimgbutton2"
+                    onClick={() => viewbtn(datanew)}
+                  >
+                    view
+                  </button>
                 </div>
               </div>
             </div>

@@ -16,6 +16,7 @@ const StoreSlice = createSlice({
     bookmarkdata: [],
     userdata: [],
     loginrole: null,
+    singleuser: [],
   },
   reducers: {
     roleHandler(state, payload) {
@@ -44,6 +45,9 @@ const StoreSlice = createSlice({
     },
     loginroleHander(state, action) {
       state.loginrole = action.payload.loginrole;
+    },
+    singleuserHander(state, action) {
+      state.singleuser = action.payload.singleuser;
     },
   },
 });
