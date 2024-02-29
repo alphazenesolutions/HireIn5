@@ -96,6 +96,7 @@ const Table = (props) => {
           Authorization: `JWT ${token}`,
         },
       };
+
       var table_data = await axios(config1)
         .then(function (response) {
           return response.data;
@@ -103,6 +104,7 @@ const Table = (props) => {
         .catch(function (error) {
           return error;
         });
+      console.log(table_data, "table_data");
       if (table_data.length !== 0) {
         const bookmarkedUserArray = table_data.map(
           (item) => item.bookmarked_user

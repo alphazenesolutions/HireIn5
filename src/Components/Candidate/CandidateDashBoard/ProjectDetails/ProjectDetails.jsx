@@ -43,7 +43,7 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     getUserinfo();
-  }, []);
+  }, [userdata.length !== 0]);
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
@@ -119,7 +119,10 @@ const ProjectDetails = () => {
         ...userdata[0],
         project_details_info: updatedata.user.project_details_info,
       };
-      dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      dispatch(storeAction.userdataHander({ userdata: [] }));
+      setTimeout(() => {
+        dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      }, 10);
       dispatch(storeAction.isPopUpHander());
 
       setloading(false);

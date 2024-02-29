@@ -21,6 +21,7 @@ import axios from "axios";
 import { storeAction } from "../../../../Store/Store";
 import Dragoption from "./Dragoption";
 import { FiLoader } from "react-icons/fi";
+import Skilllist from "../../../../assests/skillsJSON.json";
 
 const CandidateRegistration = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page1");
+  const [isPage, setIsPage] = useState("page2");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -223,7 +224,7 @@ const CandidateRegistration = () => {
   const routeHandler = () => {
     if (isPage === "page4") {
       dispatch(storeAction.isloginHandler({ islogin: true }));
-      navigate("/profile");
+      window.location.replace("/profile");
     } else {
     }
   };
@@ -1178,7 +1179,7 @@ const CandidateRegistration = () => {
                         </h6>
                       )}
                     </div>
- <div className="candidateInfo h-full">
+                    <div className="candidateInfo h-full">
                       <h3>Pinode</h3>
                       <input
                         type="text"
@@ -1186,6 +1187,7 @@ const CandidateRegistration = () => {
                         name="pincode"
                         onChange={handlechange}
                         defaultValue={formdata.pincode}
+                        maxLength={6}
                       />
                       {formdataerror.title && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
@@ -2068,7 +2070,7 @@ const CandidateRegistration = () => {
                     defaultValue={travelform.lived_at_current_residence}
                     onChange={handlechange_travel}
                   /> */}
-                 
+
                   <select
                     name="onlyfor"
                     defaultValue={travelform.onlyfor}
@@ -2122,9 +2124,11 @@ const CandidateRegistration = () => {
                       defaultValue={travelform.travel_readlines}
                       onChange={handlechange_travel}
                     >
-                       <option value="">Select Travel Readlines</option>
+                      <option value="">Select Travel Readlines</option>
                       <option value="Immediate">Immediate</option>
-                      <option value="In the next 6 months">In the next 6 months</option>
+                      <option value="In the next 6 months">
+                        In the next 6 months
+                      </option>
                       <option value="6 months">6 months</option>
                     </select>
                   </p>

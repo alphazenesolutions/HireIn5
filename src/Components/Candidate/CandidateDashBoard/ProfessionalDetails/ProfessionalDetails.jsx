@@ -46,7 +46,7 @@ const ProfessionalDetails = () => {
 
   useEffect(() => {
     getUserinfo();
-  }, []);
+  }, [userdata.length !== 0]);
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
@@ -135,7 +135,10 @@ const ProfessionalDetails = () => {
         ...userdata[0],
         professional_details_info: updatedata.user.professional_details_info,
       };
-      dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      dispatch(storeAction.userdataHander({ userdata: [] }));
+      setTimeout(() => {
+        dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      }, 10);
       dispatch(storeAction.isPopUpHander());
 
       setloading(false);

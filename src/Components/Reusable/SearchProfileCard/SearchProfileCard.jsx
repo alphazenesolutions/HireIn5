@@ -64,6 +64,7 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
       .catch(function (error) {
         return error;
       });
+    console.log(table_data, "table_data 22");
     if (table_data.length !== 0) {
       const bookmarkedUserArray = table_data.map(
         (item) => item.bookmarked_user

@@ -32,7 +32,7 @@ const PersonalDetails = () => {
   };
   useEffect(() => {
     getUserinfo();
-  }, []);
+  }, [userdata.length !== 0]);
 
   const [formdata, setformdata] = useState({
     name: "",
@@ -72,6 +72,10 @@ const PersonalDetails = () => {
         country:
           userdata[0].address !== null ? userdata[0].address.country : null,
       });
+    } else {
+      setTimeout(() => {
+        getUserinfo();
+      }, 1000);
     }
   };
   const handlechange = (e) => {
@@ -119,7 +123,10 @@ const PersonalDetails = () => {
     if (
       updatedata.message === "User and Associated Info updated successfully"
     ) {
-      dispatch(storeAction.userdataHander({ userdata: [updatedata.user] }));
+      dispatch(storeAction.userdataHander({ userdata: [] }));
+      setTimeout(() => {
+        dispatch(storeAction.userdataHander({ userdata: [updatedata.user] }));
+      }, 10);
       dispatch(storeAction.isPopUpHander());
       setloading(false);
     }

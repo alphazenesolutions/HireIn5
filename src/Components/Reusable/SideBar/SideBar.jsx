@@ -40,13 +40,15 @@ const SideBar = (props) => {
         .catch((err) => {
           return err.response;
         });
-      if (userinfo.id !== undefined) {
-        dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
-      } else {
-        dispatch(storeAction.isloginHandler({ islogin: false }));
-        dispatch(storeAction.tokenHandler({ token: null }));
-        dispatch(storeAction.useridHandler({ userid: 5 }));
-        window.location.replace("/login");
+      if (userinfo !== undefined) {
+        if (userinfo.id !== undefined) {
+          dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
+        } else {
+          dispatch(storeAction.isloginHandler({ islogin: false }));
+          dispatch(storeAction.tokenHandler({ token: null }));
+          dispatch(storeAction.useridHandler({ userid: 5 }));
+          window.location.replace("/login");
+        }
       }
     } else {
       dispatch(storeAction.isloginHandler({ islogin: false }));
