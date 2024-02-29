@@ -31,7 +31,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page3");
+  const [isPage, setIsPage] = useState("page1");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -1175,35 +1175,9 @@ const CandidateRegistration = () => {
                         Please Enter Pincode
                       </h6>
                     )}
-=======
-                  </div>
-                  <div className="candidatePlace">
-                    <div className="candidateInfo h-full">
-                      <h3>Country</h3>
-                      <input
-                        type="text"
-                        placeholder="Country"
-                        name="countryaddress"
-                        onChange={handlechange}
-                      />
-                    </div>
-                    <div className="candidateInfo h-full">
-                      <h3>Pinode</h3>
-                      <input
-                        type="text"
-                        placeholder="123456"
-                        name="pincode"
-                        onChange={handlechange}
-                        defaultValue={formdata.pincode}
-                      />
-                      {formdataerror.title && (
-                        <h6 className="text-red-500 text-xs font-semibold mt-2">
-                          Please Enter Pincode
-                        </h6>
-                      )}
-                    </div>
 
                   </div>
+               
                   </div>
                 </div>
               </div>
