@@ -31,7 +31,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page3");
+  const [isPage, setIsPage] = useState("page1");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -1178,7 +1178,7 @@ const CandidateRegistration = () => {
                         </h6>
                       )}
                     </div>
-                    <div className="candidateInfo h-full">
+ <div className="candidateInfo h-full">
                       <h3>Pinode</h3>
                       <input
                         type="text"

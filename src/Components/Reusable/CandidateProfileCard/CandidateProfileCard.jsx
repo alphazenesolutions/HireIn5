@@ -517,7 +517,7 @@ const CandidateProfileCard = (props) => {
                   </div>
                 </div>
               )}
-              {isSelect1 === "travel" && "travel history"}
+              {isSelect1 === "travel" && <div className="travel"></div>}
               {isSelect1 === "remote" && (
                 <div className="remote">
                   <div className="remoteFlex">
