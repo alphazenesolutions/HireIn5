@@ -296,6 +296,13 @@ const CandidateRegistration = () => {
 
   const handlechange = (e) => {
     const { name, value } = e.target;
+    if (name == "phone") {
+      if (/^\d*\.?\d*$/.test(value)) {
+        console.log("object");
+      } else {
+        console.log("noo");
+      }
+    }
     setformdata((values) => ({ ...values, [name]: value }));
   };
   async function pageHandler(e) {
@@ -333,6 +340,8 @@ const CandidateRegistration = () => {
         pincode: false,
         countryaddress: false,
       });
+      var validRegex =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
       if (formdata.firstname.length === 0) {
         setformdataerror((values) => ({
           ...values,
@@ -356,276 +365,293 @@ const CandidateRegistration = () => {
           ...values,
           email: true,
         }));
-      } else if (formdata.phone.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          email: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          phone: true,
-        }));
-      } else if (formdata.dob.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          phone: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          dob: true,
-        }));
-      } else if (formdata.address1.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          dob: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          address1: true,
-        }));
-      } else if (formdata.city.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          address1: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          city: true,
-        }));
-      } else if (formdata.state.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          city: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          state: true,
-        }));
-      } else if (formdata.pincode.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          state: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          pincode: true,
-        }));
-      } else if (formdata.aadhaar_number.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          pincode: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          aadhaar_number: true,
-        }));
-      } else if (formdata.aadhaarfront.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          aadhaar_number: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          aadhaarfront: true,
-        }));
-      } else if (formdata.aadhaarback.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          aadhaarfront: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          aadhaarback: true,
-        }));
-      } else if (formdata.pan_number.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          aadhaarback: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          pan_number: true,
-        }));
-      } else if (formdata.pan_front.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          pan_number: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          pan_front: true,
-        }));
-      } else {
-        setformdataerror((values) => ({
-          ...values,
-          pan_front: false,
-        }));
-        setformdataerror({
-          firstname: false,
-          lastname: false,
-          email: false,
-          phone: false,
-          dob: false,
-          address1: false,
-          address2: false,
-          city: false,
-          state: false,
-          title: false,
-          aadhaar_number: false,
-          aadhaarfront: false,
-          aadhaarback: false,
-          pan_number: false,
-          pan_front: false,
-          passport_no: false,
-          valid_until: false,
-          country: false,
-          passport_front: false,
-          passport_back: false,
-          qualification: false,
-          experience: false,
-          skill: false,
-          linkedin: false,
-          hackerrank: false,
-          github: false,
-          website: false,
-          languages: false,
-          pincode: false,
-          countryaddress: false,
-        });
-        setIsLoading(true);
-        var newobj = {
-          username: signupdata.username,
-          phone: formdata.phone,
-          title: formdata.title,
-          date_of_birth: formdata.dob,
-          first_name: `${formdata.firstname} ${formdata.lastname}`,
-          role: "3",
-          address: {
-            address: `${formdata.address1} ${formdata.address2}`,
-            city: formdata.city,
-            state: formdata.state,
-            pincode: formdata.pincode,
-            country: formdata.countryaddress,
-          },
-          kyc_info: {
-            aadhar_number: formdata.aadhaar_number,
-            aadhar_front: formdata.aadhaarfront,
-            aadhar_back: formdata.aadhaarback,
-            pan_number: formdata.pan_number,
-            pan_front: formdata.pan_front,
-          },
-          passport_info: {
-            passport_number: formdata.passport_no,
-            passport_validity: formdata.valid_until,
-            country_of_citizenship: formdata.country_of_citizenship,
-            country_of_issue: formdata.country_of_issue,
-            passport_front: formdata.passport_front,
-            passport_back: formdata.passport_back,
-          },
-        };
-        var updatedata = await axios
-          .put(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
-            newobj,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `JWT ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            return res.data;
-          })
-          .catch((err) => {
-            return err.response;
-          });
-
-        if (
-          updatedata.message === "User and Associated Info updated successfully"
-        ) {
-          setIsPage("page2");
-          routeHandler();
-          setfinalerrorstatus(false);
-          setfinalerror(null);
-          setfinalerrortype(null);
-          setIsLoading(false);
+      } else if (formdata.email.match(validRegex)) {
+        if (formdata.phone.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            email: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            phone: true,
+          }));
+        } else if (formdata.dob.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            phone: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            dob: true,
+          }));
+        } else if (formdata.address1.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            dob: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            address1: true,
+          }));
+        } else if (formdata.city.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            address1: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            city: true,
+          }));
+        } else if (formdata.state.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            city: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            state: true,
+          }));
+        } else if (formdata.pincode.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            state: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            pincode: true,
+          }));
+        } else if (formdata.aadhaar_number.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            pincode: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            aadhaar_number: true,
+          }));
+        } else if (formdata.aadhaarfront.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            aadhaar_number: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            aadhaarfront: true,
+          }));
+        } else if (formdata.aadhaarback.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            aadhaarfront: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            aadhaarback: true,
+          }));
+        } else if (formdata.pan_number.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            aadhaarback: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            pan_number: true,
+          }));
+        } else if (formdata.pan_front.length === 0) {
+          setformdataerror((values) => ({
+            ...values,
+            pan_number: false,
+          }));
+          setformdataerror((values) => ({
+            ...values,
+            pan_front: true,
+          }));
         } else {
-          setIsLoading(false);
-          if (updatedata.username === undefined) {
-            if (updatedata.phone === undefined) {
-              if (updatedata.title === undefined) {
-                if (updatedata.first_name === undefined) {
-                  if (updatedata.passport_info === undefined) {
-                    if (updatedata.kyc_info === undefined) {
+          setformdataerror((values) => ({
+            ...values,
+            pan_front: false,
+          }));
+          setformdataerror({
+            firstname: false,
+            lastname: false,
+            email: false,
+            phone: false,
+            dob: false,
+            address1: false,
+            address2: false,
+            city: false,
+            state: false,
+            title: false,
+            aadhaar_number: false,
+            aadhaarfront: false,
+            aadhaarback: false,
+            pan_number: false,
+            pan_front: false,
+            passport_no: false,
+            valid_until: false,
+            country: false,
+            passport_front: false,
+            passport_back: false,
+            qualification: false,
+            experience: false,
+            skill: false,
+            linkedin: false,
+            hackerrank: false,
+            github: false,
+            website: false,
+            languages: false,
+            pincode: false,
+            countryaddress: false,
+          });
+          setIsLoading(true);
+          var newobj = {
+            username: signupdata.username,
+            phone: formdata.phone,
+            title: formdata.title,
+            date_of_birth: formdata.dob,
+            first_name: `${formdata.firstname} ${formdata.lastname}`,
+            role: "3",
+            address: {
+              address: `${formdata.address1} ${formdata.address2}`,
+              city: formdata.city,
+              state: formdata.state,
+              pincode: formdata.pincode,
+              country: formdata.countryaddress,
+            },
+            kyc_info: {
+              aadhar_number: formdata.aadhaar_number,
+              aadhar_front: formdata.aadhaarfront,
+              aadhar_back: formdata.aadhaarback,
+              pan_number: formdata.pan_number,
+              pan_front: formdata.pan_front,
+            },
+            passport_info: {
+              passport_number: formdata.passport_no,
+              passport_validity: formdata.valid_until,
+              country_of_citizenship: formdata.country_of_citizenship,
+              country_of_issue: formdata.country_of_issue,
+              passport_front: formdata.passport_front,
+              passport_back: formdata.passport_back,
+            },
+          };
+          var updatedata = await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+              newobj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+
+          if (
+            updatedata.message ===
+            "User and Associated Info updated successfully"
+          ) {
+            setIsPage("page2");
+            routeHandler();
+            setfinalerrorstatus(false);
+            setfinalerror(null);
+            setfinalerrortype(null);
+            setIsLoading(false);
+          } else {
+            setIsLoading(false);
+            if (updatedata.username === undefined) {
+              if (updatedata.phone === undefined) {
+                if (updatedata.title === undefined) {
+                  if (updatedata.first_name === undefined) {
+                    if (updatedata.passport_info === undefined) {
+                      if (updatedata.kyc_info === undefined) {
+                      } else {
+                        setfinalerrorstatus(true);
+                        setfinalerror(updatedata.kyc_info.aadhar_number);
+                        setfinalerrortype("aadhar_number");
+                      }
                     } else {
-                      setfinalerrorstatus(true);
-                      setfinalerror(updatedata.kyc_info.aadhar_number);
-                      setfinalerrortype("aadhar_number");
-                    }
-                  } else {
-                    if (
-                      updatedata.passport_info.passport_number === undefined
-                    ) {
                       if (
-                        updatedata.passport_info.passport_validity === undefined
+                        updatedata.passport_info.passport_number === undefined
                       ) {
                         if (
-                          updatedata.passport_info.country_of_citizenship ===
+                          updatedata.passport_info.passport_validity ===
                           undefined
                         ) {
                           if (
-                            updatedata.passport_info.country_of_issue ===
+                            updatedata.passport_info.country_of_citizenship ===
                             undefined
                           ) {
+                            if (
+                              updatedata.passport_info.country_of_issue ===
+                              undefined
+                            ) {
+                            } else {
+                              setfinalerrorstatus(true);
+                              setfinalerror(
+                                updatedata.passport_info.country_of_issue
+                              );
+                              setfinalerrortype("country_of_issue");
+                            }
                           } else {
                             setfinalerrorstatus(true);
                             setfinalerror(
-                              updatedata.passport_info.country_of_issue
+                              updatedata.passport_info.country_of_citizenship
                             );
-                            setfinalerrortype("country_of_issue");
+                            setfinalerrortype("country_of_citizenship");
                           }
                         } else {
                           setfinalerrorstatus(true);
                           setfinalerror(
-                            updatedata.passport_info.country_of_citizenship
+                            updatedata.passport_info.passport_validity
                           );
-                          setfinalerrortype("country_of_citizenship");
+                          setfinalerrortype("passport_validity");
                         }
                       } else {
                         setfinalerrorstatus(true);
-                        setfinalerror(
-                          updatedata.passport_info.passport_validity
-                        );
-                        setfinalerrortype("passport_validity");
+                        setfinalerror(updatedata.passport_info.passport_number);
+                        setfinalerrortype("passport_number");
                       }
-                    } else {
-                      setfinalerrorstatus(true);
-                      setfinalerror(updatedata.passport_info.passport_number);
-                      setfinalerrortype("passport_number");
                     }
+                  } else {
+                    setfinalerrorstatus(true);
+                    setfinalerror(updatedata.first_name);
+                    setfinalerrortype("first_name");
                   }
                 } else {
                   setfinalerrorstatus(true);
-                  setfinalerror(updatedata.first_name);
-                  setfinalerrortype("first_name");
+                  setfinalerror(updatedata.title);
+                  setfinalerrortype("title");
                 }
               } else {
                 setfinalerrorstatus(true);
-                setfinalerror(updatedata.title);
-                setfinalerrortype("title");
+                setfinalerror(updatedata.phone);
+                setfinalerrortype("phone");
               }
             } else {
               setfinalerrorstatus(true);
-              setfinalerror(updatedata.phone);
-              setfinalerrortype("phone");
+              setfinalerror(updatedata.username);
+              setfinalerrortype("username");
             }
-          } else {
-            setfinalerrorstatus(true);
-            setfinalerror(updatedata.username);
-            setfinalerrortype("username");
           }
         }
+        setformdataerror((values) => ({
+          ...values,
+          email: false,
+        }));
+      } else {
+        setformdataerror((values) => ({
+          ...values,
+          lastname: false,
+        }));
+        setformdataerror((values) => ({
+          ...values,
+          email: true,
+        }));
       }
     } else if (isPage === "page2") {
       setformdataerror({
@@ -699,15 +725,6 @@ const CandidateRegistration = () => {
         setformdataerror((values) => ({
           ...values,
           linkedin: true,
-        }));
-      } else if (formdata.hackerrank.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          linkedin: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          hackerrank: true,
         }));
       } else if (formdata.github.length === 0) {
         setformdataerror((values) => ({
@@ -1032,7 +1049,7 @@ const CandidateRegistration = () => {
                     />
                     {formdataerror.email && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter Email ID
+                        Please Enter Valid Email ID
                       </h6>
                     )}
                   </div>
@@ -1043,16 +1060,17 @@ const CandidateRegistration = () => {
                         <option value="">+91</option>
                       </select>
                       <input
-                        type="number"
+                        type="text"
                         placeholder="9876543210"
                         name="phone"
+                        maxLength={12}
                         onChange={handlechange}
                         defaultValue={formdata.phone}
                       />
                     </p>
                     {formdataerror.phone && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter Phone
+                        Please Enter Valid Phone
                       </h6>
                     )}
                   </div>
@@ -1104,7 +1122,7 @@ const CandidateRegistration = () => {
                 </div>
                 <div className="candidateAddress">
                   <div className="candidatePlace">
-                  <div className="candidateInfo h-full">
+                    <div className="candidateInfo h-full">
                       <h3>Country</h3>
                       <div className="candidateState">
                         <select
@@ -1118,7 +1136,7 @@ const CandidateRegistration = () => {
                           <option value="TamilNadu">UK</option>
                         </select>
                       </div>
-                     {formdataerror.state && (
+                      {formdataerror.state && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
                           Please Select State
                         </h6>
@@ -1139,10 +1157,9 @@ const CandidateRegistration = () => {
                         </h6>
                       )}
                     </div>
-                    
                   </div>
                   <div className="candidatePlace">
-                  <div className="candidateInfo h-full">
+                    <div className="candidateInfo h-full">
                       <h3>State</h3>
                       <div className="candidateState">
                         <select
@@ -1161,23 +1178,21 @@ const CandidateRegistration = () => {
                         </h6>
                       )}
                     </div>
-                  <div className="candidateInfo h-full">
-                    <h3>Pinode</h3>
-                    <input
-                      type="text"
-                      placeholder="e.g. 560013"
-                      name="pincode"
-                      onChange={handlechange}
-                      defaultValue={formdata.pincode}
-                    />
-                    {formdataerror.title && (
-                      <h6 className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter Pincode
-                      </h6>
-                    )}
-
-                  </div>
-               
+ <div className="candidateInfo h-full">
+                      <h3>Pinode</h3>
+                      <input
+                        type="text"
+                        placeholder="e.g. 560013"
+                        name="pincode"
+                        onChange={handlechange}
+                        defaultValue={formdata.pincode}
+                      />
+                      {formdataerror.title && (
+                        <h6 className="text-red-500 text-xs font-semibold mt-2">
+                          Please Enter Pincode
+                        </h6>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1518,10 +1533,12 @@ const CandidateRegistration = () => {
                         name="experience"
                         onChange={handlechange}
                       /> */}
-                      <select id=""
-                       name="experience"
-                       onChange={handlechange}>
+                      <select name="experience" onChange={handlechange}>
                         <option value="">Year and Months</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>{" "}
+                        <option value="4">4</option>
                       </select>
                     </p>
                     {formdataerror.experience && (
@@ -1629,13 +1646,6 @@ const CandidateRegistration = () => {
               </div>
               <div className="candidateInfo h-full">
                 <div className="addressLine">
-
-                 {displaymessages && <div className="warningmessage">
-                    <h6>In case you have not taken a HackerRack Test but have undertaken another globally recognised test, please mention the name of the test and the score</h6>
-                  </div>}
-                  <h3>HackerRank <PiWarningCircle className="warningicon" onMouseLeave={displaymsg1} onMouseOver={displaymsg}/></h3>
-                  <h3 className="option">Optional</h3>
-
                   {displaymessages && (
                     <div className="warningmessage">
                       <h6>
@@ -1653,8 +1663,26 @@ const CandidateRegistration = () => {
                       onMouseOver={displaymsg}
                     />
                   </h3>
-                  <h3>Optional</h3>
+                  <h3 className="option">Optional</h3>
 
+                  {displaymessages && (
+                    <div className="warningmessage">
+                      <h6>
+                        In case you have not taken a HackerRack Test but have
+                        undertaken another globally recognised test, please
+                        mention the name of the test and the score
+                      </h6>
+                    </div>
+                  )}
+                  {/* <h3>
+                    HackerRank{" "}
+                    <PiWarningCircle
+                      className="warningicon"
+                      onMouseLeave={displaymsg1}
+                      onMouseOver={displaymsg}
+                    />
+                  </h3>
+                  <h3>Optional</h3> */}
                 </div>
                 <input
                   type="text"
@@ -1662,11 +1690,11 @@ const CandidateRegistration = () => {
                   name="hackerrank"
                   onChange={handlechange}
                 />
-                {formdataerror.hackerrank && (
+                {/* {formdataerror.hackerrank && (
                   <h6 className="text-red-500 text-xs font-semibold mt-2">
                     Please Enter HackerRank
                   </h6>
-                )}
+                )} */}
               </div>
               <div className="candidateInfo h-full">
                 <div className="addressLine">
@@ -1887,19 +1915,21 @@ const CandidateRegistration = () => {
                                 }}
                                 defaultValue={data.duration}
                               /> */}
-                              <select id="" 
-                              name="duration"
-                              onChange={(e) => {
-                                handlechangetravel(
-                                  e.target.value, 
-                                  index, 
-                                  "duration")}}
-                                  defaultValue={data.duration}
-
+                              <select
+                                id=""
+                                name="duration"
+                                onChange={(e) => {
+                                  handlechangetravel(
+                                    e.target.value,
+                                    index,
+                                    "duration"
+                                  );
+                                }}
+                                defaultValue={data.duration}
                               >
-                                <option value="">3-6 months</option>
-                                <option value="">6-12 months</option>
-                                <option value=""> 12 months</option>
+                                <option value="3-6 months">3-6 months</option>
+                                <option value="6-12 month">6-12 months</option>
+                                <option value="12 months"> 12 months</option>
                               </select>
                             </p>
                           </div>
@@ -1977,15 +2007,14 @@ const CandidateRegistration = () => {
                     onChange={handlechange_travel}
                   /> */}
                   <select
-                  name="current_place_of_residence"
-                  defaultValue={travelform.current_place_of_residence}
-                  onChange={handlechange_travel}
+                    name="current_place_of_residence"
+                    defaultValue={travelform.current_place_of_residence}
+                    onChange={handlechange_travel}
                   >
-  <option value="">Country</option>
-  <option value="">India</option>
-  <option value="">USA</option>
- 
-</select>
+                    <option value="">Country</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                  </select>
                 </p>
               </div>
               <div className="candidateInfo h-full">
@@ -2017,15 +2046,15 @@ const CandidateRegistration = () => {
                     defaultValue={travelform.country}
                     onChange={handlechange_travel}
                   /> */}
-                   <select
-                   name="country"
-                   defaultValue={travelform.country}
-                   onChange={handlechange_travel}
+                  <select
+                    name="country"
+                    defaultValue={travelform.country}
+                    onChange={handlechange_travel}
                   >
-  <option value="">Country</option>
-  <option value="">India</option>
-  <option value="">USA</option>
-</select>
+                    <option value="">Country</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                  </select>
                 </p>
               </div>
               <div className="candidateInfo h-full">
@@ -2039,13 +2068,7 @@ const CandidateRegistration = () => {
                     defaultValue={travelform.lived_at_current_residence}
                     onChange={handlechange_travel}
                   /> */}
-                  <select name="lived_at_current_residence" id="" 
-                  defaultValue={travelform.lived_at_current_residence}
-                  onChange={handlechange_travel}
-                  >
-                    <option value="">Work Onsite</option>
-                    <option value="">Short-term business visit</option>
-</select>
+                 
                   <select
                     name="onlyfor"
                     defaultValue={travelform.onlyfor}
@@ -2057,7 +2080,6 @@ const CandidateRegistration = () => {
                     <option value="Short-term business visit">
                       Short-term business visit
                     </option>
-
                   </select>
                 </p>
               </div>
@@ -2072,16 +2094,16 @@ const CandidateRegistration = () => {
                       defaultValue={travelform.duration}
                       onChange={handlechange_travel}
                     /> */}
-                     <select id=""
+                    <select
+                      id=""
                       name="duration"
                       defaultValue={travelform.duration}
                       onChange={handlechange_travel}
-                     
-                     >
-                                <option value="">3-6 months</option>
-                                <option value="">6-12 months</option>
-                                <option value=""> 12 months</option>
-                              </select>
+                    >
+                      <option value="3-6 months">3-6 months</option>
+                      <option value="6-12 months">6-12 months</option>
+                      <option value="12 months"> 12 months</option>
+                    </select>
                   </p>
                 </div>
                 <div className="candidateInfo h-full">
@@ -2094,15 +2116,17 @@ const CandidateRegistration = () => {
                       defaultValue={travelform.travel_readlines}
                       onChange={handlechange_travel}
                     /> */}
-                     <select id=""
+                    <select
+                      id=""
                       name="travel_readlines"
                       defaultValue={travelform.travel_readlines}
                       onChange={handlechange_travel}
-                     >
-                                <option value="">Immediate</option>
-                                <option value="">In the next 6 months</option>
-                                <option value="">6 months</option>
-                              </select>
+                    >
+                       <option value="">Select Travel Readlines</option>
+                      <option value="Immediate">Immediate</option>
+                      <option value="In the next 6 months">In the next 6 months</option>
+                      <option value="6 months">6 months</option>
+                    </select>
                   </p>
                 </div>
               </div>
@@ -2126,18 +2150,20 @@ const CandidateRegistration = () => {
                         }}
                         defaultValue={relocate.are_you_willing}
                       /> */}
-                      <select name="" id=""
-                      onChange={(e) => {
-                        handlechangerelocate(
-                          e.target.value,
-                          index,
-                          "are_you_willing"
-                        );
-                      }}
-                      defaultValue={relocate.are_you_willing}
+                      <select
+                        name=""
+                        id=""
+                        onChange={(e) => {
+                          handlechangerelocate(
+                            e.target.value,
+                            index,
+                            "are_you_willing"
+                          );
+                        }}
+                        defaultValue={relocate.are_you_willing}
                       >
-                        <option value="">Yes</option>
-                        <option value="">No</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
                       </select>
                     </p>
                   </div>
@@ -2159,19 +2185,21 @@ const CandidateRegistration = () => {
                         }}
                         defaultValue={relocate.preferred_countries}
                       /> */}
-                      <select name="" id=""
-                       onChange={(e) => {
-                        handlechangerelocate(
-                          e.target.value,
-                          index,
-                          "preferred_countries"
-                        );
-                      }}
-                      defaultValue={relocate.preferred_countries}
+                      <select
+                        name=""
+                        id=""
+                        onChange={(e) => {
+                          handlechangerelocate(
+                            e.target.value,
+                            index,
+                            "preferred_countries"
+                          );
+                        }}
+                        defaultValue={relocate.preferred_countries}
                       >
-                         <option value="">Country</option>
-                         <option value="">India</option>
-                         <option value="">USA</option>
+                        <option value="">Country</option>
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
                       </select>
                     </p>
                   </div>
@@ -2190,20 +2218,21 @@ const CandidateRegistration = () => {
                         }}
                         defaultValue={relocate.how_long}
                       /> */}
-                      <select name="" id=""
-                      
-                      onChange={(e) => {
-                        handlechangerelocate(
-                          e.target.value,
-                          index,
-                          "how_long"
-                        );
-                      }}
-                      defaultValue={relocate.how_long}
+                      <select
+                        name=""
+                        id=""
+                        onChange={(e) => {
+                          handlechangerelocate(
+                            e.target.value,
+                            index,
+                            "how_long"
+                          );
+                        }}
+                        defaultValue={relocate.how_long}
                       >
                         <option value="">Select duration</option>
-                        <option value="">6-12 months</option>
-                        <option value=""> 12months</option>
+                        <option value="6-12 months">6-12 months</option>
+                        <option value="12months"> 12months</option>
                       </select>
                     </p>
                   </div>
