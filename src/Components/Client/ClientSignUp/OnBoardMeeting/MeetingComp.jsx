@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "./MeetingComp.css";
 import Head from "../../../Reusable/LogoHead/Head";
@@ -19,7 +20,7 @@ const MeetingComp = () => {
   const routeHandler = () => {
     if (isPage === "successPage") {
       dispatch(storeAction.isloginHandler({ islogin: true }));
-      navigate("/dashboard");
+      navigate("/discover");
     } else {
     }
   };

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useState } from "react";
 import "./WorkExperience.css";
 import user from "../../../../assests/User.svg";

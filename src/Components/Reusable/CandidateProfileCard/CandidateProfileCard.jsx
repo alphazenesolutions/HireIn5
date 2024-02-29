@@ -6,47 +6,18 @@ import candidatePropoic from "../../../assests/CandidateProfile.png";
 import brief from "../../../assests/briefCase.png";
 import user from "../../../assests/User.svg";
 import map from "../../../assests/mapPin.png";
+import { useSelector } from "react-redux";
 
 const CandidateProfileCard = (props) => {
-  const [isSelect1, setIsSelect1] = useState(false);
-  const buttonHandler1 = () => {
-    setIsSelect1(true);
-    setIsSelect2(false);
-    setIsSelect3(false);
-    setIsSelect4(false);
-    setIsSelect5(false);
+  const singleuser = useSelector((store) => store.singleuser);
+  const [isSelect, setIsSelect] = useState("demographic");
+  const buttonHandler = (e) => {
+    setIsSelect(e.target.id);
   };
-  const [isSelect2, setIsSelect2] = useState(false);
-  const buttonHandler2 = () => {
-    setIsSelect1(false);
-    setIsSelect2(true);
-    setIsSelect3(false);
-    setIsSelect4(false);
-    setIsSelect5(false);
-  };
-  const [isSelect3, setIsSelect3] = useState(false);
-  const buttonHandler3 = () => {
-    setIsSelect1(false);
-    setIsSelect2(false);
-    setIsSelect3(true);
-    setIsSelect4(false);
-    setIsSelect5(false);
-  };
-  const [isSelect4, setIsSelect4] = useState(false);
-  const buttonHandler4 = () => {
-    setIsSelect1(false);
-    setIsSelect2(false);
-    setIsSelect3(false);
-    setIsSelect4(true);
-    setIsSelect5(false);
-  };
-  const [isSelect5, setIsSelect5] = useState(false);
-  const buttonHandler5 = () => {
-    setIsSelect1(false);
-    setIsSelect2(false);
-    setIsSelect3(false);
-    setIsSelect4(false);
-    setIsSelect5(true);
+
+  const [isSelect1, setIsSelect1] = useState("personal");
+  const buttonHandler1 = (e) => {
+    setIsSelect1(e.target.id);
   };
   return (
     <div>
@@ -65,13 +36,13 @@ const CandidateProfileCard = (props) => {
             </h4>
           </div>
         </div>
-        {props.reserveduser.length !== 0 ? (
+        {singleuser.length !== 0 ? (
           <div className="mainProfile">
             <div className="profileLeft">
               <div className="profileLeftTop">
                 <img src={candidatePropoic} alt="" />
-                <h1>{props.reserveduser[0].first_name}</h1>
-                <h2>USD 80 / HR</h2>
+                <h1>{singleuser[0].first_name}</h1>
+                <h2>USD {singleuser[0].hourly_rate} / HR</h2>
                 <div className="available">
                   <p>Available from</p>
                   <h5>03 Aug 2024</h5>
@@ -79,10 +50,10 @@ const CandidateProfileCard = (props) => {
               </div>
               <div className="profileLeftMiddle">
                 <h3>TOP SKILLS</h3>
-                {props.reserveduser[0].preference_info !== null ? (
+                {singleuser[0].preference_info !== null ? (
                   <div className="proSkills">
-                    {props.reserveduser[0].preference_info.skills.length !== 0
-                      ? props.reserveduser[0].preference_info.skills.map(
+                    {singleuser[0].preference_info.skills.length !== 0
+                      ? singleuser[0].preference_info.skills.map(
                           (data, index) =>
                             index == 0 || index == 1 || index == 2 ? (
                               <div className="skillOne" key={index}>
@@ -107,15 +78,12 @@ const CandidateProfileCard = (props) => {
                 ) : null}
 
                 <div className="proExperienceWrap">
-                  {props.reserveduser[0].preference_info !== null ? (
+                  {singleuser[0].preference_info !== null ? (
                     <div className="proExperience">
                       <img src={brief} alt="" />
                       <h5>
-                        {
-                          props.reserveduser[0].preference_info
-                            .year_of_experience
-                        }{" "}
-                        years of experience
+                        {singleuser[0].preference_info.year_of_experience} years
+                        of experience
                       </h5>
                     </div>
                   ) : null}
@@ -141,179 +109,203 @@ const CandidateProfileCard = (props) => {
                 </button>
               </div>
             </div>
+            {/* profile card Right */}
             <div className="profileRight">
               <div className="profileRightHead">
-                <div
-                  onClick={buttonHandler1}
-                  className={isSelect1 === true ? "workActive" : "work"}
+                <h2
+                  id="demographic"
+                  className={
+                    isSelect === "demographic"
+                      ? "profileRightHeadH2Active"
+                      : "profileRightHeadH2"
+                  }
+                  onClick={buttonHandler}
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M13.334 4.66699H2.66732C1.93094 4.66699 1.33398 5.26395 1.33398 6.00033V12.667C1.33398 13.4034 1.93094 14.0003 2.66732 14.0003H13.334C14.0704 14.0003 14.6673 13.4034 14.6673 12.667V6.00033C14.6673 5.26395 14.0704 4.66699 13.334 4.66699Z"
-                      stroke={isSelect1 === true ? "#8b5cf6" : "#1F2937"}
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M10.6673 14V3.33333C10.6673 2.97971 10.5268 2.64057 10.2768 2.39052C10.0267 2.14048 9.68761 2 9.33398 2H6.66732C6.3137 2 5.97456 2.14048 5.72451 2.39052C5.47446 2.64057 5.33398 2.97971 5.33398 3.33333V14"
-                      stroke={isSelect1 === true ? "#8b5cf6" : "#1F2937"}
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <h5>Work</h5>
+                  Demographics
+                </h2>
+                <h2
+                  id="assessments"
+                  className={
+                    isSelect === "assessments"
+                      ? "profileRightHeadH2Active"
+                      : "profileRightHeadH2"
+                  }
+                  onClick={buttonHandler}
+                >
+                  Assessments
+                </h2>
+                <h2
+                  id="workhistory"
+                  className={
+                    isSelect === "workhistory"
+                      ? "profileRightHeadH2Active"
+                      : "profileRightHeadH2"
+                  }
+                  onClick={buttonHandler}
+                >
+                  Work History
+                </h2>
+                <h2
+                  id="availability"
+                  className={
+                    isSelect === "availability"
+                      ? "profileRightHeadH2Active"
+                      : "profileRightHeadH2"
+                  }
+                  onClick={buttonHandler}
+                >
+                  Availability
+                </h2>
+                <h2
+                  id="Rate Card"
+                  className={
+                    isSelect === "Rate Card"
+                      ? "profileRightHeadH2Active"
+                      : "profileRightHeadH2"
+                  }
+                  onClick={buttonHandler}
+                >
+                  Rate Card
+                </h2>
+              </div>
+              <div className="profileRightSubHead">
+                <div className="profileRightHead2">
+                  {isSelect === "demographic" && (
+                    <div className="work">
+                      <h5 onClick={buttonHandler1} id="personal">
+                        Personal Details
+                      </h5>
+                      <h5 onClick={buttonHandler1} id="background">
+                        Background Verification
+                      </h5>
+                    </div>
+                  )}
+                  {isSelect === "assessments" && (
+                    <div className="work">
+                      <h5 className="">Technical (Self)</h5>
+                      <h5>Certifications</h5>
+                      <h5>Hackerrank</h5>
+                      <h5>Personality</h5>
+                    </div>
+                  )}
+                  {isSelect === "workhistory" && (
+                    <div className="work">
+                      <h5 className="">Employment</h5>
+                      <h5>Projects</h5>
+                      <h5>Achievements</h5>
+                    </div>
+                  )}
+                  {isSelect === "availability" && (
+                    <div className="work">
+                      <h5 className=""> Availability</h5>
+                      <h5>Travel History</h5>
+                    </div>
+                  )}
+                  {isSelect === "Rate Card" && (
+                    <div className="work">
+                      <h5 className="">Remote</h5>
+                      <h5>On-Site</h5>
+                    </div>
+                  )}
                 </div>
-                <div
-                  onClick={buttonHandler2}
-                  className={isSelect2 === true ? "workActive" : "work"}
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4.00065 9.33333L4.96732 7.4C5.07863 7.1791 5.24919 6.99353 5.45994 6.86402C5.67068 6.73451 5.91329 6.66618 6.16065 6.66667H13.334M13.334 6.66667C13.5377 6.66631 13.7387 6.71262 13.9217 6.80206C14.1047 6.89149 14.2648 7.02166 14.3897 7.18258C14.5146 7.3435 14.6009 7.53089 14.6421 7.73037C14.6833 7.92985 14.6782 8.13611 14.6273 8.33333L13.594 12.3333C13.52 12.6199 13.3527 12.8738 13.1186 13.0548C12.8844 13.2359 12.5966 13.3339 12.3007 13.3333H2.66732C2.3137 13.3333 1.97456 13.1929 1.72451 12.9428C1.47446 12.6928 1.33398 12.3536 1.33398 12V3.33333C1.33398 2.6 1.93398 2 2.66732 2H5.28732C5.50693 2.00114 5.72286 2.0565 5.91592 2.16117C6.10898 2.26585 6.2732 2.41659 6.39398 2.6L6.94065 3.4C7.06144 3.58341 7.22565 3.73415 7.41872 3.83883C7.61178 3.9435 7.82771 3.99886 8.04732 4H12.0007C12.3543 4 12.6934 4.14048 12.9435 4.39052C13.1935 4.64057 13.334 4.97971 13.334 5.33333V6.66667Z"
-                      stroke={isSelect2 === true ? "#8b5cf6" : "#1F2937"}
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
+              </div>
+              {isSelect1 == "personal" && (
+                <div className="personal">
+                  <div className="personalFlex">
+                    <div className="personalFlexLeft">
+                      <h1>Full Name</h1>
+                      {/* <h1>Last Name</h1> */}
+                      <h1>Email ID</h1>
+                      <h1>Phone no.</h1>
+                      <h1>Date of birth</h1>
+                      <h1>Address</h1>
+                      {/* <h1>Address Line 2</h1> */}
+                      <h1>Country</h1>
+                      <h1>City</h1>
+                      <h1>State</h1>
+                      <h1>Pincode</h1>
+                    </div>
 
-                  <h5>Projects</h5>
-                </div>
-                <div
-                  onClick={buttonHandler3}
-                  className={isSelect3 === true ? "workActive" : "work"}
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 9.33301C10.2091 9.33301 12 7.54215 12 5.33301C12 3.12387 10.2091 1.33301 8 1.33301C5.79086 1.33301 4 3.12387 4 5.33301C4 7.54215 5.79086 9.33301 8 9.33301Z"
-                      stroke={isSelect3 === true ? "#8b5cf6" : "#1F2937"}
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M10.3173 8.59375L11.3327 14.6671L7.99935 12.6671L4.66602 14.6671L5.68135 8.59375"
-                      stroke={isSelect3 === true ? "#8b5cf6" : "#1F2937"}
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <h5>Certificate</h5>
-                </div>
-                <div
-                  onClick={buttonHandler4}
-                  className={isSelect4 === true ? "workActive" : "work"}
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g clip-path="url(#clip0_1557_2030)">
-                      <path
-                        d="M8.00065 14.6663C11.6825 14.6663 14.6673 11.6816 14.6673 7.99967C14.6673 4.31778 11.6825 1.33301 8.00065 1.33301C4.31875 1.33301 1.33398 4.31778 1.33398 7.99967C1.33398 11.6816 4.31875 14.6663 8.00065 14.6663Z"
-                        stroke={isSelect4 === true ? "#8b5cf6" : "#1F2937"}
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M1.33398 8H14.6673"
-                        stroke={isSelect4 === true ? "#8b5cf6" : "#1F2937"}
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M8.00065 1.33301C9.66817 3.15858 10.6158 5.5277 10.6673 7.99967C10.6158 10.4717 9.66817 12.8408 8.00065 14.6663C6.33313 12.8408 5.38548 10.4717 5.33398 7.99967C5.38548 5.5277 6.33313 3.15858 8.00065 1.33301Z"
-                        stroke={isSelect4 === true ? "#8b5cf6" : "#1F2937"}
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_1557_2030">
-                        <rect width="16" height="16" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                  <h5>Travel History</h5>
-                </div>
-                <div
-                  onClick={buttonHandler5}
-                  className={isSelect5 === true ? "workActive" : "work"}
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12.6673 14V12.6667C12.6673 11.9594 12.3864 11.2811 11.8863 10.781C11.3862 10.281 10.7079 10 10.0007 10H6.00065C5.29341 10 4.61513 10.281 4.11503 10.781C3.61494 11.2811 3.33398 11.9594 3.33398 12.6667V14"
-                      stroke={isSelect5 === true ? "#8b5cf6" : "#1F2937"}
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M8.00065 7.33333C9.47341 7.33333 10.6673 6.13943 10.6673 4.66667C10.6673 3.19391 9.47341 2 8.00065 2C6.52789 2 5.33398 3.19391 5.33398 4.66667C5.33398 6.13943 6.52789 7.33333 8.00065 7.33333Z"
-                      stroke={isSelect5 === true ? "#8b5cf6" : "#1F2937"}
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
+                    <div className="personalFlexRight">
+                      <h2>{singleuser[0].first_name}</h2>
+                      {/* <h2>Narreddi</h2> */}
+                      <h2>{singleuser[0].email}</h2>
+                      <h2>{singleuser[0].phone}</h2>
+                      <h2>
+                        {singleuser[0].date_of_birth.length === 0
+                          ? "-"
+                          : singleuser[0].date_of_birth}
+                      </h2>
+                      <h2>
+                        {singleuser[0].address !== null
+                          ? singleuser[0].address.address.length !== 0
+                            ? singleuser[0].address.address
+                            : "-"
+                          : ""}
+                      </h2>
 
-                  <h5>Personal</h5>
+                      <h2>
+                        {" "}
+                        {singleuser[0].address !== null
+                          ? singleuser[0].address.country.length !== 0
+                            ? singleuser[0].address.country
+                            : "-"
+                          : ""}
+                      </h2>
+                      <h2>
+                        {" "}
+                        {singleuser[0].address !== null
+                          ? singleuser[0].address.state.length !== 0
+                            ? singleuser[0].address.state
+                            : "-"
+                          : "-"}
+                      </h2>
+                      <h2>
+                        {" "}
+                        {singleuser[0].address !== null
+                          ? singleuser[0].address.city.length !== 0
+                            ? singleuser[0].address.city
+                            : "-"
+                          : "-"}
+                      </h2>
+                      <h2>
+                        {singleuser[0].address !== null
+                          ? singleuser[0].address.pincode.length !== 0
+                            ? singleuser[0].address.pincode
+                            : "-"
+                          : "-"}
+                      </h2>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="profileDetails">
-                <h1>Java Developer</h1>
-                <h2>PhonePe </h2>
-                <h3>January 2018 - June 2024</h3>
-                <h6>Hyderabad, India</h6>
-                <h4>
-                  As always, all Htmlstream products are excellent with a very
-                  good personalization.
-                </h4>
-                <h5>
-                  <span className="key">Key Skills:</span> Java, User Research,
-                  React, JSS
-                </h5>
-                <h5>
-                  <span className="key"></span>
-                </h5>
-              </div>
-              <div className="profileDetails">
-                <h1>Software Intern</h1>
-                <h2>Google </h2>
-                <h3>June 2016 - May 2017</h3>
-                <h6>Bengaluru, India</h6>
-                <h4>A year long membership to level my skills</h4>
-                <h5>
-                  <span className="key">Key Skills:</span> Java, User Research,
-                  React, JSS
-                </h5>
-                <h5>
-                  <span className="key">Gross Annual Salary:</span> 20,000
-                </h5>
-              </div>
+              )}
+              {isSelect1 == "background" && (
+                <div className="personal">
+                  <div className="personalFlex">
+                    <div className="backgrundFlexLeft">
+                      <h1>Aadhaar number</h1>
+                      <h1>PAN number</h1>
+                      <h1>Background Verification</h1>
+                    </div>
+                    <div className="backgroundFlexRight">
+                      <h2>
+                        {" "}
+                        {singleuser[0].kyc_info !== null
+                          ? singleuser[0].kyc_info.aadhar_number.length !== 0
+                            ? singleuser[0].kyc_info.aadhar_number
+                            : "-"
+                          : "-"}
+                      </h2>
+                      <h2> {singleuser[0].kyc_info !== null
+                          ? singleuser[0].kyc_info.pan_number.length !== 0
+                            ? singleuser[0].kyc_info.pan_number
+                            : "-"
+                          : "-"}</h2>
+                      <h2>Uploaded</h2>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ) : null}

@@ -52,7 +52,7 @@ const Resetpasswordcomp = () => {
               return res.data;
             })
             .catch((err) => {
-              return err.response.data;
+              return err.response;
             });
           if (updatepassword.message === "Password updated successfully") {
             setIsPage(event.target.id);

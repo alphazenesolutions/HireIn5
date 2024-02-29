@@ -39,7 +39,7 @@ const ForgetComp = () => {
             return res.data;
           })
           .catch((err) => {
-            return err.response.data;
+            return err.response;
           });
         if (sendurl.message === "Reset password link sent successfully.") {
           setIsPage("page2");

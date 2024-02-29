@@ -10,13 +10,17 @@ import WorkExperience from "../WorkExperience/WorkExperience";
 import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import recEye from "../../../../assests/RecEye.svg";
 import TravelHistory from "../../../Candidate/CandidateDashBoard/TravelHistory/TravelHistory";
-
 import CandidateProfileCard from "../../../Reusable/CandidateProfileCard/CandidateProfileCard";
+import { useDispatch, useSelector } from "react-redux";
+import { storeAction } from "../../../../Store/Store";
 
 const CandidateProfile = () => {
+  const dispatch = useDispatch();
+  const userdata = useSelector((store) => store.userdata);
   const [isPage, setIsPage] = useState(false);
   const pageHandler = (event) => {
     setIsPage(!isPage);
+    dispatch(storeAction.singleuserHander({ singleuser: userdata }));
   };
   return (
     <div>

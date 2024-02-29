@@ -77,7 +77,7 @@ const TravelHistory = () => {
 
   useEffect(() => {
     Getalldata();
-  }, [userdata]);
+  }, []);
   const Getalldata = async () => {
     if (userdata.length !== 0) {
       if (userdata[0].travel_info !== null) {
@@ -239,7 +239,7 @@ const TravelHistory = () => {
         return res.data;
       })
       .catch((err) => {
-        return err.response.data;
+        return err.response;
       });
     if (
       updatedata.message === "User and Associated Info updated successfully"
@@ -254,6 +254,7 @@ const TravelHistory = () => {
     } else {
       setloading(false);
     }
+    Getalldata();
   };
   return (
     <div>

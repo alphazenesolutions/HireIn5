@@ -8,14 +8,12 @@ import { useNavigate } from "react-router-dom";
 import back from "../../../../assests/back.png";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 
 const SignUpComp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const role = useSelector((store) => store.role);
   const [isButton, setIsButton] = useState(false);
 
   const ButtonHandler = (e) => {
@@ -77,7 +75,7 @@ const SignUpComp = () => {
         email: signupdata.username,
         username: signupdata.username,
         password: signupdata.password,
-        role: role === "Client" ? 2 : 1,
+        role: 2,
       };
 
       var createuser = await axios
@@ -86,7 +84,7 @@ const SignUpComp = () => {
           return res.data;
         })
         .catch((err) => {
-          return err.response.data;
+          return err.response;
         });
       if (createuser.access_token !== undefined) {
         dispatch(storeAction.tokenHandler({ token: createuser.access_token }));
