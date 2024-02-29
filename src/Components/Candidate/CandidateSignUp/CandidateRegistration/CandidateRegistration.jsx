@@ -31,7 +31,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page1");
+  const [isPage, setIsPage] = useState("page3");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -1091,7 +1091,7 @@ const CandidateRegistration = () => {
                   <div className="candidateInfo h-full">
                     <div className="addressLine">
                       <h3>Address line 2</h3>
-                      <h3>Optional</h3>
+                      <h3 className="option">Optional</h3>
                     </div>
                     <input
                       type="text"
@@ -1104,6 +1104,26 @@ const CandidateRegistration = () => {
                 </div>
                 <div className="candidateAddress">
                   <div className="candidatePlace">
+                  <div className="candidateInfo h-full">
+                      <h3>Country</h3>
+                      <div className="candidateState">
+                        <select
+                          id=""
+                          name="state"
+                          onChange={handlechange}
+                          defaultValue={formdata.state}
+                        >
+                          <option value="">India</option>
+                          <option value="Karnataka">USA</option>
+                          <option value="TamilNadu">UK</option>
+                        </select>
+                      </div>
+                     {formdataerror.state && (
+                        <h6 className="text-red-500 text-xs font-semibold mt-2">
+                          Please Select State
+                        </h6>
+                      )}
+                    </div>
                     <div className="candidateInfo h-full">
                       <h3>City</h3>
                       <input
@@ -1119,7 +1139,10 @@ const CandidateRegistration = () => {
                         </h6>
                       )}
                     </div>
-                    <div className="candidateInfo h-full">
+                    
+                  </div>
+                  <div className="candidatePlace">
+                  <div className="candidateInfo h-full">
                       <h3>State</h3>
                       <div className="candidateState">
                         <select
@@ -1128,7 +1151,6 @@ const CandidateRegistration = () => {
                           onChange={handlechange}
                           defaultValue={formdata.state}
                         >
-                          <option value="">Select State</option>
                           <option value="Karnataka">Karnataka</option>
                           <option value="TamilNadu">TamilNadu</option>
                         </select>
@@ -1139,6 +1161,21 @@ const CandidateRegistration = () => {
                         </h6>
                       )}
                     </div>
+                  <div className="candidateInfo h-full">
+                    <h3>Pinode</h3>
+                    <input
+                      type="text"
+                      placeholder="e.g. 560013"
+                      name="pincode"
+                      onChange={handlechange}
+                      defaultValue={formdata.pincode}
+                    />
+                    {formdataerror.title && (
+                      <h6 className="text-red-500 text-xs font-semibold mt-2">
+                        Please Enter Pincode
+                      </h6>
+                    )}
+=======
                   </div>
                   <div className="candidatePlace">
                     <div className="candidateInfo h-full">
@@ -1165,6 +1202,8 @@ const CandidateRegistration = () => {
                         </h6>
                       )}
                     </div>
+
+                  </div>
                   </div>
                 </div>
               </div>
@@ -1499,12 +1538,17 @@ const CandidateRegistration = () => {
                   <div className="candidateInfo h-full">
                     <h3>Total years of Experience</h3>
                     <p>
-                      <input
+                      {/* <input
                         type="number"
                         placeholder="0-1"
                         name="experience"
                         onChange={handlechange}
-                      />
+                      /> */}
+                      <select id=""
+                       name="experience"
+                       onChange={handlechange}>
+                        <option value="">Year and Months</option>
+                      </select>
                     </p>
                     {formdataerror.experience && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
@@ -1611,6 +1655,13 @@ const CandidateRegistration = () => {
               </div>
               <div className="candidateInfo h-full">
                 <div className="addressLine">
+
+                 {displaymessages && <div className="warningmessage">
+                    <h6>In case you have not taken a HackerRack Test but have undertaken another globally recognised test, please mention the name of the test and the score</h6>
+                  </div>}
+                  <h3>HackerRank <PiWarningCircle className="warningicon" onMouseLeave={displaymsg1} onMouseOver={displaymsg}/></h3>
+                  <h3 className="option">Optional</h3>
+
                   {displaymessages && (
                     <div className="warningmessage">
                       <h6>
@@ -1629,6 +1680,7 @@ const CandidateRegistration = () => {
                     />
                   </h3>
                   <h3>Optional</h3>
+
                 </div>
                 <input
                   type="text"
@@ -1645,7 +1697,7 @@ const CandidateRegistration = () => {
               <div className="candidateInfo h-full">
                 <div className="addressLine">
                   <h3>GitHub</h3>
-                  <h3>Optional</h3>
+                  <h3 className="option">Optional</h3>
                 </div>
                 <input
                   type="text"
@@ -1662,7 +1714,7 @@ const CandidateRegistration = () => {
               <div className="candidateInfo h-full">
                 <div className="addressLine">
                   <h3>Personal Website</h3>
-                  <h3>Optional</h3>
+                  <h3 className="option">Optional</h3>
                 </div>
                 <input
                   type="text"
@@ -1819,8 +1871,9 @@ const CandidateRegistration = () => {
                                 }}
                                 defaultValue={data.country}
                               >
-                                <option value="">Select Country</option>
+                                <option value="">Country</option>
                                 <option value="India">India</option>
+                                <option value="India">USA</option>
                               </select>
                             </div>
                             {formdataerror.state && (
@@ -1848,7 +1901,7 @@ const CandidateRegistration = () => {
                           <div className="candidateInfo h-full">
                             <h3>Duration</h3>
                             <p>
-                              <input
+                              {/* <input
                                 type="number"
                                 placeholder=""
                                 onChange={(e) => {
@@ -1859,7 +1912,21 @@ const CandidateRegistration = () => {
                                   );
                                 }}
                                 defaultValue={data.duration}
-                              />
+                              /> */}
+                              <select id="" 
+                              name="duration"
+                              onChange={(e) => {
+                                handlechangetravel(
+                                  e.target.value, 
+                                  index, 
+                                  "duration")}}
+                                  defaultValue={data.duration}
+
+                              >
+                                <option value="">3-6 months</option>
+                                <option value="">6-12 months</option>
+                                <option value=""> 12 months</option>
+                              </select>
                             </p>
                           </div>
                         </div>
@@ -1928,13 +1995,23 @@ const CandidateRegistration = () => {
               <div className="candidateInfo h-full">
                 <h3>Current place of residence</h3>
                 <p>
-                  <input
+                  {/* <input
                     type="text"
                     placeholder="Country"
                     name="current_place_of_residence"
                     defaultValue={travelform.current_place_of_residence}
                     onChange={handlechange_travel}
-                  />
+                  /> */}
+                  <select
+                  name="current_place_of_residence"
+                  defaultValue={travelform.current_place_of_residence}
+                  onChange={handlechange_travel}
+                  >
+  <option value="">Country</option>
+  <option value="">India</option>
+  <option value="">USA</option>
+ 
+</select>
                 </p>
               </div>
               <div className="candidateInfo h-full">
@@ -1959,13 +2036,22 @@ const CandidateRegistration = () => {
                   <h3 title="">Select upto 3 countries</h3>
                 </div>
                 <p>
-                  <input
+                  {/* <input
                     type="text"
                     placeholder="Country"
                     name="country"
                     defaultValue={travelform.country}
                     onChange={handlechange_travel}
-                  />
+                  /> */}
+                   <select
+                   name="country"
+                   defaultValue={travelform.country}
+                   onChange={handlechange_travel}
+                  >
+  <option value="">Country</option>
+  <option value="">India</option>
+  <option value="">USA</option>
+</select>
                 </p>
               </div>
               <div className="candidateInfo h-full">
@@ -1973,11 +2059,19 @@ const CandidateRegistration = () => {
                 <p>
                   {/* <input
                     type="text"
-                    placeholder=""
-                    name="onlyfor"
-                    defaultValue={travelform.onlyfor}
+
+                    placeholder="Work Onsite"
+                    name="lived_at_current_residence"
+                    defaultValue={travelform.lived_at_current_residence}
                     onChange={handlechange_travel}
                   /> */}
+                  <select name="lived_at_current_residence" id="" 
+                  defaultValue={travelform.lived_at_current_residence}
+                  onChange={handlechange_travel}
+                  >
+                    <option value="">Work Onsite</option>
+                    <option value="">Short-term business visit</option>
+</select>
                   <select
                     name="onlyfor"
                     defaultValue={travelform.onlyfor}
@@ -1989,6 +2083,7 @@ const CandidateRegistration = () => {
                     <option value="Short-term business visit">
                       Short-term business visit
                     </option>
+
                   </select>
                 </p>
               </div>
@@ -1996,25 +2091,44 @@ const CandidateRegistration = () => {
                 <div className="candidateInfo h-full">
                   <h3>Duration</h3>
                   <p>
-                    <input
+                    {/* <input
                       type="number"
                       placeholder="Short Term - 6 months"
                       name="duration"
                       defaultValue={travelform.duration}
                       onChange={handlechange_travel}
-                    />
+                    /> */}
+                     <select id=""
+                      name="duration"
+                      defaultValue={travelform.duration}
+                      onChange={handlechange_travel}
+                     
+                     >
+                                <option value="">3-6 months</option>
+                                <option value="">6-12 months</option>
+                                <option value=""> 12 months</option>
+                              </select>
                   </p>
                 </div>
                 <div className="candidateInfo h-full">
-                  <h3>Travel Readlines</h3>
+                  <h3>Readlines to Travel</h3>
                   <p>
-                    <input
+                    {/* <input
                       type="text"
                       placeholder="Immediate"
                       name="travel_readlines"
                       defaultValue={travelform.travel_readlines}
                       onChange={handlechange_travel}
-                    />
+                    /> */}
+                     <select id=""
+                      name="travel_readlines"
+                      defaultValue={travelform.travel_readlines}
+                      onChange={handlechange_travel}
+                     >
+                                <option value="">Immediate</option>
+                                <option value="">In the next 6 months</option>
+                                <option value="">6 months</option>
+                              </select>
                   </p>
                 </div>
               </div>
@@ -2024,9 +2138,9 @@ const CandidateRegistration = () => {
               {relocate.map((data, index) => (
                 <div key={index}>
                   <div className="candidateInfo h-full">
-                    <h3>Are you willing to relocate?</h3>
+                    <h3>Willingness to relocate</h3>
                     <p>
-                      <input
+                      {/* <input
                         type="text"
                         placeholder="Yes"
                         onChange={(e) => {
@@ -2037,19 +2151,29 @@ const CandidateRegistration = () => {
                           );
                         }}
                         defaultValue={relocate.are_you_willing}
-                      />
-                      {/* <select name="" id="">
-                        <option value=""></option>
-                      </select> */}
+                      /> */}
+                      <select name="" id=""
+                      onChange={(e) => {
+                        handlechangerelocate(
+                          e.target.value,
+                          index,
+                          "are_you_willing"
+                        );
+                      }}
+                      defaultValue={relocate.are_you_willing}
+                      >
+                        <option value="">Yes</option>
+                        <option value="">No</option>
+                      </select>
                     </p>
                   </div>
                   <div className="candidateInfo h-full">
                     <div className="infoDetails">
-                      <h3>What are your preferred countries to relocate to?</h3>
+                      <h3>Preferred countries</h3>
                       <h3 title="">Select up to 3 countries</h3>
                     </div>
                     <p>
-                      <input
+                      {/* <input
                         type="text"
                         placeholder=""
                         onChange={(e) => {
@@ -2060,13 +2184,27 @@ const CandidateRegistration = () => {
                           );
                         }}
                         defaultValue={relocate.preferred_countries}
-                      />
+                      /> */}
+                      <select name="" id=""
+                       onChange={(e) => {
+                        handlechangerelocate(
+                          e.target.value,
+                          index,
+                          "preferred_countries"
+                        );
+                      }}
+                      defaultValue={relocate.preferred_countries}
+                      >
+                         <option value="">Country</option>
+                         <option value="">India</option>
+                         <option value="">USA</option>
+                      </select>
                     </p>
                   </div>
                   <div className="candidateInfo h-full">
-                    <h3>How long are you willing to relocate for?</h3>
+                    <h3>Preferred duration for relocation</h3>
                     <p>
-                      <input
+                      {/* <input
                         type="text"
                         placeholder="Country"
                         onChange={(e) => {
@@ -2077,9 +2215,21 @@ const CandidateRegistration = () => {
                           );
                         }}
                         defaultValue={relocate.how_long}
-                      />
-                      <select name="" id="">
-                        <option value=""></option>
+                      /> */}
+                      <select name="" id=""
+                      
+                      onChange={(e) => {
+                        handlechangerelocate(
+                          e.target.value,
+                          index,
+                          "how_long"
+                        );
+                      }}
+                      defaultValue={relocate.how_long}
+                      >
+                        <option value="">Select duration</option>
+                        <option value="">6-12 months</option>
+                        <option value=""> 12months</option>
                       </select>
                     </p>
                   </div>
