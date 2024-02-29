@@ -237,12 +237,14 @@
     height: 42px;
     border: 1px solid var(--borderColor);
     border-radius: 7px;
-    padding: 15px;
+    padding: 15px 10px;
     font-size: 15px;
     outline: none;
 
 }
-
+.addressLine .option{
+    color: #6B7280;
+}
 .candidateInfo p {
     width: 100%;
     height: 42px;
@@ -254,13 +256,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: white;
+    /* background-color: red; */
+}
+.candidateInfo p select{
+    width: 100%;
+    height: 30px;
+    padding: 2px;
+    
 }
 
 .candidateInfo p select {
     outline: none;
     border: none;
+    color: black
+}
 
+.candidateInfo p select option:checked{
+    color: black;
 }
 
 .candidateInfo p input {
@@ -272,7 +284,9 @@
 .candidateInfo input::placeholder {
     color: var(--borderColor)
 }
-
+.candidateInfo p select{
+    color: var(--borderColor)
+}
 .candidateInfo .candidateState {
     width: 100%;
     height: 42px;
