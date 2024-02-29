@@ -37,6 +37,7 @@ const CandidateProfileCard = (props) => {
   const buttonHandler1 = (e) => {
     setIsSelect1(e.target.id);
   };
+  console.log(singleuser, "kkk");
   return (
     <div>
       <div className={props.main}>
@@ -375,39 +376,46 @@ const CandidateProfileCard = (props) => {
               )}
               {isSelect1 === "certificate" && (
                 <div className="certification">
-                  <div className="certify">
-                    <h1>UI / UX Course by Google</h1>
-                    <h2>Google India </h2>
-                    <div className="date">
-                      <h3>Date Issued:</h3>
-                      <h4>23 / 04 / 2018</h4>
-                    </div>
-                    <div className="date">
-                      <h3>Skills:</h3>
-                      <h4>User Experience / User Interface Design</h4>
-                    </div>
-                    <h5>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed
-                    </h5>
-                    <div className="gradeCertificate1">
-                      <img src={gallery} alt="" />
-                      <div className="gradeCertificateDesc1">
-                        <h6>certificate01.jpeg</h6>
-                        <p>4 MB</p>
+                  {singleuser[0].certificate_info !== null ? (
+                    <div className="certify">
+                      <h1>{singleuser[0].certificate_info.course_name}</h1>
+                      <h2>Google India </h2>
+                      <div className="date">
+                        <h3>Date Issued:</h3>
+                        <h4>{singleuser[0].certificate_info.date_issued}</h4>
                       </div>
+                      <div className="date">
+                        <h3>Skills:</h3>
+                        <h4>
+                          {singleuser[0].certificate_info.skills.toString()}
+                        </h4>
+                      </div>
+                      <h5>{singleuser[0].certificate_info.description}</h5>
+                      {singleuser[0].certificate_info.certificate_file
+                        .length !== 0 ? (
+                        <div className="gradeCertificate1">
+                          <img src={gallery} alt="" />
+                          <div className="gradeCertificateDesc1">
+                            <h6>certificate01.jpeg</h6>
+                            <p>4 MB</p>
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </div>
+              )}
+              {isSelect1 === "hacker" &&
+                (singleuser[0].preference_info !== null ? (
+                  <div className="hacker">
+                    <div className="hackerInner">
+                      <h1>Link to Hackerrank score</h1>
+                      <a href={singleuser[0].preference_info.hackerrank}>
+                        {singleuser[0].preference_info.hackerrank}
+                      </a>
                     </div>
                   </div>
-                </div>
-              )}
-              {isSelect1 === "hacker" && (
-                <div className="hacker">
-                  <div className="hackerInner">
-                    <h1>Link to Hackerrank score</h1>
-                    <a href="">https://hackerrank.com/test-score/yasirquazi</a>
-                  </div>
-                </div>
-              )}
+                ) : null)}
               {isSelect1 === "personality" && (
                 <div className="personality">
                   <div className="personalityTest">
@@ -422,61 +430,64 @@ const CandidateProfileCard = (props) => {
                   </div>
                 </div>
               )}
-              {isSelect1 === "employ" && (
-                <div className="employ">
-                  <h2>Java Developer</h2>
-                  <h3>PhonePe </h3>
-                  <h4>January 2018 - June 2024</h4>
-                  <h4>Hyderabad, India</h4>
-                  <h5>
-                    As always, all Htmlstream products are excellent with a very
-                    good personalization.
-                  </h5>
-                  <h6>
-                    Key Skills: <h5>Java,User Research,React.JSS</h5>
-                  </h6>
-                  <h2>Java Developer</h2>
-                  <h3>PhonePe </h3>
-                  <h4>January 2018 - June 2024</h4>
-                  <h4>Hyderabad, India</h4>
-                  <h5>
-                    As always, all Htmlstream products are excellent with a very
-                    good personalization.
-                  </h5>
-                  <h6>
-                    Gross Annual Salary: <h5>20,000</h5>
-                  </h6>
-                </div>
-              )}
+              {isSelect1 === "employ" &&
+                (singleuser[0].professional_details_info !== null ? (
+                  <div className="employ">
+                    <h2>{singleuser[0].professional_details_info.title}</h2>
+                    <h3>
+                      {singleuser[0].professional_details_info.company_name}{" "}
+                    </h3>
+                    <h4>
+                      {singleuser[0].professional_details_info.years_active}
+                    </h4>
+                    <h4>{singleuser[0].professional_details_info.location}</h4>
+                    <h5>
+                      {singleuser[0].professional_details_info.description}
+                    </h5>
+                    <h6>
+                      Key Skills :{" "}
+                      <h5>
+                        {" "}
+                        {singleuser[0].professional_details_info.skills.toString()}
+                      </h5>
+                    </h6>
+                  </div>
+                ) : null)}
               {isSelect1 === "project" && (
                 <div className="project">
-                  <div className="projectInner">
-                    <h1>
-                      GreenScape City: Sustainable Urban Development Simulator
-                    </h1>
-                    <div className="projectFlex">
-                      <h2>Role:</h2>
-                      <h3>Lead Software Developer</h3>
+                  {singleuser[0].project_details_info !== null ? (
+                    <div className="projectInner">
+                      <h1>
+                        {singleuser[0].project_details_info.project_title}
+                      </h1>
+                      <div className="projectFlex">
+                        <h2>Role : </h2>
+                        <h3> {singleuser[0].project_details_info.role}</h3>
+                      </div>
+                      <div className="projectFlex">
+                        <h2>Reporting to:</h2>
+                        <h3>
+                          {singleuser[0].project_details_info.reporting_to}
+                        </h3>
+                      </div>
+                      <div className="projectFlex">
+                        <h2>Duration:</h2>
+                        <h3>
+                          {
+                            singleuser[0].project_details_info
+                              .duration_of_project
+                          }
+                        </h3>
+                      </div>
+                      <div className="projectFlex1">
+                        <h2>Key Skills: </h2>
+                        <h3>
+                          {singleuser[0].project_details_info.skills.toString()}
+                        </h3>
+                      </div>
+                      <h4>{singleuser[0].project_details_info.description}</h4>
                     </div>
-                    <div className="projectFlex">
-                      <h2>Reporting to:</h2>
-                      <h3>Head of Development, CEO</h3>
-                    </div>
-                    <div className="projectFlex">
-                      <h2>Duration:</h2>
-                      <h3>January 2018 - December 2018</h3>
-                    </div>
-                    <div className="projectFlex1">
-                      <h2>Key Skills: </h2>
-                      <h3> Java, Python, React, JSS</h3>
-                    </div>
-                    <h4>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </h4>
-                  </div>
+                  ) : null}
                 </div>
               )}
               {isSelect1 === "achievements" && (
@@ -506,7 +517,7 @@ const CandidateProfileCard = (props) => {
                   </div>
                 </div>
               )}
-              {isSelect1 === "travel" && "travel history"}
+              {isSelect1 === "travel" && <div className="travel"></div>}
               {isSelect1 === "remote" && (
                 <div className="remote">
                   <div className="remoteFlex">
