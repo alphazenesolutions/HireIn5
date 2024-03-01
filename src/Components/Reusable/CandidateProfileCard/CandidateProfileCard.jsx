@@ -516,7 +516,65 @@ const CandidateProfileCard = (props) => {
                   </div>
                 </div>
               )}
-              {isSelect1 === "travel" && <div className="travel"></div>}
+              {isSelect1 === "travel" && <div className="travel">
+             
+               <div className="travelslider">
+                <div className="travelslider1">
+                <h3>Current VISa status</h3>
+                <div className="visaStatus">
+                  <h1>USA</h1>
+                  <p>Type of Visa :<span>H1B</span></p>
+                  <p>Validity of Visa :<span> 21 / 03 / 2025</span></p>
+                </div>
+                </div>
+                <div className="travelslider1">
+                <h3>Travel history</h3>
+                <div className="visaStatus">
+                  <h1 title="">USA</h1>
+                  <p>Year of Travel : <span>2017</span></p>
+                  <p>Duration : <span>5 months</span></p>
+                </div> 
+                <div className="visaStatus">
+                  <p>Purpose : <span>Work</span></p>
+                  <p>Type of Visa : <span>H1B</span></p>
+                  <p>Validity of Visa : <span>21 / 03 / 2025</span></p>
+                </div> 
+                <div className="visaStatus">
+                <h1 title="">UAE</h1>
+                  <p>Year of Travel : <span>2018</span></p>
+                  <p>Duration : <span>3 months</span></p>
+                </div>
+                </div>
+                <div className="travelslider1">
+                <h3>Countries willing to travel to for work</h3>
+                <div className="visaStatus">
+                <h1 title="">USA</h1>
+                <h1 title="">Singapore</h1>
+                <h1 title="">Saudi Arabia</h1>
+                 
+                </div>
+                <div className="visaStatus">
+                  <p>Only for : <span>Work</span></p>
+                  <p>Duration : <span> 6 months</span></p>
+                  <p>Travel Readiness: <span>Immediate</span></p>
+                </div> 
+
+                </div>
+                <div className="travelslider1">
+                  <h3>Countries willing to relocate to</h3>
+                  <h4>Candidate unwilling to relocate </h4>
+                  </div>
+                  <div className="travelslider1">
+                  <h3>Residency details</h3>
+                  <div className="visaStatus">
+                  <p>Current Place of Residence: Bengaluru, India</p>
+                  <p>Duration : 5 years</p>
+                </div> 
+                 
+                  </div>
+               </div>
+                
+                </div>}
               {isSelect1 === "remote" && (
                 <div className="remote">
                   <div className="remoteFlex">

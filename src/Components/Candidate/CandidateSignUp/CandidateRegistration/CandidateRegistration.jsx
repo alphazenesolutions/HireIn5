@@ -32,7 +32,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page1");
+  const [isPage, setIsPage] = useState("page2");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -1521,6 +1521,13 @@ const CandidateRegistration = () => {
                         name="experience"
                         onChange={handlechange}
                       /> */}
+                      {/* <select id=""
+                       name="experience"
+                       onChange={handlechange}>
+                        <option value="">Year and Months</option>
+                        <option value="">0-6 Months</option>
+                        <option value="">6-12 Months</option>
+                      </select> */}
                       <select name="experience" onChange={handlechange}>
                         <option value="">Year and Months</option>
                         <option value="1">1</option>
@@ -1643,7 +1650,7 @@ const CandidateRegistration = () => {
                       </h6>
                     </div>
                   )}
-                  <h3>
+                  {/* <h3>
                     HackerRank{" "}
                     <PiWarningCircle
                       className="warningicon"
@@ -1651,6 +1658,7 @@ const CandidateRegistration = () => {
                       onMouseOver={displaymsg}
                     />
                   </h3>
+                  <h3>Optional</h3> */}
                   <h3 className="option">Optional</h3>
 
                   {displaymessages && (
@@ -2056,19 +2064,19 @@ const CandidateRegistration = () => {
                     defaultValue={travelform.lived_at_current_residence}
                     onChange={handlechange_travel}
                   /> */}
-
                   <select
                     name="onlyfor"
                     defaultValue={travelform.onlyfor}
                     onChange={handlechange_travel}
                     className="w-full"
                   >
-                    <option value="">Select Only for</option>
+                    <option value="">Only for</option>
                     <option value="Work Onsite">Work Onsite</option>
                     <option value="Short-term business visit">
                       Short-term business visit
                     </option>
-                  </select>
+
+                  </select> */}
                 </p>
               </div>
               <div className="travelDuration">

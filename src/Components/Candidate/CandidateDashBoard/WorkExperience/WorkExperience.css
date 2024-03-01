@@ -6,8 +6,9 @@
 
 .innerWorkExperience {
     width: 100%;
-    height: 100%;
+    height: auto;
     border-radius: 8px;
+    /* background-color: green; */
     border: 1px solid var(--dropBorderColor);
 }
 
@@ -61,13 +62,18 @@
 
 .workExperienceDesc {
     width: 100%;
-    height: 500px;
+    height: auto;
     background-color: var(--white);
     border-bottom-left-radius: 8px;
     border-bottom-Right-radius: 8px;
     padding: 30px;
 }
-
+.workTopskills h5{
+    font-size: 15px;
+    font-weight: 500;
+    color: #d1d5db;
+    margin: 3px 0px;
+}
 /* overlay */
 .workExperinceOverlay {
     width: 65%;
@@ -87,15 +93,9 @@
 .workExperinceOverlay h6 {
     font-size: 16px;
     font-weight: 600;
-    padding: 30px;
+    padding: 20px;
     opacity: 0.5;
-    padding-bottom: 0px
-}
-
-.workExperinceOverlayFlex {
-    width: 100%;
-    display: flex;
-    align-items: center;
+    padding-bottom: 20px
 }
 
 .workExperinceOverlayLeft {
@@ -109,3 +109,289 @@
     margin-left: 2%;
     height: 300px;
 }
+
+/*Work exp*/
+.workExperience1{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content:flex-start;
+    flex-direction: column;
+}
+.workExperience h3{
+    font-size: 14px;
+    font-weight: 500;
+    color: #A1A1AA;
+    text-transform: uppercase;
+}
+.workExperience2{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.workExperienceleft{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 20px 0px;
+    margin-top: 10px;
+
+}
+.workExperienceright{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 20px 0px;
+    margin-top: 10px;
+}
+
+.workTopskills{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+}
+.workTopskills h4{
+    font-size: 14px;
+    font-weight: 500;
+    color: #6B7280;
+    margin-bottom: 10px;
+}
+.workTopskills .workbtns{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 15px 0px;
+}
+.workbtns button{
+    color: #8B5CF6;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-right: 15px;
+    background-color: #EDE9FE;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.workTopskills h2{
+    font-size: 15px;
+    font-weight: 500;
+    margin: 8px 0px;
+}
+.worklanguages{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.worklanguages h2[title]{
+    margin: 0px;
+}
+
+.worklanguages p{
+    color: #A1A1AA;
+}
+.workTopskills h2{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.workTopskills h2 img{
+    margin-right: 10px;
+}
+.workExperinceOverlay{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 600px;
+}
+.workExperinceOverlay h6{
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+.workExperinceOverlayFlex{
+    width: 99%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow-y: scroll;
+    padding: 0px 20px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-right: 0px;
+}
+
+.workExperinceOverlayLeft{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.workExperinceOverlayRight{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.keySkills{
+    width: 100%;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+}
+.keyskills1{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px;
+}
+.keyskills1 p{
+    color: #6B7280;
+}
+.keyskills1 h3{
+    color:black;
+    text-transform:capitalize;
+}
+.keyskills2{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    justify-content: flex-start;
+    border: 1px solid #e5e7eb;
+}
+.keyskills2 button{
+    padding: 3px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    margin-right: 10px;
+    color: #6B7280;
+}
+.keyskills2 button span{
+    padding: 2px;
+    border-radius: 100%;
+    background-color:#E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+
+}
+.keyskills2 button span img{
+    width: 10px;
+    border-radius: 100%;
+    height: 10px;
+}
+.keyskills2 select{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+}
+.keyskills3 select{
+    width: 100%;
+    height: 35px;
+    border: none;
+    outline: none;
+    /* height: 100%; */
+}
+.keyskills3{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    margin: 10px 0px;
+    justify-content: flex-start;
+    border: 1px solid #e5e7eb;
+}
+.worklanguage{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 20px;
+    margin: 15px 0px;
+}
+.worklanguage h3{
+    margin-bottom: 10px;
+    color: black;
+    text-transform: capitalize;
+}
+.keyskills2 input{
+    outline: none;
+    border: none;
+}
+.workExperienceright1{
+    display: flex;
+    flex-direction: column;
+}
+.workExperienceright1 .keyskills2{
+    padding: 0px;
+}
+.workExperienceright1 .keyskills2 select{
+    padding: 0px;
+    border-radius: 10px;
+}
+.keyskills4{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    justify-content: flex-start;
+    border: 1px solid #e5e7eb;
+    margin: 0px 0px 20px 0px;
+
+}
+.workExperienceright1 .keyskills4 select{
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+.keyskills2 .keylink{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #6B7280;
+    justify-content: center;
+    padding: 0px 10px;
+    border-right: 1px solid #e5e7eb;
+}
+.keyskills2 .keylink1{
+    padding: 0px 10px;
+    color: #e5e7eb;
+}
+.workExperinceOverlayFlex::-webkit-scrollbar{
+    width:5px;
+}
+.workExperinceOverlayFlex::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #d4d4d8;
+  }
