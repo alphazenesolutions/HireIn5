@@ -80,7 +80,7 @@ const CandidateSignUp = () => {
               },
             })
           );
-          navigate("/#/emailverification");
+          navigate("/emailverification");
         } else {
           setIsLoading(false);
           setfinalerror(true);

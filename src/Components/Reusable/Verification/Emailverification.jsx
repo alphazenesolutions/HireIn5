@@ -65,7 +65,7 @@ const Emailverification = () => {
               Incorrect email?{" "}
               <span
                 onClick={() => {
-                  navigate("/#/clientsignup");
+                  navigate("/clientsignup");
                 }}
               >
                 Re-enter your email id{" "}

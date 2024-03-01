@@ -86,10 +86,11 @@ const ClientLogin = () => {
             dispatch(storeAction.useridHandler({ userid: decoded.user_id }));
             dispatch(storeAction.isloginHandler({ islogin: true }));
             dispatch(storeAction.loginroleHander({ loginrole: decoded.role }));
+            // console.log(decoded.onboarding_status, "decoded");
             if (decoded.role == "2") {
-              navigate("/#/discover");
+              navigate("/discover");
             } else {
-              navigate("/#/profile");
+              navigate("/profile");
             }
           }
         } else {

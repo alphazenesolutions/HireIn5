@@ -76,7 +76,7 @@ const SideBar = (props) => {
         <div className="sideNavInner">
           <div className="sideNavTop">
             <div
-              onClick={() => navigate("/#/discover")}
+              onClick={() => navigate("/discover")}
               className="sideNavHead marginBottom15"
             >
               <img src={logo} alt="" />

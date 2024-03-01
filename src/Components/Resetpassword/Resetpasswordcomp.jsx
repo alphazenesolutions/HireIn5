@@ -70,7 +70,7 @@ const Resetpasswordcomp = () => {
 
   const routeHandler = () => {
     if (isPage === "page2") {
-      navigate("/#/login");
+      navigate("/login");
     }
   };
   const routeTimeout = setTimeout(routeHandler, 1500);
