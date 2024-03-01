@@ -5,14 +5,11 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { Store } from "./Store/Store";
-import { HashRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <HashRouter>
-    <Provider store={Store}>
-      <App />
-    </Provider>
-  </HashRouter>
+  <Provider store={Store}>
+    <App />
+  </Provider>
 );
 reportWebVitals();
