@@ -47,21 +47,21 @@ const SideBar = (props) => {
           dispatch(storeAction.isloginHandler({ islogin: false }));
           dispatch(storeAction.tokenHandler({ token: null }));
           dispatch(storeAction.useridHandler({ userid: 5 }));
-          window.location.replace("/login");
+          window.location.replace("/#/login");
         }
       }
     } else {
       dispatch(storeAction.isloginHandler({ islogin: false }));
       dispatch(storeAction.tokenHandler({ token: null }));
       dispatch(storeAction.useridHandler({ userid: 5 }));
-      window.location.replace("/login");
+      window.location.replace("/#/login");
     }
   }, [token, userid]);
   const logoutbtn = () => {
     dispatch(storeAction.isloginHandler({ islogin: false }));
     dispatch(storeAction.tokenHandler({ token: null }));
     dispatch(storeAction.useridHandler({ userid: 5 }));
-    window.location.replace("/login");
+    window.location.replace("/#/login");
   };
 
   const [isHover, setIsHover] = useState("discover");
@@ -76,7 +76,7 @@ const SideBar = (props) => {
         <div className="sideNavInner">
           <div className="sideNavTop">
             <div
-              onClick={() => navigate("/discover")}
+              onClick={() => navigate("/#/discover")}
               className="sideNavHead marginBottom15"
             >
               <img src={logo} alt="" />

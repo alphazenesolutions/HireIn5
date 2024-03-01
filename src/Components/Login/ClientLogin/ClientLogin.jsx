@@ -82,9 +82,9 @@ const ClientLogin = () => {
           dispatch(storeAction.isloginHandler({ islogin: true }));
           dispatch(storeAction.loginroleHander({ loginrole: decoded.role }));
           if (decoded.role == "2") {
-            navigate("/discover");
+            navigate("/#/discover");
           } else {
-            navigate("/profile");
+            navigate("/#/profile");
           }
         }
       } else {
@@ -99,9 +99,9 @@ const ClientLogin = () => {
   const Checkuser = () => {
     if (islogin === true) {
       if (loginrole == "2") {
-        window.location.replace("/discover");
+        window.location.replace("/#/discover");
       } else {
-        window.location.replace("/profile");
+        window.location.replace("/#/profile");
       }
     }
   };

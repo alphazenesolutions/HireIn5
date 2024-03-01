@@ -217,7 +217,7 @@ const CandidateRegistration = () => {
   const routeHandler = () => {
     if (isPage === "page4") {
       dispatch(storeAction.isloginHandler({ islogin: true }));
-      window.location.replace("/profile");
+      window.location.replace("/#/profile");
     } else {
     }
   };

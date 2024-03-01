@@ -102,7 +102,7 @@ const ForgetComp = () => {
                       Submit
                     </button>
                   )}
-                  <h4 onClick={() => navigate("/login")}>Back to login</h4>
+                  <h4 onClick={() => navigate("/#/login")}>Back to login</h4>
                 </div>
               </div>
             </div>

@@ -20,7 +20,7 @@ const DashHead = (props, fun) => {
       dispatch(storeAction.isloginHandler({ islogin: false }));
       dispatch(storeAction.tokenHandler({ token: null }));
       dispatch(storeAction.useridHandler({ userid: 5 }));
-      window.location.replace("/login");
+      window.location.replace("/#/login");
     }
   };
   return (

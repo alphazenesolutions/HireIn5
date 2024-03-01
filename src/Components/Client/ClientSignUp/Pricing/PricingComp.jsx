@@ -279,7 +279,7 @@ const PricingComp = () => {
               <span className="emailDarks">divyagupta@gmail.com</span>
             </p>
             <button
-              onClick={() => navigate("/meeting")}
+              onClick={() => navigate("/#/meeting")}
               className="marginTop20 marginBottom20"
             >
               Continue

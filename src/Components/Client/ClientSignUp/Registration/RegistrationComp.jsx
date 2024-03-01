@@ -29,7 +29,7 @@ const RegistrationComp = () => {
 
   const routeHandler = () => {
     if (isPage === "page3") {
-      navigate("/pricing");
+      navigate("/#/pricing");
     } else {
     }
   };

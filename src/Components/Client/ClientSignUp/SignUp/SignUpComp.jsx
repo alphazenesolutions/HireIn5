@@ -97,7 +97,7 @@ const SignUpComp = () => {
             },
           })
         );
-        navigate("/emailverification");
+        navigate("/#/emailverification");
       } else {
         setIsLoading(false);
         setfinalerror(true);

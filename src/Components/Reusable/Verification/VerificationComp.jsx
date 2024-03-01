@@ -72,7 +72,7 @@ const VerificationComp = () => {
   };
   const routeHandler = () => {
     if (isPage === "page4") {
-      window.location.replace("/registration");
+      window.location.replace("/#/registration");
     } else {
     }
   };

@@ -16,10 +16,10 @@ const UpgradeComp = () => {
     setIsPage(event.target.id);
   };
   const PageHandler2 = () => {
-    navigate("/billing");
+    navigate("/#/billing");
   };
   const PageHandler3 = () => {
-    navigate("/upgrade");
+    navigate("/#/upgrade");
   };
 
   const monthlyStarter = 499;

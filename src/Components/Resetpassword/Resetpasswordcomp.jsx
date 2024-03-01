@@ -70,8 +70,7 @@ const Resetpasswordcomp = () => {
 
   const routeHandler = () => {
     if (isPage === "page2") {
-      navigate("/login");
-    } else {
+      navigate("/#/login");
     }
   };
   const routeTimeout = setTimeout(routeHandler, 1500);
@@ -147,7 +146,7 @@ const Resetpasswordcomp = () => {
                     <span
                       className="text-xs cursor-pointer"
                       onClick={() => {
-                        window.location.replace("/forgotPassword");
+                        window.location.replace("/#/forgotPassword");
                       }}
                     >
                       Click Here

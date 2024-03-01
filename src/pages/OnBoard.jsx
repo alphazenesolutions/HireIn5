@@ -13,9 +13,9 @@ const OnBoard = () => {
   const Checkuser = () => {
     if (islogin === true) {
       if (loginrole == "2") {
-        window.location.replace("/discover");
+        window.location.replace("/#/discover");
       } else {
-        window.location.replace("/profile");
+        window.location.replace("/#/profile");
       }
     }
   };
