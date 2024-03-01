@@ -917,8 +917,9 @@ const RegistrationComp = () => {
                   <div className="companyDetails2 h-full">
                     <h3>Contact Number</h3>
                     <input
-                      type="number"
+                      type="text"
                       name="primary_phone"
+                      maxLength={12}
                       onChange={handlechangenew}
                       defaultValue={billingdata.primary_phone}
                     />
@@ -966,8 +967,9 @@ const RegistrationComp = () => {
                   <div className="companyDetails2 h-full">
                     <h3>Contact Number</h3>
                     <input
-                      type="number"
+                      type="text"
                       name="secondary_phone"
+                      maxLength={12}
                       onChange={handlechangenew}
                       defaultValue={billingdata.secondary_phone}
                     />

@@ -24,8 +24,8 @@ const ForgetComp = () => {
   const [isPage, setIsPage] = useState("page1");
   const PageHandler = async (event) => {
     if (isPage === "page2") {
-      const mailtoLink = `mailto:${email}`;
-      window.location.href = mailtoLink;
+      // const mailtoLink = `mailto:${email}`;
+      window.location.href =`https://mail.google.com/mail/u/0/#inbox`;
       // navigate("/resetpassword");
     } else {
       if (isPage === "page1") {

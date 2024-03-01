@@ -32,7 +32,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page2");
+  const [isPage, setIsPage] = useState("page1");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -173,25 +173,18 @@ const CandidateRegistration = () => {
     const inputvalue = inputref.current.value.toLowerCase();
     setdropDown("");
     if (inputvalue.length !== 0) {
-      var myHeaders = new Headers();
-      myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
-      var requestOptions = {
-        method: "GET",
-        redirect: "follow",
-        headers: myHeaders,
-      };
-      var skilldata = await fetch(
-        `https://api.apilayer.com/skills?q=${inputvalue}`,
-        requestOptions
-      ).then((response) => {
-        return response.text();
-      });
-      var newarray = JSON.parse(skilldata);
-      // const dropdownvalue = dropDownList.filter((getvalue) =>
-      //   getvalue.toLowerCase().includes(inputvalue)
-      // );
-      setdropDownClose(newarray);
-      setdropDown(inputvalue.length > 0 && newarray.length > 0);
+      var skillarrray = Skilllist;
+      const uniqueSkills = Array.from(
+        new Set(skillarrray.map((skill) => skill.Skill))
+      );
+      const inputvalueLower = inputvalue.toLowerCase();
+      const matchingSkills = uniqueSkills.filter(
+        (skill) =>
+          typeof skill === "string" &&
+          skill.toLowerCase().includes(inputvalueLower)
+      );
+      setdropDownClose(matchingSkills);
+      setdropDown(inputvalue.length > 0 && matchingSkills.length > 0);
     } else {
       setdropDown(inputvalue.length > 0);
     }
