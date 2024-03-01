@@ -51,57 +51,69 @@ const SignUpComp = () => {
     setsignupdata((values) => ({ ...values, [name]: value }));
   };
   const ButtonHandler1 = async () => {
+    setcpassworderror(false);
+    setpassworderror(false);
+    setpasswordmatch(false);
     setfinalerror(false);
+    var validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (signupdata.username.length === 0) {
       setusernameerror(true);
-    } else if (signupdata.password.length === 0) {
+    } else if (signupdata.username.match(validRegex)) {
       setusernameerror(false);
-      setpassworderror(true);
-    } else if (signupdata.cpassword.length === 0) {
-      setcpassworderror(true);
-      setpassworderror(false);
-      setpasswordmatch(false);
-    } else if (signupdata.password !== signupdata.cpassword) {
-      setpasswordmatch(true);
-      setcpassworderror(false);
-    } else {
-      setIsLoading(true);
-
-      setusernameerror(false);
-      setpassworderror(false);
-      setcpassworderror(false);
-      setpasswordmatch(false);
-      var newobj = {
-        email: signupdata.username,
-        username: signupdata.username,
-        password: signupdata.password,
-        role: 2,
-      };
-
-      var createuser = await axios
-        .post(`${process.env.REACT_APP_LOCAL_HOST_URL}/user/create/`, newobj)
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
-        });
-      if (createuser.access_token !== undefined) {
-        dispatch(storeAction.tokenHandler({ token: createuser.access_token }));
-        dispatch(storeAction.useridHandler({ userid: createuser.id }));
-        dispatch(
-          storeAction.signupdataHandler({
-            signupdata: {
-              username: signupdata.username,
-              password: signupdata.password,
-            },
-          })
-        );
-        navigate("/emailverification");
+      if (signupdata.password.length === 0) {
+        setusernameerror(false);
+        setpassworderror(true);
+      } else if (signupdata.cpassword.length === 0) {
+        setcpassworderror(true);
+        setpassworderror(false);
+        setpasswordmatch(false);
+      } else if (signupdata.password !== signupdata.cpassword) {
+        setpasswordmatch(true);
+        setcpassworderror(false);
       } else {
-        setIsLoading(false);
-        setfinalerror(true);
+        setIsLoading(true);
+
+        setusernameerror(false);
+        setpassworderror(false);
+        setcpassworderror(false);
+        setpasswordmatch(false);
+        var newobj = {
+          email: signupdata.username,
+          username: signupdata.username,
+          password: signupdata.password,
+          role: 2,
+        };
+
+        var createuser = await axios
+          .post(`${process.env.REACT_APP_LOCAL_HOST_URL}/user/create/`, newobj)
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+        if (createuser.access_token !== undefined) {
+          dispatch(
+            storeAction.tokenHandler({ token: createuser.access_token })
+          );
+          dispatch(storeAction.useridHandler({ userid: createuser.id }));
+          dispatch(
+            storeAction.signupdataHandler({
+              signupdata: {
+                username: signupdata.username,
+                password: signupdata.password,
+              },
+            })
+          );
+          navigate("/emailverification");
+        } else {
+          setIsLoading(false);
+          setfinalerror(true);
+        }
       }
+    } else {
+      setusernameerror(true);
     }
   };
   useEffect(() => {
@@ -141,7 +153,7 @@ const SignUpComp = () => {
                 />
                 {usernameerror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">
-                    Please Enter Company Email
+                    Please Enter Valid Company Email
                   </p>
                 )}
               </div>

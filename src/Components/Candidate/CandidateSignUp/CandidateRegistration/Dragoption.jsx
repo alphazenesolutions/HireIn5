@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
@@ -28,7 +29,6 @@ const DraggableSkill = ({ index, data, moveSkill, getdata }) => {
   });
 
   const opacity = isDragging ? 0.5 : 1;
-
   return (
     <div
       className="skillList"
@@ -39,10 +39,22 @@ const DraggableSkill = ({ index, data, moveSkill, getdata }) => {
       <div className="skillSet">
         <div className="skillbtn">
           <RxHamburgerMenu />
-          <button>
-            <CiStar />
-            <h3>Top Skill</h3>
-          </button>
+          {index == 0 || index == 1 || index == 2 ? (
+            <>
+              <button>
+                <CiStar />
+                <h3>Top Skill</h3>
+              </button>
+            </>
+          ) : (
+            <>
+              <button>
+                <CiStar />
+                <h3>Top Skill</h3>
+              </button>
+            </>
+          )}
+
           <h3>{data}</h3>
         </div>
       </div>

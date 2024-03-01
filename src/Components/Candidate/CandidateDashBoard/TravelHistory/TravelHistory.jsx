@@ -77,7 +77,8 @@ const TravelHistory = () => {
 
   useEffect(() => {
     Getalldata();
-  }, []);
+  }, [userdata.length !== 0]);
+
   const Getalldata = async () => {
     if (userdata.length !== 0) {
       if (userdata[0].travel_info !== null) {
@@ -248,7 +249,10 @@ const TravelHistory = () => {
         ...userdata[0],
         travel_info: updatedata.user.travel_info,
       };
-      dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      dispatch(storeAction.userdataHander({ userdata: [] }));
+      setTimeout(() => {
+        dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      }, 10);
       dispatch(storeAction.isPopUpHander());
       setloading(false);
     } else {

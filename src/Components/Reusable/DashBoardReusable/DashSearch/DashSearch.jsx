@@ -12,6 +12,7 @@ import close from "../../../../assests/billingX.png";
 import filter from "../../../../assests/allFilters.png";
 import RangeSlider from "../../../MaterialUi/Range/RangeSlider";
 import Select from "react-select";
+import Skilllist from "../../../../assests/skillsJSON.json";
 
 const DashSearch = (props) => {
   const dispatch = useDispatch();
@@ -335,26 +336,36 @@ const DashSearch = (props) => {
   }, [searchvalue]);
   const Getskill = async () => {
     if (searchvalue.length !== 0) {
-      var myHeaders = new Headers();
-      myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
-      var requestOptions = {
-        method: "GET",
-        redirect: "follow",
-        headers: myHeaders,
-      };
-      var skilldata = await fetch(
-        `https://api.apilayer.com/skills?q=${searchvalue}`,
-        requestOptions
-      ).then((response) => {
-        return response.text();
-      });
-      var newarray = JSON.parse(skilldata);
-      if (newarray.length !== 0) {
+      // var myHeaders = new Headers();
+      // myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
+      // var requestOptions = {
+      //   method: "GET",
+      //   redirect: "follow",
+      //   headers: myHeaders,
+      // };
+      // var skilldata = await fetch(
+      //   `https://api.apilayer.com/skills?q=${searchvalue}`,
+      //   requestOptions
+      // ).then((response) => {
+      //   return response.text();
+      // });
+      // var newarray = JSON.parse(skilldata);
+      var skillarrray = Skilllist;
+      const uniqueSkills = Array.from(
+        new Set(skillarrray.map((skill) => skill.Skill))
+      );
+      const inputvalueLower = searchvalue.toLowerCase();
+      const matchingSkills = uniqueSkills.filter(
+        (skill) =>
+          typeof skill === "string" &&
+          skill.toLowerCase().includes(inputvalueLower)
+      );
+      if (matchingSkills.length !== 0) {
         var filter = [];
-        for (var i = 0; i < newarray.length; i++) {
+        for (var i = 0; i < matchingSkills.length; i++) {
           filter.push({
-            value: newarray[i],
-            label: newarray[i],
+            value: matchingSkills[i],
+            label: matchingSkills[i],
           });
         }
         setskilloption(filter);

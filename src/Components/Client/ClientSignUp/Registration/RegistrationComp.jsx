@@ -443,11 +443,10 @@ const RegistrationComp = () => {
                         <option value="">+91</option>
                       </select>
                       <input
-                        pattern="[0-9]*" // Only allow numeric digits
-                        maxLength="10"
-                        type="number"
+                        type="text"
                         placeholder="Number"
                         name="phone"
+                        maxLength={12}
                         onChange={handlechange}
                         defaultValue={registationdata.phone}
                       />
@@ -918,8 +917,9 @@ const RegistrationComp = () => {
                   <div className="companyDetails2 h-full">
                     <h3>Contact Number</h3>
                     <input
-                      type="number"
+                      type="text"
                       name="primary_phone"
+                      maxLength={12}
                       onChange={handlechangenew}
                       defaultValue={billingdata.primary_phone}
                     />
@@ -967,8 +967,9 @@ const RegistrationComp = () => {
                   <div className="companyDetails2 h-full">
                     <h3>Contact Number</h3>
                     <input
-                      type="number"
+                      type="text"
                       name="secondary_phone"
+                      maxLength={12}
                       onChange={handlechangenew}
                       defaultValue={billingdata.secondary_phone}
                     />

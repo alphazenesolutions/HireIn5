@@ -21,6 +21,7 @@ import axios from "axios";
 import { storeAction } from "../../../../Store/Store";
 import Dragoption from "./Dragoption";
 import { FiLoader } from "react-icons/fi";
+import Skilllist from "../../../../assests/skillsJSON.json";
 
 const CandidateRegistration = () => {
   const navigate = useNavigate();
@@ -172,25 +173,18 @@ const CandidateRegistration = () => {
     const inputvalue = inputref.current.value.toLowerCase();
     setdropDown("");
     if (inputvalue.length !== 0) {
-      var myHeaders = new Headers();
-      myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
-      var requestOptions = {
-        method: "GET",
-        redirect: "follow",
-        headers: myHeaders,
-      };
-      var skilldata = await fetch(
-        `https://api.apilayer.com/skills?q=${inputvalue}`,
-        requestOptions
-      ).then((response) => {
-        return response.text();
-      });
-      var newarray = JSON.parse(skilldata);
-      // const dropdownvalue = dropDownList.filter((getvalue) =>
-      //   getvalue.toLowerCase().includes(inputvalue)
-      // );
-      setdropDownClose(newarray);
-      setdropDown(inputvalue.length > 0 && newarray.length > 0);
+      var skillarrray = Skilllist;
+      const uniqueSkills = Array.from(
+        new Set(skillarrray.map((skill) => skill.Skill))
+      );
+      const inputvalueLower = inputvalue.toLowerCase();
+      const matchingSkills = uniqueSkills.filter(
+        (skill) =>
+          typeof skill === "string" &&
+          skill.toLowerCase().includes(inputvalueLower)
+      );
+      setdropDownClose(matchingSkills);
+      setdropDown(inputvalue.length > 0 && matchingSkills.length > 0);
     } else {
       setdropDown(inputvalue.length > 0);
     }
@@ -223,7 +217,7 @@ const CandidateRegistration = () => {
   const routeHandler = () => {
     if (isPage === "page4") {
       dispatch(storeAction.isloginHandler({ islogin: true }));
-      navigate("/profile");
+      window.location.replace("/#/profile");
     } else {
     }
   };
@@ -296,13 +290,6 @@ const CandidateRegistration = () => {
 
   const handlechange = (e) => {
     const { name, value } = e.target;
-    if (name == "phone") {
-      if (/^\d*\.?\d*$/.test(value)) {
-        console.log("object");
-      } else {
-        console.log("noo");
-      }
-    }
     setformdata((values) => ({ ...values, [name]: value }));
   };
   async function pageHandler(e) {
@@ -1178,7 +1165,7 @@ const CandidateRegistration = () => {
                         </h6>
                       )}
                     </div>
- <div className="candidateInfo h-full">
+                    <div className="candidateInfo h-full">
                       <h3>Pinode</h3>
                       <input
                         type="text"
@@ -1186,6 +1173,7 @@ const CandidateRegistration = () => {
                         name="pincode"
                         onChange={handlechange}
                         defaultValue={formdata.pincode}
+                        maxLength={6}
                       />
                       {formdataerror.title && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
@@ -2076,15 +2064,6 @@ const CandidateRegistration = () => {
                     defaultValue={travelform.lived_at_current_residence}
                     onChange={handlechange_travel}
                   /> */}
-                  <select name="lived_at_current_residence" id="" 
-                  defaultValue={travelform.lived_at_current_residence}
-                  onChange={handlechange_travel}
-                  >
-                    <option value="">Work Onsite</option>
-                    <option value="">Short-term business visit</option>
-</select>
-                  {/* <select
-                 
                   <select
                     name="onlyfor"
                     defaultValue={travelform.onlyfor}
@@ -2139,9 +2118,11 @@ const CandidateRegistration = () => {
                       defaultValue={travelform.travel_readlines}
                       onChange={handlechange_travel}
                     >
-                       <option value="">Select Travel Readlines</option>
+                      <option value="">Select Travel Readlines</option>
                       <option value="Immediate">Immediate</option>
-                      <option value="In the next 6 months">In the next 6 months</option>
+                      <option value="In the next 6 months">
+                        In the next 6 months
+                      </option>
                       <option value="6 months">6 months</option>
                     </select>
                   </p>

@@ -37,7 +37,6 @@ const CandidateProfileCard = (props) => {
   const buttonHandler1 = (e) => {
     setIsSelect1(e.target.id);
   };
-  console.log(singleuser, "kkk");
   return (
     <div>
       <div className={props.main}>

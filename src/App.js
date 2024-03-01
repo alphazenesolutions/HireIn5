@@ -1,10 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import { BrowserRouter as Router } from "react-router-dom";
-import { persistor } from "./Store/Store";
-import { PersistGate } from "redux-persist/integration/react";
+import { HashRouter, BrowserRouter as Router } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import { storeAction } from "./Store/Store";
 import { useEffect } from "react";
@@ -46,11 +45,9 @@ function App() {
   return (
     <>
       <div className="App">
-        <Router>
-          <PersistGate loading={null} persistor={persistor}>
-            <Layout />
-          </PersistGate>
-        </Router>
+        <HashRouter>
+          <Layout />
+        </HashRouter>
       </div>
       {isPopUp == "video" ||
       isPopUp == "personal" ||

@@ -12,8 +12,8 @@ const Emailverification = () => {
   const token = useSelector((store) => store.token);
 
   const PageHandler = () => {
-    const email = signupdata.username;
-    window.location.href = `mailto:${email}`;
+    // const email = signupdata.username;
+    window.location.href = `https://mail.google.com/mail/u/0/#inbox`;
   };
   useEffect(() => {
     SendMail();
