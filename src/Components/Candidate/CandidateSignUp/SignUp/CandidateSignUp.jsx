@@ -41,44 +41,53 @@ const CandidateSignUp = () => {
 
   const ButtonHandler1 = async () => {
     setfinalerror(false);
+    var validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (signupdata.username.length === 0) {
       setusernameerror(true);
-    } else if (signupdata.password.length === 0) {
+    } else if (signupdata.username.match(validRegex)) {
       setusernameerror(false);
-      setpassworderror(true);
-    } else {
-      setpassworderror(false);
-      setIsLoading(true);
-      var newobj = {
-        email: signupdata.username,
-        username: signupdata.username,
-        password: signupdata.password,
-        role: 3,
-      };
-      var createuser = await axios
-        .post(`https://hirein5-server.onrender.com/user/create/`, newobj)
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
-        });
-      if (createuser.access_token !== undefined) {
-        dispatch(storeAction.tokenHandler({ token: createuser.access_token }));
-        dispatch(storeAction.useridHandler({ userid: createuser.id }));
-        dispatch(
-          storeAction.signupdataHandler({
-            signupdata: {
-              username: signupdata.username,
-              password: signupdata.password,
-            },
-          })
-        );
-        navigate("/#/emailverification");
+      if (signupdata.password.length === 0) {
+        setusernameerror(false);
+        setpassworderror(true);
       } else {
-        setIsLoading(false);
-        setfinalerror(true);
+        setpassworderror(false);
+        setIsLoading(true);
+        var newobj = {
+          email: signupdata.username,
+          username: signupdata.username,
+          password: signupdata.password,
+          role: 3,
+        };
+        var createuser = await axios
+          .post(`https://hirein5-server.onrender.com/user/create/`, newobj)
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+        if (createuser.access_token !== undefined) {
+          dispatch(
+            storeAction.tokenHandler({ token: createuser.access_token })
+          );
+          dispatch(storeAction.useridHandler({ userid: createuser.id }));
+          dispatch(
+            storeAction.signupdataHandler({
+              signupdata: {
+                username: signupdata.username,
+                password: signupdata.password,
+              },
+            })
+          );
+          navigate("/#/emailverification");
+        } else {
+          setIsLoading(false);
+          setfinalerror(true);
+        }
       }
+    } else {
+      setusernameerror(true);
     }
   };
 
@@ -107,7 +116,7 @@ const CandidateSignUp = () => {
                 />
                 {usernameerror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">
-                    Please Enter Email
+                    Please Enter Valid Email
                   </p>
                 )}
               </div>

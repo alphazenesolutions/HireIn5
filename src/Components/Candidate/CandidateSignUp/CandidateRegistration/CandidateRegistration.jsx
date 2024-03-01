@@ -290,13 +290,6 @@ const CandidateRegistration = () => {
 
   const handlechange = (e) => {
     const { name, value } = e.target;
-    if (name == "phone") {
-      if (/^\d*\.?\d*$/.test(value)) {
-        console.log("object");
-      } else {
-        console.log("noo");
-      }
-    }
     setformdata((values) => ({ ...values, [name]: value }));
   };
   async function pageHandler(e) {

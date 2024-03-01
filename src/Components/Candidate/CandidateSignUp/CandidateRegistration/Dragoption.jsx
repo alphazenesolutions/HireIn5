@@ -29,7 +29,6 @@ const DraggableSkill = ({ index, data, moveSkill, getdata }) => {
   });
 
   const opacity = isDragging ? 0.5 : 1;
-  console.log(index, "index");
   return (
     <div
       className="skillList"

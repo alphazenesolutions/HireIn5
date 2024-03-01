@@ -49,48 +49,56 @@ const ClientLogin = () => {
     setlogindata((values) => ({ ...values, password: e.target.value }));
   };
   const ButtonHandler1 = async () => {
-    setfinalerror(false);
+    var validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    setusernameerror(false);
+    setpassworderror(false);
     if (logindata.username.length === 0) {
       setusernameerror(true);
-    } else if (logindata.password.length === 0) {
+    } else if (logindata.username.match(validRegex)) {
       setusernameerror(false);
-      setpassworderror(true);
-    } else {
-      setIsLoading(true);
-      var newobj = {
-        username: logindata.username,
-        email: logindata.username,
-        password: logindata.password,
-      };
-      var loginuser = await axios
-        .post(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/token/obtain/`,
-          newobj
-        )
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
-        });
-      if (loginuser.access !== undefined) {
-        const token = loginuser.access;
-        const decoded = jwtDecode(token);
-        if (decoded.user_id !== null) {
-          dispatch(storeAction.tokenHandler({ token: loginuser.access }));
-          dispatch(storeAction.useridHandler({ userid: decoded.user_id }));
-          dispatch(storeAction.isloginHandler({ islogin: true }));
-          dispatch(storeAction.loginroleHander({ loginrole: decoded.role }));
-          if (decoded.role == "2") {
-            navigate("/#/discover");
-          } else {
-            navigate("/#/profile");
-          }
-        }
+      if (logindata.password.length === 0) {
+        setusernameerror(false);
+        setpassworderror(true);
       } else {
-        setIsLoading(false);
-        setfinalerror(true);
+        setIsLoading(true);
+        var newobj = {
+          username: logindata.username,
+          email: logindata.username,
+          password: logindata.password,
+        };
+        var loginuser = await axios
+          .post(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/token/obtain/`,
+            newobj
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+        if (loginuser.access !== undefined) {
+          const token = loginuser.access;
+          const decoded = jwtDecode(token);
+          if (decoded.user_id !== null) {
+            dispatch(storeAction.tokenHandler({ token: loginuser.access }));
+            dispatch(storeAction.useridHandler({ userid: decoded.user_id }));
+            dispatch(storeAction.isloginHandler({ islogin: true }));
+            dispatch(storeAction.loginroleHander({ loginrole: decoded.role }));
+            if (decoded.role == "2") {
+              navigate("/#/discover");
+            } else {
+              navigate("/#/profile");
+            }
+          }
+        } else {
+          setIsLoading(false);
+          setfinalerror(true);
+        }
       }
+    } else {
+      setusernameerror(true);
     }
   };
   useEffect(() => {
@@ -130,7 +138,7 @@ const ClientLogin = () => {
                 />
                 {usernameerror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">
-                    Please Enter Email
+                    Please Enter Valid Email
                   </p>
                 )}
               </div>

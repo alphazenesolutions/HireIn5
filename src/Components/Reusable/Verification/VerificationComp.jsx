@@ -143,7 +143,7 @@ const VerificationComp = () => {
     let data = JSON.stringify({
       username: signupdata.username,
       email: signupdata.username,
-      email_verification: false,
+      email_verification: true,
       mobile_verification: false,
     });
 
