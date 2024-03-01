@@ -31,7 +31,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page1");
+  const [isPage, setIsPage] = useState("page3");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -1512,17 +1512,19 @@ const CandidateRegistration = () => {
                   <div className="candidateInfo h-full">
                     <h3>Total years of Experience</h3>
                     <p>
-                      {/* <input
+                      <input
                         type="number"
                         placeholder="0-1"
                         name="experience"
                         onChange={handlechange}
-                      /> */}
-                      <select id=""
+                      />
+                      {/* <select id=""
                        name="experience"
                        onChange={handlechange}>
                         <option value="">Year and Months</option>
-                      </select>
+                        <option value="">0-6 Months</option>
+                        <option value="">6-12 Months</option>
+                      </select> */}
                     </p>
                     {formdataerror.experience && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
@@ -1645,7 +1647,7 @@ const CandidateRegistration = () => {
                       </h6>
                     </div>
                   )}
-                  <h3>
+                  {/* <h3>
                     HackerRank{" "}
                     <PiWarningCircle
                       className="warningicon"
@@ -1653,7 +1655,7 @@ const CandidateRegistration = () => {
                       onMouseOver={displaymsg}
                     />
                   </h3>
-                  <h3>Optional</h3>
+                  <h3>Optional</h3> */}
 
                 </div>
                 <input
@@ -2046,19 +2048,19 @@ const CandidateRegistration = () => {
                     <option value="">Work Onsite</option>
                     <option value="">Short-term business visit</option>
 </select>
-                  <select
+                  {/* <select
                     name="onlyfor"
                     defaultValue={travelform.onlyfor}
                     onChange={handlechange_travel}
                     className="w-full"
                   >
-                    <option value="">Select Only for</option>
+                    <option value="">Only for</option>
                     <option value="Work Onsite">Work Onsite</option>
                     <option value="Short-term business visit">
                       Short-term business visit
                     </option>
 
-                  </select>
+                  </select> */}
                 </p>
               </div>
               <div className="travelDuration">
