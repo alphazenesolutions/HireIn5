@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import Head from "../../Reusable/LogoHead/Head";
 import "./ClientLogin.css";
@@ -8,13 +9,15 @@ import SectionHead from "../../Reusable/SectionHead/SectionHead";
 import { Link, useNavigate } from "react-router-dom";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
 import { jwtDecode } from "jwt-decode";
 
 const ClientLogin = () => {
+  const islogin = useSelector((store) => store.islogin);
+  const loginrole = useSelector((store) => store.loginrole);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isButton, setIsButton] = useState(false);
@@ -87,6 +90,18 @@ const ClientLogin = () => {
       } else {
         setIsLoading(false);
         setfinalerror(true);
+      }
+    }
+  };
+  useEffect(() => {
+    Checkuser();
+  }, [islogin]);
+  const Checkuser = () => {
+    if (islogin === true) {
+      if (loginrole == "2") {
+        window.location.replace("/discover");
+      } else {
+        window.location.replace("/profile");
       }
     }
   };
