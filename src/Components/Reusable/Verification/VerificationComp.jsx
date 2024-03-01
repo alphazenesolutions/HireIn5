@@ -102,6 +102,7 @@ const VerificationComp = () => {
     final
       .confirm(otp)
       .then(async (result) => {
+        setIsPage("page4");
         let data = JSON.stringify({
           username: signupdata.username,
           email: signupdata.username,
@@ -246,7 +247,7 @@ const VerificationComp = () => {
                 share your contact details with anyone.
               </h6>
             </div>
-            <div onClick={PageHandler} className="Btn marginTop15">
+            <div className="Btn marginTop15">
               {isButton === true ? (
                 <button
                   id="page4"

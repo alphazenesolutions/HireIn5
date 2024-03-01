@@ -203,7 +203,7 @@
     width: 100%;
     outline: none;
     border: none;
-    color: var(--borderColor)
+    /* color: var(--borderColor) */
 }
 
 .company select::placeholder {

@@ -84,13 +84,29 @@ const ClientLogin = () => {
           if (decoded.user_id !== null) {
             dispatch(storeAction.tokenHandler({ token: loginuser.access }));
             dispatch(storeAction.useridHandler({ userid: decoded.user_id }));
-            dispatch(storeAction.isloginHandler({ islogin: true }));
             dispatch(storeAction.loginroleHander({ loginrole: decoded.role }));
-            // console.log(decoded.onboarding_status, "decoded");
-            if (decoded.role == "2") {
-              navigate("/discover");
+            dispatch(
+              storeAction.onboarding_statusHander({
+                onboarding_status: decoded.onboarding_status,
+              })
+            );
+            console.log(decoded.onboarding_status, "decoded.onboarding_status");
+            if (decoded.onboarding_status !== 3) {
+              if (decoded.role == "2") {
+                dispatch(storeAction.isloginHandler({ islogin: true }));
+                navigate("/discover");
+              } else {
+                dispatch(storeAction.isloginHandler({ islogin: true }));
+                navigate("/profile");
+              }
             } else {
-              navigate("/profile");
+              if (decoded.role == "2") {
+                dispatch(storeAction.roleHandler({ role: "Client" }));
+                navigate("/registration");
+              } else {
+                dispatch(storeAction.roleHandler({ role: "Candidate" }));
+                navigate("/registration");
+              }
             }
           }
         } else {

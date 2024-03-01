@@ -18,7 +18,7 @@ const Layout = () => {
               <SideBar
                 role={1}
                 menu={[
-                  { title: "discover", icon: discover, router: "discover" },
+                  { title: "Discover", icon: discover, router: "discover" },
                   { title: "Interview", icon: discover, router: "interview" },
                   { title: "Contracts", icon: discover, router: "contract" },
                   { title: "Billing", icon: discover, router: "billing" },

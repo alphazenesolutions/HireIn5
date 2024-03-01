@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import "./PricingComp.css";
 import OptionAvailable from "../../../Reusable/OptionAvailable/OptionAvailable";
 import correct from "../../../../assests/correct.png";
@@ -55,6 +56,16 @@ const PricingComp = () => {
   const monthlyPro = 899;
   const yearlyPro = 719;
 
+  useEffect(() => {
+    checkuser();
+  }, [isPage]);
+  const checkuser = async () => {
+    if (isPage === "page3") {
+      setTimeout(() => {
+        navigate("/meeting");
+      }, 3000);
+    }
+  };
   return (
     <>
       {isPage === "page1" && (

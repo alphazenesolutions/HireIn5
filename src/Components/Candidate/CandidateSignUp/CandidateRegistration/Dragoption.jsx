@@ -48,10 +48,10 @@ const DraggableSkill = ({ index, data, moveSkill, getdata }) => {
             </>
           ) : (
             <>
-              <button>
-                <CiStar />
-                <h3>Top Skill</h3>
-              </button>
+              {/* <button> */}
+                {/* <CiStar /> */}
+                {/* <h3>Top Skill</h3> */}
+              {/* </button> */}
             </>
           )}
 

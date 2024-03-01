@@ -258,7 +258,8 @@ const PersonalDetails = () => {
                     <div className="personalDetailNumber">
                       <input
                         placeholder="9876543210"
-                        type="number"
+                        type="text"
+                        maxLength={12}
                         name="phone"
                         onChange={handlechange}
                         defaultValue={formdata.phone}

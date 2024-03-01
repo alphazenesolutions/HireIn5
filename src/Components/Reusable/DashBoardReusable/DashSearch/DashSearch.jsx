@@ -488,7 +488,13 @@ const DashSearch = (props) => {
                 <img src={filter} alt="" />
                 <h2>All Filters</h2>
               </div>
-              <img src={close} alt="" />
+              <img
+                src={close}
+                alt=""
+                onClick={() => {
+                  dispatch(storeAction.isPopUpHander());
+                }}
+              />
             </div>
             <div className="workHistory">
               <div className="FilterToggle">
