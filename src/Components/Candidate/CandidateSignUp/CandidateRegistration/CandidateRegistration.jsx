@@ -31,7 +31,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page3");
+  const [isPage, setIsPage] = useState("page2");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -1527,13 +1527,12 @@ const CandidateRegistration = () => {
                   <div className="candidateInfo h-full">
                     <h3>Total years of Experience</h3>
                     <p>
-                      <input
+                      {/* <input
                         type="number"
                         placeholder="0-1"
                         name="experience"
                         onChange={handlechange}
-<<<<<<< HEAD
-                      />
+                      /> */}
                       {/* <select id=""
                        name="experience"
                        onChange={handlechange}>
@@ -1541,8 +1540,6 @@ const CandidateRegistration = () => {
                         <option value="">0-6 Months</option>
                         <option value="">6-12 Months</option>
                       </select> */}
-=======
-                      /> */}
                       <select name="experience" onChange={handlechange}>
                         <option value="">Year and Months</option>
                         <option value="1">1</option>
@@ -1550,7 +1547,6 @@ const CandidateRegistration = () => {
                         <option value="3">3</option>{" "}
                         <option value="4">4</option>
                       </select>
->>>>>>> 9379be19ee186dc1cf93c166c8d0318535641d16
                     </p>
                     {formdataerror.experience && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
@@ -1674,11 +1670,8 @@ const CandidateRegistration = () => {
                       onMouseOver={displaymsg}
                     />
                   </h3>
-<<<<<<< HEAD
                   <h3>Optional</h3> */}
-=======
                   <h3 className="option">Optional</h3>
->>>>>>> 9379be19ee186dc1cf93c166c8d0318535641d16
 
                   {displaymessages && (
                     <div className="warningmessage">
@@ -2083,7 +2076,6 @@ const CandidateRegistration = () => {
                     defaultValue={travelform.lived_at_current_residence}
                     onChange={handlechange_travel}
                   /> */}
-<<<<<<< HEAD
                   <select name="lived_at_current_residence" id="" 
                   defaultValue={travelform.lived_at_current_residence}
                   onChange={handlechange_travel}
@@ -2092,10 +2084,8 @@ const CandidateRegistration = () => {
                     <option value="">Short-term business visit</option>
 </select>
                   {/* <select
-=======
                  
                   <select
->>>>>>> 9379be19ee186dc1cf93c166c8d0318535641d16
                     name="onlyfor"
                     defaultValue={travelform.onlyfor}
                     onChange={handlechange_travel}
@@ -2106,12 +2096,8 @@ const CandidateRegistration = () => {
                     <option value="Short-term business visit">
                       Short-term business visit
                     </option>
-<<<<<<< HEAD
 
                   </select> */}
-=======
-                  </select>
->>>>>>> 9379be19ee186dc1cf93c166c8d0318535641d16
                 </p>
               </div>
               <div className="travelDuration">
