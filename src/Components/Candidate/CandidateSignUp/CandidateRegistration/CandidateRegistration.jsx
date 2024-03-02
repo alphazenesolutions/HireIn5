@@ -1124,7 +1124,7 @@ const CandidateRegistration = () => {
                   <div className="candidateInfo h-full">
                     <h3>Phone no.</h3>
                     <p>
-                      <select name="" id="">
+                      <select className="w-[28% important]" name="" id="">
                         <option value="">+91</option>
                       </select>
                       <input
