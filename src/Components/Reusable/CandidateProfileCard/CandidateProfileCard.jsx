@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./CandidateProfileCard.css";
 import back from "../../../assests/back.png";
 import brief from "../../../assests/briefCase.png";
@@ -10,10 +11,17 @@ import gallery from "../../../assests/gallery.svg";
 import info from "../../../assests/help.svg";
 import { useSelector } from "react-redux";
 import Avatar from "react-avatar";
+import axios from "axios";
+import moment from "moment";
 
 const CandidateProfileCard = (props) => {
   const singleuser = useSelector((store) => store.singleuser);
+  const loginrole = useSelector((store) => store.loginrole);
+  const token = useSelector((store) => store.token);
+  const userid = useSelector((store) => store.userid);
   const [isSelect, setIsSelect] = useState("demographic");
+  const [expiredata, setexpiredata] = useState(null);
+
   const buttonHandler = (e) => {
     if (isSelect == "demographic") {
       setIsSelect1("personal");
@@ -37,6 +45,74 @@ const CandidateProfileCard = (props) => {
   const buttonHandler1 = (e) => {
     setIsSelect1(e.target.id);
   };
+  useEffect(() => {
+    getUserinfo();
+  }, [singleuser]);
+  const getUserinfo = async () => {
+    if (singleuser.length !== 0) {
+      var userinfo = await axios
+        .get(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      if (userinfo !== undefined) {
+        setexpiredata(userinfo.block_expiry);
+      }
+    }
+  };
+  var today = moment().format("YYYY-MM-DD");
+
+  const calculateDateDifference = () => {
+    const date2 = new Date(moment(expiredata).format("YYYY-MM-DD"));
+    const date1 = new Date(today);
+
+    const timeDifference = date1 - date2;
+    const isExtended = timeDifference > 0;
+
+    const extendedOrBelow = isExtended ? "extended" : "below";
+
+    return extendedOrBelow;
+  };
+  const reserveuser = async () => {
+    let data = JSON.stringify({
+      candidate_id: singleuser[0].id,
+      duration: 5,
+      amount_paid: 15000,
+      blocked_by_id: userid,
+    });
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `${process.env.REACT_APP_LOCAL_HOST_URL}/reservation/blockcandidate/`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${token}`,
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+    getUserinfo();
+  };
   return (
     <div>
       <div className={props.main}>
@@ -44,16 +120,20 @@ const CandidateProfileCard = (props) => {
           <img src={back} alt="" />
           <h2>Back to results</h2>
         </div>
-        <div className="vedioNotes">
-          {/* <img src={star} alt="" /> */}
-          <div className="notes">
-            <h4>
-              If you don’t have a personality assessment certificate, you can
-              take one here at{" "}
-              <span className="certificateHighLight">Mettl</span>
-            </h4>
+
+        {/* <img src={star} alt="" /> */}
+        {loginrole == 3 ? (
+          <div className="vedioNotes">
+            <div className="notes">
+              <h4>
+                If you don’t have a personality assessment certificate, you can
+                take one here at{" "}
+                <span className="certificateHighLight">Mettl</span>
+              </h4>
+            </div>
           </div>
-        </div>
+        ) : null}
+
         {singleuser.length !== 0 ? (
           <div className="mainProfile">
             <div className="profileLeft">
@@ -116,29 +196,39 @@ const CandidateProfileCard = (props) => {
                     <img src={user} alt="" />
                     <h5>Part-time availability</h5>
                   </div>
-                  {singleuser[0].address !== null ? (
+                  {singleuser[0].current_place_of_residence !== null ? (
                     <div className="proExperience">
                       <img src={map} alt="" />
-                      <h5>
-                        {singleuser[0].address.address},{" "}
-                        {singleuser[0].address.city},{" "}
-                        {singleuser[0].address.state},{" "}
-                        {singleuser[0].address.country}, {singleuser[0].address.pincode},
-                      </h5>
+                      <h5>{singleuser[0].current_place_of_residence}</h5>
                     </div>
                   ) : null}
                 </div>
               </div>
-              <div className="profileLeftBottom">
-                <button className="touchButton">
-                  <img src={back} alt="" />
-                  <h4>Get in Touch</h4>
-                </button>
-                <button className="reserveButton">
-                  <img src={user} alt="" />
-                  <h4>Reserve Candidate</h4>
-                </button>
-              </div>
+
+              {expiredata !== "null" &&
+              calculateDateDifference() === "below" ? (
+                <div className="profileLeftBottom">
+                  <button className="touchButtondiable">
+                    <img src={back} alt="" />
+                    <h4>Get in Touch</h4>
+                  </button>
+                  <button className="reserveButtondiable">
+                    <img src={user} alt="" />
+                    <h4>Reserve Candidate</h4>
+                  </button>
+                </div>
+              ) : (
+                <div className="profileLeftBottom">
+                  <button className="touchButton">
+                    <img src={back} alt="" />
+                    <h4>Get in Touch</h4>
+                  </button>
+                  <button className="reserveButton" onClick={reserveuser}>
+                    <img src={user} alt="" />
+                    <h4>Reserve Candidate</h4>
+                  </button>
+                </div>
+              )}
             </div>
             {/* profile card Right */}
             <div className="profileRight">

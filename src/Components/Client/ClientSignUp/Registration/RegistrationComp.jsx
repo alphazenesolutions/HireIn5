@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./RegistrationComp.css";
@@ -6,12 +7,14 @@ import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import back from "../../../../assests/back.png";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
+import { storeAction } from "../../../../Store/Store";
 
 const RegistrationComp = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const signupdata = useSelector((store) => store.signupdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
@@ -162,6 +165,7 @@ const RegistrationComp = () => {
             linked_in: false,
           });
           setIsButton(true);
+
           var new_obj = {
             username: signupdata.username,
             first_name: registationdata.first_name,
@@ -206,6 +210,11 @@ const RegistrationComp = () => {
           ) {
             setIsPage(event.target.id);
             setIsButton(false);
+            dispatch(
+              storeAction.onboarding_statusHander({
+                onboarding_status: 2,
+              })
+            );
           } else {
             setIsButton(false);
           }
@@ -286,6 +295,7 @@ const RegistrationComp = () => {
           secondary_phone: false,
         });
         setIsButton2(true);
+
         var new_obj1 = {
           username: signupdata.username,
           first_name: registationdata.first_name,
@@ -293,7 +303,7 @@ const RegistrationComp = () => {
           linked_in: registationdata.linked_in,
           title: registationdata.title,
           role: 2,
-          onboarding_status: 4,
+          onboarding_status: 3,
           company: {
             company_email: signupdata.username,
             company_name: registationdata.company_name,
@@ -339,6 +349,11 @@ const RegistrationComp = () => {
         ) {
           setIsPage("page3");
           setIsButton2(false);
+          dispatch(
+            storeAction.onboarding_statusHander({
+              onboarding_status: 3,
+            })
+          );
         } else {
           setIsButton2(false);
         }
@@ -357,7 +372,17 @@ const RegistrationComp = () => {
     CheckStage();
   }, [onboarding_status]);
   const CheckStage = async () => {
-    console.log(onboarding_status, "onboarding_status");
+    if (onboarding_status > 3) {
+      window.location.replace("/#/discover");
+    } else {
+      if (onboarding_status == 1) {
+        setIsPage("page1");
+      } else if (onboarding_status == 2) {
+        setIsPage("page2");
+      } else if (onboarding_status == 3) {
+        window.location.replace("/#/pricing");
+      }
+    }
   };
   return (
     <>

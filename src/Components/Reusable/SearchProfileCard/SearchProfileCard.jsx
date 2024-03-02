@@ -94,11 +94,12 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
                   </div>
                   <div className="candidateCartName">
                     <h3>{datanew.first_name}</h3>
-                    <h5>{datanew.title}</h5>
+                    <h5>Candidate</h5>
                   </div>
                 </div>
                 <div className="candidateHours">
-                  <h2>&#8377; {datanew.hourly_rate}/hr</h2>
+                  {/* <h2>&#8377; {datanew.hourly_rate}/hr</h2> */}
+                  <h2> Not provided yet</h2>
                 </div>
               </div>
               <div className="candidateCartSkills">
@@ -136,15 +137,18 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
 
                 <div className="candidateCartExp">
                   <p>
-                    <img src={user_check} alt="" /> Part-time availability
+                    <img src={user_check} alt="" />
+                    Not provided yet
                   </p>
                 </div>
-
-                <div className="candidateCartExp">
-                  <p>
-                    <img src={location} alt="" /> Japan, Australia, Kuwait
-                  </p>
-                </div>
+                {datanew.current_place_of_residence !== null ? (
+                  <div className="candidateCartExp">
+                    <p>
+                      <img src={location} alt="" />{" "}
+                      {datanew.current_place_of_residence}
+                    </p>
+                  </div>
+                ) : null}
               </div>
               <div className="candidateCartButton">
                 <div className="cartbtnimg">

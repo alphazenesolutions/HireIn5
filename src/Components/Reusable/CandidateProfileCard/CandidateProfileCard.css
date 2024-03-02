@@ -190,6 +190,19 @@
     margin-bottom: 20px;
 }
 
+.touchButtondiable {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    color: var(--white);
+    border-radius: 8px;
+    background-color: #8b5cf678;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .reserveButton {
     display: flex;
     width: 100%;
@@ -198,6 +211,17 @@
     padding: 10px 15px;
     border-radius: 8px;
     border: 1px solid var(--borderColor);
+}
+
+.reserveButtondiable {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+    opacity: 0.4;
 }
 
 .profileLeftBottom h4 {
@@ -234,6 +258,7 @@
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .profileRightHeadH2Active {
@@ -864,71 +889,82 @@
 
 /* travel History */
 
-.travel{
+.travel {
     width: 100%;
-    height:500px;
+    height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding-right: 10px;
 }
-.travelslider{
+
+.travelslider {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
     margin-left: 40px;
-    
+
 }
-.travelslider1{
+
+.travelslider1 {
     margin: 0px 0px 20px 0px;
     border-radius: 10px;
     padding: 20px;
     margin-right: 20px;
     border: 1px solid #e4e4e7;
 }
-.travelslider1 h3{
+
+.travelslider1 h3 {
     font-size: 13px;
     font-weight: 500;
-    color:#A1A1AA;
+    color: #A1A1AA;
     text-transform: uppercase;
 }
-.visaStatus{
+
+.visaStatus {
     margin-top: 15px;
     display: flex;
     flex-direction: column;
 }
-.visaStatus h1{
+
+.visaStatus h1 {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 10px;
 }
-.visaStatus h1[title]{
+
+.visaStatus h1[title] {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 5px;
 }
-.visaStatus p{
+
+.visaStatus p {
     font-weight: 600;
     font-size: 14px;
     line-height: 25px;
 }
-.visaStatus p span{
+
+.visaStatus p span {
     font-weight: 500;
     font-size: 13px;
     margin-left: 2px;
 }
-.travelslider1 h4{
+
+.travelslider1 h4 {
     font-size: 14px;
     font-weight: 400;
     color: #D1D5DB;
     margin-top: 20px;
 }
-.travelslider::-webkit-scrollbar{
+
+.travelslider::-webkit-scrollbar {
     width: 8px;
 }
+
 .travelslider::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #d4d4d8;
-  }
+}

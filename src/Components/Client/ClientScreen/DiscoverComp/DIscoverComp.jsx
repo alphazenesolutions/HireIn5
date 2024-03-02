@@ -358,6 +358,7 @@ const DiscoverComp = () => {
       setselectseacrh(false);
     }
   };
+
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">
@@ -523,7 +524,8 @@ const DiscoverComp = () => {
                   </div>
                   <div className="reserveCandidateFlexRightHeadRight">
                     <h5 className="rateHour">
-                      {reserveduser[0].hourly_rate}/hr
+                      {/* {reserveduser[0].hourly_rate}/hr */}
+                      Not provided yet
                     </h5>
                   </div>
                 </div>

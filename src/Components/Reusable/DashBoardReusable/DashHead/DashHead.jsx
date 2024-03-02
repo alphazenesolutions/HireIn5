@@ -18,6 +18,7 @@ const DashHead = (props, fun) => {
   const getalldata = () => {
     if (token == null && userid == null) {
       dispatch(storeAction.isloginHandler({ islogin: false }));
+      dispatch(storeAction.issidebarHandler({ issidebar: false }));
       dispatch(storeAction.tokenHandler({ token: null }));
       dispatch(storeAction.useridHandler({ userid: 5 }));
       window.location.replace("/#/login");

@@ -73,7 +73,6 @@ const VerificationComp = () => {
   const routeHandler = () => {
     if (isPage === "page4") {
       window.location.replace("/#/registration");
-    } else {
     }
   };
   const [isChange, setIsChange] = useState(false);
@@ -103,6 +102,7 @@ const VerificationComp = () => {
       .confirm(otp)
       .then(async (result) => {
         setIsPage("page4");
+        sessionStorage.setItem("phone", phone);
         let data = JSON.stringify({
           username: signupdata.username,
           email: signupdata.username,
