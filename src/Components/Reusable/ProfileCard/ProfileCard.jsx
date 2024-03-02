@@ -93,7 +93,7 @@ const ProfileCard = ({ filterdata, fun }) => {
                 </div>
               ))
             ) : (
-              <div className="text-center w-full my-24 ml-72 font-semibold text-2xl">Candidates Not found</div>
+              <div className="text-center w-full my-24 ml-72 font-semibold text-2xl">No candidated found on your selected preferences</div>
             )}
           </div>
         </div>

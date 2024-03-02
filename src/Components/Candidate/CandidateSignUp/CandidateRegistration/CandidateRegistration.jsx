@@ -33,7 +33,7 @@ const CandidateRegistration = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
 
-  const [isPage, setIsPage] = useState("page2");
+  const [isPage, setIsPage] = useState("page1");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
