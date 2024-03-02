@@ -41,17 +41,17 @@ const DraggableSkill = ({ index, data, moveSkill, getdata }) => {
           <RxHamburgerMenu />
           {index == 0 || index == 1 || index == 2 ? (
             <>
-              <button>
+              <button className="skillSetButtonActive">
                 <CiStar />
                 <h3>Top Skill</h3>
               </button>
             </>
           ) : (
             <>
-              {/* <button> */}
-                {/* <CiStar /> */}
-                {/* <h3>Top Skill</h3> */}
-              {/* </button> */}
+              <button className="skillSetBtnDisable">
+                <CiStar />
+                <h3>Top Skill</h3>
+              </button>
             </>
           )}
 
