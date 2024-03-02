@@ -16,15 +16,17 @@ import Skilllist from "../../../../assests/skillsJSON.json";
 
 const DashSearch = (props) => {
   const dispatch = useDispatch();
-  const [isHourly, setIsHourly] = useState(false);
+  // const [isHourly, setIsHourly] = useState(false);
   const HourlyHandler = () => {
-    setIsHourly(!isHourly);
-    setIsLoction(false);
+    // setIsHourly(!isHourly);
+    // setIsLoction(false);
+    dispatch(storeAction.isPopUpHander("hourly"));
   };
-  const [isLocation, setIsLoction] = useState(false);
+  // const [isLocation, setIsLoction] = useState(false);
   const LocationHandler = () => {
-    setIsLoction(!isLocation);
-    setIsHourly(false);
+    // setIsLoction(!isLocation);
+    // setIsHourly(false);
+    dispatch(storeAction.isPopUpHander("location"));
   };
   const [allfilterdata, setallfilterdata] = useState({
     skill: "",
@@ -103,12 +105,12 @@ const DashSearch = (props) => {
       props.setIsInput(true);
     }
     setCost(true);
-    setIsHourly(false);
+    // setIsHourly(false);
   };
 
   const ResetHandler = () => {
     setCost(false);
-    setIsHourly(false);
+    // setIsHourly(false);
   };
   const locationData = [
     {
@@ -439,7 +441,7 @@ const DashSearch = (props) => {
             <img src={downArrow} alt="" />
           </button>
         </div>
-        {isHourly === true && (
+        {isPopUp === "hourly" && (
           <div className="hourlyRate">
             <h1>Select an estimated budget within this range</h1>
             <Range setrangevalue={setrangevalue} />
@@ -457,7 +459,7 @@ const DashSearch = (props) => {
             </div>
           </div>
         )}
-        {isLocation === true && (
+        {isPopUp === "location" && (
           <div className="location">
             <input className="locInput" type="text" />
             <div className="locationDesc">
