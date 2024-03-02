@@ -63,7 +63,7 @@ const SideBar = (props) => {
     window.location.replace("/#/login");
   };
 
-  const [isHover, setIsHover] = useState("discover");
+  const [isHover, setIsHover] = useState("discover" && "profile");
   const HoverHandler = (e) => {
     navigate(e.target.id);
     setIsHover(e.target.id);

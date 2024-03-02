@@ -461,7 +461,11 @@ const DashSearch = (props) => {
         )}
         {isPopUp === "location" && (
           <div className="location">
-            <input className="locInput" type="text" />
+            <input
+              placeholder="Search Location"
+              className="locInput"
+              type="text"
+            />
             <div className="locationDesc">
               {locationData.map((data) => {
                 return (
