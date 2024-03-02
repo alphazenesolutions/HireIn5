@@ -146,7 +146,7 @@ const CandidateProfileCard = (props) => {
                   <h4>Reserve Candidate</h4>
                 </button>
               </div>
-              <div className="profileLeftBottom">
+              {/* <div className="profileLeftBottom">
                 <button className="touchButtondiable">
                   <img src={back} alt="" />
                   <h4>Get in Touch</h4>
@@ -155,7 +155,7 @@ const CandidateProfileCard = (props) => {
                   <img src={user} alt="" />
                   <h4>Reserve Candidate</h4>
                 </button>
-              </div>
+              </div> */}
             </div>
             {/* profile card Right */}
             <div className="profileRight">

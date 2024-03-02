@@ -9,8 +9,11 @@ import Head from "../../../Reusable/LogoHead/Head";
 import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import { useNavigate } from "react-router-dom";
 import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
+import { useDispatch } from "react-redux";
+import { storeAction } from "../../../../Store/Store";
 
 const PricingComp = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isToggle, setIsToggle] = useState(false);
   const toggleHandler = () => {
@@ -61,6 +64,11 @@ const PricingComp = () => {
   }, [isPage]);
   const checkuser = async () => {
     if (isPage === "page3") {
+      dispatch(
+        storeAction.onboarding_statusHander({
+          onboarding_status: 4,
+        })
+      );
       setTimeout(() => {
         navigate("/meeting");
       }, 3000);

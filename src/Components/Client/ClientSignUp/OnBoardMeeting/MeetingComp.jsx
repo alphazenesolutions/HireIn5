@@ -19,7 +19,7 @@ const MeetingComp = () => {
 
   const routeHandler = () => {
     if (isPage === "successPage") {
-      dispatch(storeAction.isloginHandler({ islogin: true }));
+      dispatch(storeAction.issidebarHandler({ issidebar: true }));
       navigate("/discover");
     } else {
     }

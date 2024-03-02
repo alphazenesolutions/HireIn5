@@ -71,6 +71,8 @@ const CandidateSignUp = () => {
           dispatch(
             storeAction.tokenHandler({ token: createuser.access_token })
           );
+          dispatch(storeAction.loginroleHander({ loginrole: 3 }));
+          dispatch(storeAction.isloginHandler({ islogin: true }));
           dispatch(storeAction.useridHandler({ userid: createuser.id }));
           dispatch(
             storeAction.signupdataHandler({

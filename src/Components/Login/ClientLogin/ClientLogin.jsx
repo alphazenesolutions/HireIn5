@@ -90,13 +90,15 @@ const ClientLogin = () => {
                 onboarding_status: decoded.onboarding_status,
               })
             );
-            console.log(decoded.onboarding_status, "decoded.onboarding_status");
+           
             if (decoded.onboarding_status !== 3) {
               if (decoded.role == "2") {
                 dispatch(storeAction.isloginHandler({ islogin: true }));
+                dispatch(storeAction.issidebarHandler({ issidebar: true }));
                 navigate("/discover");
               } else {
                 dispatch(storeAction.isloginHandler({ islogin: true }));
+                dispatch(storeAction.issidebarHandler({ issidebar: true }));
                 navigate("/profile");
               }
             } else {

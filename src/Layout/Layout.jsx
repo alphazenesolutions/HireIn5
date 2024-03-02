@@ -7,11 +7,11 @@ import { useSelector } from "react-redux";
 import discover from "../assests/Discover.svg";
 
 const Layout = () => {
-  const islogin = useSelector((store) => store.islogin);
+  const issidebar = useSelector((store) => store.issidebar);
   const loginrole = useSelector((store) => store.loginrole);
   return (
     <div>
-      {islogin && (
+      {issidebar && (
         <div className="dashboard">
           <div className="sideNavComp">
             {loginrole == 2 && (
@@ -46,7 +46,7 @@ const Layout = () => {
           </div>
         </div>
       )}
-      {!islogin && <Routing />}
+      {!issidebar && <Routing />}
     </div>
   );
 };

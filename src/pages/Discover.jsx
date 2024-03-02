@@ -13,6 +13,7 @@ const Discover = () => {
       window.location.replace("/");
     }
   };
+  sessionStorage.removeItem("phone");
   return (
     <div>
       <DiscoverComp />
