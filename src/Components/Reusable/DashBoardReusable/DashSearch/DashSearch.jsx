@@ -217,6 +217,8 @@ const DashSearch = (props) => {
     dispatch(storeAction.isPopUpHander());
     setIsToggle1(false);
     setIsToggle(false);
+    setSelectedOption(null);
+    setSelectedOptionskill(null);
   };
   const options = [
     { value: "Afghanistan", label: "Afghanistan" },

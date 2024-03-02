@@ -43,7 +43,8 @@ const ProfileCard = ({ filterdata, fun }) => {
                       </div>
                     </div>
                     <div className="candidateDiscoverHours">
-                      <h2>&#8377; {data.hourly_rate}/hr</h2>
+                      {/* <h2>&#8377; {data.hourly_rate}/hr</h2> */}
+                      <h2> Not provided yet</h2>
                     </div>
                   </div>
                   <div className="candidateDiscoverSkills">

@@ -13,6 +13,7 @@ import Avatar from "react-avatar";
 
 const CandidateProfileCard = (props) => {
   const singleuser = useSelector((store) => store.singleuser);
+  const loginrole = useSelector((store) => store.loginrole);
   const [isSelect, setIsSelect] = useState("demographic");
   const buttonHandler = (e) => {
     if (isSelect == "demographic") {
@@ -37,6 +38,7 @@ const CandidateProfileCard = (props) => {
   const buttonHandler1 = (e) => {
     setIsSelect1(e.target.id);
   };
+  console.log(singleuser, "singleuser");
   return (
     <div>
       <div className={props.main}>
@@ -44,16 +46,20 @@ const CandidateProfileCard = (props) => {
           <img src={back} alt="" />
           <h2>Back to results</h2>
         </div>
-        <div className="vedioNotes">
-          {/* <img src={star} alt="" /> */}
-          <div className="notes">
-            <h4>
-              If you don’t have a personality assessment certificate, you can
-              take one here at{" "}
-              <span className="certificateHighLight">Mettl</span>
-            </h4>
+
+        {/* <img src={star} alt="" /> */}
+        {loginrole == 3 ? (
+          <div className="vedioNotes">
+            <div className="notes">
+              <h4>
+                If you don’t have a personality assessment certificate, you can
+                take one here at{" "}
+                <span className="certificateHighLight">Mettl</span>
+              </h4>
+            </div>
           </div>
-        </div>
+        ) : null}
+
         {singleuser.length !== 0 ? (
           <div className="mainProfile">
             <div className="profileLeft">
@@ -123,7 +129,8 @@ const CandidateProfileCard = (props) => {
                         {singleuser[0].address.address},{" "}
                         {singleuser[0].address.city},{" "}
                         {singleuser[0].address.state},{" "}
-                        {singleuser[0].address.country}, {singleuser[0].address.pincode},
+                        {singleuser[0].address.country},{" "}
+                        {singleuser[0].address.pincode},
                       </h5>
                     </div>
                   ) : null}
@@ -135,6 +142,16 @@ const CandidateProfileCard = (props) => {
                   <h4>Get in Touch</h4>
                 </button>
                 <button className="reserveButton">
+                  <img src={user} alt="" />
+                  <h4>Reserve Candidate</h4>
+                </button>
+              </div>
+              <div className="profileLeftBottom">
+                <button className="touchButtondiable">
+                  <img src={back} alt="" />
+                  <h4>Get in Touch</h4>
+                </button>
+                <button className="reserveButtondiable">
                   <img src={user} alt="" />
                   <h4>Reserve Candidate</h4>
                 </button>
