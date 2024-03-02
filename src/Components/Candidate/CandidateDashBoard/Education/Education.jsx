@@ -47,7 +47,7 @@ const Education = () => {
 
   useEffect(() => {
     getUserinfo();
-  }, []);
+  }, [userdata.length !== 0]);
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
@@ -124,7 +124,10 @@ const Education = () => {
         ...userdata[0],
         education_info: updatedata.user.education_info,
       };
-      dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      dispatch(storeAction.userdataHander({ userdata: [] }));
+      setTimeout(() => {
+        dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      }, 10);
       dispatch(storeAction.isPopUpHander());
       setIsShow(!isShow);
       setloading(false);

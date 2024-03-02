@@ -68,7 +68,10 @@ const Certificate = () => {
         ...userdata[0],
         certificate_info: updatedata.user.certificate_info,
       };
-      dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      dispatch(storeAction.userdataHander({ userdata: [] }));
+      setTimeout(() => {
+        dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+      }, 10);
       dispatch(storeAction.isPopUpHander());
       setIsShow(!isShow);
       setloading(false);
@@ -97,7 +100,7 @@ const Certificate = () => {
 
   useEffect(() => {
     getUserinfo();
-  }, []);
+  }, [userdata.length !== 0]);
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {

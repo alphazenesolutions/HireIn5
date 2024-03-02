@@ -72,7 +72,7 @@ const VerificationComp = () => {
   };
   const routeHandler = () => {
     if (isPage === "page4") {
-      window.location.replace("/registration");
+      window.location.replace("/#/registration");
     } else {
     }
   };
@@ -102,6 +102,7 @@ const VerificationComp = () => {
     final
       .confirm(otp)
       .then(async (result) => {
+        setIsPage("page4");
         let data = JSON.stringify({
           username: signupdata.username,
           email: signupdata.username,
@@ -143,7 +144,7 @@ const VerificationComp = () => {
     let data = JSON.stringify({
       username: signupdata.username,
       email: signupdata.username,
-      email_verification: false,
+      email_verification: true,
       mobile_verification: false,
     });
 
@@ -246,7 +247,7 @@ const VerificationComp = () => {
                 share your contact details with anyone.
               </h6>
             </div>
-            <div onClick={PageHandler} className="Btn marginTop15">
+            <div className="Btn marginTop15">
               {isButton === true ? (
                 <button
                   id="page4"

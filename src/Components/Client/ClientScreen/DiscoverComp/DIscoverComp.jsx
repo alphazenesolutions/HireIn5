@@ -26,6 +26,7 @@ import SingleRange from "../../../MaterialUi/SingleRange/SingleRange";
 import userCheck from "../../../../assests/userCheck.png";
 import success from "../../../../assests/Succcess.png";
 import moment from "moment";
+import Skilllist from "../../../../assests/skillsJSON.json";
 
 const DiscoverComp = () => {
   const dispatch = useDispatch();
@@ -291,7 +292,7 @@ const DiscoverComp = () => {
     getSearchuser();
   };
   const searchHandler = () => {
-    setselectseacrh(true);
+    // setselectseacrh(true);
   };
   const [isButton, setIsButton] = useState(null);
   const [selectseacrh, setselectseacrh] = useState(false);
@@ -300,22 +301,32 @@ const DiscoverComp = () => {
 
   const buttonHandler = async (e) => {
     setsearchvalue(e);
-    if (e.length > 0) {
-      var myHeaders = new Headers();
-      myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
-      var requestOptions = {
-        method: "GET",
-        redirect: "follow",
-        headers: myHeaders,
-      };
-      var skilldata = await fetch(
-        `https://api.apilayer.com/skills?q=${e}`,
-        requestOptions
-      ).then((response) => {
-        return response.text();
-      });
-      var newarray = JSON.parse(skilldata);
-      setskilldata(newarray);
+    if (e.length !== 0) {
+      // var myHeaders = new Headers();
+      // myHeaders.append("apikey", "m6DPZFayQKB7uHJSfmv3toiM7sjfodaG");
+      // var requestOptions = {
+      //   method: "GET",
+      //   redirect: "follow",
+      //   headers: myHeaders,
+      // };
+      // var skilldata = await fetch(
+      //   `https://api.apilayer.com/skills?q=${e}`,
+      //   requestOptions
+      // ).then((response) => {
+      //   return response.text();
+      // });
+      // var newarray = JSON.parse(skilldata);
+      var skillarrray = Skilllist;
+      const uniqueSkills = Array.from(
+        new Set(skillarrray.map((skill) => skill.Skill))
+      );
+      const inputvalueLower = e.toLowerCase();
+      const matchingSkills = uniqueSkills.filter(
+        (skill) =>
+          typeof skill === "string" &&
+          skill.toLowerCase().includes(inputvalueLower)
+      );
+      setskilldata(matchingSkills);
       setIsButton(true);
     } else {
       setselectseacrh(false);

@@ -2,8 +2,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from "react";
 import "./SideBar.css";
-import profile from "../../../assests/profile.png";
-import wallet from "../../../assests/wallet.png";
 import logout from "../../../assests/logout.png";
 import logo from "../../../assests/Logo.png";
 import { useSelector } from "react-redux";
@@ -11,6 +9,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import { useNavigate } from "react-router-dom";
+import Avatar from "react-avatar";
 
 const SideBar = (props) => {
   const navigate = useNavigate();
@@ -40,26 +39,28 @@ const SideBar = (props) => {
         .catch((err) => {
           return err.response;
         });
-      if (userinfo.id !== undefined) {
-        dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
-      } else {
-        dispatch(storeAction.isloginHandler({ islogin: false }));
-        dispatch(storeAction.tokenHandler({ token: null }));
-        dispatch(storeAction.useridHandler({ userid: 5 }));
-        window.location.replace("/login");
+      if (userinfo !== undefined) {
+        if (userinfo.id !== undefined) {
+          dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
+        } else {
+          dispatch(storeAction.isloginHandler({ islogin: false }));
+          dispatch(storeAction.tokenHandler({ token: null }));
+          dispatch(storeAction.useridHandler({ userid: 5 }));
+          window.location.replace("/#/login");
+        }
       }
     } else {
       dispatch(storeAction.isloginHandler({ islogin: false }));
       dispatch(storeAction.tokenHandler({ token: null }));
       dispatch(storeAction.useridHandler({ userid: 5 }));
-      window.location.replace("/login");
+      window.location.replace("/#/login");
     }
   }, [token, userid]);
   const logoutbtn = () => {
     dispatch(storeAction.isloginHandler({ islogin: false }));
     dispatch(storeAction.tokenHandler({ token: null }));
     dispatch(storeAction.useridHandler({ userid: 5 }));
-    window.location.replace("/login");
+    window.location.replace("/#/login");
   };
 
   const [isHover, setIsHover] = useState("discover");
@@ -85,11 +86,21 @@ const SideBar = (props) => {
                 {userdata.length !== 0 ? (
                   <h2>{userdata[0].first_name}</h2>
                 ) : null}
-
-                {/* <p>Apple Inc.</p> */}
+                {userdata.length !== 0 ? (
+                  userdata[0].company !== null ? (
+                    <p>{userdata[0].company.company_name}</p>
+                  ) : null
+                ) : null}
               </div>
               <div className="profilePic">
-                <img src={profile} alt="" />
+                {userdata.length !== 0 ? (
+                  <Avatar
+                    name={userdata[0].first_name}
+                    size={50}
+                    round="50px"
+                  />
+                ) : null}
+                {/* <img src={profile} alt="" /> */}
               </div>
             </div>
             <div className="navMenu">
@@ -136,7 +147,7 @@ const SideBar = (props) => {
               })}
             </div>
           </div>
-          <div className="sideNavBottom">
+          {/* <div className="sideNavBottom">
             <div className="cash">
               <div className="cashLeft">
                 <img src={wallet} alt="" />
@@ -148,7 +159,7 @@ const SideBar = (props) => {
                 </h5>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="logout cursor-pointer" onClick={logoutbtn}>
           <img src={logout} alt="" onClick={logoutbtn} />

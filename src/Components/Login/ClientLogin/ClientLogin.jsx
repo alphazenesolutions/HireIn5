@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import Head from "../../Reusable/LogoHead/Head";
 import "./ClientLogin.css";
@@ -8,13 +9,15 @@ import SectionHead from "../../Reusable/SectionHead/SectionHead";
 import { Link, useNavigate } from "react-router-dom";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
 import { jwtDecode } from "jwt-decode";
 
 const ClientLogin = () => {
+  const islogin = useSelector((store) => store.islogin);
+  const loginrole = useSelector((store) => store.loginrole);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isButton, setIsButton] = useState(false);
@@ -46,47 +49,84 @@ const ClientLogin = () => {
     setlogindata((values) => ({ ...values, password: e.target.value }));
   };
   const ButtonHandler1 = async () => {
-    setfinalerror(false);
+    var validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    setusernameerror(false);
+    setpassworderror(false);
     if (logindata.username.length === 0) {
       setusernameerror(true);
-    } else if (logindata.password.length === 0) {
+    } else if (logindata.username.match(validRegex)) {
       setusernameerror(false);
-      setpassworderror(true);
-    } else {
-      setIsLoading(true);
-      var newobj = {
-        username: logindata.username,
-        email: logindata.username,
-        password: logindata.password,
-      };
-      var loginuser = await axios
-        .post(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/token/obtain/`,
-          newobj
-        )
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
-        });
-      if (loginuser.access !== undefined) {
-        const token = loginuser.access;
-        const decoded = jwtDecode(token);
-        if (decoded.user_id !== null) {
-          dispatch(storeAction.tokenHandler({ token: loginuser.access }));
-          dispatch(storeAction.useridHandler({ userid: decoded.user_id }));
-          dispatch(storeAction.isloginHandler({ islogin: true }));
-          dispatch(storeAction.loginroleHander({ loginrole: decoded.role }));
-          if (decoded.role == "2") {
-            navigate("/discover");
-          } else {
-            navigate("/profile");
-          }
-        }
+      if (logindata.password.length === 0) {
+        setusernameerror(false);
+        setpassworderror(true);
       } else {
-        setIsLoading(false);
-        setfinalerror(true);
+        setIsLoading(true);
+        var newobj = {
+          username: logindata.username,
+          email: logindata.username,
+          password: logindata.password,
+        };
+        var loginuser = await axios
+          .post(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/token/obtain/`,
+            newobj
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+        if (loginuser.access !== undefined) {
+          const token = loginuser.access;
+          const decoded = jwtDecode(token);
+          if (decoded.user_id !== null) {
+            dispatch(storeAction.tokenHandler({ token: loginuser.access }));
+            dispatch(storeAction.useridHandler({ userid: decoded.user_id }));
+            dispatch(storeAction.loginroleHander({ loginrole: decoded.role }));
+            dispatch(
+              storeAction.onboarding_statusHander({
+                onboarding_status: decoded.onboarding_status,
+              })
+            );
+            console.log(decoded.onboarding_status, "decoded.onboarding_status");
+            if (decoded.onboarding_status !== 3) {
+              if (decoded.role == "2") {
+                dispatch(storeAction.isloginHandler({ islogin: true }));
+                navigate("/discover");
+              } else {
+                dispatch(storeAction.isloginHandler({ islogin: true }));
+                navigate("/profile");
+              }
+            } else {
+              if (decoded.role == "2") {
+                dispatch(storeAction.roleHandler({ role: "Client" }));
+                navigate("/registration");
+              } else {
+                dispatch(storeAction.roleHandler({ role: "Candidate" }));
+                navigate("/registration");
+              }
+            }
+          }
+        } else {
+          setIsLoading(false);
+          setfinalerror(true);
+        }
+      }
+    } else {
+      setusernameerror(true);
+    }
+  };
+  useEffect(() => {
+    Checkuser();
+  }, [islogin]);
+  const Checkuser = () => {
+    if (islogin === true) {
+      if (loginrole == "2") {
+        window.location.replace("/#/discover");
+      } else {
+        window.location.replace("/#/profile");
       }
     }
   };
@@ -115,7 +155,7 @@ const ClientLogin = () => {
                 />
                 {usernameerror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">
-                    Please Enter Email
+                    Please Enter Valid Email
                   </p>
                 )}
               </div>

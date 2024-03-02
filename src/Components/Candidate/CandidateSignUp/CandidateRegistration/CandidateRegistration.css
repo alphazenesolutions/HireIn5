@@ -262,54 +262,46 @@
     justify-content: space-between;
     /* background-color: red; */
 }
-.candidateInfo p select{
-    width: 100%;
+
+.candidateInfo p select {
+    /* width: 100%; */
     height: 30px;
     padding: 2px;
-    
+
 }
 
 .candidateInfo p select {
     outline: none;
     border: none;
-    color: black
 }
 
-.candidateInfo p select option:checked{
-    color: black;
-}
 
 .candidateInfo p input {
     outline: none;
     border: none;
     height: 95%;
+    padding-left: 5px;
 }
 
-.candidateInfo input::placeholder {
-    color: var(--borderColor)
-}
-.candidateInfo p select{
-    color: var(--borderColor)
-}
+
 .candidateInfo .candidateState {
     width: 100%;
     height: 42px;
     border: 1px solid var(--borderColor);
     border-radius: 7px;
-    padding: 15px;
+    padding: 15px 10px;
     font-size: 15px;
     outline: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
 }
 
 .candidateState select {
     width: 100%;
     outline: none;
     border: none;
-    color: var(--borderColor)
+    color: black
 }
 
 .company select::placeholder {
@@ -380,7 +372,7 @@
     text-align: center;
     font-size: 14px;
     font-weight: 500;
-    color: var(--textColorDark);
+    color: #6b7280;
 }
 
 .aadhaar1 {
@@ -763,7 +755,17 @@
 
 .addLanguages input {
     width: 100%;
-    height: 42px;
+    /* height: 42px; */
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+}
+
+.addLanguages select {
+    width: 100%;
+    /* height: 42px; */
     border: 1px solid var(--borderColor);
     border-radius: 7px;
     padding: 15px;
@@ -1098,6 +1100,16 @@
 }
 
 .Bottombtns .nextbtn1 {
+    width: 100%;
+    background-color: var(--primaryColor);
+    padding: 10px;
+    border-radius: 7px;
+    outline: none;
+    border: none;
+    color: white;
+}
+
+.nextbtn {
     width: 100%;
     background-color: var(--primaryColor);
     padding: 10px;

@@ -17,6 +17,7 @@ const StoreSlice = createSlice({
     userdata: [],
     loginrole: null,
     singleuser: [],
+    onboarding_status: null,
   },
   reducers: {
     roleHandler(state, payload) {
@@ -48,6 +49,9 @@ const StoreSlice = createSlice({
     },
     singleuserHander(state, action) {
       state.singleuser = action.payload.singleuser;
+    },
+    onboarding_statusHander(state, action) {
+      state.onboarding_status = action.payload.onboarding_status;
     },
   },
 });

@@ -11,7 +11,7 @@ const RangeSlider = ({ setrangevalue }) => {
     setrangevalue(newValue);
   };
   const valueLabelFormat = (value) => {
-    return `${value} USD`;
+    return `USD ${value}`;
   };
 
   return (
