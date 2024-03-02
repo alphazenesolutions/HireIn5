@@ -249,9 +249,9 @@ const CandidateRegistration = () => {
     experience: "",
     skill: "",
     linkedin: "",
-    hackerrank: "",
-    github: "",
-    website: "",
+    hackerrank: "11",
+    github: "11",
+    website: "11",
     languages: "",
     pincode: "",
     countryaddress: "",
@@ -803,6 +803,7 @@ const CandidateRegistration = () => {
             setIsLoading(false);
           }
         }
+        setIsLoading(false);
       }
     } else if (isPage === "page3") {
       setIsLoading(true);
@@ -1053,7 +1054,7 @@ const CandidateRegistration = () => {
     { value: "Korea, South", label: "Korea, South" },
     { value: "Kuwait", label: "Kuwait" },
   ];
-  console.log(options, "options");
+  console.log(row, "options 111");
   return (
     <>
       <div className="candidateRegistration">
@@ -2067,6 +2068,7 @@ const CandidateRegistration = () => {
                     />
                   </h3>
                   <h3>Optional</h3> */}
+                  <h3>HackerRank</h3>
                   <h3 className="option">Optional</h3>
 
                   {displaymessages && (
@@ -2166,7 +2168,9 @@ const CandidateRegistration = () => {
                           <select
                             defaultValue={datanew.level}
                             ref={inputref1}
-                            onChange={dropDownHandler1}
+                            onChange={(e) => {
+                              filterdata(e.target.value, index);
+                            }}
                           >
                             <option value="Basic">Basic</option>
                             <option value="Conversational">
@@ -2181,6 +2185,18 @@ const CandidateRegistration = () => {
                             }}
                           /> */}
                         </div>
+                        {/* <div className="Level">
+                          {dropDownOpen1.map((option, index1) => (
+                            <h3
+                              onClick={() => {
+                                filterdata(option, index);
+                              }}
+                              key={index1}
+                            >
+                              {option}
+                            </h3>
+                          ))}
+                        </div> */}
                         {indexvalue == index
                           ? dropDown1 && (
                               <div className="Level">
