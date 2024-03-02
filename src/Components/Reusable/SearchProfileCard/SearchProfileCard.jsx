@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./SearchProfileCard.css";
-import candidateimges from "../../../assests/table.png";
 import courseIcons from "../../../assests/userCard.png";
 import briefcase from "../../../assests/briefCase.png";
 import graduation_cap from "../../../assests/graduationCap.png";
@@ -14,6 +13,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import axios from "axios";
+import Avatar from "react-avatar";
 
 const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
   const dispatch = useDispatch();
@@ -89,7 +89,8 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
               <div className="candidateCartProfile">
                 <div className="candidateCartProfile1">
                   <div className="candidateImage">
-                    <img src={candidateimges} alt="" />
+                    {/* <img src={candidateimges} alt="" /> */}
+                    <Avatar name={datanew.first_name} size={50} round="50px" />
                   </div>
                   <div className="candidateCartName">
                     <h3>{datanew.first_name}</h3>
