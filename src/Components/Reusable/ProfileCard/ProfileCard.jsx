@@ -1,12 +1,12 @@
 /* eslint-disable eqeqeq */
 import React from "react";
 import "./ProfileCard.css";
-import candidateimges from "../../../assests/table.png";
 import briefcase from "../../../assests/briefCase.png";
 import graduation_cap from "../../../assests/graduationCap.png";
 import user_check from "../../../assests/userCheck.png";
 import location from "../../../assests/mapPin.png";
 import courseIcons from "../../../assests/userCard.png";
+import Avatar from "react-avatar";
 
 const ProfileCard = ({ filterdata, fun }) => {
   console.log(filterdata, "filterdata");
@@ -30,7 +30,12 @@ const ProfileCard = ({ filterdata, fun }) => {
                   <div className="candidateDiscoverProfile">
                     <div className="candidateDiscoverProfile1">
                       <div className="candidateDiscoverImage">
-                        <img src={candidateimges} alt="" />
+                        {/* <img src={candidateimges} alt="" /> */}
+                        <Avatar
+                          name={data.first_name}
+                          size={50}
+                          round="50px"
+                        />
                       </div>
                       <div className="candidateDiscoverName">
                         <h3>{data.first_name}</h3>
@@ -93,7 +98,9 @@ const ProfileCard = ({ filterdata, fun }) => {
                 </div>
               ))
             ) : (
-              <div className="text-center w-full my-24 ml-72 font-semibold text-2xl">No candidated found on your selected preferences</div>
+              <div className="text-center w-full my-24 ml-72 font-semibold text-2xl">
+                No candidated found on your selected preferences
+              </div>
             )}
           </div>
         </div>

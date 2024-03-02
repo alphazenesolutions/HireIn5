@@ -22,7 +22,7 @@ const SideBar = (props) => {
     setTimeout(() => {
       getUserinfo();
     }, 1000);
-  }, [token, userid, userdata]);
+  }, [token, userid]);
 
   const getUserinfo = useCallback(async () => {
     if (token !== null && userid !== null) {

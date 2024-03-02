@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import "./CandidateProfileCard.css";
 import back from "../../../assests/back.png";
-import candidatePropoic from "../../../assests/CandidateProfile.png";
 import brief from "../../../assests/briefCase.png";
 import user from "../../../assests/User.svg";
 import map from "../../../assests/mapPin.png";
@@ -10,6 +9,7 @@ import vedio from "../../../assests/Image.jpg";
 import gallery from "../../../assests/gallery.svg";
 import info from "../../../assests/help.svg";
 import { useSelector } from "react-redux";
+import Avatar from "react-avatar";
 
 const CandidateProfileCard = (props) => {
   const singleuser = useSelector((store) => store.singleuser);
@@ -58,7 +58,13 @@ const CandidateProfileCard = (props) => {
           <div className="mainProfile">
             <div className="profileLeft">
               <div className="profileLeftTop">
-                <img src={candidatePropoic} alt="" />
+                <Avatar
+                  name={singleuser[0].first_name}
+                  size={100}
+                  round="50px"
+                />
+                {/* <img src={candidatePropoic} alt="" /> */}
+
                 <h1>{singleuser[0].first_name}</h1>
                 <h2>USD {singleuser[0].hourly_rate} / HR</h2>
                 <div className="available">
@@ -110,10 +116,17 @@ const CandidateProfileCard = (props) => {
                     <img src={user} alt="" />
                     <h5>Part-time availability</h5>
                   </div>
-                  <div className="proExperience">
-                    <img src={map} alt="" />
-                    <h5>Bengaluru,India</h5>
-                  </div>
+                  {singleuser[0].address !== null ? (
+                    <div className="proExperience">
+                      <img src={map} alt="" />
+                      <h5>
+                        {singleuser[0].address.address},{" "}
+                        {singleuser[0].address.city},{" "}
+                        {singleuser[0].address.state},{" "}
+                        {singleuser[0].address.country}, {singleuser[0].address.pincode},
+                      </h5>
+                    </div>
+                  ) : null}
                 </div>
               </div>
               <div className="profileLeftBottom">
@@ -516,65 +529,86 @@ const CandidateProfileCard = (props) => {
                   </div>
                 </div>
               )}
-              {isSelect1 === "travel" && <div className="travel">
-             
-               <div className="travelslider">
-                <div className="travelslider1">
-                <h3>Current VISa status</h3>
-                <div className="visaStatus">
-                  <h1>USA</h1>
-                  <p>Type of Visa :<span>H1B</span></p>
-                  <p>Validity of Visa :<span> 21 / 03 / 2025</span></p>
-                </div>
-                </div>
-                <div className="travelslider1">
-                <h3>Travel history</h3>
-                <div className="visaStatus">
-                  <h1 title="">USA</h1>
-                  <p>Year of Travel : <span>2017</span></p>
-                  <p>Duration : <span>5 months</span></p>
-                </div> 
-                <div className="visaStatus">
-                  <p>Purpose : <span>Work</span></p>
-                  <p>Type of Visa : <span>H1B</span></p>
-                  <p>Validity of Visa : <span>21 / 03 / 2025</span></p>
-                </div> 
-                <div className="visaStatus">
-                <h1 title="">UAE</h1>
-                  <p>Year of Travel : <span>2018</span></p>
-                  <p>Duration : <span>3 months</span></p>
-                </div>
-                </div>
-                <div className="travelslider1">
-                <h3>Countries willing to travel to for work</h3>
-                <div className="visaStatus">
-                <h1 title="">USA</h1>
-                <h1 title="">Singapore</h1>
-                <h1 title="">Saudi Arabia</h1>
-                 
-                </div>
-                <div className="visaStatus">
-                  <p>Only for : <span>Work</span></p>
-                  <p>Duration : <span> 6 months</span></p>
-                  <p>Travel Readiness: <span>Immediate</span></p>
-                </div> 
-
-                </div>
-                <div className="travelslider1">
-                  <h3>Countries willing to relocate to</h3>
-                  <h4>Candidate unwilling to relocate </h4>
+              {isSelect1 === "travel" && (
+                <div className="travel">
+                  <div className="travelslider">
+                    <div className="travelslider1">
+                      <h3>Current VISa status</h3>
+                      <div className="visaStatus">
+                        <h1>USA</h1>
+                        <p>
+                          Type of Visa :<span>H1B</span>
+                        </p>
+                        <p>
+                          Validity of Visa :<span> 21 / 03 / 2025</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="travelslider1">
+                      <h3>Travel history</h3>
+                      <div className="visaStatus">
+                        <h1 title="">USA</h1>
+                        <p>
+                          Year of Travel : <span>2017</span>
+                        </p>
+                        <p>
+                          Duration : <span>5 months</span>
+                        </p>
+                      </div>
+                      <div className="visaStatus">
+                        <p>
+                          Purpose : <span>Work</span>
+                        </p>
+                        <p>
+                          Type of Visa : <span>H1B</span>
+                        </p>
+                        <p>
+                          Validity of Visa : <span>21 / 03 / 2025</span>
+                        </p>
+                      </div>
+                      <div className="visaStatus">
+                        <h1 title="">UAE</h1>
+                        <p>
+                          Year of Travel : <span>2018</span>
+                        </p>
+                        <p>
+                          Duration : <span>3 months</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="travelslider1">
+                      <h3>Countries willing to travel to for work</h3>
+                      <div className="visaStatus">
+                        <h1 title="">USA</h1>
+                        <h1 title="">Singapore</h1>
+                        <h1 title="">Saudi Arabia</h1>
+                      </div>
+                      <div className="visaStatus">
+                        <p>
+                          Only for : <span>Work</span>
+                        </p>
+                        <p>
+                          Duration : <span> 6 months</span>
+                        </p>
+                        <p>
+                          Travel Readiness: <span>Immediate</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="travelslider1">
+                      <h3>Countries willing to relocate to</h3>
+                      <h4>Candidate unwilling to relocate </h4>
+                    </div>
+                    <div className="travelslider1">
+                      <h3>Residency details</h3>
+                      <div className="visaStatus">
+                        <p>Current Place of Residence: Bengaluru, India</p>
+                        <p>Duration : 5 years</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="travelslider1">
-                  <h3>Residency details</h3>
-                  <div className="visaStatus">
-                  <p>Current Place of Residence: Bengaluru, India</p>
-                  <p>Duration : 5 years</p>
-                </div> 
-                 
-                  </div>
-               </div>
-                
-                </div>}
+                </div>
+              )}
               {isSelect1 === "remote" && (
                 <div className="remote">
                   <div className="remoteFlex">
