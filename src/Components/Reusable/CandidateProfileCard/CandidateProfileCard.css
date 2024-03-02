@@ -212,6 +212,7 @@
     border-radius: 8px;
     border: 1px solid var(--borderColor);
 }
+
 .reserveButtondiable {
     display: flex;
     width: 100%;
@@ -257,6 +258,7 @@
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .profileRightHeadH2Active {

@@ -80,7 +80,6 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
     setIsPage("page2");
     dispatch(storeAction.singleuserHander({ singleuser: [data] }));
   };
-  console.log(datanew, "datanew");
   return (
     <div>
       <div className="clientInterview">
@@ -142,10 +141,11 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
                     Not provided yet
                   </p>
                 </div>
-                {datanew.address !== null ? (
+                {datanew.current_place_of_residence !== null ? (
                   <div className="candidateCartExp">
                     <p>
-                      <img src={location} alt="" /> {datanew.address.address}
+                      <img src={location} alt="" />{" "}
+                      {datanew.current_place_of_residence}
                     </p>
                   </div>
                 ) : null}

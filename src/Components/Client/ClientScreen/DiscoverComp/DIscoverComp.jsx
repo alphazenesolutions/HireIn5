@@ -358,7 +358,7 @@ const DiscoverComp = () => {
       setselectseacrh(false);
     }
   };
-  console.log(searchuser, "searchuser");
+
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">

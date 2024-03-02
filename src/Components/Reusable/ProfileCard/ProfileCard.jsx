@@ -9,7 +9,6 @@ import courseIcons from "../../../assests/userCard.png";
 import Avatar from "react-avatar";
 
 const ProfileCard = ({ filterdata, fun }) => {
-  console.log(filterdata, "filterdata");
   return (
     <div>
       <div className="clientDiscoverOuter paddingRight100">
@@ -87,11 +86,11 @@ const ProfileCard = ({ filterdata, fun }) => {
                         <img src={user_check} alt="" /> Part-time availability
                       </p>
                     </div>
-                    {data.travel_info !== null ? (
+                    {data.current_place_of_residence !== null ? (
                       <div className="candidateDiscoverExp">
                         <p>
                           <img src={location} alt="" />{" "}
-                          {data.travel_info.country.toString()}
+                          {data.current_place_of_residence}
                         </p>
                       </div>
                     ) : null}

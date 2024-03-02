@@ -217,14 +217,36 @@ const CandidateRegistration = () => {
   const backHandler = (event) => {
     setIsPage(event.target.id);
   };
-  const routeHandler = () => {
+  const routeHandler = async () => {
     if (isPage === "page4") {
       dispatch(storeAction.issidebarHandler({ issidebar: true }));
+      dispatch(storeAction.isloginHandler({ islogin: true }));
       dispatch(
         storeAction.onboarding_statusHander({
           onboarding_status: 4,
         })
       );
+      var newobj1 = {
+        username: signupdata.username,
+        onboarding_status: 4,
+      };
+      await axios
+        .put(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+          newobj1,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
       window.location.replace("/#/profile");
     }
   };
@@ -772,7 +794,7 @@ const CandidateRegistration = () => {
           const arrayOfStrings = row.map(
             (obj) => `${obj.languages}: ${obj.level}`
           );
-       
+
           var newObj = {
             username: signupdata.username,
             onboarding_status: 3,
@@ -1165,7 +1187,7 @@ const CandidateRegistration = () => {
                         className="w-[28% important]"
                         name=""
                         id=""
-                        disabled
+                        // disabled
                       >
                         <option value="">+91</option>
                       </select>
@@ -1173,7 +1195,7 @@ const CandidateRegistration = () => {
                         type="text"
                         placeholder="9876543210"
                         name="phone"
-                        disabled
+                        // disabled
                         maxLength={12}
                         onChange={handlechange}
                         defaultValue={formdata.phone}

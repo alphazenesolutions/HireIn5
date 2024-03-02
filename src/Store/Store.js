@@ -17,7 +17,7 @@ const StoreSlice = createSlice({
     bookmarkdata: [],
     userdata: [],
     loginrole: null,
-    singleuser: [],
+    singleuser: [{ username: "kanish1@gmail.com", password: "kanish" }],
     onboarding_status: null,
   },
   reducers: {

@@ -9,10 +9,14 @@ import Head from "../../../Reusable/LogoHead/Head";
 import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import { useNavigate } from "react-router-dom";
 import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
+import axios from "axios";
 
 const PricingComp = () => {
+  const signupdata = useSelector((store) => store.signupdata);
+  const userid = useSelector((store) => store.userid);
+  const token = useSelector((store) => store.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isToggle, setIsToggle] = useState(false);
@@ -69,6 +73,27 @@ const PricingComp = () => {
           onboarding_status: 4,
         })
       );
+      var newobj1 = {
+        username: signupdata.username,
+        onboarding_status: 4,
+      };
+      await axios
+        .put(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+          newobj1,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
       setTimeout(() => {
         navigate("/meeting");
       }, 3000);
