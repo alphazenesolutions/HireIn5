@@ -261,7 +261,7 @@ const CandidateRegistration = () => {
     address2: "",
     city: "",
     state: "",
-    title: "11",
+    title: "null",
     aadhaar_number: "",
     aadhaarfront: "",
     aadhaarback: "",
@@ -277,9 +277,9 @@ const CandidateRegistration = () => {
     experience: "",
     skill: "",
     linkedin: "",
-    hackerrank: "11",
-    github: "11",
-    website: "11",
+    hackerrank: "null",
+    github: "null",
+    website: "null",
     languages: "",
     pincode: "",
     countryaddress: "",
@@ -1643,7 +1643,7 @@ const CandidateRegistration = () => {
                         defaultValue={formdata.pincode}
                         maxLength={6}
                       />
-                      {formdataerror.title && (
+                      {formdataerror.pincode && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
                           Please Enter Pincode
                         </h6>
