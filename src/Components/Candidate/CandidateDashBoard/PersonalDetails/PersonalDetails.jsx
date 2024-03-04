@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
+import country_and_states from "../../../../assests/country-states";
 
 const PersonalDetails = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -335,13 +336,21 @@ const PersonalDetails = () => {
                       defaultValue={formdata.pincode}
                     />
                     <h2>Country</h2>
-                    <input
-                      placeholder="India"
-                      type="text"
+                    <select
                       name="country"
                       onChange={handlechange}
                       defaultValue={formdata.country}
-                    />
+                    >
+                      <option value="">Country</option>
+                      {country_and_states.country.length !== 0
+                        ? country_and_states.country.map((item, index) => (
+                            <option value={item.code} key={index}>
+                              {item.name}
+                            </option>
+                          ))
+                        : null}
+                    </select>
+                    {/* <input placeholder="India" type="text" /> */}
                   </div>
                 </div>
               </div>

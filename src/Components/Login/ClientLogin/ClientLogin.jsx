@@ -90,6 +90,24 @@ const ClientLogin = () => {
                 onboarding_status: decoded.onboarding_status,
               })
             );
+
+            var userinfo = await axios
+              .get(
+                `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${decoded.user_id}`,
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${loginuser.access}`,
+                  },
+                }
+              )
+              .then((res) => {
+                return res.data;
+              })
+              .catch((err) => {
+                return err.response;
+              });
+            dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
             if (decoded.onboarding_status > 3) {
               if (decoded.role == "2") {
                 dispatch(storeAction.isloginHandler({ islogin: true }));

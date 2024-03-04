@@ -21,6 +21,7 @@ const CandidateProfileCard = (props) => {
   const userid = useSelector((store) => store.userid);
   const [isSelect, setIsSelect] = useState("demographic");
   const [expiredata, setexpiredata] = useState(null);
+  const [status, setstatus] = useState(false);
 
   const buttonHandler = (e) => {
     if (isSelect == "demographic") {
@@ -49,7 +50,9 @@ const CandidateProfileCard = (props) => {
     getUserinfo();
   }, [singleuser]);
   const getUserinfo = async () => {
+    setstatus(false);
     if (singleuser.length !== 0) {
+      setexpiredata(singleuser[0].block_expiry);
       var userinfo = await axios
         .get(
           `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
@@ -76,22 +79,19 @@ const CandidateProfileCard = (props) => {
   const calculateDateDifference = () => {
     const date2 = new Date(moment(expiredata).format("YYYY-MM-DD"));
     const date1 = new Date(today);
-
     const timeDifference = date1 - date2;
     const isExtended = timeDifference > 0;
-
     const extendedOrBelow = isExtended ? "extended" : "below";
-
     return extendedOrBelow;
   };
   const reserveuser = async () => {
+    setstatus(true);
     let data = JSON.stringify({
       candidate_id: singleuser[0].id,
       duration: 5,
       amount_paid: 15000,
       blocked_by_id: userid,
     });
-
     let config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -205,25 +205,38 @@ const CandidateProfileCard = (props) => {
                 </div>
               </div>
 
-              {expiredata !== "null" &&
-              calculateDateDifference() === "below" ? (
+              {status === false ? (
+                expiredata !== "null" &&
+                calculateDateDifference() === "below" ? (
+                  <div className="profileLeftBottom">
+                    <button className="touchButtondiable">
+                      <img src={back} alt="" />
+                      <h4>Get in Touch</h4>
+                    </button>
+                    <button className="reserveButtondiable">
+                      <img src={user} alt="" />
+                      <h4>Reserve Candidate</h4>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="profileLeftBottom">
+                    <button className="touchButton">
+                      <img src={back} alt="" />
+                      <h4>Get in Touch</h4>
+                    </button>
+                    <button className="reserveButton" onClick={reserveuser}>
+                      <img src={user} alt="" />
+                      <h4>Reserve Candidate</h4>
+                    </button>
+                  </div>
+                )
+              ) : (
                 <div className="profileLeftBottom">
                   <button className="touchButtondiable">
                     <img src={back} alt="" />
                     <h4>Get in Touch</h4>
                   </button>
                   <button className="reserveButtondiable">
-                    <img src={user} alt="" />
-                    <h4>Reserve Candidate</h4>
-                  </button>
-                </div>
-              ) : (
-                <div className="profileLeftBottom">
-                  <button className="touchButton">
-                    <img src={back} alt="" />
-                    <h4>Get in Touch</h4>
-                  </button>
-                  <button className="reserveButton" onClick={reserveuser}>
                     <img src={user} alt="" />
                     <h4>Reserve Candidate</h4>
                   </button>

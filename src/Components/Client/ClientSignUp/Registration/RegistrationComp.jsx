@@ -15,7 +15,7 @@ import { storeAction } from "../../../../Store/Store";
 const RegistrationComp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const signupdata = useSelector((store) => store.signupdata);
+  const userdata = useSelector((store) => store.userdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
   const onboarding_status = useSelector((store) => store.onboarding_status);
@@ -167,14 +167,14 @@ const RegistrationComp = () => {
           setIsButton(true);
 
           var new_obj = {
-            username: signupdata.username,
+            username: userdata[0].username,
             first_name: registationdata.first_name,
             phone: registationdata.phone,
             linked_in: registationdata.linked_in,
             title: registationdata.title,
             role: 2,
             company: {
-              company_email: signupdata.username,
+              company_email: userdata[0].username,
               company_name: registationdata.company_name,
               company_location: registationdata.company_location,
               verified: false,
@@ -297,7 +297,7 @@ const RegistrationComp = () => {
         setIsButton2(true);
 
         var new_obj1 = {
-          username: signupdata.username,
+          username: userdata[0].username,
           first_name: registationdata.first_name,
           phone: registationdata.phone,
           linked_in: registationdata.linked_in,
@@ -305,7 +305,7 @@ const RegistrationComp = () => {
           role: 2,
           onboarding_status: 3,
           company: {
-            company_email: signupdata.username,
+            company_email: userdata[0].username,
             company_name: registationdata.company_name,
             company_location: registationdata.company_location,
             verified: false,
