@@ -312,12 +312,13 @@ const ProfessionalDetails = () => {
                   />
                   <div className="textDesc">
                     <h2>Description / Additional</h2>
-                    <h5>82/250</h5>
+                    <h5>{educationdata.description.length}/200</h5>
                   </div>
                   <textarea
                     className="text"
                     name="description"
                     onChange={handlechange}
+                    maxLength={200}
                     defaultValue={educationdata.description}
                     placeholder="As always, all Htmlstream products are excellent with a very good personalition"
                   />

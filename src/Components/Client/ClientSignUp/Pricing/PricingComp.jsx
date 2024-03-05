@@ -14,7 +14,7 @@ import { storeAction } from "../../../../Store/Store";
 import axios from "axios";
 
 const PricingComp = () => {
-  const signupdata = useSelector((store) => store.signupdata);
+  const userdata = useSelector((store) => store.userdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
   const dispatch = useDispatch();
@@ -74,7 +74,7 @@ const PricingComp = () => {
         })
       );
       var newobj1 = {
-        username: signupdata.username,
+        username: userdata[0].username,
         onboarding_status: 4,
       };
       await axios

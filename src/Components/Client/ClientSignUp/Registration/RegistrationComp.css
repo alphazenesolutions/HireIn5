@@ -251,6 +251,16 @@
     outline: none;
 }
 
+.companyUrl1 select {
+    width: 100%;
+    /* height: 42px; */
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+}
+
 .companyUrl1 input::placeholder {
     color: var(--borderColor);
 }

@@ -73,6 +73,7 @@ const persistConfig = {
     "loginrole",
     "onboarding_status",
     "issidebar",
+    "userdata",
   ],
 };
 

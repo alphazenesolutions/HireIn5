@@ -13,7 +13,13 @@ const Emailverification = () => {
 
   const PageHandler = () => {
     // const email = signupdata.username;
-    window.location.href = `https://mail.google.com/mail/u/0/#inbox`;
+    window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
+  };
+  const openyahoo = () => {
+    window.open("https://login.yahoo.com", "_blank");
+  };
+  const openoutlook = () => {
+    window.open("https://outlook.live.com/mail/0/", "_blank");
   };
   useEffect(() => {
     SendMail();
@@ -56,8 +62,8 @@ const Emailverification = () => {
             <button id="page2" onClick={PageHandler} className="text-5xl">
               Open Gmail
             </button>
-            <button onClick={PageHandler}>Open Outlook</button>
-            <button onClick={PageHandler}>Open Yahoo</button>
+            <button onClick={openoutlook}>Open Outlook</button>
+            <button onClick={openyahoo}>Open Yahoo</button>
           </div>
           <div className="verificationBottom">
             <p>Check your spam folder if you can’t see an email.</p>

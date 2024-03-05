@@ -11,11 +11,12 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
 import { storeAction } from "../../../../Store/Store";
+import country_and_states from "../../../../assests/country-states";
 
 const RegistrationComp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const signupdata = useSelector((store) => store.signupdata);
+  const userdata = useSelector((store) => store.userdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
   const onboarding_status = useSelector((store) => store.onboarding_status);
@@ -58,7 +59,10 @@ const RegistrationComp = () => {
     secondary_name: "",
     secondary_email: "",
     secondary_phone: "",
+    country: "",
+    pincode: "",
   });
+  console.log(billingdata, "billingdata");
   const [billingdataerror, setbillingdataerror] = useState({
     billing_company: false,
     billing_address: false,
@@ -69,6 +73,8 @@ const RegistrationComp = () => {
     secondary_name: false,
     secondary_email: false,
     secondary_phone: false,
+    country: false,
+    pincode: false,
   });
   const [registationdataerror, setregistationdataerror] = useState({
     company_name: false,
@@ -88,10 +94,25 @@ const RegistrationComp = () => {
   const [lookingdataerror, setlookingdataerror] = useState(false);
   const [durationdataerror, setdurationdataerror] = useState(false);
   const [agreedataerror, setagreedataerror] = useState(false);
+  const [linkedinerror, setlinkedinerror] = useState(false);
 
   const handlechange = (e) => {
     const { name, value } = e.target;
-    setregistationdata((values) => ({ ...values, [name]: value }));
+    if (name === "linked_in") {
+      const urlPattern = /^(ftp|http|https):\/\/(www\.)?[^ "]+$/i;
+      if (value.length !== 0) {
+        if (!urlPattern.test(value)) {
+          setlinkedinerror(true);
+        } else {
+          setlinkedinerror(false);
+        }
+      } else {
+        setlinkedinerror(false);
+      }
+      setregistationdata((values) => ({ ...values, [name]: value }));
+    } else {
+      setregistationdata((values) => ({ ...values, [name]: value }));
+    }
   };
   const handlechangenew = (e) => {
     const { name, value } = e.target;
@@ -167,14 +188,14 @@ const RegistrationComp = () => {
           setIsButton(true);
 
           var new_obj = {
-            username: signupdata.username,
+            username: userdata[0].username,
             first_name: registationdata.first_name,
             phone: registationdata.phone,
             linked_in: registationdata.linked_in,
             title: registationdata.title,
             role: 2,
             company: {
-              company_email: signupdata.username,
+              company_email: userdata[0].username,
               company_name: registationdata.company_name,
               company_location: registationdata.company_location,
               verified: false,
@@ -297,7 +318,7 @@ const RegistrationComp = () => {
         setIsButton2(true);
 
         var new_obj1 = {
-          username: signupdata.username,
+          username: userdata[0].username,
           first_name: registationdata.first_name,
           phone: registationdata.phone,
           linked_in: registationdata.linked_in,
@@ -305,7 +326,7 @@ const RegistrationComp = () => {
           role: 2,
           onboarding_status: 3,
           company: {
-            company_email: signupdata.username,
+            company_email: userdata[0].username,
             company_name: registationdata.company_name,
             company_location: registationdata.company_location,
             verified: false,
@@ -324,6 +345,8 @@ const RegistrationComp = () => {
             secondary_name: billingdata.secondary_name,
             secondary_email: billingdata.secondary_email,
             secondary_phone: billingdata.secondary_phone,
+            country: billingdata.country,
+            pincode: billingdata.pincode,
           },
         };
         var updatedatabilling = await axios
@@ -842,6 +865,11 @@ const RegistrationComp = () => {
                         Please Enter LinkedIn Profile
                       </p>
                     )}
+                    {linkedinerror && (
+                      <h6 className="text-red-500 text-xs font-semibold mt-2">
+                        Please Enter Valid LinkedIn Url
+                      </h6>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1093,10 +1121,13 @@ const RegistrationComp = () => {
                   )}
                 </div>
                 <div className="RegisterCheck">
-                  <h3>
-                    Do you have a bespoke hiring process? Please share the key
-                    steps in hiring the resource? (Optional)
-                  </h3>
+                  <div className="flex justify-between items-center">
+                    <h3>
+                      Do you have a bespoke hiring process? Please share the key
+                      steps in hiring the resource? (Optional)
+                    </h3>
+                    <h5 className="text-xs">{notesdata.length}/200</h5>
+                  </div>
                   <div className="RegisterFeedBack">
                     <textarea
                       name=""
@@ -1251,6 +1282,35 @@ const RegistrationComp = () => {
                       Please Enter Company PAN
                     </p>
                   )}
+                </div>
+                <div className="companyUrl1">
+                  <h3>Country</h3>
+                  <select
+                    name="country"
+                    onChange={handlechangenew}
+                    className="w-full"
+                    defaultValue={billingdata.country}
+                  >
+                    <option value="">Country</option>
+                    {country_and_states.country.length !== 0
+                      ? country_and_states.country.map((item, index) => (
+                          <option value={item.name} key={index}>
+                            {item.name}
+                          </option>
+                        ))
+                      : null}
+                  </select>
+                </div>
+                <div className="companyUrl1">
+                  <h3>Pincode</h3>
+                  <input
+                    type="text"
+                    placeholder="123456"
+                    name="pincode"
+                    maxLength={6}
+                    onChange={handlechangenew}
+                    defaultValue={billingdata.pincode}
+                  />
                 </div>
               </div>
               <div className="CompanyDetails">
