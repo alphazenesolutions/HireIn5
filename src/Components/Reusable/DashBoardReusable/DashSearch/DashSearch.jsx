@@ -658,7 +658,7 @@ const DashSearch = (props) => {
             <h1>Select an estimated budget within this range</h1>
 
             <Range setrangevalue={setrangevalue} />
-            <h3>615 candidates found</h3>
+            <h3>0 candidates found</h3>
             <div className="hourlyButton">
               <button
                 onClick={ResetHandler}
