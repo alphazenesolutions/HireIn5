@@ -285,12 +285,13 @@ const TravelHistory = () => {
               )}
             </div>
           </div>
-          {isArrow === true && (
-            <div className="travelHistoryDesc">
-              <h1>
-                Add your travel history here to stand out from other candidates
-              </h1>
-              {userdata.length !== 0 ? (
+          {isArrow === true &&
+            (userdata.length !== 0 ? (
+              <div className="travelHistoryDesc">
+                <h1>
+                  Add your travel history here to stand out from other
+                  candidates
+                </h1>
                 <div className="travelGrid">
                   {userdata[0].travel_info !== null
                     ? userdata[0].travel_info.travelled_to.length !== 0
@@ -365,9 +366,19 @@ const TravelHistory = () => {
                     </h3>
                   </div> */}
                 </div>
-              ) : null}
-            </div>
-          )}
+              </div>
+            ) : (
+              <div className="educationDesc">
+                <h1>
+                  {" "}
+                  Add your travel history here to stand out from other
+                  candidates
+                </h1>
+                <button className="touchButtonnew" onClick={overLayHandler}>
+                  <h4>Add Travel History</h4>
+                </button>
+              </div>
+            ))}
           {isPopUp === "travel" && (
             <div className="travelHistoryDescOverlay">
               <div className="innerTravelHistory">

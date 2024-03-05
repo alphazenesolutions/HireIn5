@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./CandidateProfileCard.css";
 import back from "../../../assests/back.png";
 import brief from "../../../assests/briefCase.png";
@@ -9,12 +9,15 @@ import map from "../../../assests/mapPin.png";
 import vedio from "../../../assests/Image.jpg";
 import gallery from "../../../assests/gallery.svg";
 import info from "../../../assests/help.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from "react-avatar";
 import axios from "axios";
 import moment from "moment";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { storeAction } from "../../../Store/Store";
 
 const CandidateProfileCard = (props) => {
+  const dispatch = useDispatch();
   const singleuser = useSelector((store) => store.singleuser);
   const loginrole = useSelector((store) => store.loginrole);
   const token = useSelector((store) => store.token);
@@ -43,6 +46,7 @@ const CandidateProfileCard = (props) => {
   };
 
   const [isSelect1, setIsSelect1] = useState("personal");
+  const [profile, setprofile] = useState("");
   const buttonHandler1 = (e) => {
     setIsSelect1(e.target.id);
   };
@@ -53,6 +57,7 @@ const CandidateProfileCard = (props) => {
     setstatus(false);
     if (singleuser.length !== 0) {
       setexpiredata(singleuser[0].block_expiry);
+      setprofile(singleuser[0].profile_picture);
       var userinfo = await axios
         .get(
           `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
@@ -113,6 +118,59 @@ const CandidateProfileCard = (props) => {
       });
     getUserinfo();
   };
+  const fileInputRef = useRef(null);
+
+  const uploadHandler = (data) => {
+    fileInputRef.current.click();
+  };
+  const [formData] = useState(new FormData());
+  const handleFileInputChange = async (e) => {
+    formData.append("image", e.target.files[0]);
+    formData.append("name", `profile${userid}`);
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    fileInputRef.current.value = "";
+    setprofile(response.data.img_url);
+    var newobj = {
+      username: singleuser[0].username,
+      profile_picture: response.data.img_url,
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+        newobj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      setTimeout(() => {
+        dispatch(
+          storeAction.singleuserHander({ singleuser: [updatedata.user] })
+        );
+      }, 10);
+    }
+  };
+  console.log(profile, "profile");
   return (
     <div>
       <div className={props.main}>
@@ -138,12 +196,27 @@ const CandidateProfileCard = (props) => {
           <div className="mainProfile">
             <div className="profileLeft">
               <div className="profileLeftTop">
-                <Avatar
-                  name={singleuser[0].first_name}
-                  size={100}
-                  round="50px"
-                />
-                {/* <img src={candidatePropoic} alt="" /> */}
+                {profile.length == 0 ? (
+                  <Avatar
+                    name={singleuser[0].first_name}
+                    size={100}
+                    round="50px"
+                  />
+                ) : (
+                  <img src={profile} alt="" />
+                )}
+                {loginrole == 3 ? (
+                  <div onClick={uploadHandler} className="editprofile">
+                    <MdOutlineModeEdit className="editicon" />
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      style={{ display: "none" }}
+                      name="aadhaarfront"
+                      onChange={handleFileInputChange}
+                    />
+                  </div>
+                ) : null}
 
                 <h1>{singleuser[0].first_name}</h1>
                 <h2>USD {singleuser[0].hourly_rate} / HR</h2>

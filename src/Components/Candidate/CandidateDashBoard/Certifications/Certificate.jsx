@@ -235,7 +235,18 @@ const Certificate = () => {
                   </div>
                 )}
               </div>
-            ) : null)}
+            ) : (
+              <div className="educationDesc">
+                <h1>
+                  {" "}
+                  Add certification / course Details here to enhance your
+                  profile
+                </h1>
+                <button className="touchButtonnew" onClick={overLayHandler}>
+                  <h4>Add Certificate</h4>
+                </button>
+              </div>
+            ))}
           {isPopUp === "certificate" && (
             <div className="certificateDescOverlay">
               <div className="innerCertificate">

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./PersonalDetails.css";
@@ -48,6 +49,7 @@ const PersonalDetails = () => {
     pan: "",
     country: "",
   });
+  const [statelist, setstatelist] = useState([]);
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
@@ -79,9 +81,18 @@ const PersonalDetails = () => {
       }, 1000);
     }
   };
-  const handlechange = (e) => {
+  const handlechange = async (e) => {
     const { name, value } = e.target;
-    setformdata((values) => ({ ...values, [name]: value }));
+    if (name === "country") {
+      setstatelist([]);
+      var country = await country_and_states.country.filter((data) => {
+        return data.code == value;
+      });
+      setformdata((values) => ({ ...values, [name]: country[0].name }));
+      setstatelist(country_and_states.states[value]);
+    } else {
+      setformdata((values) => ({ ...values, [name]: value }));
+    }
   };
   const savebtn = async () => {
     setloading(true);
@@ -136,6 +147,7 @@ const PersonalDetails = () => {
   const cancelbtn = () => {
     dispatch(storeAction.isPopUpHander());
   };
+  console.log(statelist, "statelist");
   return (
     <div>
       <div className="personalDetails">
@@ -256,16 +268,14 @@ const PersonalDetails = () => {
                       defaultValue={formdata.dob}
                     />
                     <h2>Phone Number</h2>
-                    <div className="personalDetailNumber">
-                      <input
-                        placeholder="9876543210"
-                        type="text"
-                        maxLength={12}
-                        name="phone"
-                        onChange={handlechange}
-                        defaultValue={formdata.phone}
-                      />
-                    </div>
+                    <input
+                      placeholder="9876543210"
+                      type="text"
+                      maxLength={12}
+                      name="phone"
+                      onChange={handlechange}
+                      defaultValue={formdata.phone}
+                    />
                     <h2>AADHAAR / Govt. Issued ID</h2>
                     <input
                       className="inputColor"
@@ -302,39 +312,7 @@ const PersonalDetails = () => {
                       onChange={handlechange}
                       defaultValue={formdata.current_address}
                     />
-                    <div className="candidateAddressPersonal">
-                      <div className="city">
-                        <h2>City</h2>
-                        <input
-                          placeholder="Bengaluru"
-                          type="text"
-                          name="city"
-                          onChange={handlechange}
-                          defaultValue={formdata.city}
-                        />
-                      </div>
-                      <div className="state">
-                        <h2>State</h2>
-                        <select
-                          id=""
-                          name="state"
-                          onChange={handlechange}
-                          defaultValue={formdata.state}
-                        >
-                          <option value="">State</option>
-                          <option value="TamilNadu">TamilNadu</option>
-                          <option value="Kerala">Kerala</option>
-                        </select>
-                      </div>
-                    </div>
-                    <h2>PINCODE</h2>
-                    <input
-                      placeholder="560005"
-                      type="number"
-                      name="pincode"
-                      onChange={handlechange}
-                      defaultValue={formdata.pincode}
-                    />
+
                     <h2>Country</h2>
                     <select
                       name="country"
@@ -350,6 +328,44 @@ const PersonalDetails = () => {
                           ))
                         : null}
                     </select>
+                    <div className="flex gap-4">
+                      <div className="w-full">
+                        <h2>State</h2>
+                        <select
+                          id=""
+                          name="state"
+                          onChange={handlechange}
+                          defaultValue={formdata.state}
+                        >
+                          <option value="">State</option>
+                          {statelist.length !== 0
+                            ? statelist.map((data, index) => (
+                                <option value={data.name} key={index}>
+                                  {data.name}
+                                </option>
+                              ))
+                            : null}
+                        </select>
+                      </div>
+                      <div className="w-full">
+                        <h2>City</h2>
+                        <input
+                          placeholder="Bengaluru"
+                          type="text"
+                          name="city"
+                          onChange={handlechange}
+                          defaultValue={formdata.city}
+                        />
+                      </div>
+                    </div>
+                    <h2>PINCODE</h2>
+                    <input
+                      placeholder="560005"
+                      type="number"
+                      name="pincode"
+                      onChange={handlechange}
+                      defaultValue={formdata.pincode}
+                    />
                     {/* <input placeholder="India" type="text" /> */}
                   </div>
                 </div>

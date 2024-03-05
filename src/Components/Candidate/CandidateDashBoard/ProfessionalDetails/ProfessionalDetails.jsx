@@ -221,7 +221,14 @@ const ProfessionalDetails = () => {
                   <h1>Add your current & Past professional experience here</h1>
                 )}
               </div>
-            ) : null)}
+            ) : (
+              <div className="educationDesc">
+                <h1> Add your current & Past professional experience here</h1>
+                <button className="touchButtonnew" onClick={overLayHandler}>
+                  <h4>Add Professional Details</h4>
+                </button>
+              </div>
+            ))}
           {isPopUp === "professional" && (
             <div className="professionalDetailsOverlay">
               <div className="innerprofessionalDetails">

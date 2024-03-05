@@ -30,11 +30,16 @@ const ProfileCard = ({ filterdata, fun }) => {
                     <div className="candidateDiscoverProfile1">
                       <div className="candidateDiscoverImage">
                         {/* <img src={candidateimges} alt="" /> */}
-                        <Avatar
-                          name={data.first_name}
-                          size={50}
-                          round="50px"
-                        />
+
+                        {data.profile_picture.length == 0 ? (
+                          <Avatar
+                            name={data.first_name}
+                            size={50}
+                            round="50px"
+                          />
+                        ) : (
+                          <img src={data.profile_picture} alt="" />
+                        )}
                       </div>
                       <div className="candidateDiscoverName">
                         <h3>{data.first_name}</h3>

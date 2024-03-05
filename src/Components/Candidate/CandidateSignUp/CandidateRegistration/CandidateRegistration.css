@@ -772,6 +772,19 @@
     height: auto;
 }
 
+.languagesnew {
+    background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 600px;
+    margin-top: 20px;
+    border-radius: 7px;
+    height: auto;
+}
+
 .addLanguages {
     width: 100%;
     height: 100%;
