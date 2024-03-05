@@ -164,7 +164,6 @@ const Education = () => {
     updatedElements.splice(id, 1);
     setcertificate(updatedElements);
   };
-
   return (
     <div>
       <div className="education">
@@ -229,9 +228,6 @@ const Education = () => {
               ) : (
                 <div className="educationDesc">
                   <h1>Add your education and degrees here</h1>
-                  <button className="touchButtonnew" onClick={overLayHandler}>
-                    <h4>Add education</h4>
-                  </button>
                 </div>
               ))
             : null}

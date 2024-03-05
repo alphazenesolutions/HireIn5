@@ -202,8 +202,11 @@ const ProfessionalDetails = () => {
 
                     <h6>
                       Key Skills :{" "}
-                      {userdata[0].professional_details_info.skills.toString()}{" "}
+                      <span className="professionalDetailsDescSkills">
+                        {userdata[0].professional_details_info.skills.toString()}{" "}
+                      </span>
                     </h6>
+
                     <h6>
                       Gross Annual Salary :{" "}
                       {userdata[0].professional_details_info.annual_salary}{" "}
