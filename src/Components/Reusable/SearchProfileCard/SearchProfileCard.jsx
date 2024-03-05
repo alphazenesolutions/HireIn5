@@ -90,7 +90,15 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
                 <div className="candidateCartProfile1">
                   <div className="candidateImage">
                     {/* <img src={candidateimges} alt="" /> */}
-                    <Avatar name={datanew.first_name} size={50} round="50px" />
+                    {datanew.profile_picture.length == 0 ? (
+                      <Avatar
+                        name={datanew.first_name}
+                        size={50}
+                        round="50px"
+                      />
+                    ) : (
+                      <img src={datanew.profile_picture} alt="" />
+                    )}
                   </div>
                   <div className="candidateCartName">
                     <h3>{datanew.first_name}</h3>

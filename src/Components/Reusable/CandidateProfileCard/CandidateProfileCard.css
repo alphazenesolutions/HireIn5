@@ -71,11 +71,30 @@
     justify-content: center;
     padding-bottom: 15px;
     border-bottom: 1px solid var(--borderColor);
+    position: relative;
 }
 
 .profileLeftTop img {
     height: 120px;
+    width: 120px;
     margin-bottom: 10px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.editprofile {
+    position: absolute;
+    top: 4%;
+    right: 27%;
+    background-color: var(--primaryColor);
+    padding: 6px 6px 7px 5px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+.editicon {
+    font-size: 20px;
 }
 
 .profileLeftTop h1 {
@@ -179,6 +198,18 @@
 
 .touchButton {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    color: var(--white);
+    border-radius: 8px;
+    background-color: var(--primaryColor);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.touchButtonnew {
     display: flex;
     align-items: center;
     justify-content: center;
