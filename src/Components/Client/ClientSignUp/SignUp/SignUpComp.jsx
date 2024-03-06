@@ -101,6 +101,11 @@ const SignUpComp = () => {
           dispatch(storeAction.isloginHandler({ islogin: true }));
           dispatch(storeAction.useridHandler({ userid: createuser.id }));
           dispatch(
+            storeAction.onboarding_statusHander({
+              onboarding_status: 1,
+            })
+          );
+          dispatch(
             storeAction.signupdataHandler({
               signupdata: {
                 username: signupdata.username,
@@ -108,6 +113,7 @@ const SignUpComp = () => {
               },
             })
           );
+        
           navigate("/emailverification");
         } else {
           setIsLoading(false);

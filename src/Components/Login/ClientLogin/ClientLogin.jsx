@@ -185,7 +185,7 @@ const ClientLogin = () => {
                 <div className="clientLoginCompBodyPasswordLabel">
                   <h4>Password</h4>
                   <Link to="/forgotPassword">
-                    <h5>Forget password</h5>
+                    <h5>Forgot password</h5>
                   </Link>
                 </div>
                 <div className="clientLoginCompBodyPasswordInput">

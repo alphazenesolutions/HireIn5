@@ -22,11 +22,16 @@ const ForgetComp = () => {
   };
 
   const [isPage, setIsPage] = useState("page1");
+
+  const openyahoo = () => {
+    window.open("https://login.yahoo.com", "_blank");
+  };
+  const openoutlook = () => {
+    window.open("https://outlook.live.com/mail/0/", "_blank");
+  };
   const PageHandler = async (event) => {
     if (isPage === "page2") {
-      // const mailtoLink = `mailto:${email}`;
-      window.location.href =`https://mail.google.com/mail/u/0/#inbox`;
-      // navigate("/resetpassword");
+      window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
     } else {
       if (isPage === "page1") {
         setfinalerror(null);
@@ -125,12 +130,8 @@ const ForgetComp = () => {
               <button id="page3" onClick={PageHandler}>
                 Open Gmail
               </button>
-              <button id="page3" onClick={PageHandler}>
-                Open Outlook
-              </button>
-              <button id="page3" onClick={PageHandler}>
-                Open Yahoo
-              </button>
+              <button onClick={openoutlook}>Open Outlook</button>
+              <button onClick={openyahoo}>Open Yahoo</button>
             </div>
             <div className="forgotVerificationBottom">
               <p>Check your spam folder if you can’t see an email.</p>

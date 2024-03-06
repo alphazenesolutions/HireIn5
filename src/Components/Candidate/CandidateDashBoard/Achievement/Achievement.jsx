@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "./Achievement.css";
 import user from "../../../../assests/User.svg";

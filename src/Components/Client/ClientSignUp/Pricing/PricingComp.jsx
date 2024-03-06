@@ -265,7 +265,9 @@ const PricingComp = () => {
                       <h2>${isToggle === true ? yearlyPro : monthlyPro}</h2>
                       <p>/month, billed annually</p>
                     </div>
-                    <button>Choose plan</button>
+                    <button id="page3" onClick={pageHandler}>
+                      Choose plan
+                    </button>
                   </div>
                 </div>
                 <div className="pricingDescOption">

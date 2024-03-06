@@ -367,6 +367,16 @@
     flex-direction: column;
 }
 
+.seconddiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.optionaltext {
+    color: var(--textColor);
+}
+
 .hiring h3 {
     font-size: 13px;
     font-weight: 600;

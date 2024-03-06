@@ -107,7 +107,7 @@ const MobileInput = ({ setphone }) => {
                         <option value="504">+504</option>
                         <option value="36">+36</option>
                         <option value="354">+354</option>
-                        <option value="91">+91</option>
+                        <option value="91" selected>+91</option>
                         <option value="62">+62</option>
                         <option value="98">+98</option>
                         <option value="964">+964</option>

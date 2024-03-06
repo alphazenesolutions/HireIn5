@@ -102,7 +102,8 @@ const RegistrationComp = () => {
   const handlechange = (e) => {
     const { name, value } = e.target;
     if (name === "linked_in") {
-      const urlPattern = /^(ftp|http|https):\/\/(www\.)?[^ "]+$/i;
+      const urlPattern =
+        /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-z]{2,}(\.[a-z]{2,})?\/?[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=%]+$/;
       if (value.length !== 0) {
         if (!urlPattern.test(value)) {
           setlinkedinerror(true);
@@ -923,7 +924,9 @@ const RegistrationComp = () => {
                         <option value="504">+504</option>
                         <option value="36">+36</option>
                         <option value="354">+354</option>
-                        <option value="91">+91</option>
+                        <option value="91" selected>
+                          +91
+                        </option>
                         <option value="62">+62</option>
                         <option value="98">+98</option>
                         <option value="964">+964</option>
@@ -1401,21 +1404,7 @@ const RegistrationComp = () => {
                     </p>
                   )}
                 </div>
-                <div className="companyUrl1">
-                  <h3>Company PAN / TAX Identification No</h3>
-                  <input
-                    type="text"
-                    placeholder="Website URL"
-                    name="company_pan"
-                    onChange={handlechangenew}
-                    defaultValue={billingdata.company_pan}
-                  />
-                  {billingdataerror.company_pan && (
-                    <p className="text-red-500 text-xs font-semibold mt-2">
-                      Please Enter Company PAN
-                    </p>
-                  )}
-                </div>
+
                 <div className="companyUrl1">
                   <h3>Country</h3>
                   <select
@@ -1444,6 +1433,21 @@ const RegistrationComp = () => {
                     onChange={handlechangenew}
                     defaultValue={billingdata.pincode}
                   />
+                </div>
+                <div className="companyUrl1">
+                  <h3>Company PAN / TAX Identification No</h3>
+                  <input
+                    type="text"
+                    placeholder="Website URL"
+                    name="company_pan"
+                    onChange={handlechangenew}
+                    defaultValue={billingdata.company_pan}
+                  />
+                  {billingdataerror.company_pan && (
+                    <p className="text-red-500 text-xs font-semibold mt-2">
+                      Please Enter Company PAN
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="CompanyDetails">
@@ -1497,7 +1501,10 @@ const RegistrationComp = () => {
                 </div>
               </div>
               <div className="CompanyDetails">
-                <h2>SECONDARY CONTACT FOR BILLING</h2>
+                <div className="seconddiv">
+                  <h2>SECONDARY CONTACT FOR BILLING</h2>
+                  <h6 className="optionaltext">Optional</h6>
+                </div>
                 <div className="companyDetails1">
                   <div className="companyDetails2 h-full">
                     <h3>Full Name</h3>
