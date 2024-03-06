@@ -2,8 +2,10 @@ import React from "react";
 import "./AdminClientProfileComp.css";
 import search from "../../../../assests/search.png";
 import tableProfile from "../../../../assests/profile.png";
+import { useNavigate } from "react-router-dom";
 
 const AdminClientProfileComp = () => {
+  const navigate = useNavigate();
   const adminTableData = [
     {
       name: "Yasir Quazi",
@@ -13,7 +15,7 @@ const AdminClientProfileComp = () => {
       cycle: "Monthly",
       agreeStatusClass: "status active",
       clientStatus: "Active",
-      statusClass: "status hiring",
+      statusClass: "status hiringActive",
       agreementStatus: "Yet to sign",
     },
     {
@@ -39,6 +41,7 @@ const AdminClientProfileComp = () => {
       agreementStatus: "Yet to sign",
     },
   ];
+
   return (
     <div>
       <div className="AdminClientProfileComp">
@@ -84,7 +87,12 @@ const AdminClientProfileComp = () => {
                     </p>
                   </td>
                   <td>
-                    <button className="viewButton">View</button>
+                    <button
+                      onClick={() => navigate("/adminclientview")}
+                      className="viewButton"
+                    >
+                      View
+                    </button>
                   </td>
                 </tr>
               );

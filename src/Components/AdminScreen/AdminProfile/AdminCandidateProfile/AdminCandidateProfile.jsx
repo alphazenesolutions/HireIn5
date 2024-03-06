@@ -2,8 +2,10 @@ import React from "react";
 import "./AdminCandidateProfile.css";
 import search from "../../../../assests/search.png";
 import tableProfile from "../../../../assests/profile.png";
+import { useNavigate } from "react-router-dom";
 
 const AdminCandidateProfile = () => {
+  const navigate = useNavigate();
   const adminTableData = [
     {
       name: "Ramaswami Kumar",
@@ -33,7 +35,7 @@ const AdminCandidateProfile = () => {
       empId: "ID1234567890",
       completion: "80%",
       candidateStatus: "Hired",
-      statusClass: "status hiring",
+      statusClass: "status hiringActive",
     },
     {
       name: "Ramaswami Kumar",
@@ -148,7 +150,12 @@ const AdminCandidateProfile = () => {
                     <h1>{data.completion}</h1>
                   </td>
                   <td>
-                    <button className="viewButton">View</button>
+                    <button
+                      onClick={() => navigate("/admincandidateview")}
+                      className="viewButton"
+                    >
+                      View
+                    </button>
                   </td>
                 </tr>
               );
