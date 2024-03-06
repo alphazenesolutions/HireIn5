@@ -26,7 +26,7 @@ const Layout = () => {
                 ]}
               />
             )}
-            {loginrole == 1 && (
+            {loginrole == 3 && (
               <SideBar
                 role={2}
                 menu={[
@@ -44,7 +44,7 @@ const Layout = () => {
                 ]}
               />
             )}
-            {loginrole == 3 && (
+            {loginrole == 1 && (
               <SideBar
                 role={2}
                 menu={[

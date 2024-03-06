@@ -147,7 +147,6 @@ const PersonalDetails = () => {
   const cancelbtn = () => {
     dispatch(storeAction.isPopUpHander());
   };
-  console.log(statelist, "statelist");
   return (
     <div>
       <div className="personalDetails">

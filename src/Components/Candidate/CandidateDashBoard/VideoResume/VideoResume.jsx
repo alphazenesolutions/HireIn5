@@ -93,7 +93,6 @@ const VideoResume = () => {
       setloading(false);
     }
   };
-  console.log(userdata, "kkk");
   return (
     <div>
       <div className="videoResume">
