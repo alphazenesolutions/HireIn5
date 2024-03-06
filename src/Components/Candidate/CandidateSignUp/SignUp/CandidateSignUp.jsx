@@ -71,7 +71,14 @@ const CandidateSignUp = () => {
           dispatch(
             storeAction.tokenHandler({ token: createuser.access_token })
           );
+          dispatch(storeAction.loginroleHander({ loginrole: 3 }));
+          dispatch(storeAction.isloginHandler({ islogin: true }));
           dispatch(storeAction.useridHandler({ userid: createuser.id }));
+          dispatch(
+            storeAction.onboarding_statusHander({
+              onboarding_status: 1,
+            })
+          );
           dispatch(
             storeAction.signupdataHandler({
               signupdata: {
@@ -125,7 +132,7 @@ const CandidateSignUp = () => {
                 <div className="candidateSignUpCompBodyPasswordLabel">
                   <h4>Create Password</h4>
                   <Link to="/forgotPassword">
-                    <h5>Forget password</h5>
+                    <h5>Forgot password</h5>
                   </Link>
                 </div>
                 <div className="candidateSignUpCompBodyPasswordInput">

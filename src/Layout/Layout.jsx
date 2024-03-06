@@ -7,18 +7,18 @@ import { useSelector } from "react-redux";
 import discover from "../assests/Discover.svg";
 
 const Layout = () => {
-  const islogin = useSelector((store) => store.islogin);
+  const issidebar = useSelector((store) => store.issidebar);
   const loginrole = useSelector((store) => store.loginrole);
   return (
     <div>
-      {islogin && (
+      {issidebar && (
         <div className="dashboard">
           <div className="sideNavComp">
             {loginrole == 2 && (
               <SideBar
                 role={1}
                 menu={[
-                  { title: "discover", icon: discover, router: "discover" },
+                  { title: "Discover", icon: discover, router: "discover" },
                   { title: "Interview", icon: discover, router: "interview" },
                   { title: "Contracts", icon: discover, router: "contract" },
                   { title: "Billing", icon: discover, router: "billing" },
@@ -26,7 +26,7 @@ const Layout = () => {
                 ]}
               />
             )}
-            {loginrole == 3 && (
+            {loginrole == 1 && (
               <SideBar
                 role={2}
                 menu={[
@@ -35,6 +35,38 @@ const Layout = () => {
                     title: "Profile",
                     icon: discover,
                     router: "profile",
+                  },
+                  {
+                    title: "AdminProfile",
+                    icon: discover,
+                    router: "customerProfile",
+                  },
+                ]}
+              />
+            )}
+            {loginrole == 3 && (
+              <SideBar
+                role={2}
+                menu={[
+                  {
+                    title: "Home",
+                    icon: discover,
+                    router: "home",
+                  },
+                  {
+                    title: "Profile",
+                    icon: discover,
+                    router: "customerProfile",
+                  },
+                  {
+                    title: "Contracts",
+                    icon: discover,
+                    router: "contract",
+                  },
+                  {
+                    title: "Settings",
+                    icon: discover,
+                    router: "settings",
                   },
                 ]}
               />
@@ -46,7 +78,7 @@ const Layout = () => {
           </div>
         </div>
       )}
-      {!islogin && <Routing />}
+      {!issidebar && <Routing />}
     </div>
   );
 };

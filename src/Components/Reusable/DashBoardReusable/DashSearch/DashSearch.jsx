@@ -16,20 +16,20 @@ import Skilllist from "../../../../assests/skillsJSON.json";
 
 const DashSearch = (props) => {
   const dispatch = useDispatch();
-  const [isHourly, setIsHourly] = useState(false);
+  // const [isHourly, setIsHourly] = useState(false);
   const HourlyHandler = () => {
-    setIsHourly(!isHourly);
-    setIsLoction(false);
+    // setIsHourly(!isHourly);
+    // setIsLoction(false);
+    dispatch(storeAction.isPopUpHander("hourly"));
   };
-  const [isLocation, setIsLoction] = useState(false);
+  // const [isLocation, setIsLoction] = useState(false);
   const LocationHandler = () => {
-    setIsLoction(!isLocation);
-    setIsHourly(false);
+    // setIsLoction(!isLocation);
+    // setIsHourly(false);
+    dispatch(storeAction.isPopUpHander("location"));
   };
   const [allfilterdata, setallfilterdata] = useState({
-    skill: "",
     experience: "",
-    location: "",
     languages: "",
   });
 
@@ -81,7 +81,7 @@ const DashSearch = (props) => {
       props.setfilterdata(filterdata);
       props.setIsInput(true);
     } else {
-      props.setfilterdata([]);
+      props.setfilterdata(props.alldata);
       props.setIsInput(true);
     }
     setlocationlist(updatedItems);
@@ -103,38 +103,211 @@ const DashSearch = (props) => {
       props.setIsInput(true);
     }
     setCost(true);
-    setIsHourly(false);
+    dispatch(storeAction.isPopUpHander());
+    // setIsHourly(false);
   };
 
   const ResetHandler = () => {
     setCost(false);
-    setIsHourly(false);
+    dispatch(storeAction.isPopUpHander());
+    // setIsHourly(false);
   };
   const locationData = [
-    {
-      loc1: "India",
-    },
-    {
-      loc1: "Australia",
-    },
-    {
-      loc1: "Saudi Arab Emirates",
-    },
-    {
-      loc1: "Saudi Arabia",
-    },
-    {
-      loc1: "Indonesia",
-    },
-    {
-      loc1: "Japan",
-    },
-    {
-      loc1: "Netherlands",
-    },
-    {
-      loc1: "Germany",
-    },
+    "Afghanistan",
+    "Albania",
+    "Algeria",
+    "Andorra",
+    "Angola",
+    "Antigua and Barbuda",
+    "Argentina",
+    "Armenia",
+    "Australia",
+    "Austria",
+    "Azerbaijan",
+    "Bahamas",
+    "Bahrain",
+    "Bangladesh",
+    "Barbados",
+    "Belarus",
+    "Belgium",
+    "Belize",
+    "Benin",
+    "Bhutan",
+    "Bolivia",
+    "Bosnia and Herzegovina",
+    "Botswana",
+    "Brazil",
+    "Brunei",
+    "Bulgaria",
+    "Burkina Faso",
+    "Burundi",
+    "Cabo Verde",
+    "Cambodia",
+    "Cameroon",
+    "Canada",
+    "Central African Republic",
+    "Chad",
+    "Chile",
+    "China",
+    "Colombia",
+    "Comoros",
+    "Congo",
+    "Costa Rica",
+    "Croatia",
+    "Cuba",
+    "Cyprus",
+    "Czechia",
+    "Denmark",
+    "Djibouti",
+    "Dominica",
+    "Dominican Republic",
+    "Ecuador",
+    "Egypt",
+    "El Salvador",
+    "Equatorial Guinea",
+    "Eritrea",
+    "Estonia",
+    "Eswatini",
+    "Ethiopia",
+    "Fiji",
+    "Finland",
+    "France",
+    "Gabon",
+    "Gambia",
+    "Georgia",
+    "Germany",
+    "Ghana",
+    "Greece",
+    "Grenada",
+    "Guatemala",
+    "Guinea",
+    "Guinea-Bissau",
+    "Guyana",
+    "Haiti",
+    "Honduras",
+    "Hungary",
+    "Iceland",
+    "India",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Ireland",
+    "Israel",
+    "Italy",
+    "Jamaica",
+    "Japan",
+    "Jordan",
+    "Kazakhstan",
+    "Kenya",
+    "Kiribati",
+    "Korea, North",
+    "Korea, South",
+    "Kosovo",
+    "Kuwait",
+    "Kyrgyzstan",
+    "Laos",
+    "Latvia",
+    "Lebanon",
+    "Lesotho",
+    "Liberia",
+    "Libya",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Madagascar",
+    "Malawi",
+    "Malaysia",
+    "Maldives",
+    "Mali",
+    "Malta",
+    "Marshall Islands",
+    "Mauritania",
+    "Mauritius",
+    "Mexico",
+    "Micronesia",
+    "Moldova",
+    "Monaco",
+    "Mongolia",
+    "Montenegro",
+    "Morocco",
+    "Mozambique",
+    "Myanmar",
+    "Namibia",
+    "Nauru",
+    "Nepal",
+    "Netherlands",
+    "New Zealand",
+    "Nicaragua",
+    "Niger",
+    "Nigeria",
+    "North Macedonia",
+    "Norway",
+    "Oman",
+    "Pakistan",
+    "Palau",
+    "Palestine",
+    "Panama",
+    "Papua New Guinea",
+    "Paraguay",
+    "Peru",
+    "Philippines",
+    "Poland",
+    "Portugal",
+    "Qatar",
+    "Romania",
+    "Russia",
+    "Rwanda",
+    "Saint Kitts and Nevis",
+    "Saint Lucia",
+    "Saint Vincent and the Grenadines",
+    "Samoa",
+    "San Marino",
+    "Sao Tome and Principe",
+    "Saudi Arabia",
+    "Senegal",
+    "Serbia",
+    "Seychelles",
+    "Sierra Leone",
+    "Singapore",
+    "Slovakia",
+    "Slovenia",
+    "Solomon Islands",
+    "Somalia",
+    "South Africa",
+    "South Sudan",
+    "Spain",
+    "Sri Lanka",
+    "Sudan",
+    "Suriname",
+    "Sweden",
+    "Switzerland",
+    "Syria",
+    "Taiwan",
+    "Tajikistan",
+    "Tanzania",
+    "Thailand",
+    "Timor-Leste",
+    "Togo",
+    "Tonga",
+    "Trinidad and Tobago",
+    "Tunisia",
+    "Turkey",
+    "Turkmenistan",
+    "Tuvalu",
+    "Uganda",
+    "Ukraine",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States",
+    "Uruguay",
+    "Uzbekistan",
+    "Vanuatu",
+    "Vatican City",
+    "Venezuela",
+    "Vietnam",
+    "Yemen",
+    "Zambia",
+    "Zimbabwe",
   ];
 
   const setbtn = async () => {
@@ -210,12 +383,7 @@ const DashSearch = (props) => {
     props.setIsInput(true);
     dispatch(storeAction.isPopUpHander());
   };
-  const resetbtn = () => {
-    setallfilter([]);
-    dispatch(storeAction.isPopUpHander());
-    setIsToggle1(false);
-    setIsToggle(false);
-  };
+
   const options = [
     { value: "Afghanistan", label: "Afghanistan" },
     { value: "Albania", label: "Albania" },
@@ -387,7 +555,53 @@ const DashSearch = (props) => {
     setIsDrop(false);
     document.getElementById("valuetag").value = skill;
   };
-
+  const [searchLocation, setsearchLocation] = useState(locationData);
+  const SearchLocation = async (e) => {
+    if (e.length !== 0) {
+      var filterlocation = [];
+      for (var i = 0; i < locationData.length; i++) {
+        if (locationData[i].toLowerCase().includes(e)) {
+          filterlocation.push(locationData[i]);
+        }
+      }
+      setsearchLocation(filterlocation);
+    } else {
+      setsearchLocation(locationData);
+    }
+  };
+  const resetbtn = () => {
+    setallfilter([]);
+    dispatch(storeAction.isPopUpHander());
+    setIsToggle1(false);
+    setIsToggle(false);
+    setSelectedOption(null);
+    setSelectedOptionskill(null);
+    props.setfilterdata(props.alldata);
+    setcount(0);
+    setskill_list([]);
+    setlocation_list([]);
+    setallfilterdata({
+      experience: "",
+      languages: "",
+    });
+  };
+  const [count, setcount] = useState(0);
+  useEffect(() => {
+    getCountdata();
+  }, [allfilter, location_list, skill_list, allfilterdata]);
+  const getCountdata = async () => {
+    var count = allfilter.length;
+    if (location_list.length !== 0) {
+      count = count + 1;
+    }
+    if (skill_list.length !== 0) {
+      count = count + 1;
+    }
+    if (allfilterdata.experience.length !== 0) {
+      count = count + 1;
+    }
+    setcount(count);
+  };
   return (
     <div>
       <div className={props.class}>
@@ -435,15 +649,16 @@ const DashSearch = (props) => {
           </button>
           <button onClick={FilterHandler} className="dashBoardMainSelectbutton">
             <p>All Filters </p>
-            {allfilter.length !== 0 ? <h6>{allfilter.length}</h6> : null}
+            {count !== 0 ? <h6>{count}</h6> : null}
             <img src={downArrow} alt="" />
           </button>
         </div>
-        {isHourly === true && (
+        {isPopUp === "hourly" && (
           <div className="hourlyRate">
             <h1>Select an estimated budget within this range</h1>
+
             <Range setrangevalue={setrangevalue} />
-            <h3>615 candidates found</h3>
+            <h3>0 candidates found</h3>
             <div className="hourlyButton">
               <button
                 onClick={ResetHandler}
@@ -457,11 +672,18 @@ const DashSearch = (props) => {
             </div>
           </div>
         )}
-        {isLocation === true && (
+        {isPopUp === "location" && (
           <div className="location">
-            <input className="locInput" type="text" />
+            <input
+              placeholder="Search Location"
+              className="locInput"
+              type="text"
+              onChange={(e) => {
+                SearchLocation(e.target.value);
+              }}
+            />
             <div className="locationDesc">
-              {locationData.map((data) => {
+              {searchLocation.map((data) => {
                 return (
                   <div className="locDesc">
                     <input
@@ -470,11 +692,11 @@ const DashSearch = (props) => {
                       name=""
                       id=""
                       onClick={() => {
-                        countHandler(data.loc1);
+                        countHandler(data);
                       }}
-                      checked={locationlist.includes(data.loc1)}
+                      checked={locationlist.includes(data)}
                     />
-                    <p>{data.loc1}</p>
+                    <p>{data}</p>
                   </div>
                 );
               })}
@@ -488,7 +710,13 @@ const DashSearch = (props) => {
                 <img src={filter} alt="" />
                 <h2>All Filters</h2>
               </div>
-              <img src={close} alt="" />
+              <img
+                src={close}
+                alt=""
+                onClick={() => {
+                  dispatch(storeAction.isPopUpHander());
+                }}
+              />
             </div>
             <div className="workHistory">
               <div className="FilterToggle">
@@ -531,11 +759,11 @@ const DashSearch = (props) => {
                   <h2>Hourly Rate</h2>
                   <h3>Select a price range</h3>
                 </div>
-                {rangevalue !== null ? (
+                {/* {rangevalue !== null ? (
                   <h4>
                     USD {rangevalue[0]} - {rangevalue[1]}
                   </h4>
-                ) : null}
+                ) : null} */}
 
                 <RangeSlider setrangevalue={setrangevalue} />
               </div>

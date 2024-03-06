@@ -84,13 +84,50 @@ const ClientLogin = () => {
           if (decoded.user_id !== null) {
             dispatch(storeAction.tokenHandler({ token: loginuser.access }));
             dispatch(storeAction.useridHandler({ userid: decoded.user_id }));
-            dispatch(storeAction.isloginHandler({ islogin: true }));
             dispatch(storeAction.loginroleHander({ loginrole: decoded.role }));
-            // console.log(decoded.onboarding_status, "decoded");
-            if (decoded.role == "2") {
-              navigate("/discover");
+            dispatch(
+              storeAction.onboarding_statusHander({
+                onboarding_status: decoded.onboarding_status,
+              })
+            );
+
+            var userinfo = await axios
+              .get(
+                `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${decoded.user_id}`,
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${loginuser.access}`,
+                  },
+                }
+              )
+              .then((res) => {
+                return res.data;
+              })
+              .catch((err) => {
+                return err.response;
+              });
+            dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
+            if (decoded.onboarding_status > 3) {
+              if (decoded.role == "2") {
+                dispatch(storeAction.isloginHandler({ islogin: true }));
+                dispatch(storeAction.issidebarHandler({ issidebar: true }));
+                navigate("/discover");
+              } else {
+                dispatch(storeAction.isloginHandler({ islogin: true }));
+                dispatch(storeAction.issidebarHandler({ issidebar: true }));
+                navigate("/profile");
+              }
             } else {
-              navigate("/profile");
+              if (decoded.role == "2") {
+                dispatch(storeAction.roleHandler({ role: "Client" }));
+                // dispatch(storeAction.isloginHandler({ islogin: true }));
+                navigate("/registration");
+              } else {
+                dispatch(storeAction.roleHandler({ role: "Candidate" }));
+                // dispatch(storeAction.isloginHandler({ islogin: true }));
+                navigate("/registration");
+              }
             }
           }
         } else {
@@ -148,7 +185,7 @@ const ClientLogin = () => {
                 <div className="clientLoginCompBodyPasswordLabel">
                   <h4>Password</h4>
                   <Link to="/forgotPassword">
-                    <h5>Forget password</h5>
+                    <h5>Forgot password</h5>
                   </Link>
                 </div>
                 <div className="clientLoginCompBodyPasswordInput">

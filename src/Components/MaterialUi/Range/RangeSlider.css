@@ -16,8 +16,10 @@ span.MuiSlider-thumb.MuiSlider-thumbSizeMedium.MuiSlider-thumbColorPrimary.MuiSl
     color: var(--textColorDark);
     background-color: var(--white);
     text-align: center;
-    padding: 6px 15px;
+    font-weight: 600;
+    padding: 6px 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    font-size: 16px;
 }
 
 .MuiSlider-valueLabel {

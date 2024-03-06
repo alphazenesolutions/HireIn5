@@ -2,9 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import OnBoardComp from "../Components/OnBoarding/OnBoardComp";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { storeAction } from "../Store/Store";
 
 const OnBoard = () => {
+  const dispatch = useDispatch();
   const islogin = useSelector((store) => store.islogin);
   const loginrole = useSelector((store) => store.loginrole);
   useEffect(() => {
@@ -13,8 +15,11 @@ const OnBoard = () => {
   const Checkuser = () => {
     if (islogin === true) {
       if (loginrole == "2") {
+        dispatch(storeAction.issidebarHandler({ issidebar: true }));
+        
         window.location.replace("/#/discover");
       } else {
+        dispatch(storeAction.issidebarHandler({ issidebar: true }));
         window.location.replace("/#/profile");
       }
     }

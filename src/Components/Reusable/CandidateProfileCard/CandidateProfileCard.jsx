@@ -1,19 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./CandidateProfileCard.css";
 import back from "../../../assests/back.png";
-import candidatePropoic from "../../../assests/CandidateProfile.png";
 import brief from "../../../assests/briefCase.png";
 import user from "../../../assests/User.svg";
 import map from "../../../assests/mapPin.png";
 import vedio from "../../../assests/Image.jpg";
 import gallery from "../../../assests/gallery.svg";
 import info from "../../../assests/help.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Avatar from "react-avatar";
+import axios from "axios";
+import moment from "moment";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { storeAction } from "../../../Store/Store";
 
 const CandidateProfileCard = (props) => {
+  const dispatch = useDispatch();
   const singleuser = useSelector((store) => store.singleuser);
+  const loginrole = useSelector((store) => store.loginrole);
+  const token = useSelector((store) => store.token);
+  const userid = useSelector((store) => store.userid);
   const [isSelect, setIsSelect] = useState("demographic");
+  const [expiredata, setexpiredata] = useState(null);
+  const [status, setstatus] = useState(false);
+
   const buttonHandler = (e) => {
     if (isSelect == "demographic") {
       setIsSelect1("personal");
@@ -34,9 +46,131 @@ const CandidateProfileCard = (props) => {
   };
 
   const [isSelect1, setIsSelect1] = useState("personal");
+  const [profile, setprofile] = useState("");
   const buttonHandler1 = (e) => {
     setIsSelect1(e.target.id);
   };
+  useEffect(() => {
+    getUserinfo();
+  }, [singleuser]);
+  const getUserinfo = async () => {
+    setstatus(false);
+    if (singleuser.length !== 0) {
+      setexpiredata(singleuser[0].block_expiry);
+      setprofile(singleuser[0].profile_picture);
+      var userinfo = await axios
+        .get(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      if (userinfo !== undefined) {
+        setexpiredata(userinfo.block_expiry);
+      }
+    }
+  };
+  var today = moment().format("YYYY-MM-DD");
+
+  const calculateDateDifference = () => {
+    const date2 = new Date(moment(expiredata).format("YYYY-MM-DD"));
+    const date1 = new Date(today);
+    const timeDifference = date1 - date2;
+    const isExtended = timeDifference > 0;
+    const extendedOrBelow = isExtended ? "extended" : "below";
+    return extendedOrBelow;
+  };
+  const reserveuser = async () => {
+    setstatus(true);
+    let data = JSON.stringify({
+      candidate_id: singleuser[0].id,
+      duration: 5,
+      amount_paid: 15000,
+      blocked_by_id: userid,
+    });
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `${process.env.REACT_APP_LOCAL_HOST_URL}/reservation/blockcandidate/`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${token}`,
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+    getUserinfo();
+  };
+  const fileInputRef = useRef(null);
+
+  const uploadHandler = (data) => {
+    fileInputRef.current.click();
+  };
+  const [formData] = useState(new FormData());
+  const handleFileInputChange = async (e) => {
+    formData.append("image", e.target.files[0]);
+    formData.append("name", `profile${userid}`);
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    fileInputRef.current.value = "";
+    setprofile(response.data.img_url);
+    var newobj = {
+      username: singleuser[0].username,
+      profile_picture: response.data.img_url,
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+        newobj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      setTimeout(() => {
+        dispatch(
+          storeAction.singleuserHander({ singleuser: [updatedata.user] })
+        );
+      }, 10);
+    }
+  };
+  console.log(profile, "profile");
   return (
     <div>
       <div className={props.main}>
@@ -44,21 +178,46 @@ const CandidateProfileCard = (props) => {
           <img src={back} alt="" />
           <h2>Back to results</h2>
         </div>
-        <div className="vedioNotes">
-          {/* <img src={star} alt="" /> */}
-          <div className="notes">
-            <h4>
-              If you don’t have a personality assessment certificate, you can
-              take one here at{" "}
-              <span className="certificateHighLight">Mettl</span>
-            </h4>
+
+        {/* <img src={star} alt="" /> */}
+        {loginrole == 3 ? (
+          <div className="vedioNotes">
+            <div className="notes">
+              <h4>
+                If you don’t have a personality assessment certificate, you can
+                take one here at{" "}
+                <span className="certificateHighLight">Mettl</span>
+              </h4>
+            </div>
           </div>
-        </div>
+        ) : null}
+
         {singleuser.length !== 0 ? (
           <div className="mainProfile">
             <div className="profileLeft">
               <div className="profileLeftTop">
-                <img src={candidatePropoic} alt="" />
+                {profile.length == 0 ? (
+                  <Avatar
+                    name={singleuser[0].first_name}
+                    size={100}
+                    round="50px"
+                  />
+                ) : (
+                  <img src={profile} alt="" />
+                )}
+                {loginrole == 3 ? (
+                  <div onClick={uploadHandler} className="editprofile">
+                    <MdOutlineModeEdit className="editicon" />
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      style={{ display: "none" }}
+                      name="aadhaarfront"
+                      onChange={handleFileInputChange}
+                    />
+                  </div>
+                ) : null}
+
                 <h1>{singleuser[0].first_name}</h1>
                 <h2>USD {singleuser[0].hourly_rate} / HR</h2>
                 <div className="available">
@@ -110,22 +269,52 @@ const CandidateProfileCard = (props) => {
                     <img src={user} alt="" />
                     <h5>Part-time availability</h5>
                   </div>
-                  <div className="proExperience">
-                    <img src={map} alt="" />
-                    <h5>Bengaluru,India</h5>
-                  </div>
+                  {singleuser[0].current_place_of_residence !== null ? (
+                    <div className="proExperience">
+                      <img src={map} alt="" />
+                      <h5>{singleuser[0].current_place_of_residence}</h5>
+                    </div>
+                  ) : null}
                 </div>
               </div>
-              <div className="profileLeftBottom">
-                <button className="touchButton">
-                  <img src={back} alt="" />
-                  <h4>Get in Touch</h4>
-                </button>
-                <button className="reserveButton">
-                  <img src={user} alt="" />
-                  <h4>Reserve Candidate</h4>
-                </button>
-              </div>
+
+              {status === false ? (
+                expiredata !== "null" &&
+                calculateDateDifference() === "below" ? (
+                  <div className="profileLeftBottom">
+                    <button className="touchButtondiable">
+                      <img src={back} alt="" />
+                      <h4>Get in Touch</h4>
+                    </button>
+                    <button className="reserveButtondiable">
+                      <img src={user} alt="" />
+                      <h4>Reserve Candidate</h4>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="profileLeftBottom">
+                    <button className="touchButton">
+                      <img src={back} alt="" />
+                      <h4>Get in Touch</h4>
+                    </button>
+                    <button className="reserveButton" onClick={reserveuser}>
+                      <img src={user} alt="" />
+                      <h4>Reserve Candidate</h4>
+                    </button>
+                  </div>
+                )
+              ) : (
+                <div className="profileLeftBottom">
+                  <button className="touchButtondiable">
+                    <img src={back} alt="" />
+                    <h4>Get in Touch</h4>
+                  </button>
+                  <button className="reserveButtondiable">
+                    <img src={user} alt="" />
+                    <h4>Reserve Candidate</h4>
+                  </button>
+                </div>
+              )}
             </div>
             {/* profile card Right */}
             <div className="profileRight">
@@ -516,65 +705,86 @@ const CandidateProfileCard = (props) => {
                   </div>
                 </div>
               )}
-              {isSelect1 === "travel" && <div className="travel">
-             
-               <div className="travelslider">
-                <div className="travelslider1">
-                <h3>Current VISa status</h3>
-                <div className="visaStatus">
-                  <h1>USA</h1>
-                  <p>Type of Visa :<span>H1B</span></p>
-                  <p>Validity of Visa :<span> 21 / 03 / 2025</span></p>
-                </div>
-                </div>
-                <div className="travelslider1">
-                <h3>Travel history</h3>
-                <div className="visaStatus">
-                  <h1 title="">USA</h1>
-                  <p>Year of Travel : <span>2017</span></p>
-                  <p>Duration : <span>5 months</span></p>
-                </div> 
-                <div className="visaStatus">
-                  <p>Purpose : <span>Work</span></p>
-                  <p>Type of Visa : <span>H1B</span></p>
-                  <p>Validity of Visa : <span>21 / 03 / 2025</span></p>
-                </div> 
-                <div className="visaStatus">
-                <h1 title="">UAE</h1>
-                  <p>Year of Travel : <span>2018</span></p>
-                  <p>Duration : <span>3 months</span></p>
-                </div>
-                </div>
-                <div className="travelslider1">
-                <h3>Countries willing to travel to for work</h3>
-                <div className="visaStatus">
-                <h1 title="">USA</h1>
-                <h1 title="">Singapore</h1>
-                <h1 title="">Saudi Arabia</h1>
-                 
-                </div>
-                <div className="visaStatus">
-                  <p>Only for : <span>Work</span></p>
-                  <p>Duration : <span> 6 months</span></p>
-                  <p>Travel Readiness: <span>Immediate</span></p>
-                </div> 
-
-                </div>
-                <div className="travelslider1">
-                  <h3>Countries willing to relocate to</h3>
-                  <h4>Candidate unwilling to relocate </h4>
+              {isSelect1 === "travel" && (
+                <div className="travel">
+                  <div className="travelslider">
+                    <div className="travelslider1">
+                      <h3>Current VISa status</h3>
+                      <div className="visaStatus">
+                        <h1>USA</h1>
+                        <p>
+                          Type of Visa :<span>H1B</span>
+                        </p>
+                        <p>
+                          Validity of Visa :<span> 21 / 03 / 2025</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="travelslider1">
+                      <h3>Travel history</h3>
+                      <div className="visaStatus">
+                        <h1 title="">USA</h1>
+                        <p>
+                          Year of Travel : <span>2017</span>
+                        </p>
+                        <p>
+                          Duration : <span>5 months</span>
+                        </p>
+                      </div>
+                      <div className="visaStatus">
+                        <p>
+                          Purpose : <span>Work</span>
+                        </p>
+                        <p>
+                          Type of Visa : <span>H1B</span>
+                        </p>
+                        <p>
+                          Validity of Visa : <span>21 / 03 / 2025</span>
+                        </p>
+                      </div>
+                      <div className="visaStatus">
+                        <h1 title="">UAE</h1>
+                        <p>
+                          Year of Travel : <span>2018</span>
+                        </p>
+                        <p>
+                          Duration : <span>3 months</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="travelslider1">
+                      <h3>Countries willing to travel to for work</h3>
+                      <div className="visaStatus">
+                        <h1 title="">USA</h1>
+                        <h1 title="">Singapore</h1>
+                        <h1 title="">Saudi Arabia</h1>
+                      </div>
+                      <div className="visaStatus">
+                        <p>
+                          Only for : <span>Work</span>
+                        </p>
+                        <p>
+                          Duration : <span> 6 months</span>
+                        </p>
+                        <p>
+                          Travel Readiness: <span>Immediate</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="travelslider1">
+                      <h3>Countries willing to relocate to</h3>
+                      <h4>Candidate unwilling to relocate </h4>
+                    </div>
+                    <div className="travelslider1">
+                      <h3>Residency details</h3>
+                      <div className="visaStatus">
+                        <p>Current Place of Residence: Bengaluru, India</p>
+                        <p>Duration : 5 years</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="travelslider1">
-                  <h3>Residency details</h3>
-                  <div className="visaStatus">
-                  <p>Current Place of Residence: Bengaluru, India</p>
-                  <p>Duration : 5 years</p>
-                </div> 
-                 
-                  </div>
-               </div>
-                
-                </div>}
+                </div>
+              )}
               {isSelect1 === "remote" && (
                 <div className="remote">
                   <div className="remoteFlex">

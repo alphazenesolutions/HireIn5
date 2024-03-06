@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect } from "react";
 import "./CandidateRegistration.css";
 import aadhaarimg from "../../../../assests/info.png";
 import { FaAngleDown } from "react-icons/fa6";
@@ -22,131 +23,24 @@ import { storeAction } from "../../../../Store/Store";
 import Dragoption from "./Dragoption";
 import { FiLoader } from "react-icons/fi";
 import Skilllist from "../../../../assests/skillsJSON.json";
+import Select from "react-select";
+import country_and_states from "../../../../assests/country-states";
 
 const CandidateRegistration = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const inputref = useRef("");
   const inputref1 = useRef("");
-  const signupdata = useSelector((store) => store.signupdata);
+  const userdata = useSelector((store) => store.userdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
+  const onboarding_status = useSelector((store) => store.onboarding_status);
 
-  const [isPage, setIsPage] = useState("page2");
+  const [isPage, setIsPage] = useState("page1");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [dropDownList, setdropDownList] = useState([
-    // "Algorithmic Problem Solving",
-    // "Data Structures",
-    // "Object-Oriented Programming (OOP)",
-    // "Functional Programming",
-    // "Concurrency",
-    // "Error Handling and Debugging",
-    // "Version Control (e.g., Git)",
-    // "Code Collaboration",
-    // "Code Review",
-    // "Software Design Patterns",
-    // "Refactoring",
-    // "Unit Testing",
-    // "Integration Testing",
-    // "Test-Driven Development (TDD)",
-    // "Continuous Integration/Continuous Deployment (CI/CD)",
-    // "Maven",
-    // "Gradle",
-    // "npm",
-    // "pip",
-    // "Python",
-    // "Ruby",
-    // "Shell Scripting",
-    // "Database Design",
-    // "SQL and Database Management",
-    // "NoSQL Databases",
-    // "RESTful API Design",
-    // "Web Services",
-    // "Microservices Architecture",
-    // "Docker",
-    // "Kubernetes",
-    // "Serverless Computing",
-    // "AWS",
-    // "Azure",
-    // "HTML",
-    // "CSS",
-    // "JavaScript",
-    // "React.js",
-    // "Angular",
-    // "Vue.js",
-    // "Frontend Frameworks",
-    // "Web Security Best Practices",
-    // "Web Performance Optimization",
-    // "Responsive Web Design",
-    // "Mobile App Development (Native or Cross-platform)",
-    // "React Native",
-    // "Mobile App Design Principles",
-    // "Progressive Web Apps (PWAs)",
-    // "Desktop Application Development",
-    // "Game Development",
-    // "Augmented Reality (AR)",
-    // "Virtual Reality (VR)",
-    // "Machine Learning",
-    // "Deep Learning",
-    // "Natural Language Processing (NLP)",
-    // "Computer Vision",
-    // "Data Analysis and Visualization",
-    // "Big Data Technologies",
-    // "Hadoop",
-    // "Spark",
-    // "IoT (Internet of Things) Programming",
-    // "Embedded Systems Programming",
-    // "Network Programming",
-    // "Blockchain Development",
-    // "Smart Contracts",
-    // "Security Programming",
-    // "Cryptography",
-    // "Reverse Engineering",
-    // "API Integration",
-    // "GraphQL",
-    // "WebAssembly",
-    // "Geospatial Programming",
-    // "Parallel Programming",
-    // "Distributed Systems",
-    // "Functional Reactive Programming (FRP)",
-    // "Cross-platform Development",
-    // "Localization",
-    // "Internationalization",
-    // "Compiler Design",
-    // "Computer Graphics Programming",
-    // "Robotics Programming",
-    // "Quantum Computing",
-    // "Bioinformatics Programming",
-    // "Natural Computing",
-    // "Ethical Hacking",
-    // "DevOps Practices",
-    // "Server-side Rendering (SSR)",
-    // "Static Site Generators",
-    // "Progressive Enhancement",
-    // "Web Accessibility (A11y)",
-    // "Chatbot Development",
-    // "Voice User Interface (VUI) Development",
-    // "Human-Computer Interaction (HCI)",
-    // "Agile Methodologies",
-    // "Scrum",
-    // "Kanban",
-    // "Lean Software Development",
-    // "Behavior-Driven Development (BDD)",
-    // "User Acceptance Testing (UAT)",
-    // "Pair Programming",
-    // "Code Metrics",
-    // "Code Analysis",
-    // "Code Optimization",
-    // "Technical Documentation",
-    // "API Documentation",
-    // "Knowledge of Design Thinking",
-    // "Critical Thinking",
-    // "Problem Solving",
-    // "Adaptability",
-    // "Effective Communication",
-  ]);
+  const [dropDownList, setdropDownList] = useState([]);
   const [dropDownOpen, setdropDownClose] = useState(dropDownList);
   const [dropDownList1, setdropDownList1] = useState([
     "Basic",
@@ -163,6 +57,7 @@ const CandidateRegistration = () => {
   const [skill, setskill] = useState([]);
   const [indexvalue, setindexvalue] = useState(null);
   const [displaymessages, setdisplaymessages] = useState(false);
+  const [statelist, setstatelist] = useState([]);
   function displaymsg(params) {
     setdisplaymessages(!displaymessages);
   }
@@ -205,34 +100,61 @@ const CandidateRegistration = () => {
   }
   function getdata(event) {
     const getvalue = event;
-    // setdropDown(false);
+    setdropDown(false);
     const updatedItems = skill.includes(getvalue)
       ? skill.filter((data) => data !== getvalue)
       : [...skill, getvalue];
     setskill(updatedItems);
+    inputref.current.value = "";
   }
   const backHandler = (event) => {
     setIsPage(event.target.id);
   };
-  const routeHandler = () => {
+  const routeHandler = async () => {
     if (isPage === "page4") {
+      dispatch(storeAction.issidebarHandler({ issidebar: true }));
       dispatch(storeAction.isloginHandler({ islogin: true }));
+      dispatch(
+        storeAction.onboarding_statusHander({
+          onboarding_status: 4,
+        })
+      );
+      var newobj1 = {
+        username: userdata[0].username,
+        onboarding_status: 4,
+      };
+      await axios
+        .put(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+          newobj1,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
       window.location.replace("/#/profile");
-    } else {
     }
   };
   const routeTimeout = setTimeout(routeHandler, 1500);
   const [formdata, setformdata] = useState({
     firstname: "",
     lastname: "",
-    email: "",
-    phone: "",
+    email: userdata[0].username,
+    phone: sessionStorage.getItem("phone"),
     dob: "",
     address1: "",
     address2: "",
     city: "",
     state: "",
-    title: "11",
+    title: "null",
     aadhaar_number: "",
     aadhaarfront: "",
     aadhaarback: "",
@@ -248,9 +170,9 @@ const CandidateRegistration = () => {
     experience: "",
     skill: "",
     linkedin: "",
-    hackerrank: "",
-    github: "",
-    website: "",
+    hackerrank: "null",
+    github: "null",
+    website: "null",
     languages: "",
     pincode: "",
     countryaddress: "",
@@ -287,10 +209,64 @@ const CandidateRegistration = () => {
     pincode: false,
     countryaddress: false,
   });
+  const [websiterror, setwebsiterror] = useState(false);
+  const [githuberror, setgithuberror] = useState(false);
+  const [linkedinerror, setlinkedinerror] = useState(false);
 
-  const handlechange = (e) => {
+  const handlechange = async (e) => {
     const { name, value } = e.target;
-    setformdata((values) => ({ ...values, [name]: value }));
+    if (name === "countryaddress") {
+      setstatelist([]);
+      var country = await country_and_states.country.filter((data) => {
+        return data.code == value;
+      });
+      setformdata((values) => ({ ...values, [name]: country[0].name }));
+      setstatelist(country_and_states.states[value]);
+    } else if (name === "website") {
+      const urlPattern =
+        /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-z]{2,}(\.[a-z]{2,})?\/?[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=%]+$/;
+      if (value.length !== 0) {
+        if (!urlPattern.test(value)) {
+          setwebsiterror(true);
+        } else {
+          setwebsiterror(false);
+        }
+      } else {
+        setwebsiterror(false);
+      }
+      setformdata((values) => ({ ...values, [name]: value }));
+    } else if (name === "github") {
+      const urlPattern =
+        /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-z]{2,}(\.[a-z]{2,})?\/?[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=%]+$/;
+      if (value.length !== 0) {
+        if (!urlPattern.test(value)) {
+          setgithuberror(true);
+        } else {
+          setgithuberror(false);
+        }
+      } else {
+        setgithuberror(false);
+      }
+      setformdata((values) => ({ ...values, [name]: value }));
+    } else if (name === "linkedin") {
+      const urlPattern =
+        /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-z]{2,}(\.[a-z]{2,})?\/?[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=%]+$/;
+      if (value.length !== 0) {
+        if (!urlPattern.test(value)) {
+          setlinkedinerror(true);
+        } else {
+          setlinkedinerror(false);
+        }
+      } else {
+        setlinkedinerror(false);
+      }
+      setformdata((values) => ({ ...values, [name]: value }));
+    } else if (name === "phone") {
+      const newValue = Math.max(1, Math.min(10, value));
+      setformdata((values) => ({ ...values, [name]: newValue }));
+    } else {
+      setformdata((values) => ({ ...values, [name]: value }));
+    }
   };
   async function pageHandler(e) {
     setfinalerrorstatus(false);
@@ -490,13 +466,15 @@ const CandidateRegistration = () => {
             countryaddress: false,
           });
           setIsLoading(true);
+
           var newobj = {
-            username: signupdata.username,
+            username: userdata[0].username,
             phone: formdata.phone,
             title: formdata.title,
             date_of_birth: formdata.dob,
             first_name: `${formdata.firstname} ${formdata.lastname}`,
             role: "3",
+            onboarding_status: 2,
             address: {
               address: `${formdata.address1} ${formdata.address2}`,
               city: formdata.city,
@@ -544,6 +522,11 @@ const CandidateRegistration = () => {
           ) {
             setIsPage("page2");
             routeHandler();
+            dispatch(
+              storeAction.onboarding_statusHander({
+                onboarding_status: 2,
+              })
+            );
             setfinalerrorstatus(false);
             setfinalerror(null);
             setfinalerrortype(null);
@@ -672,6 +655,7 @@ const CandidateRegistration = () => {
         languages: false,
         skilllength: false,
       });
+
       if (formdata.qualification.length === 0) {
         setformdataerror((values) => ({
           ...values,
@@ -712,24 +696,6 @@ const CandidateRegistration = () => {
         setformdataerror((values) => ({
           ...values,
           linkedin: true,
-        }));
-      } else if (formdata.github.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          hackerrank: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          github: true,
-        }));
-      } else if (formdata.website.length === 0) {
-        setformdataerror((values) => ({
-          ...values,
-          github: false,
-        }));
-        setformdataerror((values) => ({
-          ...values,
-          website: true,
         }));
       } else {
         setformdataerror({
@@ -776,50 +742,63 @@ const CandidateRegistration = () => {
           const arrayOfStrings = row.map(
             (obj) => `${obj.languages}: ${obj.level}`
           );
-          var newObj = {
-            username: signupdata.username,
-            preference_info: {
-              qualification: formdata.qualification,
-              year_of_experience: formdata.experience,
-              skills: skill,
-              linkedin: formdata.linkedin,
-              hackerrank: formdata.hackerrank,
-              github: formdata.github,
-              personal_website: formdata.website,
-              language: arrayOfStrings,
-            },
-          };
-          var update_data = await axios
-            .put(
-              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
-              newObj,
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `JWT ${token}`,
-                },
-              }
-            )
-            .then((res) => {
-              return res.data;
-            })
-            .catch((err) => {
-              return err.response;
-            });
           if (
-            update_data.message ===
-            "User and Associated Info updated successfully"
+            githuberror === false &&
+            linkedinerror === false &&
+            websiterror === false
           ) {
-            setIsPage("page3");
-            routeHandler();
-            setfinalerrorstatus(false);
-            setfinalerror(null);
-            setfinalerrortype(null);
-            setlanuageerror(false);
-            setlevelerror(false);
-            setIsLoading(false);
+            var newObj = {
+              username: userdata[0].username,
+              onboarding_status: 3,
+              preference_info: {
+                qualification: formdata.qualification,
+                year_of_experience: formdata.experience,
+                skills: skill,
+                linkedin: formdata.linkedin,
+                hackerrank: formdata.hackerrank,
+                github: formdata.github,
+                personal_website: formdata.website,
+                language: arrayOfStrings,
+              },
+            };
+            var update_data = await axios
+              .put(
+                `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+                newObj,
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${token}`,
+                  },
+                }
+              )
+              .then((res) => {
+                return res.data;
+              })
+              .catch((err) => {
+                return err.response;
+              });
+            if (
+              update_data.message ===
+              "User and Associated Info updated successfully"
+            ) {
+              dispatch(
+                storeAction.onboarding_statusHander({
+                  onboarding_status: 3,
+                })
+              );
+              setIsPage("page3");
+              routeHandler();
+              setfinalerrorstatus(false);
+              setfinalerror(null);
+              setfinalerrortype(null);
+              setlanuageerror(false);
+              setlevelerror(false);
+              setIsLoading(false);
+            }
           }
         }
+        setIsLoading(false);
       }
     } else if (isPage === "page3") {
       setIsLoading(true);
@@ -831,12 +810,17 @@ const CandidateRegistration = () => {
         (obj) =>
           `${obj.are_you_willing}: ${obj.preferred_countries}: ${obj.how_long}`
       );
+      var valuesArray = [];
+      if (selectedOption !== null && selectedOption !== undefined) {
+        valuesArray = selectedOption.map((country) => country.value);
+      }
       var newobj1 = {
-        username: signupdata.username,
+        username: userdata[0].username,
+        onboarding_status: 4,
         travel_info: {
           travelled_to: arrayOfStrings,
           relocate_for_work: arrayOfStrings1,
-          country: travelform.country.split(","),
+          country: valuesArray.length !== 0 ? valuesArray : [""],
           onlyfor: travelform.onlyfor,
           duration: travelform.duration,
           travel_readlines: travelform.travel_readlines,
@@ -879,6 +863,13 @@ const CandidateRegistration = () => {
     setformtype(data);
   };
   const [formData, setFormData] = useState(new FormData());
+  const [fileuploadsuccess, setfileuploadsuccess] = useState({
+    aadhaarfront: false,
+    aadhaarback: false,
+    pan_front: false,
+    passport_front: false,
+    passport_back: false,
+  });
   const handleFileInputChange = async (e) => {
     formData.append("image", e.target.files[0]);
     formData.append("name", formtype);
@@ -896,6 +887,11 @@ const CandidateRegistration = () => {
       ...values,
       [formtype]: response.data.img_url,
     }));
+    setfileuploadsuccess((values) => ({
+      ...values,
+      [formtype]: true,
+    }));
+    console.log(formtype, "name");
     fileInputRef.current.value = "";
   };
   const [row, setrow] = useState([{ languages: "", level: "" }]);
@@ -975,6 +971,120 @@ const CandidateRegistration = () => {
     relocate[index][name] = value;
     setrelocate([...relocate]);
   };
+  const [selectedOption, setSelectedOption] = useState(null);
+  const options = [
+    { value: "Afghanistan", label: "Afghanistan" },
+    { value: "Albania", label: "Albania" },
+    { value: "Algeria", label: "Algeria" },
+    { value: "Andorra", label: "Andorra" },
+    { value: "Angola", label: "Angola" },
+    { value: "Antigua and Barbuda", label: "Antigua and Barbuda" },
+    { value: "Argentina", label: "Argentina" },
+    { value: "Armenia", label: "Armenia" },
+    { value: "Australia", label: "Australia" },
+    { value: "Austria", label: "Austria" },
+    { value: "Azerbaijan", label: "Azerbaijan" },
+    { value: "Bahamas", label: "Bahamas" },
+    { value: "Bahrain", label: "Bahrain" },
+    { value: "Bangladesh", label: "Bangladesh" },
+    { value: "Barbados", label: "Barbados" },
+    { value: "Belarus", label: "Belarus" },
+    { value: "Belgium", label: "Belgium" },
+    { value: "Belize", label: "Belize" },
+    { value: "Benin", label: "Benin" },
+    { value: "Bhutan", label: "Bhutan" },
+    { value: "Bolivia", label: "Bolivia" },
+    { value: "Bosnia and Herzegovina", label: "Bosnia and Herzegovina" },
+    { value: "Botswana", label: "Botswana" },
+    { value: "Brazil", label: "Brazil" },
+    { value: "Brunei", label: "Brunei" },
+    { value: "Bulgaria", label: "Bulgaria" },
+    { value: "Burkina Faso", label: "Burkina Faso" },
+    { value: "Burundi", label: "Burundi" },
+    { value: "Cambodia", label: "Cambodia" },
+    { value: "Cameroon", label: "Cameroon" },
+    { value: "Canada", label: "Canada" },
+    { value: "Cape Verde", label: "Cape Verde" },
+    { value: "Central African Republic", label: "Central African Republic" },
+    { value: "Chad", label: "Chad" },
+    { value: "Chile", label: "Chile" },
+    { value: "China", label: "China" },
+    { value: "Colombia", label: "Colombia" },
+    { value: "Comoros", label: "Comoros" },
+    { value: "Congo", label: "Congo" },
+    { value: "Costa Rica", label: "Costa Rica" },
+    { value: "Croatia", label: "Croatia" },
+    { value: "Cuba", label: "Cuba" },
+    { value: "Cyprus", label: "Cyprus" },
+    { value: "Czech Republic", label: "Czech Republic" },
+    { value: "Denmark", label: "Denmark" },
+    { value: "Djibouti", label: "Djibouti" },
+    { value: "Dominica", label: "Dominica" },
+    { value: "Dominican Republic", label: "Dominican Republic" },
+    { value: "East Timor (Timor-Leste)", label: "East Timor (Timor-Leste)" },
+    { value: "Ecuador", label: "Ecuador" },
+    { value: "Egypt", label: "Egypt" },
+    { value: "El Salvador", label: "El Salvador" },
+    { value: "Equatorial Guinea", label: "Equatorial Guinea" },
+    { value: "Eritrea", label: "Eritrea" },
+    { value: "Estonia", label: "Estonia" },
+    { value: "Ethiopia", label: "Ethiopia" },
+    { value: "Fiji", label: "Fiji" },
+    { value: "Finland", label: "Finland" },
+    { value: "France", label: "France" },
+    { value: "Gabon", label: "Gabon" },
+    { value: "Gambia", label: "Gambia" },
+    { value: "Georgia", label: "Georgia" },
+    { value: "Germany", label: "Germany" },
+    { value: "Ghana", label: "Ghana" },
+    { value: "Greece", label: "Greece" },
+    { value: "Grenada", label: "Grenada" },
+    { value: "Guatemala", label: "Guatemala" },
+    { value: "Guinea", label: "Guinea" },
+    { value: "Guinea-Bissau", label: "Guinea-Bissau" },
+    { value: "Guyana", label: "Guyana" },
+    { value: "Haiti", label: "Haiti" },
+    { value: "Honduras", label: "Honduras" },
+    { value: "Hungary", label: "Hungary" },
+    { value: "Iceland", label: "Iceland" },
+    { value: "India", label: "India" },
+    { value: "Indonesia", label: "Indonesia" },
+    { value: "Iran", label: "Iran" },
+    { value: "Iraq", label: "Iraq" },
+    { value: "Ireland", label: "Ireland" },
+    { value: "Israel", label: "Israel" },
+    { value: "Italy", label: "Italy" },
+    { value: "Ivory Coast", label: "Ivory Coast" },
+    { value: "Jamaica", label: "Jamaica" },
+    { value: "Japan", label: "Japan" },
+    { value: "Jordan", label: "Jordan" },
+    { value: "Kazakhstan", label: "Kazakhstan" },
+    { value: "Kenya", label: "Kenya" },
+    { value: "Kiribati", label: "Kiribati" },
+    { value: "Korea, North", label: "Korea, North" },
+    { value: "Korea, South", label: "Korea, South" },
+    { value: "Kuwait", label: "Kuwait" },
+  ];
+  useEffect(() => {
+    CheckStage();
+  }, [onboarding_status]);
+  const CheckStage = async () => {
+    if (onboarding_status > 3) {
+      window.location.replace("/#/profile");
+    } else {
+      if (onboarding_status == 1) {
+        setIsPage("page1");
+      } else if (onboarding_status == 2) {
+        setIsPage("page2");
+      } else if (onboarding_status == 3) {
+        setIsPage("page3");
+      }
+    }
+  };
+  const skipbtn = () => {
+    setIsPage("page4");
+    routeHandler();
+  };
   return (
     <>
       <div className="candidateRegistration">
@@ -1031,6 +1141,7 @@ const CandidateRegistration = () => {
                       type="text"
                       placeholder="divyagupta@gmail.com"
                       name="email"
+                      disabled
                       onChange={handlechange}
                       defaultValue={formdata.email}
                     />
@@ -1043,16 +1154,126 @@ const CandidateRegistration = () => {
                   <div className="candidateInfo h-full">
                     <h3>Phone no.</h3>
                     <p>
-                      <select name="" id="">
-                        <option value="">+91</option>
+                      <select
+                        className="w-[28% !important]"
+                        name=""
+                        id=""
+                        // disabled
+                      >
+                        <option value="">Select</option>
+                        <option value="93">+93</option>
+                        <option value="355">+355</option>
+                        <option value="213">+213</option>
+                        <option value="376">+376</option>
+                        <option value="244">+244</option>
+                        <option value="1-268">+1-268</option>
+                        <option value="54">+54</option>
+                        <option value="374">+374</option>
+                        <option value="61">+61</option>
+                        <option value="43">+43</option>
+                        <option value="994">+994</option>
+                        <option value="1-242">+1-242</option>
+                        <option value="973">+973</option>
+                        <option value="880">+880</option>
+                        <option value="1-246">+1-246</option>
+                        <option value="375">+375</option>
+                        <option value="32">+32</option>
+                        <option value="501">+501</option>
+                        <option value="229">+229</option>
+                        <option value="975">+975</option>
+                        <option value="591">+591</option>
+                        <option value="387">+387</option>
+                        <option value="267">+267</option>
+                        <option value="55">+55</option>
+                        <option value="673">+673</option>
+                        <option value="359">+359</option>
+                        <option value="226">+226</option>
+                        <option value="257">+257</option>
+                        <option value="855">+855</option>
+                        <option value="237">+237</option>
+                        <option value="1">+1</option>
+                        <option value="238">+238</option>
+                        <option value="236">+236</option>
+                        <option value="235">+235</option>
+                        <option value="56">+56</option>
+                        <option value="86">+86</option>
+                        <option value="57">+57</option>
+                        <option value="269">+269</option>
+                        <option value="506">+506</option>
+                        <option value="385">+385</option>
+                        <option value="53">+53</option>
+                        <option value="357">+357</option>
+                        <option value="420">+420</option>
+                        <option value="243">+243</option>
+                        <option value="45">+45</option>
+                        <option value="253">+253</option>
+                        <option value="1-767">+1-767</option>
+                        <option value="1-809">+1-809</option>
+                        <option value="670">+670</option>
+                        <option value="593">+593</option>
+                        <option value="20">+20</option>
+                        <option value="503">+503</option>
+                        <option value="240">+240</option>
+                        <option value="291">+291</option>
+                        <option value="372">+372</option>
+                        <option value="251">+251</option>
+                        <option value="679">+679</option>
+                        <option value="358">+358</option>
+                        <option value="33">+33</option>
+                        <option value="241">+241</option>
+                        <option value="220">+220</option>
+                        <option value="995">+995</option>
+                        <option value="49">+49</option>
+                        <option value="233">+233</option>
+                        <option value="30">+30</option>
+                        <option value="1-473">+1-473</option>
+                        <option value="502">+502</option>
+                        <option value="224">+224</option>
+                        <option value="245">+245</option>
+                        <option value="592">+592</option>
+                        <option value="509">+509</option>
+                        <option value="504">+504</option>
+                        <option value="36">+36</option>
+                        <option value="354">+354</option>
+                        <option value="91" selected>+91</option>
+                        <option value="62">+62</option>
+                        <option value="98">+98</option>
+                        <option value="964">+964</option>
+                        <option value="353">+353</option>
+                        <option value="972">+972</option>
+                        <option value="39">+39</option>
+                        <option value="225">+225</option>
+                        <option value="1-876">+1-876</option>
+                        <option value="81">+81</option>
+                        <option value="962">+962</option>
+                        <option value="7">+7</option>
+                        <option value="254">+254</option>
+                        <option value="686">+686</option>
+                        <option value="850">+850</option>
+                        <option value="82">+82</option>
+                        <option value="965">+965</option>
+                        <option value="996">+996</option>
+                        <option value="856">+856</option>
+                        <option value="371">+371</option>
+                        <option value="961">+961</option>
+                        <option value="266">+266</option>
+                        <option value="231">+231</option>
+                        <option value="218">+218</option>
+                        <option value="423">+423</option>
+                        <option value="370">+370</option>
+                        <option value="352">+352</option>
+                        <option value="389">+389</option>
+                        <option value="261">+261</option>
+                        <option value="265">+265</option>
                       </select>
                       <input
                         type="text"
                         placeholder="9876543210"
                         name="phone"
-                        maxLength={12}
-                        onChange={handlechange}
                         defaultValue={formdata.phone}
+                        maxLength={12}
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                        onChange={handlechange}
                       />
                     </p>
                     {formdataerror.phone && (
@@ -1069,6 +1290,7 @@ const CandidateRegistration = () => {
                       type="date"
                       placeholder="DD/MM/YYYY"
                       name="dob"
+                      max="1979-12-31"
                       onChange={handlechange}
                       defaultValue={formdata.dob}
                     />
@@ -1113,19 +1335,23 @@ const CandidateRegistration = () => {
                       <h3>Country</h3>
                       <div className="candidateState">
                         <select
-                          id=""
-                          name="state"
+                          name="countryaddress"
                           onChange={handlechange}
-                          defaultValue={formdata.state}
+                          defaultValue={formdata.countryaddress}
                         >
-                          <option value="">India</option>
-                          <option value="Karnataka">USA</option>
-                          <option value="TamilNadu">UK</option>
+                          <option value="">Country</option>
+                          {country_and_states.country.length !== 0
+                            ? country_and_states.country.map((item, index) => (
+                                <option value={item.code} key={index}>
+                                  {item.name}
+                                </option>
+                              ))
+                            : null}
                         </select>
                       </div>
-                      {formdataerror.state && (
+                      {formdataerror.countryaddress && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
-                          Please Select State
+                          Please Select country
                         </h6>
                       )}
                     </div>
@@ -1155,8 +1381,16 @@ const CandidateRegistration = () => {
                           onChange={handlechange}
                           defaultValue={formdata.state}
                         >
-                          <option value="Karnataka">Karnataka</option>
-                          <option value="TamilNadu">TamilNadu</option>
+                          <option value="">Select</option>
+                          {statelist.length !== 0 ? (
+                            statelist.map((data, index) => (
+                              <option value={data.name} key={index}>
+                                {data.name}
+                              </option>
+                            ))
+                          ) : (
+                            <option value="">Select</option>
+                          )}
                         </select>
                       </div>
                       {formdataerror.state && (
@@ -1175,7 +1409,7 @@ const CandidateRegistration = () => {
                         defaultValue={formdata.pincode}
                         maxLength={6}
                       />
-                      {formdataerror.title && (
+                      {formdataerror.pincode && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
                           Please Enter Pincode
                         </h6>
@@ -1218,7 +1452,8 @@ const CandidateRegistration = () => {
                       </h3>
                       <div className="aadhaarFront">
                         <h3>
-                          Drop your files here or <a href="##">browse</a>
+                          Drop your files here or{" "}
+                          <span className="browser">browse</span>
                         </h3>
                         <p>Maximum size: 5MB</p>
                         <p title=""> PDF JPEG and PNG accepted</p>
@@ -1232,7 +1467,12 @@ const CandidateRegistration = () => {
                       />
                       {formdataerror.aadhaarfront && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
-                          Please Upload Aadhaar Card Front
+                          Please Upload Aadhaar Card Front / Id proof
+                        </h6>
+                      )}
+                      {fileuploadsuccess.aadhaarfront && (
+                        <h6 className="text-green-500 text-xs font-semibold mt-2">
+                          Aadhaar Card Front / Id Proof Uploaded Successfully
                         </h6>
                       )}
                     </div>
@@ -1249,7 +1489,8 @@ const CandidateRegistration = () => {
 
                       <div className="aadhaarFront">
                         <h3>
-                          Drop your files here or <a href="##">browse</a>
+                          Drop your files here or{" "}
+                          <span className="browser">browse</span>
                         </h3>
                         <p>Maximum size: 5MB</p>
                         <p title=""> PDF JPEG and PNG accepted</p>
@@ -1264,6 +1505,11 @@ const CandidateRegistration = () => {
                       {formdataerror.aadhaarback && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
                           Please Upload Aadhaar Card Back / Id Proof
+                        </h6>
+                      )}
+                      {fileuploadsuccess.aadhaarback && (
+                        <h6 className="text-green-500 text-xs font-semibold mt-2">
+                          Aadhaar Card Back / Id Proof Uploaded Successfully
                         </h6>
                       )}
                     </div>
@@ -1294,7 +1540,8 @@ const CandidateRegistration = () => {
                     </h3>
                     <div className="aadhaarFront">
                       <h3>
-                        Drop your files here or <a href="##">browse</a>
+                        Drop your files here or{" "}
+                        <span className="browser">browse</span>
                       </h3>
                       <p>Maximum size: 5MB</p>
                       <p title=""> PDF JPEG and PNG accepted</p>
@@ -1309,6 +1556,11 @@ const CandidateRegistration = () => {
                     {formdataerror.pan_front && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
                         Please Upload PAN Front / Tax Id
+                      </h6>
+                    )}
+                    {fileuploadsuccess.pan_front && (
+                      <h6 className="text-green-500 text-xs font-semibold mt-2">
+                        PAN Card Front / Tax Id Proof Uploaded Successfully
                       </h6>
                     )}
                   </div>
@@ -1345,6 +1597,7 @@ const CandidateRegistration = () => {
                         placeholder="DD/MM/YYYY"
                         name="valid_until"
                         onChange={handlechange}
+                        pattern="\d{4}-\d{2}-\d{2}"
                         defaultValue={formdata.valid_until}
                       />
                       {formdataerror.valid_until && (
@@ -1356,7 +1609,7 @@ const CandidateRegistration = () => {
 
                     <div className="candidateInfo h-full">
                       <h3>Country of Citizenship</h3>
-                      <p>
+                      {/* <p>
                         <input
                           type="text"
                           placeholder="e.g. India"
@@ -1364,7 +1617,24 @@ const CandidateRegistration = () => {
                           onChange={handlechange}
                           defaultValue={formdata.country_of_citizenship}
                         />
-                      </p>
+                      </p> */}
+                      <div className="w-full">
+                        <select
+                          name="country_of_citizenship"
+                          onChange={handlechange}
+                          className="w-full"
+                          defaultValue={formdata.country_of_citizenship}
+                        >
+                          <option value="">Country</option>
+                          {country_and_states.country.length !== 0
+                            ? country_and_states.country.map((item, index) => (
+                                <option value={item.name} key={index}>
+                                  {item.name}
+                                </option>
+                              ))
+                            : null}
+                        </select>
+                      </div>
                       {formdataerror.country_of_citizenship && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
                           Please Enter Country of Citizenship
@@ -1373,7 +1643,7 @@ const CandidateRegistration = () => {
                     </div>
                     <div className="candidateInfo h-full">
                       <h3>Country of Issue</h3>
-                      <p>
+                      {/* <p>
                         <input
                           type="text"
                           placeholder="e.g. Zimbabwe"
@@ -1381,7 +1651,25 @@ const CandidateRegistration = () => {
                           onChange={handlechange}
                           defaultValue={formdata.country_of_issue}
                         />
-                      </p>
+                      </p> */}
+                      <div className="w-full">
+                        {" "}
+                        <select
+                          name="country_of_issue"
+                          className="w-full"
+                          onChange={handlechange}
+                          defaultValue={formdata.country_of_issue}
+                        >
+                          <option value="">Country</option>
+                          {country_and_states.country.length !== 0
+                            ? country_and_states.country.map((item, index) => (
+                                <option value={item.name} key={index}>
+                                  {item.name}
+                                </option>
+                              ))
+                            : null}
+                        </select>
+                      </div>
                       {formdataerror.country_of_issue && (
                         <h6 className="text-red-500 text-xs font-semibold mt-2">
                           Please Enter Country of Issue
@@ -1404,7 +1692,8 @@ const CandidateRegistration = () => {
                       </h3>
                       <div className="aadhaarFront">
                         <h3>
-                          Drop your files here or <a href="##">browse</a>
+                          Drop your files here or{" "}
+                          <span className="browser">browse</span>
                         </h3>
                         <p>Maximum size: 5MB</p>
                         <p title=""> PDF JPEG and PNG accepted</p>
@@ -1416,7 +1705,13 @@ const CandidateRegistration = () => {
                         name="passport_front"
                         onChange={handleFileInputChange}
                       />
+                      {fileuploadsuccess.passport_front && (
+                        <h6 className="text-green-500 text-xs font-semibold mt-2">
+                          Passport Card Front Uploaded Successfully
+                        </h6>
+                      )}
                     </div>
+
                     <div
                       className="aadhaar1 cursor-pointer"
                       onClick={() => {
@@ -1429,7 +1724,8 @@ const CandidateRegistration = () => {
 
                       <div className="aadhaarFront">
                         <h3>
-                          Drop your files here or <a href="##">browse</a>
+                          Drop your files here or{" "}
+                          <span className="browser">browse</span>
                         </h3>
                         <p>Maximum size: 5MB</p>
                         <p title=""> PDF JPEG and PNG accepted</p>
@@ -1441,6 +1737,11 @@ const CandidateRegistration = () => {
                         name="passport_back"
                         onChange={handleFileInputChange}
                       />
+                      {fileuploadsuccess.passport_back && (
+                        <h6 className="text-green-500 text-xs font-semibold mt-2">
+                          Passport Card Back Uploaded Successfully
+                        </h6>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1515,12 +1816,12 @@ const CandidateRegistration = () => {
                   <div className="candidateInfo h-full">
                     <h3>Total years of Experience</h3>
                     <p>
-                      {/* <input
+                      <input
                         type="number"
                         placeholder="0-1"
                         name="experience"
                         onChange={handlechange}
-                      /> */}
+                      />
                       {/* <select id=""
                        name="experience"
                        onChange={handlechange}>
@@ -1528,13 +1829,13 @@ const CandidateRegistration = () => {
                         <option value="">0-6 Months</option>
                         <option value="">6-12 Months</option>
                       </select> */}
-                      <select name="experience" onChange={handlechange}>
+                      {/* <select name="experience" onChange={handlechange}>
                         <option value="">Year and Months</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>{" "}
                         <option value="4">4</option>
-                      </select>
+                      </select> */}
                     </p>
                     {formdataerror.experience && (
                       <h6 className="text-red-500 text-xs font-semibold mt-2">
@@ -1638,6 +1939,11 @@ const CandidateRegistration = () => {
                     Please Enter LinkedIn
                   </h6>
                 )}
+                {linkedinerror && (
+                  <h6 className="text-red-500 text-xs font-semibold mt-2">
+                    Please Enter Valid LinkedIn Url
+                  </h6>
+                )}
               </div>
               <div className="candidateInfo h-full">
                 <div className="addressLine">
@@ -1659,6 +1965,7 @@ const CandidateRegistration = () => {
                     />
                   </h3>
                   <h3>Optional</h3> */}
+                  <h3>Hacker Rank Score</h3>
                   <h3 className="option">Optional</h3>
 
                   {displaymessages && (
@@ -1708,6 +2015,11 @@ const CandidateRegistration = () => {
                     Please Enter GitHub
                   </h6>
                 )}
+                {githuberror && (
+                  <h6 className="text-red-500 text-xs font-semibold mt-2">
+                    Please Enter Valid GitHub Link
+                  </h6>
+                )}
               </div>
               <div className="candidateInfo h-full">
                 <div className="addressLine">
@@ -1723,6 +2035,11 @@ const CandidateRegistration = () => {
                 {formdataerror.website && (
                   <h6 className="text-red-500 text-xs font-semibold mt-2">
                     Please Enter Personal Website
+                  </h6>
+                )}
+                {websiterror && (
+                  <h6 className="text-red-500 text-xs font-semibold mt-2">
+                    Please Enter Valid Website Link
                   </h6>
                 )}
               </div>
@@ -1745,20 +2062,54 @@ const CandidateRegistration = () => {
                       </div>
                       <div className="selectLanguages">
                         <h3>Proficiency</h3>
-                        <div className="lanSearch">
-                          <input
+
+                        <div className="candidateState">
+                          {/* <input
                             type="text"
                             defaultValue={datanew.level}
                             // ref={inputref1}
                             // onChange={dropDownHandler1}
                             placeholder="My level is"
-                          />
-                          <FaAngleDown
+                          /> */}
+
+                          <select
+                            defaultValue={datanew.level}
+                            ref={inputref1}
+                            onChange={(e) => {
+                              filterdata(e.target.value, index);
+                            }}
+                          >
+                            <option value="">Select</option>
+                            <option value="Basic">Basic</option>
+                            <option value="Conversational">
+                              Conversational
+                            </option>
+                            <option value="Proficient">Proficient</option>
+                            <option value="Fluent">Fluent</option>
+                          </select>
+                          {/* <FaAngleDown
                             onClick={() => {
                               dropDownHandler1(index);
                             }}
-                          />
+                          /> */}
                         </div>
+                        {levelerror && (
+                          <h6 className="text-red-500 text-xs font-semibold mt-2">
+                            Please Enter Proficiency
+                          </h6>
+                        )}
+                        {/* <div className="Level">
+                          {dropDownOpen1.map((option, index1) => (
+                            <h3
+                              onClick={() => {
+                                filterdata(option, index);
+                              }}
+                              key={index1}
+                            >
+                              {option}
+                            </h3>
+                          ))}
+                        </div> */}
                         {indexvalue == index
                           ? dropDown1 && (
                               <div className="Level">
@@ -1783,11 +2134,6 @@ const CandidateRegistration = () => {
               {lanuageerror && (
                 <h6 className="text-red-500 text-xs font-semibold mt-2">
                   Please Enter Languages
-                </h6>
-              )}
-              {levelerror && (
-                <h6 className="text-red-500 text-xs font-semibold mt-2">
-                  Please Enter Proficiency
                 </h6>
               )}
 
@@ -1870,13 +2216,20 @@ const CandidateRegistration = () => {
                                 defaultValue={data.country}
                               >
                                 <option value="">Country</option>
-                                <option value="India">India</option>
-                                <option value="India">USA</option>
+                                {country_and_states.country.length !== 0
+                                  ? country_and_states.country.map(
+                                      (item, index) => (
+                                        <option value={item.name} key={index}>
+                                          {item.name}
+                                        </option>
+                                      )
+                                    )
+                                  : null}
                               </select>
                             </div>
-                            {formdataerror.state && (
+                            {formdataerror.country && (
                               <h6 className="text-red-500 text-xs font-semibold mt-2">
-                                Please Select State
+                                Please Select Country
                               </h6>
                             )}
                           </div>
@@ -1897,9 +2250,9 @@ const CandidateRegistration = () => {
                           </div>
 
                           <div className="candidateInfo h-full">
-                            <h3>Duration</h3>
+                            <h3>Duration (In Days)</h3>
                             <p>
-                              {/* <input
+                              <input
                                 type="number"
                                 placeholder=""
                                 onChange={(e) => {
@@ -1910,8 +2263,8 @@ const CandidateRegistration = () => {
                                   );
                                 }}
                                 defaultValue={data.duration}
-                              /> */}
-                              <select
+                              />
+                              {/* <select
                                 id=""
                                 name="duration"
                                 onChange={(e) => {
@@ -1923,10 +2276,11 @@ const CandidateRegistration = () => {
                                 }}
                                 defaultValue={data.duration}
                               >
+                                <option value="">Select duration</option>
                                 <option value="3-6 months">3-6 months</option>
                                 <option value="6-12 month">6-12 months</option>
                                 <option value="12 months"> 12 months</option>
-                              </select>
+                              </select> */}
                             </p>
                           </div>
                         </div>
@@ -2002,14 +2356,20 @@ const CandidateRegistration = () => {
                     defaultValue={travelform.current_place_of_residence}
                     onChange={handlechange_travel}
                   /> */}
+
                   <select
                     name="current_place_of_residence"
                     defaultValue={travelform.current_place_of_residence}
                     onChange={handlechange_travel}
                   >
                     <option value="">Country</option>
-                    <option value="India">India</option>
-                    <option value="USA">USA</option>
+                    {country_and_states.country.length !== 0
+                      ? country_and_states.country.map((item, index) => (
+                          <option value={item.name} key={index}>
+                            {item.name}
+                          </option>
+                        ))
+                      : null}
                   </select>
                 </p>
               </div>
@@ -2017,7 +2377,7 @@ const CandidateRegistration = () => {
                 <h3>How long have you lived at your current residence?</h3>
                 <p>
                   <input
-                    type="text"
+                    type="number"
                     placeholder=""
                     name="lived_at_current_residence"
                     defaultValue={travelform.lived_at_current_residence}
@@ -2034,24 +2394,12 @@ const CandidateRegistration = () => {
                   <h3>Country</h3>
                   <h3 title="">Select upto 3 countries</h3>
                 </div>
-                <p>
-                  {/* <input
-                    type="text"
-                    placeholder="Country"
-                    name="country"
-                    defaultValue={travelform.country}
-                    onChange={handlechange_travel}
-                  /> */}
-                  <select
-                    name="country"
-                    defaultValue={travelform.country}
-                    onChange={handlechange_travel}
-                  >
-                    <option value="">Country</option>
-                    <option value="India">India</option>
-                    <option value="USA">USA</option>
-                  </select>
-                </p>
+                <Select
+                  defaultValue={selectedOption}
+                  onChange={setSelectedOption}
+                  options={options}
+                  isMulti
+                />
               </div>
               <div className="candidateInfo h-full">
                 <h3>Only for</h3>
@@ -2075,8 +2423,7 @@ const CandidateRegistration = () => {
                     <option value="Short-term business visit">
                       Short-term business visit
                     </option>
-
-                  </select> */}
+                  </select>
                 </p>
               </div>
               <div className="travelDuration">
@@ -2096,6 +2443,7 @@ const CandidateRegistration = () => {
                       defaultValue={travelform.duration}
                       onChange={handlechange_travel}
                     >
+                      <option value="">Select duration</option>
                       <option value="3-6 months">3-6 months</option>
                       <option value="6-12 months">6-12 months</option>
                       <option value="12 months"> 12 months</option>
@@ -2128,6 +2476,9 @@ const CandidateRegistration = () => {
                   </p>
                 </div>
               </div>
+              <button className="travelBottomButton" onClick={addcountrelocate}>
+                + Add more
+              </button>
             </div>
             <div className="travelBottom">
               <h2>COUNTRIES YOU'RE WILLING TO RELOCATE FOR WORK</h2>
@@ -2160,6 +2511,7 @@ const CandidateRegistration = () => {
                         }}
                         defaultValue={relocate.are_you_willing}
                       >
+                        <option value="">Select</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                       </select>
@@ -2168,7 +2520,7 @@ const CandidateRegistration = () => {
                   <div className="candidateInfo h-full">
                     <div className="infoDetails">
                       <h3>Preferred countries</h3>
-                      <h3 title="">Select up to 3 countries</h3>
+                      {/* <h3 title="">Select up to 3 countries</h3> */}
                     </div>
                     <p>
                       {/* <input
@@ -2196,8 +2548,13 @@ const CandidateRegistration = () => {
                         defaultValue={relocate.preferred_countries}
                       >
                         <option value="">Country</option>
-                        <option value="India">India</option>
-                        <option value="USA">USA</option>
+                        {country_and_states.country.length !== 0
+                          ? country_and_states.country.map((item, index) => (
+                              <option value={item.name} key={index}>
+                                {item.name}
+                              </option>
+                            ))
+                          : null}
                       </select>
                     </p>
                   </div>
@@ -2245,11 +2602,7 @@ const CandidateRegistration = () => {
 
             <div className="Bottombtns">
               {isLoading === false ? (
-                <button
-                  className="signUpCompBodyButtonLoading"
-                  id="page4"
-                  onClick={pageHandler}
-                >
+                <button className="nextbtn" id="page4" onClick={pageHandler}>
                   Next
                 </button>
               ) : (
@@ -2257,7 +2610,7 @@ const CandidateRegistration = () => {
                   <FiLoader className="loadingIcon" />
                 </button>
               )}
-              <button onClick={pageHandler} id="page4" className="skipbtn">
+              <button onClick={skipbtn} id="page4" className="skipbtn">
                 Skip for now
               </button>
             </div>

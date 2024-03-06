@@ -29,6 +29,7 @@ const VideoResume = () => {
 
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("video"));
+    setuploadstatus(false)
   };
 
   const fileInputRef = useRef(null);
@@ -39,6 +40,7 @@ const VideoResume = () => {
   const [resumevideo, setresumevideo] = useState(null);
   const [formData, setFormData] = useState(new FormData());
   const [loading, setloading] = useState(false);
+  const [uploadstatus, setuploadstatus] = useState(false);
 
   const handleFileInputChange = async (e) => {
     setloading(true);
@@ -56,6 +58,7 @@ const VideoResume = () => {
     setresumevideo(response.data.img_url);
     fileInputRef.current.value = "";
     setloading(false);
+    setuploadstatus(true);
   };
   const displayHandler = async () => {
     setloading(true);
@@ -90,6 +93,7 @@ const VideoResume = () => {
       setloading(false);
     }
   };
+  console.log(userdata, "kkk");
   return (
     <div>
       <div className="videoResume">
@@ -115,43 +119,74 @@ const VideoResume = () => {
               )}
             </div>
           </div>
-          {isArrow === true && (
-            <div className="videoResumeDesc">
-              <h1>
-                upload a video resume to showcase your personality & stand out!
-              </h1>
-              <div className="uploadVedioRes">
-                <h2>Your video file here</h2>
-                <h3>
-                  Maximum size: 5MB MP4,
-                  <br /> MOV, AVI and WMV accepted
-                </h3>
-              </div>
+          {isArrow === true &&
+            (userdata.length !== 0 ? (
+              userdata[0].video_resume.length !== 0 ? (
+                <div className="videoResumeDesc">
+                  <h1>
+                    upload a video resume to showcase your personality & stand
+                    out!
+                  </h1>
+                  <div className="uploadVedioRes">
+                    <h2>Your video file here</h2>
+                    <h3>
+                      Maximum size: 5MB MP4,
+                      <br /> MOV, AVI and WMV accepted
+                    </h3>
+                  </div>
 
-              <div className="vedioNotes">
-                <img src={star} alt="" />
-                <div className="notes">
-                  <h4>Here are a few basic pointers to help you get started</h4>
-                  <ol>
-                    <li>Choose a non-distracting background</li>
-                    <li>
-                      Ensure the lighting is flattering and the sound is clear.
-                    </li>
-                    <li>
-                      Dress professionally and maintain eye contact with the
-                      camera
-                    </li>
-                    <li>The Video Resume should be recorded only in English</li>
-                    <li>Aim for a length of 1-2 minutes for the video</li>
-                    <li>
-                      Do not record in HD or UHD formats as the file size would
-                      be large.
-                    </li>
-                  </ol>
+                  <div className="vedioNotes">
+                    <img src={star} alt="" />
+                    <div className="notes">
+                      <h4>
+                        Here are a few basic pointers to help you get started
+                      </h4>
+                      <ol>
+                        <li>Choose a non-distracting background</li>
+                        <li>
+                          Ensure the lighting is flattering and the sound is
+                          clear.
+                        </li>
+                        <li>
+                          Dress professionally and maintain eye contact with the
+                          camera
+                        </li>
+                        <li>
+                          The Video Resume should be recorded only in English
+                        </li>
+                        <li>Aim for a length of 1-2 minutes for the video</li>
+                        <li>
+                          Do not record in HD or UHD formats as the file size
+                          would be large.
+                        </li>
+                      </ol>
+                    </div>
+                  </div>
                 </div>
+              ) : (
+                <div className="educationDesc">
+                  <h1>
+                    {" "}
+                    Add certification / course Details here to enhance your
+                    profile
+                  </h1>
+                  <button className="touchButtonnew" onClick={overLayHandler}>
+                    <h4>Add Video Resume</h4>
+                  </button>
+                </div>
+              )
+            ) : (
+              <div className="educationDesc">
+                <h1>
+                  {" "}
+                  Add certification / course Details here to enhance your
+                  profile
+                </h1>
+                <button className="touchButtonnew" onClick={overLayHandler}>
+                  <h4>Add Video Resume</h4>
+                </button>
               </div>
-            </div>
-          )}
+            ))}
 
           {isPopUp == "video" && (
             <div className="vedioOverlay">
@@ -199,6 +234,12 @@ const VideoResume = () => {
                   name="aadhaarfront"
                   onChange={handleFileInputChange}
                 />
+                {uploadstatus && (
+                  <h6 className="text-green-500 text-sm font-semibold my-2">
+                    Video Resume Uploaded Successfully
+                  </h6>
+                )}
+
                 <div className="vedioNotes">
                   <img src={star} alt="" />
                   <div className="notes">

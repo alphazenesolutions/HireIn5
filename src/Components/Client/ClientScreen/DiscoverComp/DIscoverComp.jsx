@@ -19,7 +19,6 @@ import { storeAction } from "../../../../Store/Store";
 import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
 import glasses from "../../../../assests/glasses.png";
 import close from "../../../../assests/billingX.png";
-import profile from "../../../../assests/CandidateProfile.png";
 import courseIcons from "../../../../assests/userCard.png";
 import brief from "../../../../assests/briefCase.png";
 import SingleRange from "../../../MaterialUi/SingleRange/SingleRange";
@@ -27,6 +26,7 @@ import userCheck from "../../../../assests/userCheck.png";
 import success from "../../../../assests/Succcess.png";
 import moment from "moment";
 import Skilllist from "../../../../assests/skillsJSON.json";
+import Avatar from "react-avatar";
 
 const DiscoverComp = () => {
   const dispatch = useDispatch();
@@ -358,6 +358,7 @@ const DiscoverComp = () => {
       setselectseacrh(false);
     }
   };
+
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">
@@ -510,7 +511,12 @@ const DiscoverComp = () => {
               <div className="reserveCandidateFlexRight">
                 <div className="reserveCandidateFlexRightHead">
                   <div className="reserveCandidateFlexRightHeadLeft">
-                    <img src={profile} alt="" />
+                    {/* <img src={profile} alt="" /> */}
+                    <Avatar
+                      name={reserveduser[0].first_name}
+                      size={50}
+                      round="50px"
+                    />
                     <div className="reserveCandidateFlexRightHeadLeftDesc">
                       <h3>{reserveduser[0].first_name}</h3>
                       <h4>{reserveduser[0].title}</h4>
@@ -518,7 +524,8 @@ const DiscoverComp = () => {
                   </div>
                   <div className="reserveCandidateFlexRightHeadRight">
                     <h5 className="rateHour">
-                      {reserveduser[0].hourly_rate}/hr
+                      {/* {reserveduser[0].hourly_rate}/hr */}
+                      Not provided yet
                     </h5>
                   </div>
                 </div>

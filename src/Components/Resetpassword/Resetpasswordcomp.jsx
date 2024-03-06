@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Head from "../Reusable/LogoHead/Head";
 import SectionHead from "../Reusable/SectionHead/SectionHead";
-import { FiLoader } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 import eye from "../../assests/eye.png";
 import Foot from "../Reusable/Terms&Conditions/Foot";
 import SuccessResponse from "../Reusable/SuccessResponse/SuccessResponse";
@@ -23,6 +23,8 @@ const Resetpasswordcomp = () => {
 
   const [isLoading1, setIsLoading1] = useState(false);
   const [finalerror, setfinalerror] = useState(null);
+  const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
 
   const ButtonHandler2 = async (event) => {
     if (isPage === "page1") {
@@ -38,6 +40,7 @@ const Resetpasswordcomp = () => {
         if (cpassword !== password) {
           setcompareerror(true);
         } else {
+          setIsLoading1(true);
           setfinalerror(null);
           setcompareerror(false);
           var updatepassword = await axios
@@ -56,9 +59,10 @@ const Resetpasswordcomp = () => {
             });
           if (updatepassword.message === "Password updated successfully") {
             setIsPage(event.target.id);
-            setIsLoading1(true);
+            setIsLoading1(false);
           } else {
-            setfinalerror(updatepassword.error);
+            setfinalerror(updatepassword.data.error);
+            setIsLoading1(false);
           }
         }
       }
@@ -74,6 +78,7 @@ const Resetpasswordcomp = () => {
     }
   };
   const routeTimeout = setTimeout(routeHandler, 1500);
+  console.log(isLoading1, "isLoading1");
   return (
     <>
       {isPage === "page1" && (
@@ -97,12 +102,28 @@ const Resetpasswordcomp = () => {
                   <div className="resetPasswordCompBodyPasswordInput">
                     <input
                       placeholder="**********"
-                      type="password"
+                      type={show === true ? "text" : "password"}
                       onChange={(e) => {
                         setpassword(e.target.value);
                       }}
                     />
-                    <img className="eyeOne" src={eye} alt="" />
+                    {show === false ? (
+                      <FiEyeOff
+                        className="text-gray-500 eyeOne"
+                        onClick={() => {
+                          setShow(true);
+                        }}
+                        id="loginPassword"
+                      />
+                    ) : (
+                      <FiEye
+                        className="text-gray-500 eyeOne"
+                        onClick={() => {
+                          setShow(false);
+                        }}
+                        id="loginPassword"
+                      />
+                    )}
                   </div>
                   {passworderror === true ? (
                     <h6 className="text-red-500 text-xs font-semibold mt-2">
@@ -118,7 +139,7 @@ const Resetpasswordcomp = () => {
                   </div>
                   <div className="resetPasswordCompBodyConfirmPasswordInput">
                     <input
-                      type="password"
+                      type={show2 === true ? "text" : "password"}
                       placeholder="**********"
                       onChange={(e) => {
                         setcpassword(e.target.value);
@@ -130,7 +151,23 @@ const Resetpasswordcomp = () => {
                         Enter Conform Password
                       </h6>
                     ) : null}
-                    <img className="eyeTwo" src={eye} alt="" />
+                    {show2 === false ? (
+                      <FiEyeOff
+                        className="text-gray-500 eyeOne"
+                        onClick={() => {
+                          setShow2(true);
+                        }}
+                        id="loginPassword"
+                      />
+                    ) : (
+                      <FiEye
+                        className="text-gray-500 eyeOne"
+                        onClick={() => {
+                          setShow2(false);
+                        }}
+                        id="loginPassword"
+                      />
+                    )}
                   </div>
                 </div>
                 {compareerror === true ? (
@@ -156,21 +193,17 @@ const Resetpasswordcomp = () => {
                 <div className="resetPasswordCompBodyButton marginTop20 marginBottom20">
                   {isButton1 && (
                     <button
-                      id="page2"
+                      id="page4"
                       onClick={ButtonHandler2}
                       className={
-                        isLoading1 === true
-                          ? "resetPasswordCompBodyButtonLoading  marginTop20 marginBottom20"
-                          : "resetPasswordCompBodyButtonEnable marginTop20 marginBottom20"
+                        isLoading1 === true ? "verifyBtn2" : "verifyBtn1"
                       }
                     >
-                      <p id="page2">
-                        {isLoading1 === true ? (
-                          <FiLoader className="loadingIcon" />
-                        ) : (
-                          "Log in"
-                        )}
-                      </p>
+                      {isLoading1 === true ? (
+                        <FiLoader className="loadingIcon" />
+                      ) : (
+                        "Verify"
+                      )}
                     </button>
                   )}
                   {!isButton1 && (

@@ -203,7 +203,7 @@
     width: 100%;
     outline: none;
     border: none;
-    color: var(--borderColor)
+    /* color: var(--borderColor) */
 }
 
 .company select::placeholder {
@@ -244,6 +244,16 @@
 .companyUrl1 input {
     width: 100%;
     height: 42px;
+    border: 1px solid var(--borderColor);
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 15px;
+    outline: none;
+}
+
+.companyUrl1 select {
+    width: 100%;
+    /* height: 42px; */
     border: 1px solid var(--borderColor);
     border-radius: 7px;
     padding: 15px;
@@ -355,6 +365,16 @@
 .hiring {
     display: flex;
     flex-direction: column;
+}
+
+.seconddiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.optionaltext {
+    color: var(--textColor);
 }
 
 .hiring h3 {
