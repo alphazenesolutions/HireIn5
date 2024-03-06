@@ -118,10 +118,10 @@
     background-color: #FEF9C3;
 }
 
-/* .hiring {
+.hiringActive {
     color: #15803D;
     background-color: #DCFCE7;
-} */
+}
 
 .contracted {
     color: #3B82F6;
@@ -145,16 +145,16 @@
 
 /* page css for adminprofilepage */
 .shortListButtonDisable {
-    width: 180px;
-    padding: 8px;
+    width: 200px;
+    padding: 5px;
     border: 1px solid var(--borderColor);
     margin-right: 15px;
     border-radius: 8px;
 }
 
 .shortListButtonActive {
-    width: 180px;
-    padding: 8px;
+    width: 200px;
+    padding: 5px;
     border: 1px solid var(--borderColor);
     margin-right: 15px;
     border-radius: 8px;
