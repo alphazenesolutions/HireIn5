@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import "./Education.css";
@@ -363,12 +364,12 @@ const Education = () => {
                     : null}
                 </>
               ) : null}
-              <div className="AddMore">
+              {/* <div className="AddMore">
                 <button>
                   <img src={plus} alt="" />
                   <h3>ADD MORE WORK HISTROY</h3>
                 </button>
-              </div>
+              </div> */}
               <div className="vedioResumeButtons">
                 <button
                   className="discard"

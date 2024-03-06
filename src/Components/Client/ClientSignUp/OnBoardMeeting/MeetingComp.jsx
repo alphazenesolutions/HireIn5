@@ -25,6 +25,11 @@ const MeetingComp = () => {
     } else {
     }
   };
+  const skipbtn = async () => {
+    dispatch(storeAction.issidebarHandler({ issidebar: true }));
+    dispatch(storeAction.isloginHandler({ islogin: true }));
+    navigate("/discover");
+  };
   const routeTimeout = setTimeout(routeHandler, 5000);
   return (
     <>
@@ -44,7 +49,7 @@ const MeetingComp = () => {
               <button onClick={pageHandler} id="calendly" className="schedule">
                 Schedule a call
               </button>
-              <button onClick={pageHandler} id="successPage" className="skip">
+              <button onClick={skipbtn} id="successPage" className="skip">
                 Skip for now
               </button>
             </div>

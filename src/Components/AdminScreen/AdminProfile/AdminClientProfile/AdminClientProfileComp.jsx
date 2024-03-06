@@ -14,7 +14,6 @@ const AdminClientProfileComp = () => {
       agreeStatusClass: "status active",
       clientStatus: "Active",
       statusClass: "status hiring",
-      agreeStatusClass: "agreementStatus inComplete",
       agreementStatus: "Yet to sign",
     },
     {
