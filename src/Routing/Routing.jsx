@@ -19,6 +19,8 @@ import Profile from "../pages/Profile";
 import Emailverification from "../Components/Reusable/Verification/Emailverification";
 import Upgrade from "../pages/Upgrade";
 import AdminCustomerProfile from "../pages/AdminCustomerProfile";
+import AdminTeamMember from "../pages/AdminTeamMember";
+import AdminContract from "../pages/AdminContract";
 
 const Routing = () => {
   return (
@@ -42,6 +44,8 @@ const Routing = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/upgrade" element={<Upgrade />} />
         <Route path="/customerProfile" element={<AdminCustomerProfile />} />
+        <Route path="/adminteam" element={<AdminTeamMember />} />
+        <Route path="/admincontracts" element={<AdminContract />} />
       </Routes>
     </div>
   );
