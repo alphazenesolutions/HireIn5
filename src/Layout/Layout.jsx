@@ -61,7 +61,12 @@ const Layout = () => {
                   {
                     title: "Contracts",
                     icon: discover,
-                    router: "contract",
+                    router: "admincontracts",
+                  },
+                  {
+                    title: "Team members",
+                    icon: discover,
+                    router: "adminteam",
                   },
                   {
                     title: "Settings",
