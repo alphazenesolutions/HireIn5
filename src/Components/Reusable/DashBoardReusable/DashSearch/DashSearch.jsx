@@ -81,7 +81,7 @@ const DashSearch = (props) => {
       props.setfilterdata(filterdata);
       props.setIsInput(true);
     } else {
-      props.setfilterdata([]);
+      props.setfilterdata(props.alldata);
       props.setIsInput(true);
     }
     setlocationlist(updatedItems);
@@ -576,7 +576,7 @@ const DashSearch = (props) => {
     setIsToggle(false);
     setSelectedOption(null);
     setSelectedOptionskill(null);
-    props.setfilterdata([]);
+    props.setfilterdata(props.alldata);
     setcount(0);
     setskill_list([]);
     setlocation_list([]);
