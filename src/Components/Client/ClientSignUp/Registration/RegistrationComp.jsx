@@ -424,17 +424,17 @@ const RegistrationComp = () => {
     CheckStage();
   }, [onboarding_status]);
   const CheckStage = async () => {
-    if (onboarding_status > 3) {
-      window.location.replace("/#/discover");
-    } else {
-      if (onboarding_status == 1) {
-        setIsPage("page1");
-      } else if (onboarding_status == 2) {
-        setIsPage("page2");
-      } else if (onboarding_status == 3) {
-        window.location.replace("/#/pricing");
-      }
-    }
+    // if (onboarding_status > 3) {
+    //   window.location.replace("/#/discover");
+    // } else {
+    //   if (onboarding_status == 1) {
+    //     setIsPage("page1");
+    //   } else if (onboarding_status == 2) {
+    //     setIsPage("page2");
+    //   } else if (onboarding_status == 3) {
+    //     window.location.replace("/#/pricing");
+    //   }
+    // }
   };
   return (
     <>

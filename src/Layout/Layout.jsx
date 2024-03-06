@@ -26,7 +26,7 @@ const Layout = () => {
                 ]}
               />
             )}
-            {loginrole == 3 && (
+            {loginrole == 1 && (
               <SideBar
                 role={2}
                 menu={[
@@ -40,6 +40,33 @@ const Layout = () => {
                     title: "AdminProfile",
                     icon: discover,
                     router: "customerProfile",
+                  },
+                ]}
+              />
+            )}
+            {loginrole == 3 && (
+              <SideBar
+                role={2}
+                menu={[
+                  {
+                    title: "Home",
+                    icon: discover,
+                    router: "home",
+                  },
+                  {
+                    title: "Profile",
+                    icon: discover,
+                    router: "customerProfile",
+                  },
+                  {
+                    title: "Contracts",
+                    icon: discover,
+                    router: "contract",
+                  },
+                  {
+                    title: "Settings",
+                    icon: discover,
+                    router: "settings",
                   },
                 ]}
               />
