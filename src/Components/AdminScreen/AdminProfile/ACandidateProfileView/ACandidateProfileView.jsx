@@ -4,12 +4,28 @@ import candidateProfile from "../../../../assests/profile.png";
 import back from "../../../../assests/back.png";
 import editOutline from "../../../../assests/pencil.svg";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { storeAction } from "../../../../Store/Store";
+import RangeSlider from "../../../MaterialUi/Range/RangeSlider";
+import { FiLoader } from "react-icons/fi";
 
 const ACandidateProfileView = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isToggle, setIsToggle] = useState("personal");
   const toggleHandler = (e) => {
     setIsToggle(e.target.id);
+  };
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+  const overLayHandler = () => {
+    dispatch(storeAction.isPopUpHander("candidateRate"));
+  };
+
+  const [loading, setIsLoading] = useState(false);
+  const displayHandler = () => {
+    setIsLoading(true);
   };
   return (
     <div>
@@ -44,7 +60,11 @@ const ACandidateProfileView = () => {
               </div>
             </div>
             <div className="clientProfileViewFlexRight">
-              <button>Disable profile</button>
+              <button className="disableProfile">Disable profile</button>
+              <button onClick={overLayHandler} className="editRate">
+                <img src={editOutline} alt="" />
+                Edit Rate (Pricing)
+              </button>
             </div>
           </div>
           <div className="calendlyLink">
@@ -567,6 +587,63 @@ const ACandidateProfileView = () => {
               </div>
             </div>
           </>
+        )}
+        {isPopUp === "candidateRate" && (
+          <div className="candidateRateCardOverlay">
+            <div className="candidateRateCardOverlayHead">
+              <h1>Candidate’s Rate (Pricing)</h1>
+            </div>
+            <div className="candidateRateCardOverlayTab">
+              <h5>Remote</h5>
+              <h5>On-Site</h5>
+            </div>
+            <div className="candidateRateCardOverlayBody">
+              <div className="candidateRateSlider">
+                <div className="candidateRateSliderHead">
+                  <h2>Hourly Rate</h2> <h3>Select a price range</h3>
+                </div>
+                <div className="candidateRateSliderBody">
+                  <RangeSlider />
+                </div>
+              </div>
+              <div className="candidateRateSlider">
+                <div className="candidateRateSliderHead">
+                  <h2>Hourly Rate</h2> <h3>Select a price range</h3>
+                </div>
+                <div className="candidateRateSliderBody">
+                  <RangeSlider />
+                </div>
+              </div>
+              <div className="candidateRateSlider">
+                <div className="candidateRateSliderHead">
+                  <h2>Hourly Rate</h2> <h3>Select a price range</h3>
+                </div>
+                <div className="candidateRateSliderBody">
+                  <RangeSlider />
+                </div>
+              </div>
+            </div>
+            <div className="vedioResumeButtons">
+              <button
+                className="discard"
+                onClick={() => {
+                  dispatch(storeAction.isPopUpHander());
+                }}
+              >
+                Discard Changes
+              </button>
+
+              {loading === false ? (
+                <button className="save" onClick={displayHandler}>
+                  Save & Close
+                </button>
+              ) : (
+                <button className="save w-[10rem] flex justify-center items-center">
+                  <FiLoader className="loadingIcon" />
+                </button>
+              )}
+            </div>
+          </div>
         )}
       </div>
     </div>
