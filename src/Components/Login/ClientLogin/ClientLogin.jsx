@@ -108,26 +108,32 @@ const ClientLogin = () => {
                 return err.response;
               });
             dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
-            if (decoded.onboarding_status > 3) {
-              if (decoded.role == "2") {
-                dispatch(storeAction.isloginHandler({ islogin: true }));
-                dispatch(storeAction.issidebarHandler({ issidebar: true }));
-                navigate("/discover");
+            if (decoded.role != 1) {
+              if (decoded.onboarding_status > 3) {
+                if (decoded.role == "2") {
+                  dispatch(storeAction.isloginHandler({ islogin: true }));
+                  dispatch(storeAction.issidebarHandler({ issidebar: true }));
+                  navigate("/discover");
+                } else {
+                  dispatch(storeAction.isloginHandler({ islogin: true }));
+                  dispatch(storeAction.issidebarHandler({ issidebar: true }));
+                  navigate("/profile");
+                }
               } else {
-                dispatch(storeAction.isloginHandler({ islogin: true }));
-                dispatch(storeAction.issidebarHandler({ issidebar: true }));
-                navigate("/profile");
+                if (decoded.role == "2") {
+                  dispatch(storeAction.roleHandler({ role: "Client" }));
+                  // dispatch(storeAction.isloginHandler({ islogin: true }));
+                  navigate("/registration");
+                } else {
+                  dispatch(storeAction.roleHandler({ role: "Candidate" }));
+                  // dispatch(storeAction.isloginHandler({ islogin: true }));
+                  navigate("/registration");
+                }
               }
             } else {
-              if (decoded.role == "2") {
-                dispatch(storeAction.roleHandler({ role: "Client" }));
-                // dispatch(storeAction.isloginHandler({ islogin: true }));
-                navigate("/registration");
-              } else {
-                dispatch(storeAction.roleHandler({ role: "Candidate" }));
-                // dispatch(storeAction.isloginHandler({ islogin: true }));
-                navigate("/registration");
-              }
+              dispatch(storeAction.isloginHandler({ islogin: true }));
+              dispatch(storeAction.issidebarHandler({ issidebar: true }));
+              navigate("/customerProfile");
             }
           }
         } else {
@@ -136,6 +142,7 @@ const ClientLogin = () => {
         }
       }
     } else {
+      setIsLoading(false);
       setusernameerror(true);
     }
   };
@@ -146,8 +153,10 @@ const ClientLogin = () => {
     if (islogin === true) {
       if (loginrole == "2") {
         window.location.replace("/#/discover");
-      } else {
+      } else if (loginrole == "3") {
         window.location.replace("/#/profile");
+      } else {
+        window.location.replace("/#/customerProfile");
       }
     }
   };

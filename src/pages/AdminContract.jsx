@@ -1,6 +1,5 @@
 import React from 'react'
 import DashHead from '../Components/Reusable/DashBoardReusable/DashHead/DashHead'
-import adminContactimage from "../assests/file-text.png"
 import "../Components/AdminScreen/AdminContract/AdminContract.css";
 import ContractCard from '../Components/Reusable/ContractCard/ContractCard';
 

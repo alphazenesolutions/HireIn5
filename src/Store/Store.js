@@ -17,8 +17,9 @@ const StoreSlice = createSlice({
     bookmarkdata: [],
     userdata: [],
     loginrole: null,
-    singleuser: [{ username: "kanish1@gmail.com", password: "kanish" }],
+    singleuser: [],
     onboarding_status: null,
+    alluserdata: [],
   },
   reducers: {
     roleHandler(state, payload) {
@@ -57,6 +58,9 @@ const StoreSlice = createSlice({
     onboarding_statusHander(state, action) {
       state.onboarding_status = action.payload.onboarding_status;
     },
+    alluserdataHander(state, action) {
+      state.alluserdata = action.payload.alluserdata;
+    },
   },
 });
 
@@ -74,6 +78,7 @@ const persistConfig = {
     "onboarding_status",
     "issidebar",
     "userdata",
+    "alluserdata",
   ],
 };
 

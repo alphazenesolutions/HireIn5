@@ -31,6 +31,7 @@
 
 .clientProfileViewFlexLeftImg img {
     height: 100px;
+    width: 100px;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -42,6 +43,7 @@
 .clientProfileViewFlexLeftDesc h1 {
     font-size: 25px;
     font-weight: 600;
+    text-transform: capitalize;
 }
 
 .clientProfileViewFlexLeftDesc h2 {
@@ -49,6 +51,7 @@
     font-weight: 400;
     color: var(--textColor);
     margin-right: 10px;
+    text-transform: capitalize;
 }
 
 
@@ -181,4 +184,5 @@
     font-weight: 400;
     color: var(--textColor);
     padding: 12px 0px;
+    text-transform: capitalize;
 }
