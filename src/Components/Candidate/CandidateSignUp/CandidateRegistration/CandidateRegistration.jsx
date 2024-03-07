@@ -891,7 +891,6 @@ const CandidateRegistration = () => {
       ...values,
       [formtype]: true,
     }));
-    console.log(formtype, "name");
     fileInputRef.current.value = "";
   };
   const [row, setrow] = useState([{ languages: "", level: "" }]);
@@ -1235,7 +1234,9 @@ const CandidateRegistration = () => {
                         <option value="504">+504</option>
                         <option value="36">+36</option>
                         <option value="354">+354</option>
-                        <option value="91" selected>+91</option>
+                        <option value="91" selected>
+                          +91
+                        </option>
                         <option value="62">+62</option>
                         <option value="98">+98</option>
                         <option value="964">+964</option>
@@ -2587,7 +2588,7 @@ const CandidateRegistration = () => {
                       >
                         <option value="">Select duration</option>
                         <option value="6-12 months">6-12 months</option>
-                        <option value="12months"> 12months</option>
+                        <option value="> 12months"> {">"}12months</option>
                       </select>
                     </p>
                   </div>

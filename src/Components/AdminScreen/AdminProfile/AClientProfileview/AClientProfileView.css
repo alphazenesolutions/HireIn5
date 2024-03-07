@@ -1,0 +1,188 @@
+.clientProfileViewHeader {
+    padding: 30px 0px;
+}
+
+.ClientProfileBackButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.clientProfileViewHeader h5 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--textColor);
+    margin-left: 10px;
+}
+
+.clientProfileViewFlex {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 15px 0px;
+}
+
+.clientProfileViewFlexLeft {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.clientProfileViewFlexLeftImg img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.clientProfileViewFlexLeftDesc {
+    margin-left: 20px;
+}
+
+.clientProfileViewFlexLeftDesc h1 {
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.clientProfileViewFlexLeftDesc h2 {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--textColor);
+    margin-right: 10px;
+    text-transform: capitalize;
+}
+
+
+.clientProfileViewFlexLeftDescRole {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.clientProfileViewFlexLeftDescLocation {
+    display: flex;
+}
+
+.clientProfileViewFlexLeftDescLocation img {
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 5px;
+}
+
+.clientProfileViewFlexRight {
+    /* width: 40%; */
+    display: flex;
+    align-items: flex-start;
+}
+
+.disableProfile {
+    font-size: 14px;
+    background-color: var(--white);
+    padding: 6px 15px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.editRate {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    background-color: var(--primaryColor);
+    padding: 6px 10px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+}
+
+.editRate img {
+    margin-right: 10px;
+}
+
+/* tab */
+.clientViewTab {
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.clientViewTabInactive {
+    padding: 10px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.clientViewTabActive {
+    padding: 10px;
+    font-size: 14px;
+    border-bottom: 2px solid var(--primaryColor);
+}
+
+/* company details */
+.ClientProfileViewCard {
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.ClientProfileViewCard h1 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--textColor);
+    opacity: 0.7;
+}
+
+.ClientProfileViewCard h6 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 15px 15px 15px 0px;
+
+}
+
+.ClientProfileViewCardEdit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ClientProfileViewCardEdit button {
+    padding: 10px 15px;
+    background-color: var(--primaryColor);
+    color: var(--white);
+    font-size: 14px;
+    display: flex;
+    border: none;
+    border-radius: 8px;
+    align-items: center;
+}
+
+.ClientProfileViewCardEdit img {
+    margin-right: 10px;
+}
+
+.ClientProfileViewCardBodyTable {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.ClientProfileViewCardBodyTable h2 {
+    width: 30%;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 0px;
+}
+
+.ClientProfileViewCardBodyTable h3 {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--textColor);
+    padding: 12px 0px;
+    text-transform: capitalize;
+}

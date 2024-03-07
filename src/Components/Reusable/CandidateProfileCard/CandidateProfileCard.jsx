@@ -170,7 +170,6 @@ const CandidateProfileCard = (props) => {
       }, 10);
     }
   };
-  console.log(profile, "profile");
   return (
     <div>
       <div className={props.main}>

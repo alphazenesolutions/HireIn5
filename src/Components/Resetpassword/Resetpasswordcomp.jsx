@@ -58,7 +58,7 @@ const Resetpasswordcomp = () => {
               return err.response;
             });
           if (updatepassword.message === "Password updated successfully") {
-            setIsPage(event.target.id);
+            setIsPage("page2");
             setIsLoading1(false);
           } else {
             setfinalerror(updatepassword.data.error);
@@ -77,8 +77,7 @@ const Resetpasswordcomp = () => {
       navigate("/login");
     }
   };
-  const routeTimeout = setTimeout(routeHandler, 1500);
-  console.log(isLoading1, "isLoading1");
+  const routeTimeout = setTimeout(routeHandler, 2000);
   return (
     <>
       {isPage === "page1" && (

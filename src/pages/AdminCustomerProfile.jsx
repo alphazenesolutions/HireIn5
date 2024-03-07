@@ -12,7 +12,7 @@ const AdminCustomerProfile = () => {
   return (
     <div className=" paddingLeft100 paddingRight100">
       <DashHead
-        head="profile"
+        head="Profile"
         desc="View and update profiles of onboarded clients and candidates"
         descClass="dashBoardMainHeadDescBetween"
       />
