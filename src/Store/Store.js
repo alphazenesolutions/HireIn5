@@ -79,6 +79,7 @@ const persistConfig = {
     "issidebar",
     "userdata",
     "alluserdata",
+    "singleuser",
   ],
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "./ACandidateProfileView.css";
 import back from "../../../../assests/back.png";
@@ -28,6 +29,7 @@ const ACandidateProfileView = () => {
   const displayHandler = () => {
     setIsLoading(true);
   };
+  const [rangevalue, setrangevalue] = useState([50, 250]);
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -774,7 +776,7 @@ const ACandidateProfileView = () => {
                     <h2>Hourly Rate</h2> <h3>Select a price range</h3>
                   </div>
                   <div className="candidateRateSliderBody">
-                    <RangeSlider />
+                    <RangeSlider setrangevalue={setrangevalue} />
                   </div>
                 </div>
                 <div className="candidateRateSlider">
@@ -782,7 +784,7 @@ const ACandidateProfileView = () => {
                     <h2>Hourly Rate</h2> <h3>Select a price range</h3>
                   </div>
                   <div className="candidateRateSliderBody">
-                    <RangeSlider />
+                    <RangeSlider setrangevalue={setrangevalue} />
                   </div>
                 </div>
                 <div className="candidateRateSlider">
@@ -790,7 +792,7 @@ const ACandidateProfileView = () => {
                     <h2>Hourly Rate</h2> <h3>Select a price range</h3>
                   </div>
                   <div className="candidateRateSliderBody">
-                    <RangeSlider />
+                    <RangeSlider setrangevalue={setrangevalue} />
                   </div>
                 </div>
               </div>
