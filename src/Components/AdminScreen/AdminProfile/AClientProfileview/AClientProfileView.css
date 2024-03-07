@@ -68,12 +68,34 @@
     margin-right: 5px;
 }
 
-.clientProfileViewFlexRight button {
+.clientProfileViewFlexRight {
+    /* width: 40%; */
+    display: flex;
+    align-items: flex-start;
+}
+
+.disableProfile {
     font-size: 14px;
     background-color: var(--white);
     padding: 6px 15px;
     border: 1px solid var(--borderColor);
     border-radius: 8px;
+    margin-right: 10px;
+}
+
+.editRate {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    background-color: var(--primaryColor);
+    padding: 6px 10px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+}
+
+.editRate img {
+    margin-right: 10px;
 }
 
 /* tab */
