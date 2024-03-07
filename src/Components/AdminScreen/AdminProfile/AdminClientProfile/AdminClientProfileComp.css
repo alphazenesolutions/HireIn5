@@ -93,6 +93,7 @@
 .AdminClientTable h1 {
     font-size: 15px;
     font-weight: 400;
+    text-transform: capitalize;
 }
 
 

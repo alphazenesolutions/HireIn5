@@ -1,11 +1,17 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import "./AdminClientProfileComp.css";
 import search from "../../../../assests/search.png";
 import tableProfile from "../../../../assests/profile.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const AdminClientProfileComp = () => {
+  const token = useSelector((store) => store.token);
   const navigate = useNavigate();
+  const [alldata, setalldata] = useState([]);
   const adminTableData = [
     {
       name: "Yasir Quazi",
@@ -41,6 +47,25 @@ const AdminClientProfileComp = () => {
       agreementStatus: "Yet to sign",
     },
   ];
+  useEffect(() => {
+    GetallCandidate();
+  }, []);
+  const GetallCandidate = async () => {
+    var allfacility = await axios
+      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getCompanies`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        },
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    setalldata(allfacility.faculties);
+  };
 
   return (
     <div>

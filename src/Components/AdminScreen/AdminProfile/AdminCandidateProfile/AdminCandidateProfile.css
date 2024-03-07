@@ -63,6 +63,7 @@
 
 .tableName img {
     height: 32px;
+    width: 32px;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -93,6 +94,7 @@
 .AdminClientTable h1 {
     font-size: 15px;
     font-weight: 400;
+    text-transform: capitalize;
 }
 
 
@@ -159,4 +161,57 @@
     margin-right: 15px;
     border-radius: 8px;
     background-color: var(--borderColor);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.dotted-item {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.page-link {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.page-link:hover {
+    background-color: var(--primaryColor);
+    color: #fff;
+}
+
+.active {
+    background-color: var(--primaryColor);
+    color: #fff;
+    border-radius: 10px;
+}
+
+.active .page-link {
+    color: white;
+    font-weight: bold;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: #f0f0f0;
+    /* border: 1px solid #ccc; */
+    color: #999;
+    border-radius: 10px;
 }
