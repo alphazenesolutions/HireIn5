@@ -13,9 +13,9 @@ const AdminClientProfileComp = () => {
       location: "New York, USA",
       type: "Starter",
       cycle: "Monthly",
-      agreeStatusClass: "status active",
       clientStatus: "Active",
       statusClass: "status hiringActive",
+      agreeStatusClass: "agreementStatus inComplete",
       agreementStatus: "Yet to sign",
     },
     {
