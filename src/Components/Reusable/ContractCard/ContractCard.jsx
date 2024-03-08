@@ -5,7 +5,7 @@ import { useState } from "react";
 const ContractCard = () => {
   const [showbtn, setshowbtn] = useState(false)
   function showhandler(params) {
-    setshowbtn(true)
+    setshowbtn(!showbtn)
   }
   return (
     <div>
@@ -23,7 +23,7 @@ const ContractCard = () => {
         {/* <button>Download</button> */}
 {!showbtn && 
         <button onClick={showhandler}>Upload</button>
-      }        {showbtn && <button title="">Upload again</button>}
+      }        {showbtn && <button title="" onClick={showhandler}>Upload again</button>}
       </div>
     </div>
   );

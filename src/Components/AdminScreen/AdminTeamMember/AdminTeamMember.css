@@ -78,6 +78,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    font-weight: 500;
 }
 .teamMemberLevel input::placeholder{
     color:#D4D4D8;
@@ -155,6 +156,7 @@
     border-radius: 7px;
     align-items: center;
     justify-content: space-between;
+    font-weight: bold;
 }
 .manageMember .editAccess1 input{
     width: 100%;
@@ -176,13 +178,13 @@
     display: flex;
     flex-direction: column;
 }
-.editDropDown{
-    width: 160px;
+.manageMemberEdit .dropHandler{
+    width: 180px;
     height: auto;
     padding: 20px;
     z-index: 99;
     border: 1px solid var(--borderColor);
-    border-radius: 10px;
+    border-radius: 5px 10px;
     margin-top: 6px;
     bottom: -200px;
     position: absolute;
@@ -211,7 +213,7 @@
 .editDropDown h3:hover img{
     opacity: 1;
 }
-.editDropDown h3[title]{
+.manageMemberEdit .dropHandler h3[title]{
     margin: 7px 0px;
     padding: 5px 10px;
     border-radius: 8px;
@@ -222,8 +224,38 @@
 .manageMemberEdit p{
     color: #A1A1AA;
 }
-.editDropDown h3[title]:hover{
+.manageMemberEdit .dropHandler h3[title]{
     background-color: #FEF2F2;
     color: #F87171;
     padding: 5px 10px;
+}
+.dropHandler{
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    background-color:white;
+    border-radius: 8px;
+    border:  1px solid var(--borderColor);
+}
+.dropHandler h3{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 4px 0px;
+    font-size: 12px;
+     font-weight: 500;
+     padding: 5px 10px;
+     border-radius: 8px;
+     transition: 0.5s;
+}
+.dropHandler h3:hover{
+    background-color: #EDE9FE;
+    color: #8B5CF6;
+}
+.dropHandler h3 img{
+    opacity: 0;
+    transition: 0.5s;
+}
+.dropHandler h3:hover img{
+    opacity: 1;
 }
