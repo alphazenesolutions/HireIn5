@@ -4,11 +4,40 @@ import "../Components/AdminScreen/AdminTeamMember/AdminTeamMember.css"
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Billingtick from"../assests/Vector1.png"
 const AdminTeamMember = () => {
-    const [show, setshow] = useState(false)
-    function showdata(params) {
-        setshow(!show)
+    const [userDropDownValue, setUserDropDownValue] = useState([
+        ["Admin","HR","Sales"],
+        ["Admin","HR","Sales","Remove User"],
+        ["Admin","HR","Sales","Remove User"]
+    ]);
+    const [getvalue, setgetvalue] = useState("Admin")
+    const [getUserValue, setGetUserValue] = useState("Edit access")
+    const [getPendingValue, setGetPendingValue] = useState("Edit access")
+    const [dropdownsVisibility, setDropdownsVisibility] = useState({
+        dropdown1: false,
+        dropdown2: false,
+        dropdown3:false
+    });
+    const toggleDropdown = (dropdownName) => {
+        setDropdownsVisibility(prevState => ({
+            ...prevState,
+            [dropdownName]: !prevState[dropdownName]
+        }));
     }
-    
+    function selectdata(e) {
+        let value = e.target.textContent.toLowerCase()
+        setgetvalue(value)
+        setDropdownsVisibility(prevState => ({...prevState, dropdown1: false}))
+    }
+    function selectPendingData(e) {
+        let value = e.target.textContent.toLowerCase()
+        setGetUserValue(value)
+        setDropdownsVisibility(prevState => ({...prevState, dropdown2: false}))
+    }
+    function selectUserData(e) { 
+        let value = e.target.textContent.toLowerCase()
+        setGetPendingValue(value)
+        setDropdownsVisibility(prevState => ({...prevState, dropdown3: false}))
+    }
   return (
     <>
     <div className='paddingLeft100 paddingRight100 '>
@@ -32,14 +61,21 @@ const AdminTeamMember = () => {
             <h4>Level of Access</h4>
             <div className='editAccess'>
                <div className='editAccess1'>
-               <input type="text" placeholder='Admin' />
-               <MdKeyboardArrowDown className='checkicon'  onClick={showdata}/>
+                <button 
+                onClick={() => toggleDropdown('dropdown1')} 
+                placeholder="Admin">{getvalue}
+               <MdKeyboardArrowDown className='checkicon'  />
+
+                </button>
 
                </div>
-               {show &&   <div className='editDropDown'>
-                    <h3>Admin <img src={Billingtick} alt="" /></h3>
-                    <h3>Sales <img src={Billingtick} alt="" /></h3>
-                    <h3>HR <img src={Billingtick} alt="" /></h3>
+               {dropdownsVisibility.dropdown1  &&   <div className='editDropDown'>
+                {userDropDownValue[0].map(function (getvalue) {
+                    return(
+                    <h3 onClick={selectdata}>{getvalue}<img src={Billingtick} alt="" /></h3>
+
+                    )
+                })}
                 </div>}
             </div>
         </div>
@@ -59,16 +95,19 @@ const AdminTeamMember = () => {
             <p>Sales</p>
             <div className='editAccess'>
                <div className='editAccess1'>
-               <input type="text" placeholder='Edit access' />
-               <MdKeyboardArrowDown  onClick={showdata}/>
+               <button onClick={() => toggleDropdown('dropdown2')}>{getUserValue}
+               <MdKeyboardArrowDown className='checkicon'  />
+
+                </button>
 
                </div>
-              {show &&   <div className='editDropDown'>
-                    <h3>Admin <img src={Billingtick} alt="" /></h3>
-                    <h3>Sales <img src={Billingtick} alt="" /></h3>
-                    <h3>HR <img src={Billingtick} alt="" /></h3>
-                    
-                    <h3 title=''>Remove user</h3>
+              {dropdownsVisibility.dropdown2 &&   <div className='editDropDown'>
+              {userDropDownValue[1].map(function (getvalue) {
+                    return(
+                    <h3 onClick={selectPendingData}>{getvalue}<img src={Billingtick} alt="" /></h3>
+
+                    )
+                })}
                 </div>}
             </div>
         </div>
@@ -83,16 +122,18 @@ const AdminTeamMember = () => {
             <p>Sales</p>
             <div className='editAccess'>
                <div className='editAccess1'>
-               <input type="text" placeholder='Edit access' />
-               <MdKeyboardArrowDown className='checkicon'  onClick={showdata}/>
+               <button onClick={() => toggleDropdown('dropdown3')}>{getPendingValue}
+               <MdKeyboardArrowDown className='checkicon'  />
 
+                </button>
                </div>
-               {show &&   <div className='editDropDown'>
-                    <h3>Admin <img src={Billingtick} alt="" /></h3>
-                    <h3>Sales <img src={Billingtick} alt="" /></h3>
-                    <h3>HR <img src={Billingtick} alt="" /></h3>
-                    
-                    <h3 title=''>Remove user</h3>
+               {dropdownsVisibility.dropdown3 &&   <div className='editDropDown'>
+               {userDropDownValue[2].map(function (getvalue) {
+                    return(
+                    <h3 onClick={selectUserData}>{getvalue}<img src={Billingtick} alt="" /></h3>
+
+                    )
+                })}
                 </div>}
             </div>
         </div>
