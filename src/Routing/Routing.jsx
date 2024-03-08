@@ -24,6 +24,7 @@ import AClientProfile from "../pages/AClientProfile";
 import ACandidateProfile from "../pages/ACandidateProfile";
 import AdminContractCards from "../pages/AdminContractCards";
 import AdminTeamMember from "../pages/AdminTeamMember";
+import AdminHomePage from "../pages/AdminHomePage";
 
 const Routing = () => {
   return (
@@ -51,6 +52,7 @@ const Routing = () => {
         <Route path="/admincontracts" element={<AdminContractCards />} />
         <Route path="/adminclientview" element={<AClientProfile />} />
         <Route path="/admincandidateview" element={<ACandidateProfile />} />
+        <Route path="/adminhome" element={<AdminHomePage />} />
       </Routes>
     </div>
   );
