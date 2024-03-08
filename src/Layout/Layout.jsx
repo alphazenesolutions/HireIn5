@@ -61,7 +61,7 @@ const Layout = () => {
                   {
                     title: "Home",
                     icon: discover,
-                    router: "home",
+                    router: "adminHome",
                   },
                   {
                     title: "Profile",

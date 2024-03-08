@@ -1,0 +1,70 @@
+.notification {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.alert {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.notificationContent {
+    display: flex;
+    align-items: center;
+    /* background-color: var(--dropColor); */
+}
+
+.notificationName {
+    display: flex;
+}
+
+.notificationName h1 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+
+.notificationName h2 {
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.8;
+
+}
+
+.notificationInfo h3 {
+    font-size: 13px;
+    font-weight: 400;
+    margin-left: 5px;
+    color: var(--textColor);
+
+}
+
+.notificationImg {
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.notificationButton {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--primaryColor);
+    color: var(--white);
+    margin-right: 10px;
+}
+
+.notification:hover {
+    background-color: #f8f8f8;
+}
+
+.hideButton {
+    display: none;
+}
