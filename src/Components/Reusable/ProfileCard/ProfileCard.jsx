@@ -9,7 +9,6 @@ import courseIcons from "../../../assests/userCard.png";
 import Avatar from "react-avatar";
 
 const ProfileCard = ({ filterdata, fun }) => {
-  console.log(filterdata, "filterdata");
   return (
     <div>
       <div className="clientDiscoverOuter paddingRight100">
@@ -31,11 +30,16 @@ const ProfileCard = ({ filterdata, fun }) => {
                     <div className="candidateDiscoverProfile1">
                       <div className="candidateDiscoverImage">
                         {/* <img src={candidateimges} alt="" /> */}
-                        <Avatar
-                          name={data.first_name}
-                          size={50}
-                          round="50px"
-                        />
+
+                        {data.profile_picture.length == 0 ? (
+                          <Avatar
+                            name={data.first_name}
+                            size={50}
+                            round="50px"
+                          />
+                        ) : (
+                          <img src={data.profile_picture} alt="" />
+                        )}
                       </div>
                       <div className="candidateDiscoverName">
                         <h3>{data.first_name}</h3>
@@ -43,7 +47,8 @@ const ProfileCard = ({ filterdata, fun }) => {
                       </div>
                     </div>
                     <div className="candidateDiscoverHours">
-                      <h2>&#8377; {data.hourly_rate}/hr</h2>
+                      {/* <h2>&#8377; {data.hourly_rate}/hr</h2> */}
+                      <h2> Not provided yet</h2>
                     </div>
                   </div>
                   <div className="candidateDiscoverSkills">
@@ -86,11 +91,11 @@ const ProfileCard = ({ filterdata, fun }) => {
                         <img src={user_check} alt="" /> Part-time availability
                       </p>
                     </div>
-                    {data.travel_info !== null ? (
+                    {data.current_place_of_residence !== null ? (
                       <div className="candidateDiscoverExp">
                         <p>
                           <img src={location} alt="" />{" "}
-                          {data.travel_info.country.toString()}
+                          {data.current_place_of_residence}
                         </p>
                       </div>
                     ) : null}

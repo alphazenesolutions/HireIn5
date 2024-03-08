@@ -13,6 +13,7 @@ import TravelHistory from "../../../Candidate/CandidateDashBoard/TravelHistory/T
 import CandidateProfileCard from "../../../Reusable/CandidateProfileCard/CandidateProfileCard";
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
+import Achievement from "../Achievement/Achievement";
 
 const CandidateProfile = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const CandidateProfile = () => {
           <div className="">
             <PersonalDetails />
             <WorkExperience />
+            <Achievement />
             <ProfessionalDetails />
             <ProjectDetails />
             <Certificate />

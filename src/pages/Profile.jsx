@@ -13,6 +13,7 @@ const Profile = () => {
       window.location.replace("/");
     }
   };
+  sessionStorage.removeItem("phone");
   return (
     <div>
       <CandidateProfile />

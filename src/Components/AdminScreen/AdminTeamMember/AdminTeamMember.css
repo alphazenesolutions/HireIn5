@@ -1,0 +1,229 @@
+.adminTeamMember{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border:  1px solid #E4E4E7;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.teamMemberInputs{
+    width: 100%;
+    height: 100%;
+    /* background-color: green; */
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+}
+.adminTeamMember h3{
+    font-size: 18px;
+    font-weight: 600;
+}
+.teamMemberInputs h4{
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.teamMemberInputs input{
+    padding: 10px;
+    border-radius: 7px;
+    border:  1px solid #E4E4E7;
+}
+.teamMemberInputs input::placeholder{
+    color:#D4D4D8;
+}
+.teamMemberLevel{
+    width: 40%;
+    height: 100%;
+    /* background-color: green; */
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0px;
+    margin-left: 20px;
+}.teamMemberLevel h4{
+    font-weight: 600;
+}
+.teamMemberLevel .editAccess{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    position: relative;
+}
+.teamMemberLevel .editAccess1 input::placeholder{
+    color: black;
+}
+.teamMemberLevel .editAccess .editAccess1{
+    width: 100%;
+    padding: 0px;
+
+}
+.teamMemberLevel .editDropDown{
+    width: 100%;
+    background-color: white;
+    bottom: -170px;
+    position: absolute;
+}
+.teamMemberLevel h4{
+    margin-bottom: 5px;
+}
+.teamMemberLevel button{
+    padding: 10px;
+    border-radius: 7px;
+    border:  1px solid #E4E4E7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.teamMemberLevel input::placeholder{
+    color:#D4D4D8;
+}
+
+.teamMember{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.TeamSend{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 0px;
+}
+.TeamSend button{
+    background-color: #E4E4E7;
+    padding: 8px 10px;
+    border-radius:8px;
+    color: #A1A1AA;
+}
+.manageMember{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+}.manageMember h2{
+    text-transform: uppercase;
+}
+.manageMember h2{
+    font-size: 13px;
+    font-family: 500;
+    color: #A1A1AA;
+    margin: 10px 0px;
+    font-weight: 600;
+}
+.manageMemberEdit{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--borderColor);
+    padding:10px 0px;
+}
+.manageMember .editAccess{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    position: relative;
+
+}
+.manageMember .editAccess1{
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+}
+.manageMember .editAccess1 button{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    padding:2px;
+    border-radius: 7px;
+    align-items: center;
+    justify-content: space-between;
+}
+.manageMember .editAccess1 input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.manageMember .editAccess1 input::placeholder{
+    color: black !important;
+
+}
+.checkicon{
+    margin-top: 5px;
+}
+.editIcon{
+    display: flex;
+    flex-direction: column;
+}
+.editDropDown{
+    width: 160px;
+    height: auto;
+    padding: 20px;
+    z-index: 99;
+    border: 1px solid var(--borderColor);
+    border-radius: 10px;
+    margin-top: 6px;
+    bottom: -200px;
+    position: absolute;
+    right: 0;
+    background-color:white ;
+}
+.editDropDown h3{
+    margin: 7px 0px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.editDropDown h3 img{
+    opacity: 0;
+}
+.editDropDown h3:hover{
+    background-color: #EDE9FE;
+    color: #8B5CF6;
+    padding: 5px 10px;
+
+}
+.editDropDown h3:hover img{
+    opacity: 1;
+}
+.editDropDown h3[title]{
+    margin: 7px 0px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+
+}
+.manageMemberEdit p{
+    color: #A1A1AA;
+}
+.editDropDown h3[title]:hover{
+    background-color: #FEF2F2;
+    color: #F87171;
+    padding: 5px 10px;
+}

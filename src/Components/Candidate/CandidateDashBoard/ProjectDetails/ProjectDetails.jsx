@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./ProjectDetails.css";
@@ -199,7 +200,14 @@ const ProjectDetails = () => {
                   <h1>Add details of projects you worked on in your career</h1>
                 )}
               </div>
-            ) : null)}
+            ) : (
+              <div className="educationDesc">
+                <h1> Add details of projects you worked on in your career</h1>
+                <button className="touchButtonnew" onClick={overLayHandler}>
+                  <h4>Add Project Details</h4>
+                </button>
+              </div>
+            ))}
           {isPopUp === "project" && (
             <div className="projectDetailsOverlay">
               <div className="innerprojectDetails">
@@ -243,14 +251,14 @@ const ProjectDetails = () => {
                   />
                   <h2>Duration of project</h2>
                   <input
-                    type="date"
+                    type="number"
                     name="duration_of_project"
                     onChange={handlechange}
                     defaultValue={educationdata.duration_of_project}
                   />
                   <div className="skillFlex">
                     <h2>Key Skills</h2>
-                    <h5>Minimum 5 skills and top 3 skills</h5>
+                    {/* <h5>Minimum 5 skills and top 3 skills</h5> */}
                   </div>
                   <input
                     type="text"
@@ -268,12 +276,12 @@ const ProjectDetails = () => {
                   ></textarea>
                 </div>
               </div>
-              <div className="AddMore">
+              {/* <div className="AddMore">
                 <button>
                   <img src={plus} alt="" />
                   <h3>ADD MORE WORK HISTROY</h3>
                 </button>
-              </div>
+              </div> */}
               <div className="vedioResumeButtons">
                 <button
                   className="discard"

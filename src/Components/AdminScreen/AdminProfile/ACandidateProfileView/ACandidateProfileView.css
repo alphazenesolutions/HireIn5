@@ -1,0 +1,133 @@
+.calendlyLink {
+    width: 50%;
+    position: relative;
+}
+
+.calendlyLink h4 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.calendlyLink h5 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primaryColor);
+    position: absolute;
+    top: 57%;
+    right: 3%;
+}
+
+.calendlyLink input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid var(--borderColor);
+}
+
+.CandidateProfileViewCardBody {
+    border: 1px solid var(--borderColor);
+    border-bottom: none;
+    border-radius: 8px;
+}
+
+.CandidateProfileViewCardBodyTable {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 8px;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.CandidateProfileViewCardBodyTable h2 {
+    width: 30%;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px 0px;
+    margin-left: 10px;
+}
+
+.CandidateProfileViewCardBodyTable h3 {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--textColor);
+    padding: 15px 0px;
+}
+
+/* overlay */
+.candidateRateCardOverlay {
+    width: 65%;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.candidateRateCardOverlayHead {
+    padding: 15px;
+    border-top-left-radius: 8px;
+    border-top-Right-radius: 8px;
+    background-color: var(--dropColor);
+    border-bottom: 1px solid var(--dropBorderColor);
+}
+
+.candidateRateCardOverlayHead h1 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.candidateRateCardOverlayTab {
+    padding: 15px;
+    padding-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.candidateRateCardOverlayTab h5 {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 2px solid var(--primaryColor);
+}
+
+.candidateRateCardOverlayBody {
+    padding: 15px 25px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 30px;
+    row-gap: 20px;
+}
+
+.candidateRateSliderHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.candidateRateSliderHead h2 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.candidateRateSliderHead h3 {
+    font-size: 15px;
+    font-weight: 400;
+    opacity: 0.5;
+}
+
+.candidateRateSliderBody {
+    width: 100%;
+    text-align: center;
+
+}
+

@@ -90,23 +90,50 @@ const ClientLogin = () => {
                 onboarding_status: decoded.onboarding_status,
               })
             );
-            console.log(decoded.onboarding_status, "decoded.onboarding_status");
-            if (decoded.onboarding_status !== 3) {
-              if (decoded.role == "2") {
-                dispatch(storeAction.isloginHandler({ islogin: true }));
-                navigate("/discover");
+
+            var userinfo = await axios
+              .get(
+                `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${decoded.user_id}`,
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${loginuser.access}`,
+                  },
+                }
+              )
+              .then((res) => {
+                return res.data;
+              })
+              .catch((err) => {
+                return err.response;
+              });
+            dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
+            if (decoded.role != 1) {
+              if (decoded.onboarding_status > 3) {
+                if (decoded.role == "2") {
+                  dispatch(storeAction.isloginHandler({ islogin: true }));
+                  dispatch(storeAction.issidebarHandler({ issidebar: true }));
+                  navigate("/discover");
+                } else {
+                  dispatch(storeAction.isloginHandler({ islogin: true }));
+                  dispatch(storeAction.issidebarHandler({ issidebar: true }));
+                  navigate("/profile");
+                }
               } else {
-                dispatch(storeAction.isloginHandler({ islogin: true }));
-                navigate("/profile");
+                if (decoded.role == "2") {
+                  dispatch(storeAction.roleHandler({ role: "Client" }));
+                  // dispatch(storeAction.isloginHandler({ islogin: true }));
+                  navigate("/registration");
+                } else {
+                  dispatch(storeAction.roleHandler({ role: "Candidate" }));
+                  // dispatch(storeAction.isloginHandler({ islogin: true }));
+                  navigate("/registration");
+                }
               }
             } else {
-              if (decoded.role == "2") {
-                dispatch(storeAction.roleHandler({ role: "Client" }));
-                navigate("/registration");
-              } else {
-                dispatch(storeAction.roleHandler({ role: "Candidate" }));
-                navigate("/registration");
-              }
+              dispatch(storeAction.isloginHandler({ islogin: true }));
+              dispatch(storeAction.issidebarHandler({ issidebar: true }));
+              navigate("/customerProfile");
             }
           }
         } else {
@@ -115,6 +142,7 @@ const ClientLogin = () => {
         }
       }
     } else {
+      setIsLoading(false);
       setusernameerror(true);
     }
   };
@@ -125,8 +153,10 @@ const ClientLogin = () => {
     if (islogin === true) {
       if (loginrole == "2") {
         window.location.replace("/#/discover");
-      } else {
+      } else if (loginrole == "3") {
         window.location.replace("/#/profile");
+      } else {
+        window.location.replace("/#/customerProfile");
       }
     }
   };
@@ -164,7 +194,7 @@ const ClientLogin = () => {
                 <div className="clientLoginCompBodyPasswordLabel">
                   <h4>Password</h4>
                   <Link to="/forgotPassword">
-                    <h5>Forget password</h5>
+                    <h5>Forgot password</h5>
                   </Link>
                 </div>
                 <div className="clientLoginCompBodyPasswordInput">

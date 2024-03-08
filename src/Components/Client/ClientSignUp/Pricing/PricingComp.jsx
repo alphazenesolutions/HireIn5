@@ -9,8 +9,15 @@ import Head from "../../../Reusable/LogoHead/Head";
 import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import { useNavigate } from "react-router-dom";
 import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
+import { useDispatch, useSelector } from "react-redux";
+import { storeAction } from "../../../../Store/Store";
+import axios from "axios";
 
 const PricingComp = () => {
+  const userdata = useSelector((store) => store.userdata);
+  const userid = useSelector((store) => store.userid);
+  const token = useSelector((store) => store.token);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isToggle, setIsToggle] = useState(false);
   const toggleHandler = () => {
@@ -61,6 +68,32 @@ const PricingComp = () => {
   }, [isPage]);
   const checkuser = async () => {
     if (isPage === "page3") {
+      dispatch(
+        storeAction.onboarding_statusHander({
+          onboarding_status: 4,
+        })
+      );
+      var newobj1 = {
+        username: userdata[0].username,
+        onboarding_status: 4,
+      };
+      await axios
+        .put(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+          newobj1,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
       setTimeout(() => {
         navigate("/meeting");
       }, 3000);
@@ -232,7 +265,9 @@ const PricingComp = () => {
                       <h2>${isToggle === true ? yearlyPro : monthlyPro}</h2>
                       <p>/month, billed annually</p>
                     </div>
-                    <button>Choose plan</button>
+                    <button id="page3" onClick={pageHandler}>
+                      Choose plan
+                    </button>
                   </div>
                 </div>
                 <div className="pricingDescOption">

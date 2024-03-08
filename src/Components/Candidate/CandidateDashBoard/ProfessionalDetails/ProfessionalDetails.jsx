@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./ProfessionalDetails.css";
@@ -202,8 +203,11 @@ const ProfessionalDetails = () => {
 
                     <h6>
                       Key Skills :{" "}
-                      {userdata[0].professional_details_info.skills.toString()}{" "}
+                      <span className="professionalDetailsDescSkills">
+                        {userdata[0].professional_details_info.skills.toString()}{" "}
+                      </span>
                     </h6>
+
                     <h6>
                       Gross Annual Salary :{" "}
                       {userdata[0].professional_details_info.annual_salary}{" "}
@@ -221,7 +225,14 @@ const ProfessionalDetails = () => {
                   <h1>Add your current & Past professional experience here</h1>
                 )}
               </div>
-            ) : null)}
+            ) : (
+              <div className="educationDesc">
+                <h1> Add your current & Past professional experience here</h1>
+                <button className="touchButtonnew" onClick={overLayHandler}>
+                  <h4>Add Professional Details</h4>
+                </button>
+              </div>
+            ))}
           {isPopUp === "professional" && (
             <div className="professionalDetailsOverlay">
               <div className="innerprofessionalDetails">
@@ -312,23 +323,24 @@ const ProfessionalDetails = () => {
                   />
                   <div className="textDesc">
                     <h2>Description / Additional</h2>
-                    <h5>82/250</h5>
+                    <h5>{educationdata.description.length}/200</h5>
                   </div>
                   <textarea
                     className="text"
                     name="description"
                     onChange={handlechange}
+                    maxLength={200}
                     defaultValue={educationdata.description}
                     placeholder="As always, all Htmlstream products are excellent with a very good personalition"
                   />
                 </div>
               </div>
-              <div className="AddMore">
+              {/* <div className="AddMore">
                 <button>
                   <img src={plus} alt="" />
                   <h3>ADD MORE WORK HISTROY</h3>
                 </button>
-              </div>
+              </div> */}
               <div className="vedioResumeButtons">
                 <button
                   className="discard"

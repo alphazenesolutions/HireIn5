@@ -44,6 +44,7 @@ const SideBar = (props) => {
           dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
         } else {
           dispatch(storeAction.isloginHandler({ islogin: false }));
+          dispatch(storeAction.issidebarHandler({ issidebar: false }));
           dispatch(storeAction.tokenHandler({ token: null }));
           dispatch(storeAction.useridHandler({ userid: 5 }));
           window.location.replace("/#/login");
@@ -51,6 +52,7 @@ const SideBar = (props) => {
       }
     } else {
       dispatch(storeAction.isloginHandler({ islogin: false }));
+      dispatch(storeAction.issidebarHandler({ issidebar: false }));
       dispatch(storeAction.tokenHandler({ token: null }));
       dispatch(storeAction.useridHandler({ userid: 5 }));
       window.location.replace("/#/login");
@@ -58,12 +60,13 @@ const SideBar = (props) => {
   }, [token, userid]);
   const logoutbtn = () => {
     dispatch(storeAction.isloginHandler({ islogin: false }));
+    dispatch(storeAction.issidebarHandler({ issidebar: false }));
     dispatch(storeAction.tokenHandler({ token: null }));
     dispatch(storeAction.useridHandler({ userid: 5 }));
     window.location.replace("/#/login");
   };
 
-  const [isHover, setIsHover] = useState("discover" && "profile");
+  const [isHover, setIsHover] = useState("discover" || "profile");
   const HoverHandler = (e) => {
     navigate(e.target.id);
     setIsHover(e.target.id);

@@ -12,12 +12,14 @@ const StoreSlice = createSlice({
     token: null,
     userid: null,
     islogin: false,
+    issidebar: false,
     isPopUp: null,
     bookmarkdata: [],
     userdata: [],
     loginrole: null,
     singleuser: [],
     onboarding_status: null,
+    alluserdata: [],
   },
   reducers: {
     roleHandler(state, payload) {
@@ -34,6 +36,9 @@ const StoreSlice = createSlice({
     },
     isloginHandler(state, payload) {
       state.islogin = payload.payload.islogin;
+    },
+    issidebarHandler(state, payload) {
+      state.issidebar = payload.payload.issidebar;
     },
     isPopUpHander(state, action) {
       state.isPopUp = action.payload;
@@ -53,6 +58,9 @@ const StoreSlice = createSlice({
     onboarding_statusHander(state, action) {
       state.onboarding_status = action.payload.onboarding_status;
     },
+    alluserdataHander(state, action) {
+      state.alluserdata = action.payload.alluserdata;
+    },
   },
 });
 
@@ -60,7 +68,19 @@ const StoreSlice = createSlice({
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["role", "userid", "islogin", "token", "signupdata", "loginrole"],
+  whitelist: [
+    "role",
+    "userid",
+    "islogin",
+    "token",
+    "signupdata",
+    "loginrole",
+    "onboarding_status",
+    "issidebar",
+    "userdata",
+    "alluserdata",
+    "singleuser",
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, StoreSlice.reducer);

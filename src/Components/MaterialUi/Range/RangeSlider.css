@@ -25,3 +25,7 @@ span.MuiSlider-thumb.MuiSlider-thumbSizeMedium.MuiSlider-thumbColorPrimary.MuiSl
 .MuiSlider-valueLabel {
     background-color: var(--white) !important;
 }
+
+.css-v3ate2 {
+    width: 100%;
+}

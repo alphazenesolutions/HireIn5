@@ -80,7 +80,7 @@
 .hourlyRate h1 {
     font-size: 16px;
     font-weight: 600;
-    margin-bottom: 35px;
+    /* margin-bottom: 35px; */
 }
 
 .hourlyRate h3 {

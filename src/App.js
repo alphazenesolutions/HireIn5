@@ -60,6 +60,8 @@ function App() {
       isPopUp == "filter" ||
       isPopUp == "monthly" ||
       isPopUp == "reserveSuccess" ||
+      isPopUp == "achievements" ||
+      isPopUp == "candidateRate" ||
       isPopUp == "project" ? (
         <div onClick={CloseOverlay} id="overlay"></div>
       ) : null}

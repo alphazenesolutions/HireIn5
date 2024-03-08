@@ -203,6 +203,14 @@
     border: 1px solid var(--borderColor);
 }
 
+.updatePersonalDetailsRight select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+}
+
 .candidateAddressPersonal {
     width: 100%;
     display: flex;

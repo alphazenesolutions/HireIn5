@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./RegistrationComp.css";
@@ -6,13 +7,16 @@ import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import back from "../../../../assests/back.png";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
+import { storeAction } from "../../../../Store/Store";
+import country_and_states from "../../../../assests/country-states";
 
 const RegistrationComp = () => {
   const navigate = useNavigate();
-  const signupdata = useSelector((store) => store.signupdata);
+  const dispatch = useDispatch();
+  const userdata = useSelector((store) => store.userdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
   const onboarding_status = useSelector((store) => store.onboarding_status);
@@ -32,7 +36,6 @@ const RegistrationComp = () => {
   const routeHandler = () => {
     if (isPage === "page3") {
       navigate("/pricing");
-    } else {
     }
   };
   setTimeout(routeHandler, 1500);
@@ -55,6 +58,8 @@ const RegistrationComp = () => {
     secondary_name: "",
     secondary_email: "",
     secondary_phone: "",
+    country: "",
+    pincode: "",
   });
   const [billingdataerror, setbillingdataerror] = useState({
     billing_company: false,
@@ -63,6 +68,13 @@ const RegistrationComp = () => {
     primary_name: false,
     primary_email: false,
     primary_phone: false,
+    secondary_name: false,
+    secondary_email: false,
+    secondary_phone: false,
+    country: false,
+    pincode: false,
+  });
+  const [compareerror, setcompareerror] = useState({
     secondary_name: false,
     secondary_email: false,
     secondary_phone: false,
@@ -85,10 +97,26 @@ const RegistrationComp = () => {
   const [lookingdataerror, setlookingdataerror] = useState(false);
   const [durationdataerror, setdurationdataerror] = useState(false);
   const [agreedataerror, setagreedataerror] = useState(false);
+  const [linkedinerror, setlinkedinerror] = useState(false);
 
   const handlechange = (e) => {
     const { name, value } = e.target;
-    setregistationdata((values) => ({ ...values, [name]: value }));
+    if (name === "linked_in") {
+      const urlPattern =
+        /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-z]{2,}(\.[a-z]{2,})?\/?[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=%]+$/;
+      if (value.length !== 0) {
+        if (!urlPattern.test(value)) {
+          setlinkedinerror(true);
+        } else {
+          setlinkedinerror(false);
+        }
+      } else {
+        setlinkedinerror(false);
+      }
+      setregistationdata((values) => ({ ...values, [name]: value }));
+    } else {
+      setregistationdata((values) => ({ ...values, [name]: value }));
+    }
   };
   const handlechangenew = (e) => {
     const { name, value } = e.target;
@@ -162,15 +190,16 @@ const RegistrationComp = () => {
             linked_in: false,
           });
           setIsButton(true);
+
           var new_obj = {
-            username: signupdata.username,
+            username: userdata[0].username,
             first_name: registationdata.first_name,
             phone: registationdata.phone,
             linked_in: registationdata.linked_in,
             title: registationdata.title,
             role: 2,
             company: {
-              company_email: signupdata.username,
+              company_email: userdata[0].username,
               company_name: registationdata.company_name,
               company_location: registationdata.company_location,
               verified: false,
@@ -206,6 +235,11 @@ const RegistrationComp = () => {
           ) {
             setIsPage(event.target.id);
             setIsButton(false);
+            dispatch(
+              storeAction.onboarding_statusHander({
+                onboarding_status: 2,
+              })
+            );
           } else {
             setIsButton(false);
           }
@@ -285,62 +319,96 @@ const RegistrationComp = () => {
           secondary_email: false,
           secondary_phone: false,
         });
-        setIsButton2(true);
-        var new_obj1 = {
-          username: signupdata.username,
-          first_name: registationdata.first_name,
-          phone: registationdata.phone,
-          linked_in: registationdata.linked_in,
-          title: registationdata.title,
-          role: 2,
-          onboarding_status: 4,
-          company: {
-            company_email: signupdata.username,
-            company_name: registationdata.company_name,
-            company_location: registationdata.company_location,
-            verified: false,
-            terms: true,
-            interested_in: interestitems,
-            looking_for: lookingdata,
-            duration: durationdata,
-            notes: notesdata,
-            agree_terms: true,
-            billing_company: billingdata.billing_company,
-            billing_address: billingdata.billing_address,
-            company_pan: billingdata.company_pan,
-            primary_name: billingdata.primary_name,
-            primary_email: billingdata.primary_email,
-            primary_phone: billingdata.primary_phone,
-            secondary_name: billingdata.secondary_name,
-            secondary_email: billingdata.secondary_email,
-            secondary_phone: billingdata.secondary_phone,
-          },
-        };
-        var updatedatabilling = await axios
-          .put(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
-            new_obj1,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `JWT ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            return res.data;
-          })
-          .catch((err) => {
-            return err;
-          });
-        if (
-          updatedatabilling.message ===
-          "User and Associated Info updated successfully"
-        ) {
-          setIsPage("page3");
-          setIsButton2(false);
+        setcompareerror({
+          secondary_name: false,
+          secondary_email: false,
+          secondary_phone: false,
+        });
+        if (billingdata.primary_name == billingdata.secondary_name) {
+          setcompareerror((values) => ({
+            ...values,
+            secondary_name: true,
+          }));
+        } else if (billingdata.primary_phone == billingdata.secondary_phone) {
+          setcompareerror((values) => ({
+            ...values,
+            secondary_phone: true,
+          }));
+        } else if (billingdata.primary_email == billingdata.secondary_email) {
+          setcompareerror((values) => ({
+            ...values,
+            secondary_email: true,
+          }));
         } else {
-          setIsButton2(false);
+          setcompareerror({
+            secondary_name: false,
+            secondary_email: false,
+            secondary_phone: false,
+          });
+          setIsButton2(true);
+          var new_obj1 = {
+            username: userdata[0].username,
+            first_name: registationdata.first_name,
+            phone: registationdata.phone,
+            linked_in: registationdata.linked_in,
+            title: registationdata.title,
+            role: 2,
+            onboarding_status: 3,
+            company: {
+              company_email: userdata[0].username,
+              company_name: registationdata.company_name,
+              company_location: registationdata.company_location,
+              verified: false,
+              terms: true,
+              interested_in: interestitems,
+              looking_for: lookingdata,
+              duration: durationdata,
+              notes: notesdata,
+              agree_terms: true,
+              billing_company: billingdata.billing_company,
+              billing_address: billingdata.billing_address,
+              company_pan: billingdata.company_pan,
+              primary_name: billingdata.primary_name,
+              primary_email: billingdata.primary_email,
+              primary_phone: billingdata.primary_phone,
+              secondary_name: billingdata.secondary_name,
+              secondary_email: billingdata.secondary_email,
+              secondary_phone: billingdata.secondary_phone,
+              country: billingdata.country,
+              pincode: billingdata.pincode,
+            },
+          };
+          var updatedatabilling = await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+              new_obj1,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err;
+            });
+          if (
+            updatedatabilling.message ===
+            "User and Associated Info updated successfully"
+          ) {
+            setIsPage("page3");
+            setIsButton2(false);
+            dispatch(
+              storeAction.onboarding_statusHander({
+                onboarding_status: 3,
+              })
+            );
+          } else {
+            setIsButton2(false);
+          }
         }
       }
     }
@@ -357,7 +425,17 @@ const RegistrationComp = () => {
     CheckStage();
   }, [onboarding_status]);
   const CheckStage = async () => {
-    console.log(onboarding_status, "onboarding_status");
+    if (onboarding_status > 3) {
+      window.location.replace("/#/discover");
+    } else {
+      if (onboarding_status == 1) {
+        setIsPage("page1");
+      } else if (onboarding_status == 2) {
+        setIsPage("page2");
+      } else if (onboarding_status == 3) {
+        window.location.replace("/#/pricing");
+      }
+    }
   };
   return (
     <>
@@ -771,7 +849,113 @@ const RegistrationComp = () => {
                     <h3>Phone no.</h3>
                     <p>
                       <select name="" id="">
-                        <option value="">+91</option>
+                        <option value="">Select</option>
+                        <option value="93">+93</option>
+                        <option value="355">+355</option>
+                        <option value="213">+213</option>
+                        <option value="376">+376</option>
+                        <option value="244">+244</option>
+                        <option value="1-268">+1-268</option>
+                        <option value="54">+54</option>
+                        <option value="374">+374</option>
+                        <option value="61">+61</option>
+                        <option value="43">+43</option>
+                        <option value="994">+994</option>
+                        <option value="1-242">+1-242</option>
+                        <option value="973">+973</option>
+                        <option value="880">+880</option>
+                        <option value="1-246">+1-246</option>
+                        <option value="375">+375</option>
+                        <option value="32">+32</option>
+                        <option value="501">+501</option>
+                        <option value="229">+229</option>
+                        <option value="975">+975</option>
+                        <option value="591">+591</option>
+                        <option value="387">+387</option>
+                        <option value="267">+267</option>
+                        <option value="55">+55</option>
+                        <option value="673">+673</option>
+                        <option value="359">+359</option>
+                        <option value="226">+226</option>
+                        <option value="257">+257</option>
+                        <option value="855">+855</option>
+                        <option value="237">+237</option>
+                        <option value="1">+1</option>
+                        <option value="238">+238</option>
+                        <option value="236">+236</option>
+                        <option value="235">+235</option>
+                        <option value="56">+56</option>
+                        <option value="86">+86</option>
+                        <option value="57">+57</option>
+                        <option value="269">+269</option>
+                        <option value="506">+506</option>
+                        <option value="385">+385</option>
+                        <option value="53">+53</option>
+                        <option value="357">+357</option>
+                        <option value="420">+420</option>
+                        <option value="243">+243</option>
+                        <option value="45">+45</option>
+                        <option value="253">+253</option>
+                        <option value="1-767">+1-767</option>
+                        <option value="1-809">+1-809</option>
+                        <option value="670">+670</option>
+                        <option value="593">+593</option>
+                        <option value="20">+20</option>
+                        <option value="503">+503</option>
+                        <option value="240">+240</option>
+                        <option value="291">+291</option>
+                        <option value="372">+372</option>
+                        <option value="251">+251</option>
+                        <option value="679">+679</option>
+                        <option value="358">+358</option>
+                        <option value="33">+33</option>
+                        <option value="241">+241</option>
+                        <option value="220">+220</option>
+                        <option value="995">+995</option>
+                        <option value="49">+49</option>
+                        <option value="233">+233</option>
+                        <option value="30">+30</option>
+                        <option value="1-473">+1-473</option>
+                        <option value="502">+502</option>
+                        <option value="224">+224</option>
+                        <option value="245">+245</option>
+                        <option value="592">+592</option>
+                        <option value="509">+509</option>
+                        <option value="504">+504</option>
+                        <option value="36">+36</option>
+                        <option value="354">+354</option>
+                        <option value="91" selected>
+                          +91
+                        </option>
+                        <option value="62">+62</option>
+                        <option value="98">+98</option>
+                        <option value="964">+964</option>
+                        <option value="353">+353</option>
+                        <option value="972">+972</option>
+                        <option value="39">+39</option>
+                        <option value="225">+225</option>
+                        <option value="1-876">+1-876</option>
+                        <option value="81">+81</option>
+                        <option value="962">+962</option>
+                        <option value="7">+7</option>
+                        <option value="254">+254</option>
+                        <option value="686">+686</option>
+                        <option value="850">+850</option>
+                        <option value="82">+82</option>
+                        <option value="965">+965</option>
+                        <option value="996">+996</option>
+                        <option value="856">+856</option>
+                        <option value="371">+371</option>
+                        <option value="961">+961</option>
+                        <option value="266">+266</option>
+                        <option value="231">+231</option>
+                        <option value="218">+218</option>
+                        <option value="423">+423</option>
+                        <option value="370">+370</option>
+                        <option value="352">+352</option>
+                        <option value="389">+389</option>
+                        <option value="261">+261</option>
+                        <option value="265">+265</option>
                       </select>
                       <input
                         type="text"
@@ -816,6 +1000,11 @@ const RegistrationComp = () => {
                       <p className="text-red-500 text-xs font-semibold mt-2">
                         Please Enter LinkedIn Profile
                       </p>
+                    )}
+                    {linkedinerror && (
+                      <h6 className="text-red-500 text-xs font-semibold mt-2">
+                        Please Enter Valid LinkedIn Url
+                      </h6>
                     )}
                   </div>
                 </div>
@@ -1068,10 +1257,13 @@ const RegistrationComp = () => {
                   )}
                 </div>
                 <div className="RegisterCheck">
-                  <h3>
-                    Do you have a bespoke hiring process? Please share the key
-                    steps in hiring the resource? (Optional)
-                  </h3>
+                  <div className="flex justify-between items-center">
+                    <h3>
+                      Do you have a bespoke hiring process? Please share the key
+                      steps in hiring the resource? (Optional)
+                    </h3>
+                    <h5 className="text-xs">{notesdata.length}/200</h5>
+                  </div>
                   <div className="RegisterFeedBack">
                     <textarea
                       name=""
@@ -1212,6 +1404,36 @@ const RegistrationComp = () => {
                     </p>
                   )}
                 </div>
+
+                <div className="companyUrl1">
+                  <h3>Country</h3>
+                  <select
+                    name="country"
+                    onChange={handlechangenew}
+                    className="w-full"
+                    defaultValue={billingdata.country}
+                  >
+                    <option value="">Country</option>
+                    {country_and_states.country.length !== 0
+                      ? country_and_states.country.map((item, index) => (
+                          <option value={item.name} key={index}>
+                            {item.name}
+                          </option>
+                        ))
+                      : null}
+                  </select>
+                </div>
+                <div className="companyUrl1">
+                  <h3>Pincode</h3>
+                  <input
+                    type="text"
+                    placeholder="123456"
+                    name="pincode"
+                    maxLength={6}
+                    onChange={handlechangenew}
+                    defaultValue={billingdata.pincode}
+                  />
+                </div>
                 <div className="companyUrl1">
                   <h3>Company PAN / TAX Identification No</h3>
                   <input
@@ -1279,7 +1501,10 @@ const RegistrationComp = () => {
                 </div>
               </div>
               <div className="CompanyDetails">
-                <h2>SECONDARY CONTACT FOR BILLING</h2>
+                <div className="seconddiv">
+                  <h2>SECONDARY CONTACT FOR BILLING</h2>
+                  <h6 className="optionaltext">Optional</h6>
+                </div>
                 <div className="companyDetails1">
                   <div className="companyDetails2 h-full">
                     <h3>Full Name</h3>
@@ -1290,9 +1515,9 @@ const RegistrationComp = () => {
                       onChange={handlechangenew}
                       defaultValue={billingdata.secondary_name}
                     />
-                    {billingdataerror.secondary_name && (
+                    {compareerror.secondary_name && (
                       <p className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter Full Name
+                        Primary and secondary names should not be the same.
                       </p>
                     )}
                   </div>
@@ -1305,9 +1530,10 @@ const RegistrationComp = () => {
                       onChange={handlechangenew}
                       defaultValue={billingdata.secondary_phone}
                     />
-                    {billingdataerror.secondary_phone && (
+                    {compareerror.secondary_phone && (
                       <p className="text-red-500 text-xs font-semibold mt-2">
-                        Please Enter Contact Number
+                        The primary and secondary contact numbers should not be
+                        the same.
                       </p>
                     )}
                   </div>
@@ -1321,9 +1547,10 @@ const RegistrationComp = () => {
                     onChange={handlechangenew}
                     defaultValue={billingdata.secondary_email}
                   />
-                  {billingdataerror.secondary_email && (
+                  {compareerror.secondary_email && (
                     <p className="text-red-500 text-xs font-semibold mt-2">
-                      Please Enter Email Address
+                      The primary and secondary email addresses should not be
+                      the same.
                     </p>
                   )}
                 </div>
@@ -1343,7 +1570,14 @@ const RegistrationComp = () => {
                     <FiLoader className="loadingIcon" />
                   </button>
                 )}
-                <button className="skipbtn">Skip for now</button>
+                <button
+                  className="skipbtn"
+                  onClick={() => {
+                    setIsPage("page3");
+                  }}
+                >
+                  Skip for now
+                </button>
                 <h5>
                   If you require any help or clarification, please connect with
                   our team at <br />

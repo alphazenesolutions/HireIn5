@@ -7,11 +7,11 @@ import { useSelector } from "react-redux";
 import discover from "../assests/Discover.svg";
 
 const Layout = () => {
-  const islogin = useSelector((store) => store.islogin);
+  const issidebar = useSelector((store) => store.issidebar);
   const loginrole = useSelector((store) => store.loginrole);
   return (
     <div>
-      {islogin && (
+      {issidebar && (
         <div className="dashboard">
           <div className="sideNavComp">
             {loginrole == 2 && (
@@ -36,6 +36,53 @@ const Layout = () => {
                     icon: discover,
                     router: "profile",
                   },
+                  {
+                    title: "AdminProfile",
+                    icon: discover,
+                    router: "customerProfile",
+                  },
+                  {
+                    title: "Contracts",
+                    icon: discover,
+                    router: "admincontracts",
+                  },
+                  {
+                    title: "Team members",
+                    icon: discover,
+                    router: "adminteam",
+                  },
+                ]}
+              />
+            )}
+            {loginrole == 1 && (
+              <SideBar
+                role={2}
+                menu={[
+                  {
+                    title: "Home",
+                    icon: discover,
+                    router: "home",
+                  },
+                  {
+                    title: "Profile",
+                    icon: discover,
+                    router: "customerProfile",
+                  },
+                  {
+                    title: "Contracts",
+                    icon: discover,
+                    router: "admincontracts",
+                  },
+                  {
+                    title: "Team members",
+                    icon: discover,
+                    router: "adminteam",
+                  },
+                  {
+                    title: "Settings",
+                    icon: discover,
+                    router: "settings",
+                  },
                 ]}
               />
             )}
@@ -46,7 +93,7 @@ const Layout = () => {
           </div>
         </div>
       )}
-      {!islogin && <Routing />}
+      {!issidebar && <Routing />}
     </div>
   );
 };
