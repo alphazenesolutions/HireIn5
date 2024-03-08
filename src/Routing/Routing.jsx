@@ -19,8 +19,6 @@ import Profile from "../pages/Profile";
 import Emailverification from "../Components/Reusable/Verification/Emailverification";
 import Upgrade from "../pages/Upgrade";
 import AdminCustomerProfile from "../pages/AdminCustomerProfile";
-import AdminTeamMember from "../pages/AdminTeamMember";
-import AdminContract from "../pages/AdminContract";
 import AClientProfileView from "../Components/AdminScreen/AdminProfile/AClientProfileview/AClientProfileView";
 import AClientProfile from "../pages/AClientProfile";
 import ACandidateProfile from "../pages/ACandidateProfile";
