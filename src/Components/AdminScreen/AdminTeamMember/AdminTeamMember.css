@@ -51,28 +51,33 @@
     padding: 0;
     margin: 0;
     display: flex;
+    position: relative;
 }
 .teamMemberLevel .editAccess1 input::placeholder{
     color: black;
 }
 .teamMemberLevel .editAccess .editAccess1{
     width: 100%;
-    border: 1px solid var(--borderColor);
-    padding: 3px;
+    padding: 0px;
 
 }
 .teamMemberLevel .editDropDown{
     width: 100%;
     background-color: white;
     bottom: -170px;
+    position: absolute;
 }
 .teamMemberLevel h4{
     margin-bottom: 5px;
 }
-.teamMemberLevel input{
+.teamMemberLevel button{
     padding: 10px;
     border-radius: 7px;
     border:  1px solid #E4E4E7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 .teamMemberLevel input::placeholder{
     color:#D4D4D8;
@@ -121,7 +126,7 @@
     border-bottom: 1px solid var(--borderColor);
     padding:10px 0px;
 }
-.editAccess{
+.manageMember .editAccess{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -129,8 +134,8 @@
     position: relative;
 
 }
-.editAccess1{
-    width: 100px;
+.manageMember .editAccess1{
+    width: 120px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -138,7 +143,20 @@
     border: 1px solid var(--borderColor);
     border-radius: 8px;
 }
-.editAccess1 input{
+.manageMember .editAccess1 button{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    padding:2px;
+    border-radius: 7px;
+    align-items: center;
+    justify-content: space-between;
+}
+.manageMember .editAccess1 input{
     width: 100%;
     height: 100%;
     border: none;
@@ -147,7 +165,7 @@
     font-size: 14px;
 }
 
-.editAccess1 input::placeholder{
+.manageMember .editAccess1 input::placeholder{
     color: black !important;
 
 }
