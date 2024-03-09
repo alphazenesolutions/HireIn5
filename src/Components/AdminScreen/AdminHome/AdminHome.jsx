@@ -2,8 +2,20 @@ import React from "react";
 import "./AdminHome.css";
 import DashHead from "../../Reusable/DashBoardReusable/DashHead/DashHead";
 import Notification from "../../Reusable/Notification/Notification";
+import { useDispatch, useSelector } from "react-redux";
+import { storeAction } from "../../../Store/Store";
+import back from "../../../assests/billingX.png";
 
 const AdminHome = () => {
+  const dispatch = useDispatch();
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+
+  const overLayHandler = () => {
+    dispatch(storeAction.isPopUpHander("interviewDetails"));
+  };
+
   return (
     <div>
       <div className="adminHomePage paddingLeft100 paddingRight100 marginBottom20">
@@ -27,6 +39,7 @@ const AdminHome = () => {
               desc="has onboarded as a candidate"
               button="Approve Candidate"
               btnClass="notificationButton"
+              fun={overLayHandler}
               date="Sunday, Jan 22"
             />
             <Notification
@@ -43,6 +56,7 @@ const AdminHome = () => {
               desc2="and"
               button="View details"
               btnClass="notificationButton"
+              fun={overLayHandler}
               date="Sunday, Jan 22"
             />
             <Notification
@@ -50,6 +64,7 @@ const AdminHome = () => {
               desc="has onboarded as a candidate"
               button="Approve Candidate"
               btnClass="notificationButton"
+              fun={overLayHandler}
               date="Sunday, Jan 22"
             />
             <Notification
@@ -66,6 +81,7 @@ const AdminHome = () => {
               desc2="and"
               button="View details"
               btnClass="notificationButton"
+              fun={overLayHandler}
               date="Sunday, Jan 22"
             />
           </div>
@@ -75,6 +91,24 @@ const AdminHome = () => {
           <div className="homeProgressClient"></div>
         </div>
       </div>
+      {isPopUp == "interviewDetails" && (
+        <div className="interViewDetailOverlay">
+          <div className="interViewDetailOverlayHead">
+            <h1>Interview details</h1>
+            <img src={back} alt="" />
+          </div>
+          <div className="interViewDetailOverlayContent">
+            <h2>Candidate:</h2>
+            <h3>Yasir Quazi</h3>
+            <h2>Company (client):</h2>
+            <h3>Nuva Corp</h3>
+            <h2>Date & time:</h2>
+            <h3>12 February, 2024 at 5:30 PM IST</h3>
+            <h2>Meeting link:</h2>
+            <h3>https://calendly.com/meet/usernamelink</h3>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

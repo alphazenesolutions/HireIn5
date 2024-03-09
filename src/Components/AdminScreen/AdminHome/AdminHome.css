@@ -65,3 +65,52 @@
     border: 1px solid var(--borderColor);
     background-color: var(--white);
 }
+
+/* overlay */
+.interViewDetailOverlay {
+    width: 30%;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.interViewDetailOverlayHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: var(--dropColor);
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.interViewDetailOverlayHead h1 {
+    font-size: 16px;
+    font-weight: 600;
+
+}
+
+.interViewDetailOverlayContent {
+    padding: 15px;
+}
+
+.interViewDetailOverlayContent h2 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.interViewDetailOverlayContent h3 {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--textColor);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

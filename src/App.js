@@ -62,6 +62,8 @@ function App() {
       isPopUp == "reserveSuccess" ||
       isPopUp == "achievements" ||
       isPopUp == "candidateRate" ||
+      isPopUp == "interviewDetails" ||
+      isPopUp == "logoutPopUp" ||
       isPopUp == "project" ? (
         <div onClick={CloseOverlay} id="overlay"></div>
       ) : null}

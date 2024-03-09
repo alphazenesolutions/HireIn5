@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import { useNavigate } from "react-router-dom";
 import Avatar from "react-avatar";
+import back from "../../../assests/billingX.png";
 
 const SideBar = (props) => {
   const navigate = useNavigate();
@@ -63,15 +64,27 @@ const SideBar = (props) => {
     dispatch(storeAction.issidebarHandler({ issidebar: false }));
     dispatch(storeAction.tokenHandler({ token: null }));
     dispatch(storeAction.useridHandler({ userid: 5 }));
+    dispatch(storeAction.isPopUpHander(""));
     window.location.replace("/#/login");
   };
 
-  const [isHover, setIsHover] = useState("discover" || "profile");
+  const [isHover, setIsHover] = useState(
+    "discover" || "profile" || "adminHome"
+  );
   const HoverHandler = (e) => {
     navigate(e.target.id);
     setIsHover(e.target.id);
   };
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+  const overLayHandler = () => {
+    dispatch(storeAction.isPopUpHander("logoutPopUp"));
+  };
 
+  const exitOverlayHandler = () => {
+    dispatch(storeAction.isPopUpHander());
+  };
   return (
     <div>
       <div className="sideNav">
@@ -164,10 +177,26 @@ const SideBar = (props) => {
             </div>
           </div> */}
         </div>
-        <div className="logout cursor-pointer" onClick={logoutbtn}>
-          <img src={logout} alt="" onClick={logoutbtn} />
-          <h6 onClick={logoutbtn}>Log out</h6>
+        <div className="logout cursor-pointer" onClick={overLayHandler}>
+          <img src={logout} alt="" onClick={overLayHandler} />
+          <h6 onClick={overLayHandler}>Log out</h6>
         </div>
+        {isPopUp == "logoutPopUp" && (
+          <div className="logoutPopUp">
+            <div className="logoutPopUpHead">
+              <h1>Logout</h1>
+              <img onClick={exitOverlayHandler} src={back} alt="" />
+            </div>
+            <h2>
+              Are you sure you want to logout? You’ll have to log in again to
+              use this platform
+            </h2>
+            <button onClick={logoutbtn} className="logoutActiveButton">
+              Yes, logout
+            </button>
+            <button className="logoutInaciveButton">Cancel</button>
+          </div>
+        )}
       </div>
     </div>
   );
