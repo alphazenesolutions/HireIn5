@@ -23,7 +23,9 @@ const Notification = (props) => {
             <h3>{props.date}</h3>
           </div>
         </div>
-        <button className={props.btnClass}>{props.button}</button>
+        <button onClick={props.fun} className={props.btnClass}>
+          {props.button}
+        </button>
       </div>
     </div>
   );

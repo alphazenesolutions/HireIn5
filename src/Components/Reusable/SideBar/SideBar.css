@@ -178,3 +178,62 @@
     border-radius: 50%;
     margin-left: 6px;
 }
+
+/* overlay */
+.logoutPopUp {
+    width: 30%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+
+.logoutPopUpHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoutPopUpHead h1 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.logoutPopUpHead img {
+    cursor: pointer;
+}
+
+.logoutPopUp h2 {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--textColor);
+}
+
+.logoutInaciveButton {
+    padding: 10px;
+    font-size: 14px;
+    background-color: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.logoutActiveButton {
+    padding: 10px;
+    font-size: 14px;
+    background-color: var(--primaryColor);
+    border-radius: 8px;
+    border: none;
+    color: var(--white);
+    margin-top: 15px;
+}
