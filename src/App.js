@@ -64,6 +64,22 @@ function App() {
       isPopUp == "candidateRate" ||
       isPopUp == "interviewDetails" ||
       isPopUp == "logoutPopUp" ||
+      isPopUp == "adminpersonal" ||
+      isPopUp == "adminbasicdetails" ||
+      isPopUp == "adminprofessionaldetails" ||
+      isPopUp == "countriestravelledto" ||
+      isPopUp == "adminresidencydetails" ||
+      isPopUp == "willingnesstorelocate" ||
+      isPopUp == "travelforwork" ||
+      isPopUp == "adminprojectdetails" ||
+      isPopUp == "admincertification" ||
+      isPopUp == "admineducation" ||
+      isPopUp == "adminvedioresume" ||
+      isPopUp == "admincompanydetails" ||
+      isPopUp == "adminbillingcontact" ||
+      isPopUp == "adminbillinginformation" ||
+      isPopUp == "adminprimarycontact" ||
+      isPopUp == "adminsecondarycontact" ||
       isPopUp == "project" ? (
         <div onClick={CloseOverlay} id="overlay"></div>
       ) : null}

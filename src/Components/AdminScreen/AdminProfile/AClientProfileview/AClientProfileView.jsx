@@ -4,12 +4,29 @@ import clientProfile from "../../../../assests/gpay.png";
 import back from "../../../../assests/back.png";
 import editOutline from "../../../../assests/pencil.svg";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { storeAction } from "../../../../Store/Store";
+import { FiLoader } from "react-icons/fi";
 
 const AClientProfileView = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isToggle, setIsToggle] = useState("basic");
   const toggleHandler = (e) => {
     setIsToggle(e.target.id);
+  };
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+  const overLayHandler = () => {
+    dispatch(storeAction.isPopUpHander("candidateRate"));
+  };
+  const editHandler1 = (e) => {
+    dispatch(storeAction.isPopUpHander(e.target.id));
+  };
+  const [loading, setIsLoading] = useState(false);
+  const displayHandler = () => {
+    setIsLoading(true);
   };
   return (
     <div>
@@ -43,7 +60,7 @@ const AClientProfileView = () => {
               </div>
             </div>
             <div className="clientProfileViewFlexRight">
-              <button>Disable profile</button>
+              <button className="disableProfile">Disable profile</button>
             </div>
           </div>
         </div>
@@ -76,7 +93,7 @@ const AClientProfileView = () => {
             <div className="ClientProfileViewCard">
               <div className="ClientProfileViewCardEdit">
                 <h1>Company details</h1>
-                <button>
+                <button id="admincompanydetails" onClick={editHandler1}>
                   <img src={editOutline} alt="" />
                   Edit
                 </button>
@@ -99,7 +116,7 @@ const AClientProfileView = () => {
             <div className="ClientProfileViewCard">
               <div className="ClientProfileViewCardEdit">
                 <h1>billing contact details</h1>
-                <button>
+                <button id="adminbillingcontact" onClick={editHandler1}>
                   <img src={editOutline} alt="" />
                   Edit
                 </button>
@@ -125,6 +142,98 @@ const AClientProfileView = () => {
             </div>
           </>
         )}
+        {isPopUp == "admincompanydetails" && (
+          <>
+            <div className="adminEditOverlay">
+              <div className="adminEditOverlayHead">
+                <h1>Company Name</h1>
+              </div>
+              <div className="adminEditOverlayBody">
+                <div className="adminEditOverlayContent">
+                  <h2>Company name</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Company Location</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Company URL</h2>
+                  <input type="text" />
+                </div>
+              </div>
+              {/* <button className="adminEditAddMore">Add More</button> */}
+              <div className="editOverlayButton">
+                <button
+                  className="discard"
+                  onClick={() => {
+                    dispatch(storeAction.isPopUpHander());
+                  }}
+                >
+                  Discard Changes
+                </button>
+
+                {loading === false ? (
+                  <button className="save" onClick={displayHandler}>
+                    Save & Close
+                  </button>
+                ) : (
+                  <button className="save w-[10rem] flex justify-center items-center">
+                    <FiLoader className="loadingIcon" />
+                  </button>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+        {isPopUp == "adminbillingcontact" && (
+          <>
+            <div className="adminEditOverlay">
+              <div className="adminEditOverlayHead">
+                <h1>billing contact details</h1>
+              </div>
+              <div className="adminEditOverlayBody">
+                <div className="adminEditOverlayContent">
+                  <h2>Name</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Phone no.</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Job Title</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Linknedin Profile</h2>
+                  <input type="text" />
+                </div>
+              </div>
+              {/* <button className="adminEditAddMore">Add More</button> */}
+              <div className="editOverlayButton">
+                <button
+                  className="discard"
+                  onClick={() => {
+                    dispatch(storeAction.isPopUpHander());
+                  }}
+                >
+                  Discard Changes
+                </button>
+
+                {loading === false ? (
+                  <button className="save" onClick={displayHandler}>
+                    Save & Close
+                  </button>
+                ) : (
+                  <button className="save w-[10rem] flex justify-center items-center">
+                    <FiLoader className="loadingIcon" />
+                  </button>
+                )}
+              </div>
+            </div>
+          </>
+        )}
         {/* page 2 */}
         {/* card 1 */}
         {isToggle === "billing" && (
@@ -132,7 +241,7 @@ const AClientProfileView = () => {
             <div className="ClientProfileViewCard">
               <div className="ClientProfileViewCardEdit">
                 <h1>Billing Information</h1>
-                <button>
+                <button id="adminbillinginformation" onClick={editHandler1}>
                   <img src={editOutline} alt="" />
                   Edit
                 </button>
@@ -155,7 +264,7 @@ const AClientProfileView = () => {
             <div className="ClientProfileViewCard">
               <div className="ClientProfileViewCardEdit">
                 <h1>Primary contact for billing</h1>
-                <button>
+                <button id="adminprimarycontact" onClick={editHandler1}>
                   <img src={editOutline} alt="" />
                   Edit
                 </button>
@@ -183,7 +292,7 @@ const AClientProfileView = () => {
             <div className="ClientProfileViewCard">
               <div className="ClientProfileViewCardEdit">
                 <h1>SECONDARY contact for billing</h1>
-                <button>
+                <button id="adminsecondarycontact" onClick={editHandler1}>
                   <img src={editOutline} alt="" />
                   Edit
                 </button>
@@ -205,6 +314,146 @@ const AClientProfileView = () => {
                   <h2>Location</h2>
                   <h3>Hyderabad, India</h3>
                 </div>
+              </div>
+            </div>
+          </>
+        )}
+        {isPopUp == "adminbillinginformation" && (
+          <>
+            <div className="adminEditOverlay">
+              <div className="adminEditOverlayHead">
+                <h1>Billing Information</h1>
+              </div>
+              <div className="adminEditOverlayBody">
+                <div className="adminEditOverlayContent">
+                  <h2>Registered Company Name (for billing)</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Company Billing Address</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Company Registration No.</h2>
+                  <input type="text" />
+                </div>
+              </div>
+              {/* <button className="adminEditAddMore">Add More</button> */}
+              <div className="editOverlayButton">
+                <button
+                  className="discard"
+                  onClick={() => {
+                    dispatch(storeAction.isPopUpHander());
+                  }}
+                >
+                  Discard Changes
+                </button>
+
+                {loading === false ? (
+                  <button className="save" onClick={displayHandler}>
+                    Save & Close
+                  </button>
+                ) : (
+                  <button className="save w-[10rem] flex justify-center items-center">
+                    <FiLoader className="loadingIcon" />
+                  </button>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+        {isPopUp == "adminprimarycontact" && (
+          <>
+            <div className="adminEditOverlay">
+              <div className="adminEditOverlayHead">
+                <h1>Primary contact for billing</h1>
+              </div>
+              <div className="adminEditOverlayBody">
+                <div className="adminEditOverlayContent">
+                  <h2>Full Name</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Contact Number</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Email Address</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Location</h2>
+                  <input type="text" />
+                </div>
+              </div>
+              {/* <button className="adminEditAddMore">Add More</button> */}
+              <div className="editOverlayButton">
+                <button
+                  className="discard"
+                  onClick={() => {
+                    dispatch(storeAction.isPopUpHander());
+                  }}
+                >
+                  Discard Changes
+                </button>
+
+                {loading === false ? (
+                  <button className="save" onClick={displayHandler}>
+                    Save & Close
+                  </button>
+                ) : (
+                  <button className="save w-[10rem] flex justify-center items-center">
+                    <FiLoader className="loadingIcon" />
+                  </button>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+        {isPopUp == "adminsecondarycontact" && (
+          <>
+            <div className="adminEditOverlay">
+              <div className="adminEditOverlayHead">
+                <h1>SECONDARY contact for billing</h1>
+              </div>
+              <div className="adminEditOverlayBody">
+                <div className="adminEditOverlayContent">
+                  <h2>Full Name</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Contact Number</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Email Address</h2>
+                  <input type="text" />
+                </div>
+                <div className="adminEditOverlayContent">
+                  <h2>Location</h2>
+                  <input type="text" />
+                </div>
+              </div>
+              {/* <button className="adminEditAddMore">Add More</button> */}
+              <div className="editOverlayButton">
+                <button
+                  className="discard"
+                  onClick={() => {
+                    dispatch(storeAction.isPopUpHander());
+                  }}
+                >
+                  Discard Changes
+                </button>
+
+                {loading === false ? (
+                  <button className="save" onClick={displayHandler}>
+                    Save & Close
+                  </button>
+                ) : (
+                  <button className="save w-[10rem] flex justify-center items-center">
+                    <FiLoader className="loadingIcon" />
+                  </button>
+                )}
               </div>
             </div>
           </>
