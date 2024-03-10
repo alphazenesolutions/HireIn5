@@ -18,11 +18,15 @@ const ACandidateProfileView = () => {
   const toggleHandler = (e) => {
     setIsToggle(e.target.id);
   };
+
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("candidateRate"));
+  };
+  const editHandler1 = (e) => {
+    dispatch(storeAction.isPopUpHander(e.target.id));
   };
 
   const [loading, setIsLoading] = useState(false);
@@ -141,7 +145,7 @@ const ACandidateProfileView = () => {
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>Basic details</h1>
-                  <button>
+                  <button id="adminpersonal" onClick={editHandler1}>
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -213,10 +217,86 @@ const ACandidateProfileView = () => {
                   </div>
                 </div>
               </div>
+              {/* personal Overlay */}
+              {isPopUp === "adminpersonal" && (
+                <>
+                  <div className="adminEditOverlay">
+                    <div className="adminEditOverlayHead">
+                      <h1>Basic details</h1>
+                    </div>
+                    <div className="adminEditOverlayBody">
+                      <div className="adminEditOverlayContent">
+                        <h2>First Name</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Last Name</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Email ID</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Mobile No.</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Date of birth</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Address Line 1</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Address Line 2</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>City</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>State</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Country</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Pincode</h2>
+                        <input type="text" />
+                      </div>
+                    </div>
+                    <div className="editOverlayButton">
+                      <button
+                        className="discard"
+                        onClick={() => {
+                          dispatch(storeAction.isPopUpHander());
+                        }}
+                      >
+                        Discard Changes
+                      </button>
+
+                      {loading === false ? (
+                        <button className="save" onClick={displayHandler}>
+                          Save & Close
+                        </button>
+                      ) : (
+                        <button className="save w-[10rem] flex justify-center items-center">
+                          <FiLoader className="loadingIcon" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>documents</h1>
-                  <button>
+                  <button id="adminbasicdetails" onClick={editHandler1}>
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -327,6 +407,13 @@ const ACandidateProfileView = () => {
                   </div>
                 </div>
               </div>
+              {isPopUp === "adminbasicdetails" && (
+                <>
+                  <div className="adminEditOverlay">
+                    <h1>need to work</h1>
+                  </div>
+                </>
+              )}
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>Passport details (Optional)</h1>
@@ -434,7 +521,7 @@ const ACandidateProfileView = () => {
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>Details</h1>
-                  <button>
+                  <button id="adminprofessionaldetails" onClick={editHandler1}>
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -475,12 +562,71 @@ const ACandidateProfileView = () => {
               </div>
             </>
           )}
+          {isPopUp == "adminprofessionaldetails" && (
+            <>
+              <div className="adminEditOverlay">
+                <div className="adminEditOverlayHead">
+                  <h1>Details</h1>
+                </div>
+                <div className="adminEditOverlayBody">
+                  <div className="adminEditOverlayContent">
+                    <h2>Primary Technical Skill</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Years of Experience (all time)</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Skills</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>LinkedIn</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>HackerRank</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>GitHub</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Languages</h2>
+                    <input type="text" />
+                  </div>
+                </div>
+                <div className="editOverlayButton">
+                  <button
+                    className="discard"
+                    onClick={() => {
+                      dispatch(storeAction.isPopUpHander());
+                    }}
+                  >
+                    Discard Changes
+                  </button>
+
+                  {loading === false ? (
+                    <button className="save" onClick={displayHandler}>
+                      Save & Close
+                    </button>
+                  ) : (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
           {isToggle === "travel" && (
             <>
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>Countries travelled to</h1>
-                  <button>
+                  <button id="countriestravelledto" onClick={editHandler1}>
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -539,7 +685,7 @@ const ACandidateProfileView = () => {
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>Residency Details</h1>
-                  <button>
+                  <button onClick={editHandler1} id="adminresidencydetails">
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -558,7 +704,7 @@ const ACandidateProfileView = () => {
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>Countries willing to travel to for work</h1>
-                  <button>
+                  <button id="willingnesstorelocate" onClick={editHandler1}>
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -585,7 +731,7 @@ const ACandidateProfileView = () => {
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>Countries willing to RElocate for work</h1>
-                  <button>
+                  <button id="travelforwork" onClick={editHandler1}>
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -607,12 +753,200 @@ const ACandidateProfileView = () => {
               </div>
             </>
           )}
+          {isPopUp == "countriestravelledto" && (
+            <>
+              <div className="adminEditOverlay">
+                <div className="adminEditOverlayHead">
+                  <h1>Countries travelled to</h1>
+                </div>
+                <div className="adminEditOverlayBody">
+                  <div className="adminEditOverlayContent">
+                    <h2>Country 1</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Year of travel</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Duration</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Purpose</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Type of Visa</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Validity of Visa</h2>
+                    <input type="text" />
+                  </div>
+                </div>
+                <button className="adminEditAddMore">Add More</button>
+                <div className="editOverlayButton">
+                  <button
+                    className="discard"
+                    onClick={() => {
+                      dispatch(storeAction.isPopUpHander());
+                    }}
+                  >
+                    Discard Changes
+                  </button>
+
+                  {loading === false ? (
+                    <button className="save" onClick={displayHandler}>
+                      Save & Close
+                    </button>
+                  ) : (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+          {isPopUp == "adminresidencydetails" && (
+            <>
+              <div className="adminEditOverlay">
+                <div className="adminEditOverlayHead">
+                  <h1>Countries travelled to</h1>
+                </div>
+                <div className="adminEditOverlayBody">
+                  <div className="adminEditOverlayContent">
+                    <h2>Current country of residence</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Duration of stay in the country</h2>
+                    <input type="text" />
+                  </div>
+                </div>
+                {/* <button className="adminEditAddMore">Add More</button> */}
+                <div className="editOverlayButton">
+                  <button
+                    className="discard"
+                    onClick={() => {
+                      dispatch(storeAction.isPopUpHander());
+                    }}
+                  >
+                    Discard Changes
+                  </button>
+
+                  {loading === false ? (
+                    <button className="save" onClick={displayHandler}>
+                      Save & Close
+                    </button>
+                  ) : (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+          {isPopUp == "willingnesstorelocate" && (
+            <>
+              <div className="adminEditOverlay">
+                <div className="adminEditOverlayHead">
+                  <h1>Countries travelled to</h1>
+                </div>
+                <div className="adminEditOverlayBody">
+                  <div className="adminEditOverlayContent">
+                    <h2>Countries</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Only for</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Duration</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Readiness to Travel</h2>
+                    <input type="text" />
+                  </div>
+                </div>
+                {/* <button className="adminEditAddMore">Add More</button> */}
+                <div className="editOverlayButton">
+                  <button
+                    className="discard"
+                    onClick={() => {
+                      dispatch(storeAction.isPopUpHander());
+                    }}
+                  >
+                    Discard Changes
+                  </button>
+
+                  {loading === false ? (
+                    <button className="save" onClick={displayHandler}>
+                      Save & Close
+                    </button>
+                  ) : (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+          {isPopUp == "travelforwork" && (
+            <>
+              <div className="adminEditOverlay">
+                <div className="adminEditOverlayHead">
+                  <h1>Countries travelled to</h1>
+                </div>
+                <div className="adminEditOverlayBody">
+                  <div className="adminEditOverlayContent">
+                    <h2>Willingness to relocate</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Preferred countries</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Preferred duration for relocation</h2>
+                    <input type="text" />
+                  </div>
+                </div>
+                {/* <button className="adminEditAddMore">Add More</button> */}
+                <div className="editOverlayButton">
+                  <button
+                    className="discard"
+                    onClick={() => {
+                      dispatch(storeAction.isPopUpHander());
+                    }}
+                  >
+                    Discard Changes
+                  </button>
+
+                  {loading === false ? (
+                    <button className="save" onClick={displayHandler}>
+                      Save & Close
+                    </button>
+                  ) : (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
           {isToggle === "details" && (
             <>
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>Project details</h1>
-                  <button>
+                  <button onClick={editHandler1} id="adminprojectdetails">
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -671,7 +1005,7 @@ const ACandidateProfileView = () => {
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>Certifications and courses</h1>
-                  <button>
+                  <button onClick={editHandler1} id="admincertification">
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -707,7 +1041,7 @@ const ACandidateProfileView = () => {
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>EDUCATION</h1>
-                  <button>
+                  <button onClick={editHandler1} id="admineducation">
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -747,7 +1081,7 @@ const ACandidateProfileView = () => {
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>video resume</h1>
-                  <button>
+                  <button onClick={editHandler1} id="adminvedioresume">
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -757,6 +1091,218 @@ const ACandidateProfileView = () => {
                     <h2>Video file</h2>
                     <h3>Uploaded</h3>
                   </div>
+                </div>
+              </div>
+            </>
+          )}
+          {isPopUp == "adminprojectdetails" && (
+            <>
+              <div className="adminEditOverlay">
+                <div className="adminEditOverlayHead">
+                  <h1>Project details</h1>
+                </div>
+                <div className="adminEditOverlayBody">
+                  <div className="adminEditOverlayContent">
+                    <h2>Project Title</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Role</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Reporting to</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Duration of project</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Key skills</h2>
+                    <input type="text" />
+                  </div>
+                </div>
+                <button className="adminEditAddMore">Add More</button>
+                <div className="editOverlayButton">
+                  <button
+                    className="discard"
+                    onClick={() => {
+                      dispatch(storeAction.isPopUpHander());
+                    }}
+                  >
+                    Discard Changes
+                  </button>
+
+                  {loading === false ? (
+                    <button className="save" onClick={displayHandler}>
+                      Save & Close
+                    </button>
+                  ) : (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+          {isPopUp == "admincertification" && (
+            <>
+              <div className="adminEditOverlay">
+                <div className="adminEditOverlayHead">
+                  <h1>Certifications and courses</h1>
+                </div>
+                <div className="adminEditOverlayBody">
+                  <div className="adminEditOverlayContent">
+                    <h2>Course name</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Issuing body</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Date Issued</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Skills</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>URL</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Certificate File</h2>
+                    <input type="text" />
+                  </div>
+                </div>
+                <button className="adminEditAddMore">Add More</button>
+                <div className="editOverlayButton">
+                  <button
+                    className="discard"
+                    onClick={() => {
+                      dispatch(storeAction.isPopUpHander());
+                    }}
+                  >
+                    Discard Changes
+                  </button>
+
+                  {loading === false ? (
+                    <button className="save" onClick={displayHandler}>
+                      Save & Close
+                    </button>
+                  ) : (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+          {isPopUp == "admineducation" && (
+            <>
+              <div className="adminEditOverlay">
+                <div className="adminEditOverlayHead">
+                  <h1>EDUCATION</h1>
+                </div>
+                <div className="adminEditOverlayBody">
+                  <div className="adminEditOverlayContent">
+                    <h2>Degree</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Year of Graduation</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Name of University / School</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Education Level</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>CGPA</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Study Mode</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Relevant document</h2>
+                    <input type="text" />
+                  </div>
+                </div>
+                <button className="adminEditAddMore">Add More</button>
+                <div className="editOverlayButton">
+                  <button
+                    className="discard"
+                    onClick={() => {
+                      dispatch(storeAction.isPopUpHander());
+                    }}
+                  >
+                    Discard Changes
+                  </button>
+
+                  {loading === false ? (
+                    <button className="save" onClick={displayHandler}>
+                      Save & Close
+                    </button>
+                  ) : (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+          {isPopUp == "adminvedioresume" && (
+            <>
+              <div className="adminEditOverlay">
+                <div className="adminEditOverlayHead">
+                  <h1>Video Resume</h1>
+                </div>
+                <div className="adminEditOverlayBody">
+                  <div className="adminEditOverlayContent">
+                    <h2>Willingness to relocate</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Preferred countries</h2>
+                    <input type="text" />
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Preferred duration for relocation</h2>
+                    <input type="text" />
+                  </div>
+                </div>
+                {/* <button className="adminEditAddMore">Add More</button> */}
+                <div className="editOverlayButton">
+                  <button
+                    className="discard"
+                    onClick={() => {
+                      dispatch(storeAction.isPopUpHander());
+                    }}
+                  >
+                    Discard Changes
+                  </button>
+
+                  {loading === false ? (
+                    <button className="save" onClick={displayHandler}>
+                      Save & Close
+                    </button>
+                  ) : (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  )}
                 </div>
               </div>
             </>
