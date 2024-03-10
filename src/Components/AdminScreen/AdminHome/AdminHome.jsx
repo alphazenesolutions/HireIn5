@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AdminHome.css";
 import DashHead from "../../Reusable/DashBoardReusable/DashHead/DashHead";
 import Notification from "../../Reusable/Notification/Notification";
@@ -15,6 +15,10 @@ const AdminHome = () => {
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("interviewDetails"));
   };
+  const [target, setTarget] = useState("activity");
+  const targetHandler = (e) => {
+    setTarget(e.target.id);
+  };
 
   return (
     <div>
@@ -30,8 +34,28 @@ const AdminHome = () => {
             <h6>Mark all as read</h6>
           </div>
           <div className="adminNotificationTab">
-            <h5 className="adminNotificationTabActive">Activity</h5>
-            <h5 className="adminNotificationTabActive">Read</h5>
+            <h5
+              id="activity"
+              onClick={targetHandler}
+              className={
+                target == "activity"
+                  ? "adminNotificationTabActive"
+                  : "adminNotificationTabInactive"
+              }
+            >
+              Activity
+            </h5>
+            <h5
+              id="read"
+              onClick={targetHandler}
+              className={
+                target == "read"
+                  ? "adminNotificationTabActive"
+                  : "adminNotificationTabInactive"
+              }
+            >
+              Read
+            </h5>
           </div>
           <div className="adminNotificationLog">
             <Notification

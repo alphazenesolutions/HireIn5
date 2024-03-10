@@ -36,6 +36,11 @@
     border-bottom: 2px solid var(--primaryColor);
 }
 
+.adminNotificationTabInactive {
+    padding: 10px;
+    border-bottom: 2px solid transparent;
+}
+
 .adminNotificationLog {
     width: 100%;
     height: 280px;
