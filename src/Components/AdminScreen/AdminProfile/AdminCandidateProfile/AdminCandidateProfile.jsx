@@ -17,108 +17,7 @@ const AdminCandidateProfile = () => {
   const [alldata, setalldata] = useState([]);
   const [totaldata, settotaldata] = useState([]);
   const [loading, setloading] = useState(true);
-  // const adminTableData = [
-  //   {
-  //     name: "Ramaswami Kumar",
-  //     propic: "",
-  //     location: "New York, USA",
-  //     locImg: "",
-  //     empId: "ID1234567890",
-  //     completion: "80%",
-  //     candidateStatus: "Reserved",
-  //     statusClass: "status reserving",
-  //   },
-  //   {
-  //     name: "Ramaswami Kumar",
-  //     propic: "",
-  //     location: "New York, USA",
-  //     locImg: "",
-  //     empId: "ID1234567890",
-  //     completion: "80%",
-  //     candidateStatus: "Reserved",
-  //     statusClass: "status reserving",
-  //   },
-  //   {
-  //     name: "Ramaswami Kumar",
-  //     propic: "",
-  //     location: "New York, USA",
-  //     locImg: "",
-  //     empId: "ID1234567890",
-  //     completion: "80%",
-  //     candidateStatus: "Hired",
-  //     statusClass: "status hiringActive",
-  //   },
-  //   {
-  //     name: "Ramaswami Kumar",
-  //     propic: "",
-  //     location: "New York, USA",
-  //     locImg: "",
-  //     empId: "ID1234567890",
-  //     completion: "80%",
-  //     candidateStatus: "On-Contract",
-  //     statusClass: "status contracted",
-  //   },
-  //   {
-  //     name: "Ramaswami Kumar",
-  //     propic: "",
-  //     location: "New York, USA",
-  //     locImg: "",
-  //     empId: "ID1234567890",
-  //     completion: "80%",
-  //     candidateStatus: "Benched",
-  //     statusClass: "status benched",
-  //   },
-  //   {
-  //     name: "Ramaswami Kumar",
-  //     propic: "",
-  //     location: "New York, USA",
-  //     locImg: "",
-  //     empId: "ID1234567890",
-  //     completion: "80%",
-  //     candidateStatus: "Benched",
-  //     statusClass: "status benched",
-  //   },
-  //   {
-  //     name: "Ramaswami Kumar",
-  //     propic: "",
-  //     location: "New York, USA",
-  //     locImg: "",
-  //     empId: "ID1234567890",
-  //     completion: "80%",
-  //     candidateStatus: "Benched",
-  //     statusClass: "status benched",
-  //   },
-  //   {
-  //     name: "Ramaswami Kumar",
-  //     propic: "",
-  //     location: "New York, USA",
-  //     locImg: "",
-  //     empId: "ID1234567890",
-  //     completion: "80%",
-  //     candidateStatus: "Benched",
-  //     statusClass: "status benched",
-  //   },
-  //   {
-  //     name: "Ramaswami Kumar",
-  //     propic: "",
-  //     location: "New York, USA",
-  //     locImg: "",
-  //     empId: "ID1234567890",
-  //     completion: "80%",
-  //     candidateStatus: "Benched",
-  //     statusClass: "status benched",
-  //   },
-  //   {
-  //     name: "Ramaswami Kumar",
-  //     propic: "",
-  //     location: "New York, USA",
-  //     locImg: "",
-  //     empId: "ID1234567890",
-  //     completion: "80%",
-  //     candidateStatus: "Benched",
-  //     statusClass: "status benched",
-  //   },
-  // ];
+ 
   useEffect(() => {
     GetallCandidate();
   }, []);
@@ -145,7 +44,6 @@ const AdminCandidateProfile = () => {
       dispatch(
         storeAction.alluserdataHander({ alluserdata: allfacility.faculties })
       );
-      setloading(false);
     } else {
       var allfacility1 = await axios
         .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {

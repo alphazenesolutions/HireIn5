@@ -16,20 +16,17 @@ const AdminTeamMemberComp = () => {
 
   function getvalue(e) {
     let getdata = e.target.textContent;
-    console.log(getdata);
     setvalue1(getdata);
     setvalue22(getdata);
     setshow(false);
   }
   function getuservalue(e) {
     let getdata = e.target.textContent;
-    console.log(getdata);
     setvalue22(getdata);
     setshow(false);
   }
   function getpendingvalue(e) {
     let getdata = e.target.textContent;
-    console.log(getdata);
     setvalue33(getdata);
     setshow(false);
   }
