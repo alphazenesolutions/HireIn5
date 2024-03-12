@@ -34,6 +34,7 @@ const ACandidateProfileView = () => {
     setIsLoading(true);
   };
   const [rangevalue, setrangevalue] = useState([50, 250]);
+  console.log(singleuser, "singleuser");
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -529,34 +530,99 @@ const ACandidateProfileView = () => {
                 <div className="ClientProfileViewCardBody">
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>Primary Technical Skill</h2>
-                    <h3>Java Developer</h3>
+                    {singleuser[0].preference_info !== null ? (
+                      singleuser[0].preference_info.qualification.length !==
+                      0 ? (
+                        <h3>{singleuser[0].preference_info.qualification}</h3>
+                      ) : (
+                        <h3>-</h3>
+                      )
+                    ) : (
+                      <h3>-</h3>
+                    )}
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>Years of Experience (all time)</h2>
-                    <h3>5</h3>
+                    {singleuser[0].preference_info !== null ? (
+                      singleuser[0].preference_info.year_of_experience
+                        .length !== 0 ? (
+                        <h3>
+                          {singleuser[0].preference_info.year_of_experience}
+                        </h3>
+                      ) : (
+                        <h3>-</h3>
+                      )
+                    ) : (
+                      <h3>-</h3>
+                    )}
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>Skills</h2>
-                    <h3>Python, PHP, HTML, jQuery</h3>
+                    {singleuser[0].preference_info !== null ? (
+                      singleuser[0].preference_info.skills.length !== 0 ? (
+                        <h3>
+                          {singleuser[0].preference_info.skills.toString()}
+                        </h3>
+                      ) : (
+                        <h3>-</h3>
+                      )
+                    ) : (
+                      <h3>-</h3>
+                    )}
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>LinkedIn</h2>
-                    <h3>NA</h3>
+                    {singleuser[0].preference_info !== null ? (
+                      singleuser[0].preference_info.linkedin.length !== 0 ? (
+                        <h3>{singleuser[0].preference_info.linkedin}</h3>
+                      ) : (
+                        <h3>-</h3>
+                      )
+                    ) : (
+                      <h3>-</h3>
+                    )}
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>HackerRank</h2>
-                    <h3>NA</h3>
+                    {singleuser[0].preference_info !== null ? (
+                      singleuser[0].preference_info.hackerrank.length !== 0 ? (
+                        <h3>{singleuser[0].preference_info.hackerrank}</h3>
+                      ) : (
+                        <h3>-</h3>
+                      )
+                    ) : (
+                      <h3>-</h3>
+                    )}
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>GitHub</h2>
-                    <h3>NA</h3>
+                    {singleuser[0].preference_info !== null ? (
+                      singleuser[0].preference_info.github.length !== 0 ? (
+                        <h3>{singleuser[0].preference_info.github}</h3>
+                      ) : (
+                        <h3>-</h3>
+                      )
+                    ) : (
+                      <h3>-</h3>
+                    )}
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>Languages</h2>
-                    <h3>
+                    {/* <h3>
                       English (Conversational), Hindi (Basic), Kannada
                       (Proficient)
-                    </h3>
+                    </h3> */}
+                    {singleuser[0].preference_info !== null ? (
+                      singleuser[0].preference_info.language.length !== 0 ? (
+                        <h3>
+                          {singleuser[0].preference_info.language.toString()}
+                        </h3>
+                      ) : (
+                        <h3>-</h3>
+                      )
+                    ) : (
+                      <h3>-</h3>
+                    )}
                   </div>
                 </div>
               </div>
@@ -632,54 +698,40 @@ const ACandidateProfileView = () => {
                   </button>
                 </div>
                 <div className="ClientProfileViewCardBody">
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Country 1</h2>
-                    <h3>Netherlands</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Year of travel</h2>
-                    <h3>12/12/2018</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Duration</h2>
-                    <h3>6 Months</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Purpose</h2>
-                    <h3>Work</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Type of Visa</h2>
-                    <h3>Tourist</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Validity of Visa</h2>
-                    <h3>08/05/2023</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Country 2</h2>
-                    <h3>Japan</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Year of travel</h2>
-                    <h3>12/12/2018</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Duration</h2>
-                    <h3>2 Months</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Purpose</h2>
-                    <h3>Travel</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Type of Visa</h2>
-                    <h3>Tourist</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Validity of Visa</h2>
-                    <h3>08/05/2023</h3>
-                  </div>
+                  {singleuser[0].travel_info !== null
+                    ? singleuser[0].travel_info.travelled_to.length !== 0
+                      ? singleuser[0].travel_info.travelled_to.map(
+                          (data, index) => (
+                            <div key={index}>
+                              <div className="ClientProfileViewCardBodyTable">
+                                <h2>Country {index + 1}</h2>
+                                <h3>{data.split(":")[0]}</h3>
+                              </div>
+                              <div className="ClientProfileViewCardBodyTable">
+                                <h2>Year of travel</h2>
+                                <h3>{data.split(":")[1]}</h3>
+                              </div>
+                              <div className="ClientProfileViewCardBodyTable">
+                                <h2>Duration</h2>
+                                <h3>{data.split(":")[2]}</h3>
+                              </div>
+                              <div className="ClientProfileViewCardBodyTable">
+                                <h2>Purpose</h2>
+                                <h3>{data.split(":")[3]}</h3>
+                              </div>
+                              <div className="ClientProfileViewCardBodyTable">
+                                <h2>Type of Visa</h2>
+                                <h3>{data.split(":")[4]}</h3>
+                              </div>
+                              <div className="ClientProfileViewCardBodyTable">
+                                <h2>Validity of Visa</h2>
+                                <h3>{data.split(":")[5]}</h3>
+                              </div>
+                            </div>
+                          )
+                        )
+                      : null
+                    : null}
                 </div>
               </div>
               <div className="ClientProfileViewCard">
@@ -693,11 +745,11 @@ const ACandidateProfileView = () => {
                 <div className="ClientProfileViewCardBody">
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>Current country of residence</h2>
-                    <h3>India</h3>
+                    <h3>{singleuser[0].current_place_of_residence}</h3>
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>Duration of stay in the country</h2>
-                    <h3>10 Years 03 Months</h3>
+                    <h3> {singleuser[0].lived_at_current_residence}</h3>
                   </div>
                 </div>
               </div>
@@ -709,24 +761,26 @@ const ACandidateProfileView = () => {
                     Edit
                   </button>
                 </div>
-                <div className="ClientProfileViewCardBody">
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Countries</h2>
-                    <h3>Japan, Australia, Germany</h3>
+                {singleuser[0].travel_info !== null ? (
+                  <div className="ClientProfileViewCardBody">
+                    <div className="ClientProfileViewCardBodyTable">
+                      <h2>Countries</h2>
+                      <h3>{singleuser[0].travel_info.country.toString()}</h3>
+                    </div>
+                    <div className="ClientProfileViewCardBodyTable">
+                      <h2>Only for</h2>
+                      <h3>{singleuser[0].travel_info.onlyfor}</h3>
+                    </div>
+                    <div className="ClientProfileViewCardBodyTable">
+                      <h2>Duration</h2>
+                      <h3>{singleuser[0].travel_info.duration}</h3>
+                    </div>
+                    <div className="ClientProfileViewCardBodyTable">
+                      <h2>Readiness to Travel</h2>
+                      <h3>{singleuser[0].travel_info.travel_readlines}</h3>
+                    </div>
                   </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Only for</h2>
-                    <h3>Work Onsite</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Duration</h2>
-                    <h3>3 - 6 months</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Readiness to Travel</h2>
-                    <h3>Immediate</h3>
-                  </div>
-                </div>
+                ) : null}
               </div>
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
@@ -737,18 +791,28 @@ const ACandidateProfileView = () => {
                   </button>
                 </div>
                 <div className="ClientProfileViewCardBody">
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Willingness to relocate</h2>
-                    <h3>Yes</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Preferred countries</h2>
-                    <h3>Japan, Australia, Germany</h3>
-                  </div>
-                  <div className="ClientProfileViewCardBodyTable">
-                    <h2>Preferred duration for relocation</h2>
-                    <h3>6 - 12 months</h3>
-                  </div>
+                  {singleuser[0].travel_info !== null
+                    ? singleuser[0].travel_info.relocate_for_work.length !== 0
+                      ? singleuser[0].travel_info.relocate_for_work.map(
+                          (data, index) => (
+                            <div key={index}>
+                              <div className="ClientProfileViewCardBodyTable">
+                                <h2>Willingness to relocate</h2>
+                                <h3>{data.split(":")[0]}</h3>
+                              </div>
+                              <div className="ClientProfileViewCardBodyTable">
+                                <h2>Preferred countries {index + 1}</h2>
+                                <h3>{data.split(":")[1]}</h3>
+                              </div>
+                              <div className="ClientProfileViewCardBodyTable">
+                                <h2>Preferred duration for relocation</h2>
+                                <h3>{data.split(":")[2]}</h3>
+                              </div>
+                            </div>
+                          )
+                        )
+                      : null
+                    : null}
                 </div>
               </div>
             </>
