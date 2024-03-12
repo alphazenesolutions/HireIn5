@@ -41,6 +41,15 @@ const CandidateProfile = () => {
           btnClass="dashBoardMainHeadDescButton"
           fun={pageHandler}
         />
+        <div className="candidateProgress">
+          <div className="candidateProgressHead">
+            <h1>Profile is completed</h1>
+            <h2>80%</h2>
+          </div>
+          <div className="candidateProgressBar">
+            <div className="candidateProgressBarBackgound"></div>
+          </div>
+        </div>
         {isPage === false && (
           <div className="">
             <PersonalDetails />

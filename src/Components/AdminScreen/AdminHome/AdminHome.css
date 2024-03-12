@@ -119,3 +119,56 @@
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+.homeProgressCandidate {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 25px;
+}
+
+.homeProgressCandidateLeft {
+    height: 90%;
+}
+
+.homeProgressCandidateRight {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+.homeProgressCandidateRightOne {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+
+.homeProgressCandidateRightOne h2 {
+    font-size: 14px;
+    font-weight: 400;
+
+}
+
+.homeProgressCandidateRightOne h3 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.indication {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.candidateHomeHired {
+    background-color: var(--primaryColor);
+}
+
+.yetToBeHired {
+    background-color: var(--emailHighlighter);
+}

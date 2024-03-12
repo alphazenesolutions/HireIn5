@@ -13,6 +13,7 @@ import { FiLoader } from "react-icons/fi";
 import Avatar from "react-avatar";
 import country_and_states from "../../../../assests/country-states";
 import axios from "axios";
+import file from "../../../../assests/file-text.png";
 
 const ACandidateProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
@@ -921,28 +922,9 @@ const ACandidateProfileView = () => {
       },
     };
     var updatedata = await axios
-    .put(
-      `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}/`,
-      newobj,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${token}`,
-        },
-      }
-    )
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      return err.response;
-    });
-  if (
-    updatedata.message === "User and Associated Info updated successfully"
-  ) {
-    var userinfo = await axios
-      .get(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}/`,
+        newobj,
         {
           headers: {
             "Content-Type": "application/json",
@@ -956,13 +938,32 @@ const ACandidateProfileView = () => {
       .catch((err) => {
         return err.response;
       });
-    dispatch(storeAction.singleuserHander({ singleuser: [] }));
-    setTimeout(() => {
-      dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
-    }, 10);
-    dispatch(storeAction.isPopUpHander());
-    setIsLoading(false);
-  }
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      var userinfo = await axios
+        .get(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      setTimeout(() => {
+        dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
+      }, 10);
+      dispatch(storeAction.isPopUpHander());
+      setIsLoading(false);
+    }
   };
   console.log(singleuser, projectdata, "travelrow");
   return (
@@ -1288,7 +1289,7 @@ const ACandidateProfileView = () => {
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>documents</h1>
-                  <button id="adminbasicdetails" onClick={editHandler1}>
+                  <button id="aadhar" onClick={editHandler1}>
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -1399,17 +1400,106 @@ const ACandidateProfileView = () => {
                   </div>
                 </div>
               </div>
-              {isPopUp === "adminbasicdetails" && (
+              {isPopUp === "aadhar" && (
                 <>
                   <div className="adminEditOverlay">
-                    <h1>need to work</h1>
+                    <div className="adminEditOverlayHead">
+                      <h1>Documents</h1>
+                    </div>
+                    <div className="adminEditOverlayBody">
+                      <div className="adminEditOverlayContent">
+                        <h2>Aadhaar number</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent"></div>
+                      <div className="adminEditOverlayContent">
+                        <h3>Aadhaar Card Front</h3>
+                        <div className="adminEditOverlayUpload backGround">
+                          <div className="adminEditOverlayUploadHead">
+                            <img src={file} alt="" />
+                            <div className="adminEditOverlayUploadHeadRight">
+                              <h4>Aadhaar_card_front.jpg</h4>
+                              <h5>1 MB</h5>
+                            </div>
+                          </div>
+                          <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
+                          <button>Upload new file</button>
+                        </div>
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h3>Aadhaar Card Front</h3>
+                        <div className="adminEditOverlayUpload backGround">
+                          <div className="adminEditOverlayUploadHead">
+                            <img src={file} alt="" />
+                            <div className="adminEditOverlayUploadHeadRight">
+                              <h4>Aadhaar_card_front.jpg</h4>
+                              <h5>1 MB</h5>
+                            </div>
+                          </div>
+                          <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
+                          <button>Upload new file</button>
+                        </div>
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>PAN number</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent"></div>
+                      <div className="adminEditOverlayContent">
+                        <h3>Aadhaar Card Front</h3>
+                        <div className="adminEditOverlayUpload backGround">
+                          <div className="adminEditOverlayUploadHead">
+                            <img src={file} alt="" />
+                            <div className="adminEditOverlayUploadHeadRight">
+                              <h4>Aadhaar_card_front.jpg</h4>
+                              <h5>1 MB</h5>
+                            </div>
+                          </div>
+                          <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
+                          <button>Upload new file</button>
+                        </div>
+                      </div>
+                      {/* uploaded design */}
+                      <div className="adminEditOverlayContent">
+                        <h3>Aadhaar Card Front</h3>
+                        <div className="adminEditOverlayUpload backGround">
+                          <div className="adminEditOverlayUploadHead">
+                            <img src={file} alt="" />
+                            <div className="adminEditOverlayUploadHeadRight">
+                              <h4>Aadhaar_card_front.jpg</h4>
+                              <h5>1 MB</h5>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="editOverlayButton">
+                      <button
+                        className="discard"
+                        onClick={() => {
+                          dispatch(storeAction.isPopUpHander());
+                        }}
+                      >
+                        Discard Changes
+                      </button>
+
+                      {loading === false ? (
+                        <button className="save" onClick={saveprimary}>
+                          Save & Close
+                        </button>
+                      ) : (
+                        <button className="save w-[10rem] flex justify-center items-center">
+                          <FiLoader className="loadingIcon" />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </>
               )}
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
                   <h1>Passport details (Optional)</h1>
-                  <button>
+                  <button id="passport" onClick={editHandler1}>
                     <img src={editOutline} alt="" />
                     Edit
                   </button>
@@ -1504,6 +1594,106 @@ const ACandidateProfileView = () => {
                   </div>
                 </div>
               </div>
+              {isPopUp === "passport" && (
+                <>
+                  <div className="adminEditOverlay">
+                    <div className="adminEditOverlayHead">
+                      <h1>Documents</h1>
+                    </div>
+                    <div className="adminEditOverlayBody">
+                      <div className="adminEditOverlayContent">
+                        <h2>Passport no.</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Valid until</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Country of Citizenship</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h2>Country of Issue</h2>
+                        <input type="text" />
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h3>Passport Front</h3>
+                        <div className="adminEditOverlayUpload backGround">
+                          <div className="adminEditOverlayUploadHead">
+                            <img src={file} alt="" />
+                            <div className="adminEditOverlayUploadHeadRight">
+                              <h4>Passport_front.jpg</h4>
+                              <h5>1 MB</h5>
+                            </div>
+                          </div>
+                          <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
+                          <button>Upload new file</button>
+                        </div>
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h3>Passport Back</h3>
+                        <div className="adminEditOverlayUpload backGround">
+                          <div className="adminEditOverlayUploadHead">
+                            <img src={file} alt="" />
+                            <div className="adminEditOverlayUploadHeadRight">
+                              <h4>passport_back.jpg</h4>
+                              <h5>1 MB</h5>
+                            </div>
+                          </div>
+                          <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
+                          <button>Upload new file</button>
+                        </div>
+                      </div>
+                      {/* uploaded design */}
+                      <div className="adminEditOverlayContent">
+                        <h3>Passport Front</h3>
+                        <div className="adminEditOverlayUpload backGround">
+                          <div className="adminEditOverlayUploadHead">
+                            <img src={file} alt="" />
+                            <div className="adminEditOverlayUploadHeadRight">
+                              <h4>Passport_front.jpg</h4>
+                              <h5>1 MB</h5>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="adminEditOverlayContent">
+                        <h3>Passport Front</h3>
+                        <div className="adminEditOverlayUpload backGround">
+                          <div className="adminEditOverlayUploadHead">
+                            <img src={file} alt="" />
+                            <div className="adminEditOverlayUploadHeadRight">
+                              <h4>Passport_back.jpg</h4>
+                              <h5>1 MB</h5>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="editOverlayButton">
+                      <button
+                        className="discard"
+                        onClick={() => {
+                          dispatch(storeAction.isPopUpHander());
+                        }}
+                      >
+                        Discard Changes
+                      </button>
+
+                      {loading === false ? (
+                        <button className="save" onClick={saveprimary}>
+                          Save & Close
+                        </button>
+                      ) : (
+                        <button className="save w-[10rem] flex justify-center items-center">
+                          <FiLoader className="loadingIcon" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
             </>
           )}
           {/* page 2 */}

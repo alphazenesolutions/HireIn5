@@ -5,6 +5,7 @@ import Notification from "../../Reusable/Notification/Notification";
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import back from "../../../assests/billingX.png";
+import ProgressBar from "../../PrelineComponent/ProgressBar/ProgressBar";
 
 const AdminHome = () => {
   const dispatch = useDispatch();
@@ -111,7 +112,23 @@ const AdminHome = () => {
           </div>
         </div>
         <div className="homeProgress">
-          <div className="homeProgressCandidate"></div>
+          <div className="homeProgressCandidate">
+            <div className="homeProgressCandidateLeft">
+              <ProgressBar />
+            </div>
+            <div className="homeProgressCandidateRight">
+              <div className="homeProgressCandidateRightOne">
+                <div className="indication candidateHomeHired"></div>
+                <h2>Hired</h2>
+                <h3>- 20</h3>
+              </div>
+              <div className="homeProgressCandidateRightOne">
+                <div className="indication yetToBeHired"></div>
+                <h2>Yet to be hired</h2>
+                <h3>- 180</h3>
+              </div>
+            </div>
+          </div>
           <div className="homeProgressClient"></div>
         </div>
       </div>
