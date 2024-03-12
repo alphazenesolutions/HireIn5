@@ -140,7 +140,7 @@
     font-size: 14px;
     font-weight: 600;
     margin: 15px 15px 15px 0px;
-
+    text-transform: uppercase;
 }
 
 .ClientProfileViewCardEdit {
