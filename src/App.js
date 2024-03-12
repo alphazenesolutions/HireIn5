@@ -80,6 +80,8 @@ function App() {
       isPopUp == "adminbillinginformation" ||
       isPopUp == "adminprimarycontact" ||
       isPopUp == "adminsecondarycontact" ||
+      isPopUp == "aadhar" ||
+      isPopUp == "passport" ||
       isPopUp == "project" ? (
         <div onClick={CloseOverlay} id="overlay"></div>
       ) : null}
