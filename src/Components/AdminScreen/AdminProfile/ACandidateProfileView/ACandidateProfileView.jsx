@@ -14,6 +14,10 @@ import Avatar from "react-avatar";
 import country_and_states from "../../../../assests/country-states";
 import axios from "axios";
 import file from "../../../../assests/file-text.png";
+import { BsThreeDots } from "react-icons/bs";
+import { RxCross2 } from "react-icons/rx";
+import approvedTick from "../../../../assests/approvedTick.svg";
+import { IoMdArrowBack } from "react-icons/io";
 
 const ACandidateProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
@@ -21,6 +25,7 @@ const ACandidateProfileView = () => {
   const token = useSelector((store) => store.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isDrop, setIsDrop] = useState(false);
   const [isToggle, setIsToggle] = useState("personal");
   const toggleHandler = (e) => {
     setIsToggle(e.target.id);
@@ -34,6 +39,13 @@ const ACandidateProfileView = () => {
   };
   const editHandler1 = (e) => {
     dispatch(storeAction.isPopUpHander(e.target.id));
+  };
+
+  const dropDownHandler = () => {
+    dispatch(storeAction.isPopUpHander("approvedropdown"));
+  };
+  const CloseOverlay = () => {
+    dispatch(storeAction.isPopUpHander());
   };
 
   const [loading, setIsLoading] = useState(false);
@@ -1335,7 +1347,7 @@ const ACandidateProfileView = () => {
         .catch((err) => {
           return err.response;
         });
-        setuploadstatus(false);
+      setuploadstatus(false);
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
       getalldata();
       setTimeout(() => {
@@ -1352,11 +1364,10 @@ const ACandidateProfileView = () => {
         <div className="paddingLeft100 paddingRight100 ">
           <div className="clientProfileViewHeader">
             <div className="ClientProfileBackButton">
-              <img
-                onClick={() => navigate("/customerProfile")}
-                src={back}
-                alt=""
-              />
+              <span onClick={() => navigate("/customerProfile")}>
+                <IoMdArrowBack />
+              </span>
+
               <h5 onClick={() => navigate("/customerProfile")}>
                 Back to profile page
               </h5>
@@ -1375,7 +1386,11 @@ const ACandidateProfileView = () => {
                   )}
                 </div>
                 <div className="clientProfileViewFlexLeftDesc">
-                  <h1>{singleuser[0].first_name}</h1>
+                  <div className="clientProfileViewFlexLeftDescHead">
+                    <h1>{singleuser[0].first_name}</h1>
+                    <span className="pendingApproval">Approval Pending</span>
+                    <img src={approvedTick} alt="" />
+                  </div>
                   {singleuser[0].preference_info !== null ? (
                     <div className="clientProfileViewFlexLeftDescRole">
                       <h2>{singleuser[0].preference_info.qualification}</h2>
@@ -1390,11 +1405,25 @@ const ACandidateProfileView = () => {
                 </div>
               </div>
               <div className="clientProfileViewFlexRight">
-                <button className="disableProfile">Disable profile</button>
                 <button onClick={overLayHandler} className="editRate">
                   <img src={editOutline} alt="" />
                   Edit Rate (Pricing)
                 </button>
+                <button onClick={dropDownHandler} className="disableProfile">
+                  <BsThreeDots />
+                </button>
+                {isPopUp == "approvedropdown" && (
+                  <div className="approvalMenu">
+                    <h3
+                      id="approveconformation"
+                      onClick={editHandler1}
+                      className="approvalMenuActive"
+                    >
+                      Approve Candidate
+                    </h3>
+                    <h3 className="approvalMenuDisable">Disable Profile</h3>
+                  </div>
+                )}
               </div>
             </div>
             <div className="calendlyLink">
@@ -3800,6 +3829,31 @@ const ACandidateProfileView = () => {
           )}
         </div>
       ) : null}
+      {/* approve Conformation */}
+      {isPopUp == "approveconformation" && (
+        <>
+          <div className="approveCandidateOverlay">
+            <div className="candidateRateCardOverlayHead">
+              <h1>Candidate’s Rate (Pricing)</h1>
+              <span onClick={CloseOverlay}>
+                <RxCross2 />
+              </span>
+            </div>
+            <div className="approveCandidateOverlayBody">
+              <p>
+                You’ve checked all the details and have confirmed that this
+                candidate has completed their profile.
+              </p>
+              <div className="approveCandidateOverlayButton">
+                <button className="discard">Cancel</button>
+                <button onClick={CloseOverlay} className="save">
+                  Yes, Approve
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

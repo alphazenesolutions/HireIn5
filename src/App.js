@@ -82,10 +82,13 @@ function App() {
       isPopUp == "adminsecondarycontact" ||
       isPopUp == "aadhar" ||
       isPopUp == "passport" ||
+      isPopUp == "approveconformation" ||
       isPopUp == "project" ? (
         <div onClick={CloseOverlay} id="overlay"></div>
       ) : null}
-      {isPopUp == "hourly" || isPopUp == "location" ? (
+      {isPopUp == "hourly" ||
+      isPopUp == "location" ||
+      isPopUp == "approvedropdown" ? (
         <div onClick={CloseOverlay} id="overlayTransparent"></div>
       ) : null}
     </>

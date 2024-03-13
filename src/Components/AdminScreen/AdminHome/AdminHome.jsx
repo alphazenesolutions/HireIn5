@@ -10,8 +10,13 @@ import ProgressBar from "../../PrelineComponent/ProgressBar/ProgressBar";
 import candidateNotificaionApprove from "../../../assests/approveCandidate.svg";
 import candidateNotificaionInterview from "../../../assests/office.svg";
 import candidateNotificaionOffice from "../../../assests/interview.svg";
+import greenArrow from "../../../assests/greenArrow.svg";
+import redArrow from "../../../assests/redArrow.svg";
+import { RxCross2 } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
 
 const AdminHome = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
@@ -20,9 +25,22 @@ const AdminHome = () => {
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("interviewDetails"));
   };
+
+  const overLayHandler1 = () => {
+    dispatch(storeAction.isPopUpHander("approveconformation"));
+  };
   const [target, setTarget] = useState("activity");
   const targetHandler = (e) => {
     setTarget(e.target.id);
+  };
+
+  const CloseOverlay = () => {
+    dispatch(storeAction.isPopUpHander());
+  };
+
+  const popUpHandler = () => {
+    navigate("/admincandidateview");
+    dispatch(storeAction.isPopUpHander());
   };
 
   return (
@@ -69,7 +87,7 @@ const AdminHome = () => {
               desc="has onboarded as a candidate"
               button="Approve Candidate"
               btnClass="notificationButton"
-              fun={overLayHandler}
+              fun={overLayHandler1}
               date="Sunday, Jan 22"
             />
             <Notification
@@ -97,7 +115,7 @@ const AdminHome = () => {
               desc="has onboarded as a candidate"
               button="Approve Candidate"
               btnClass="notificationButton"
-              fun={overLayHandler}
+              fun={overLayHandler1}
               date="Sunday, Jan 22"
             />
             <Notification
@@ -123,23 +141,67 @@ const AdminHome = () => {
         </div>
         <div className="homeProgress">
           <div className="homeProgressCandidate">
-            <div className="homeProgressCandidateLeft">
-              <ProgressBar />
-            </div>
-            <div className="homeProgressCandidateRight">
-              <div className="homeProgressCandidateRightOne">
-                <div className="indication candidateHomeHired"></div>
-                <h2>Hired</h2>
-                <h3>- 20</h3>
+            <h1>Candidates</h1>
+            <div className="homeProgressCandidateFlex">
+              <div className="homeProgressCandidateLeft">
+                <ProgressBar />
               </div>
-              <div className="homeProgressCandidateRightOne">
-                <div className="indication yetToBeHired"></div>
-                <h2>Yet to be hired</h2>
-                <h3>- 180</h3>
+              <div className="homeProgressCandidateRight">
+                <div className="homeProgressCandidateRightOne">
+                  <div className="indication candidateHomeHired"></div>
+                  <h2>Hired</h2>
+                  <h3>- 20</h3>
+                </div>
+                <div className="homeProgressCandidateRightOne">
+                  <div className="indication yetToBeHired"></div>
+                  <h2>Yet to be hired</h2>
+                  <h3>- 180</h3>
+                </div>
               </div>
             </div>
           </div>
-          <div className="homeProgressClient"></div>
+          <div className="homeProgressClient">
+            <h1>Clients</h1>
+            <div className="homeProgressClientFlex">
+              <div className="homeProgressClientFlexContent">
+                <div className="progressHike">
+                  <img src={greenArrow} alt="" />
+                  <h3>12.54%</h3>
+                </div>
+                <h4>100</h4>
+                <h2>Onboarded</h2>
+              </div>
+              <div className="homeProgressClientFlexContent">
+                <div className="progressDecrement">
+                  <img src={redArrow} alt="" />
+                  <h3>5.67%</h3>
+                </div>
+                <h4>5</h4>
+                <h2>Dropped</h2>
+              </div>
+              <div className="homeProgressClientFlexContent">
+                <div className="progressHike">
+                  <img src={greenArrow} alt="" />
+                  <h3>2.87%</h3>
+                </div>
+                <h4>₹2.35 L</h4>
+                <h2>Profit</h2>
+              </div>
+            </div>
+            <div className="homeProgressClientSubscribe">
+              <h2>PLANS SUBSCRIBED TO</h2>
+              <div className="homeProgressClientSubscribeFlex">
+                <div className="homeProgressClientFlexContent">
+                  <h5>60</h5>
+                  <h6>Starter</h6>
+                </div>
+                <div className="homeProgressClientFlexContent">
+                  <h5>40</h5>
+                  <h6>Pro</h6>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       {isPopUp == "interviewDetails" && (
@@ -159,6 +221,30 @@ const AdminHome = () => {
             <h3>https://calendly.com/meet/usernamelink</h3>
           </div>
         </div>
+      )}
+      {isPopUp == "approveconformation" && (
+        <>
+          <div className="approveCandidateOverlay">
+            <div className="candidateRateCardOverlayHead">
+              <h1>Candidate’s Rate (Pricing)</h1>
+              <span onClick={CloseOverlay}>
+                <RxCross2 />
+              </span>
+            </div>
+            <div className="approveCandidateOverlayBody">
+              <p>
+                You’ve checked all the details and have confirmed that this
+                candidate has completed their profile.
+              </p>
+              <div className="approveCandidateOverlayButton">
+                <button className="discard">Cancel</button>
+                <button onClick={popUpHandler} className="save">
+                  Yes, Approve
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
