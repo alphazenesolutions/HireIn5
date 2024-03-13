@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./ACandidateProfileView.css";
 import back from "../../../../assests/back.png";
 import editOutline from "../../../../assests/pencil.svg";
@@ -313,6 +313,58 @@ const ACandidateProfileView = () => {
         if (singleuser[0].education_info !== null) {
           setcertificate(singleuser[0].education_info.upload_file);
         }
+      }
+      if (singleuser[0].passport_info !== null) {
+        setpassportdata({
+          country_of_citizenship:
+            singleuser[0].passport_info !== null
+              ? singleuser[0].passport_info.country_of_citizenship
+              : "",
+          country_of_issue:
+            singleuser[0].passport_info !== null
+              ? singleuser[0].passport_info.country_of_issue
+              : "",
+          passport_back:
+            singleuser[0].passport_info !== null
+              ? singleuser[0].passport_info.passport_back
+              : "",
+          passport_front:
+            singleuser[0].passport_info !== null
+              ? singleuser[0].passport_info.passport_front
+              : "",
+          passport_number:
+            singleuser[0].passport_info !== null
+              ? singleuser[0].passport_info.passport_number
+              : "",
+          passport_validity:
+            singleuser[0].passport_info !== null
+              ? singleuser[0].passport_info.passport_validity
+              : "",
+        });
+      }
+      if (singleuser[0].kyc_info !== null) {
+        setkycdata({
+          aadhar_back:
+            singleuser[0].kyc_info !== null
+              ? singleuser[0].kyc_info.aadhar_back
+              : "",
+          aadhar_front:
+            singleuser[0].kyc_info !== null
+              ? singleuser[0].kyc_info.aadhar_front
+              : "",
+          aadhar_number:
+            singleuser[0].kyc_info !== null
+              ? singleuser[0].kyc_info.aadhar_number
+              : "",
+          pan_front:
+            singleuser[0].kyc_info !== null
+              ? singleuser[0].kyc_info.pan_front
+              : "",
+          pan_number:
+            singleuser[0].kyc_info !== null
+              ? singleuser[0].kyc_info.pan_number
+              : "",
+        });
       }
     } else {
       setTimeout(() => {
@@ -965,7 +1017,230 @@ const ACandidateProfileView = () => {
       setIsLoading(false);
     }
   };
-  console.log(singleuser, projectdata, "travelrow");
+  const [passportdata, setpassportdata] = useState({
+    country_of_citizenship: "",
+    country_of_issue: "",
+    passport_back: "",
+    passport_front: "",
+    passport_number: "",
+    passport_validity: "",
+  });
+  const [kycdata, setkycdata] = useState({
+    aadhar_back: "",
+    aadhar_front: "",
+    aadhar_number: "",
+    pan_front: "",
+    pan_number: "",
+  });
+  const handle_change_pass = (e) => {
+    const { name, value } = e.target;
+    setpassportdata((values) => ({ ...values, [name]: value }));
+  };
+  const handle_change_kyc = (e) => {
+    const { name, value } = e.target;
+    setkycdata((values) => ({ ...values, [name]: value }));
+  };
+  const savepassport = async () => {
+    setIsLoading(true);
+    var newobj = {
+      username: singleuser[0].username,
+      passport_info: {
+        passport_number: passportdata.passport_no,
+        passport_validity: passportdata.valid_until,
+        country_of_citizenship: passportdata.country_of_citizenship,
+        country_of_issue: passportdata.country_of_issue,
+        passport_front: passportdata.passport_front,
+        passport_back: passportdata.passport_back,
+      },
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}/`,
+        newobj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      var userinfo = await axios
+        .get(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      setTimeout(() => {
+        dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
+      }, 10);
+      dispatch(storeAction.isPopUpHander());
+      setfileuploadsuccess({
+        aadhar_front: false,
+        aadhar_back: false,
+        pan_front: false,
+        passport_front: false,
+        passport_back: false,
+      });
+      setIsLoading(false);
+    }
+  };
+  const fileInputRef = useRef(null);
+  const [formtype, setformtype] = useState(null);
+  const [fileuploadsuccess, setfileuploadsuccess] = useState({
+    aadhar_front: false,
+    aadhar_back: false,
+    pan_front: false,
+    passport_front: false,
+    passport_back: false,
+  });
+  const handleFileSelectClick = (data) => {
+    fileInputRef.current.click();
+    setformtype(data);
+  };
+  const handleFileInput_Change = async (e) => {
+    setfileuploadsuccess({
+      aadhar_front: false,
+      aadhar_back: false,
+      pan_front: false,
+      passport_front: false,
+      passport_back: false,
+    });
+    formData.append("image", e.target.files[0]);
+    formData.append("name", `${formtype}_${singleuser[0].id}`);
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    setpassportdata((values) => ({
+      ...values,
+      [formtype]: response.data.img_url,
+    }));
+    setfileuploadsuccess((values) => ({
+      ...values,
+      [formtype]: true,
+    }));
+    fileInputRef.current.value = "";
+  };
+  const handleFileInput_Change1 = async (e) => {
+    setfileuploadsuccess({
+      aadhar_front: false,
+      aadhar_back: false,
+      pan_front: false,
+      passport_front: false,
+      passport_back: false,
+    });
+    formData.append("image", e.target.files[0]);
+    formData.append("name", `${formtype}_${singleuser[0].id}`);
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    setkycdata((values) => ({
+      ...values,
+      [formtype]: response.data.img_url,
+    }));
+    setfileuploadsuccess((values) => ({
+      ...values,
+      [formtype]: true,
+    }));
+    fileInputRef.current.value = "";
+  };
+  const savekyc = async () => {
+    setIsLoading(true);
+    var newobj = {
+      username: singleuser[0].username,
+      kyc_info: {
+        aadhar_back: kycdata.aadhar_back,
+        aadhar_front: kycdata.aadhar_front,
+        aadhar_number: kycdata.aadhar_number,
+        pan_front: kycdata.pan_front,
+        pan_number: kycdata.pan_number,
+      },
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}/`,
+        newobj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      var userinfo = await axios
+        .get(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      setTimeout(() => {
+        dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
+      }, 10);
+      dispatch(storeAction.isPopUpHander());
+      setfileuploadsuccess({
+        aadhar_front: false,
+        aadhar_back: false,
+        pan_front: false,
+        passport_front: false,
+        passport_back: false,
+      });
+      setIsLoading(false);
+    }
+  };
+  console.log(singleuser, passportdata, "travelrow");
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -1392,7 +1667,7 @@ const ACandidateProfileView = () => {
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>Personality Assessment </h2>
-                    <h3>Uploaded</h3>
+                    <h3>Not Uploaded</h3>
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>Personality Assessment Test Link </h2>
@@ -1409,58 +1684,119 @@ const ACandidateProfileView = () => {
                     <div className="adminEditOverlayBody">
                       <div className="adminEditOverlayContent">
                         <h2>Aadhaar number</h2>
-                        <input type="text" />
+                        <input
+                          type="text"
+                          name="aadhar_number"
+                          onChange={handle_change_kyc}
+                          defaultValue={kycdata.aadhar_number}
+                        />
                       </div>
                       <div className="adminEditOverlayContent"></div>
                       <div className="adminEditOverlayContent">
                         <h3>Aadhaar Card Front</h3>
-                        <div className="adminEditOverlayUpload backGround">
+                        <div
+                          className="adminEditOverlayUpload backGround"
+                          onClick={() => {
+                            handleFileSelectClick("aadhar_front");
+                          }}
+                        >
                           <div className="adminEditOverlayUploadHead">
                             <img src={file} alt="" />
                             <div className="adminEditOverlayUploadHeadRight">
                               <h4>Aadhaar_card_front.jpg</h4>
-                              <h5>1 MB</h5>
+                              {/* <h5>1 MB</h5> */}
                             </div>
                           </div>
                           <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
                           <button>Upload new file</button>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="passport_back"
+                            onChange={handleFileInput_Change1}
+                          />
+                          {fileuploadsuccess.aadhar_front && (
+                            <h6 className="text-green-500 text-xs font-semibold mt-2">
+                              Aadhaar Card Front Uploaded Successfully
+                            </h6>
+                          )}
                         </div>
                       </div>
                       <div className="adminEditOverlayContent">
-                        <h3>Aadhaar Card Front</h3>
-                        <div className="adminEditOverlayUpload backGround">
+                        <h3>Aadhaar Card Back</h3>
+                        <div
+                          className="adminEditOverlayUpload backGround"
+                          onClick={() => {
+                            handleFileSelectClick("aadhar_back");
+                          }}
+                        >
                           <div className="adminEditOverlayUploadHead">
                             <img src={file} alt="" />
                             <div className="adminEditOverlayUploadHeadRight">
-                              <h4>Aadhaar_card_front.jpg</h4>
-                              <h5>1 MB</h5>
+                              <h4>Aadhaar_card_back.jpg</h4>
+                              {/* <h5>1 MB</h5> */}
                             </div>
                           </div>
                           <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
                           <button>Upload new file</button>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="passport_back"
+                            onChange={handleFileInput_Change1}
+                          />
+                          {fileuploadsuccess.aadhar_back && (
+                            <h6 className="text-green-500 text-xs font-semibold mt-2">
+                              Aadhaar Card Back Uploaded Successfully
+                            </h6>
+                          )}
                         </div>
                       </div>
                       <div className="adminEditOverlayContent">
                         <h2>PAN number</h2>
-                        <input type="text" />
+                        <input
+                          type="text"
+                          name="pan_number"
+                          onChange={handle_change_kyc}
+                          defaultValue={kycdata.pan_number}
+                        />
                       </div>
                       <div className="adminEditOverlayContent"></div>
                       <div className="adminEditOverlayContent">
-                        <h3>Aadhaar Card Front</h3>
-                        <div className="adminEditOverlayUpload backGround">
+                        <h3>Pan Card Front</h3>
+                        <div
+                          className="adminEditOverlayUpload backGround"
+                          onClick={() => {
+                            handleFileSelectClick("pan_front");
+                          }}
+                        >
                           <div className="adminEditOverlayUploadHead">
                             <img src={file} alt="" />
                             <div className="adminEditOverlayUploadHeadRight">
-                              <h4>Aadhaar_card_front.jpg</h4>
-                              <h5>1 MB</h5>
+                              <h4>pan_front.jpg</h4>
+                              {/* <h5>1 MB</h5> */}
                             </div>
                           </div>
                           <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
                           <button>Upload new file</button>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="passport_back"
+                            onChange={handleFileInput_Change1}
+                          />
+                          {fileuploadsuccess.pan_front && (
+                            <h6 className="text-green-500 text-xs font-semibold mt-2">
+                              Pan Card Front Uploaded Successfully
+                            </h6>
+                          )}
                         </div>
                       </div>
                       {/* uploaded design */}
-                      <div className="adminEditOverlayContent">
+                      {/* <div className="adminEditOverlayContent">
                         <h3>Aadhaar Card Front</h3>
                         <div className="adminEditOverlayUpload backGround">
                           <div className="adminEditOverlayUploadHead">
@@ -1471,7 +1807,7 @@ const ACandidateProfileView = () => {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="editOverlayButton">
                       <button
@@ -1484,7 +1820,7 @@ const ACandidateProfileView = () => {
                       </button>
 
                       {loading === false ? (
-                        <button className="save" onClick={saveprimary}>
+                        <button className="save" onClick={savekyc}>
                           Save & Close
                         </button>
                       ) : (
@@ -1603,23 +1939,66 @@ const ACandidateProfileView = () => {
                     <div className="adminEditOverlayBody">
                       <div className="adminEditOverlayContent">
                         <h2>Passport no.</h2>
-                        <input type="text" />
+                        <input
+                          type="text"
+                          name="passport_number"
+                          onChange={handle_change_pass}
+                          defaultValue={passportdata.passport_number}
+                        />
                       </div>
                       <div className="adminEditOverlayContent">
                         <h2>Valid until</h2>
-                        <input type="text" />
+                        <input
+                          type="date"
+                          name="passport_validity"
+                          onChange={handle_change_pass}
+                          defaultValue={passportdata.passport_validity}
+                        />
                       </div>
                       <div className="adminEditOverlayContent">
                         <h2>Country of Citizenship</h2>
-                        <input type="text" />
+                        <select
+                          name="country_of_citizenship"
+                          onChange={handle_change_pass}
+                          defaultValue={passportdata.country_of_citizenship}
+                          className="w-full"
+                        >
+                          <option value="">Country</option>
+                          {country_and_states.country.length !== 0
+                            ? country_and_states.country.map((item, index) => (
+                                <option value={item.name} key={index}>
+                                  {item.name}
+                                </option>
+                              ))
+                            : null}
+                        </select>
                       </div>
                       <div className="adminEditOverlayContent">
                         <h2>Country of Issue</h2>
-                        <input type="text" />
+                        <select
+                          name="country_of_issue"
+                          onChange={handle_change_pass}
+                          defaultValue={passportdata.country_of_issue}
+                          className="w-full"
+                        >
+                          <option value="">Country</option>
+                          {country_and_states.country.length !== 0
+                            ? country_and_states.country.map((item, index) => (
+                                <option value={item.name} key={index}>
+                                  {item.name}
+                                </option>
+                              ))
+                            : null}
+                        </select>
                       </div>
                       <div className="adminEditOverlayContent">
                         <h3>Passport Front</h3>
-                        <div className="adminEditOverlayUpload backGround">
+                        <div
+                          className="adminEditOverlayUpload backGround"
+                          onClick={() => {
+                            handleFileSelectClick("passport_front");
+                          }}
+                        >
                           <div className="adminEditOverlayUploadHead">
                             <img src={file} alt="" />
                             <div className="adminEditOverlayUploadHeadRight">
@@ -1629,11 +2008,28 @@ const ACandidateProfileView = () => {
                           </div>
                           <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
                           <button>Upload new file</button>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="passport_front"
+                            onChange={handleFileInput_Change}
+                          />
+                          {fileuploadsuccess.passport_front && (
+                            <h6 className="text-green-500 text-xs font-semibold mt-2">
+                              Passport Card Front Uploaded Successfully
+                            </h6>
+                          )}
                         </div>
                       </div>
                       <div className="adminEditOverlayContent">
                         <h3>Passport Back</h3>
-                        <div className="adminEditOverlayUpload backGround">
+                        <div
+                          className="adminEditOverlayUpload backGround"
+                          onClick={() => {
+                            handleFileSelectClick("passport_back");
+                          }}
+                        >
                           <div className="adminEditOverlayUploadHead">
                             <img src={file} alt="" />
                             <div className="adminEditOverlayUploadHeadRight">
@@ -1643,33 +2039,66 @@ const ACandidateProfileView = () => {
                           </div>
                           <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
                           <button>Upload new file</button>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="passport_back"
+                            onChange={handleFileInput_Change}
+                          />
+                          {fileuploadsuccess.passport_back && (
+                            <h6 className="text-green-500 text-xs font-semibold mt-2">
+                              Passport Card Back Uploaded Successfully
+                            </h6>
+                          )}
                         </div>
                       </div>
                       {/* uploaded design */}
-                      <div className="adminEditOverlayContent">
-                        <h3>Passport Front</h3>
-                        <div className="adminEditOverlayUpload backGround">
-                          <div className="adminEditOverlayUploadHead">
-                            <img src={file} alt="" />
-                            <div className="adminEditOverlayUploadHeadRight">
-                              <h4>Passport_front.jpg</h4>
-                              <h5>1 MB</h5>
+                      {passportdata.passport_front.length !== 0 ? (
+                        <div className="adminEditOverlayContent">
+                          <h3>Passport Front</h3>
+                          <div
+                            className="adminEditOverlayUpload backGround"
+                            onClick={() => {
+                              window.open(
+                                `${passportdata.passport_front}`,
+                                "_blank"
+                              );
+                            }}
+                          >
+                            <div className="adminEditOverlayUploadHead">
+                              <img src={file} alt="" />
+                              <div className="adminEditOverlayUploadHeadRight">
+                                <h4>Passport_front.jpg</h4>
+                                {/* <h5>1 MB</h5> */}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="adminEditOverlayContent">
-                        <h3>Passport Front</h3>
-                        <div className="adminEditOverlayUpload backGround">
-                          <div className="adminEditOverlayUploadHead">
-                            <img src={file} alt="" />
-                            <div className="adminEditOverlayUploadHeadRight">
-                              <h4>Passport_back.jpg</h4>
-                              <h5>1 MB</h5>
+                      ) : null}
+
+                      {passportdata.passport_front.length !== 0 ? (
+                        <div className="adminEditOverlayContent">
+                          <h3>Passport Back</h3>
+                          <div
+                            className="adminEditOverlayUpload backGround"
+                            onClick={() => {
+                              window.open(
+                                `${passportdata.passport_front}`,
+                                "_blank"
+                              );
+                            }}
+                          >
+                            <div className="adminEditOverlayUploadHead">
+                              <img src={file} alt="" />
+                              <div className="adminEditOverlayUploadHeadRight">
+                                <h4>Passport_back.jpg</h4>
+                                {/* <h5>1 MB</h5> */}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      ) : null}
                     </div>
                     <div className="editOverlayButton">
                       <button
@@ -1682,7 +2111,7 @@ const ACandidateProfileView = () => {
                       </button>
 
                       {loading === false ? (
-                        <button className="save" onClick={saveprimary}>
+                        <button className="save" onClick={savepassport}>
                           Save & Close
                         </button>
                       ) : (
@@ -3117,12 +3546,16 @@ const ACandidateProfileView = () => {
                   </div>
                   <div className="adminEditOverlayContent">
                     <h2>Study Mode</h2>
-                    <input
-                      type="text"
+                    <select
                       name="study_mode"
                       onChange={handle_change}
                       defaultValue={educationdata.study_mode}
-                    />
+                      selected={educationdata.study_mode}
+                    >
+                      <option value="">Select Study Mode</option>
+                      <option value="Full-Time">Full-Time</option>
+                      <option value="Part-Tim">Part-Time</option>
+                    </select>
                   </div>
                   <div className="adminEditOverlayContent">
                     <h2>Relevant document</h2>

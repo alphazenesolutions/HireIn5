@@ -231,6 +231,7 @@ const VideoResume = () => {
                   ref={fileInputRef}
                   style={{ display: "none" }}
                   name="aadhaarfront"
+                  accept="video/*"
                   onChange={handleFileInputChange}
                 />
                 {uploadstatus && (

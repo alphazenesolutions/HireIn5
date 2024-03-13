@@ -18,14 +18,22 @@ const SideBar = (props) => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
   const userdata = useSelector((store) => store.userdata);
+  const loginrole = useSelector((store) => store.loginrole);
 
   useEffect(() => {
     setTimeout(() => {
       getUserinfo();
     }, 1000);
-  }, [token, userid]);
+  }, [token, userid, loginrole]);
 
   const getUserinfo = useCallback(async () => {
+    if (loginrole == 2) {
+      setIsHover("discover");
+    } else if (loginrole == 3) {
+      setIsHover("profile");
+    } else {
+      setIsHover("adminHome");
+    }
     if (token !== null && userid !== null) {
       var userinfo = await axios
         .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}`, {
@@ -58,7 +66,7 @@ const SideBar = (props) => {
       dispatch(storeAction.useridHandler({ userid: 5 }));
       window.location.replace("/#/login");
     }
-  }, [token, userid]);
+  }, [token, userid, loginrole]);
   const logoutbtn = () => {
     dispatch(storeAction.isloginHandler({ islogin: false }));
     dispatch(storeAction.issidebarHandler({ issidebar: false }));
@@ -85,6 +93,7 @@ const SideBar = (props) => {
   const exitOverlayHandler = () => {
     dispatch(storeAction.isPopUpHander());
   };
+  console.log(isHover, "isHover");
   return (
     <div>
       <div className="sideNav">
