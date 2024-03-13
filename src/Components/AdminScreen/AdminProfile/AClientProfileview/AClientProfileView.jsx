@@ -207,6 +207,7 @@ const AClientProfileView = () => {
       "User and Associated Info updated successfully"
     ) {
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(
           storeAction.singleuserHander({ singleuser: [updatedatabilling.user] })
@@ -251,6 +252,7 @@ const AClientProfileView = () => {
       "User and Associated Info updated successfully"
     ) {
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(
           storeAction.singleuserHander({ singleuser: [updatedatabilling.user] })
@@ -291,6 +293,7 @@ const AClientProfileView = () => {
       "User and Associated Info updated successfully"
     ) {
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(
           storeAction.singleuserHander({ singleuser: [updatedatabilling.user] })
@@ -338,12 +341,33 @@ const AClientProfileView = () => {
         phone: basicdata.phone,
       };
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
       }, 10);
       dispatch(storeAction.isPopUpHander());
       setIsLoading(false);
     }
+  };
+  const getalldata = async () => {
+    var allfacility = await axios
+      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getCompanies`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        },
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    dispatch(
+      storeAction.allcompanydataHander({
+        allcompanydata: allfacility.companies,
+      })
+    );
   };
   return (
     <div>
@@ -716,10 +740,10 @@ const AClientProfileView = () => {
                       <h3>-</h3>
                     )}
                   </div>
-                  <div className="ClientProfileViewCardBodyTable">
+                  {/* <div className="ClientProfileViewCardBodyTable">
                     <h2>Company Registration No.</h2>
                     <h3>-</h3>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="ClientProfileViewCard">

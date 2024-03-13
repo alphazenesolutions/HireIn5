@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useState } from "react";
 import "./AdminHome.css";
 import DashHead from "../../Reusable/DashBoardReusable/DashHead/DashHead";

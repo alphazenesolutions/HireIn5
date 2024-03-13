@@ -27,19 +27,19 @@ const CandidateProfileCard = (props) => {
   const [status, setstatus] = useState(false);
 
   const buttonHandler = (e) => {
-    if (isSelect == "demographic") {
+    if (e.target.id == "demographic") {
       setIsSelect1("personal");
     }
-    if (isSelect == "assessments") {
+    if (e.target.id == "assessments") {
       setIsSelect1("technical");
     }
-    if (isSelect == "workhistory") {
+    if (e.target.id == "workhistory") {
       setIsSelect1("employ");
     }
-    if (isSelect == "availability") {
+    if (e.target.id == "availability") {
       setIsSelect1("available");
     }
-    if (isSelect == "Rate Card") {
+    if (e.target.id == "Rate Card") {
       setIsSelect1("remote");
     }
     setIsSelect(e.target.id);
@@ -163,9 +163,13 @@ const CandidateProfileCard = (props) => {
       updatedata.message === "User and Associated Info updated successfully"
     ) {
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      dispatch(storeAction.userdataHander({ userdata: [] }));
       setTimeout(() => {
         dispatch(
           storeAction.singleuserHander({ singleuser: [updatedata.user] })
+        );
+        dispatch(
+          storeAction.userdataHander({ userdata: [updatedata.user] })
         );
       }, 10);
     }
@@ -583,8 +587,8 @@ const CandidateProfileCard = (props) => {
                         <div className="gradeCertificate1">
                           <img src={gallery} alt="" />
                           <div className="gradeCertificateDesc1">
-                            <h6>certificate01.jpeg</h6>
-                            <p>4 MB</p>
+                            <h6 className="mt-5">certificate01.jpeg</h6>
+                           
                           </div>
                         </div>
                       ) : null}

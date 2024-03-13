@@ -11,7 +11,7 @@ const AdminTeamMemberComp = () => {
   const [setvalue2, setvalue22] = useState("Edit access");
   const [setvalue3, setvalue33] = useState("Edit access");
   function toggleDropdown(event) {
-    setshow(event.target.id);
+    setshow(!show);
   }
 
   function getvalue(e) {
@@ -61,7 +61,7 @@ const AdminTeamMemberComp = () => {
                     {setvalue}
                     <MdKeyboardArrowDown className="checkicon" />
                   </button>
-                  {show === "access1" && (
+                  {show && (
                     <div className="dropHandler">
                       <h3 onClick={getvalue}>
                         Admin <img src={Billingtick} alt="" />
