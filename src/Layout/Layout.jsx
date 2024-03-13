@@ -62,7 +62,7 @@ const Layout = () => {
                 menu={[
                   {
                     title: "Profile",
-                    icon: <FiHelpCircle />,
+                    icon: <FaRegCircleUser />,
                     router: "profile",
                   },
                   {
