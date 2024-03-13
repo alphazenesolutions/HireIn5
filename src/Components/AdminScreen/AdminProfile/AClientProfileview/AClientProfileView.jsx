@@ -12,8 +12,8 @@ import { storeAction } from "../../../../Store/Store";
 import { FiLoader } from "react-icons/fi";
 import Avatar from "react-avatar";
 import axios from "axios";
-import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import ContractCard from "../../../Reusable/ContractCard/ContractCard";
+import { IoMdArrowBack } from "react-icons/io";
 
 const AClientProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
@@ -375,11 +375,10 @@ const AClientProfileView = () => {
         <div className="paddingLeft100 paddingRight100 ">
           <div className="clientProfileViewHeader">
             <div className="ClientProfileBackButton">
-              <img
-                onClick={() => navigate("/customerProfile")}
-                src={back}
-                alt=""
-              />
+              <span onClick={() => navigate("/customerProfile")}>
+                {" "}
+                <IoMdArrowBack />
+              </span>
               <h5 onClick={() => navigate("/customerProfile")}>
                 Back to profile page
               </h5>

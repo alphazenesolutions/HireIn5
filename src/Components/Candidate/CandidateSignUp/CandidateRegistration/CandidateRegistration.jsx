@@ -1105,7 +1105,7 @@ const CandidateRegistration = () => {
                 <h2>BASIC DETAILS</h2>
                 <div className="CandidateDetails">
                   <div className="candidateInfo h-full">
-                    <h3>First Name</h3>
+                    <h3>First & Middle Name</h3>
                     <input
                       type="text"
                       placeholder="First Name"

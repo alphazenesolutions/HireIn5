@@ -73,6 +73,9 @@
 
 .candidateRateCardOverlayHead {
     padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border-top-left-radius: 8px;
     border-top-Right-radius: 8px;
     background-color: var(--dropColor);
@@ -264,3 +267,35 @@
     border: 1px solid var(--borderColor);
     background-color: var(--white);
 }
+
+/* approve Candidate */
+.approveCandidateOverlay {
+    width: 35%;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.approveCandidateOverlayBody p {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 20px;
+    color: var(--textColor);
+}
+
+.approveCandidateOverlayButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px;
+
+}
+
+.cancelApprove {}
