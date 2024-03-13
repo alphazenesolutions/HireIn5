@@ -5,6 +5,15 @@ import Routing from "../Routing/Routing";
 import SideBar from "../Components/Reusable/SideBar/SideBar";
 import { useSelector } from "react-redux";
 import discover from "../assests/Discover.svg";
+import { FiUsers } from "react-icons/fi";
+import { FiFileText } from "react-icons/fi";
+import { IoHelpCircleOutline } from "react-icons/io5";
+import { FiCompass } from "react-icons/fi";
+import { FiHelpCircle } from "react-icons/fi";
+import { FiHome } from "react-icons/fi";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { LuUsers2 } from "react-icons/lu";
+import { FiSettings } from "react-icons/fi";
 
 const Layout = () => {
   const issidebar = useSelector((store) => store.issidebar);
@@ -18,11 +27,31 @@ const Layout = () => {
               <SideBar
                 role={1}
                 menu={[
-                  { title: "Discover", icon: discover, router: "discover" },
-                  { title: "Interview", icon: discover, router: "interview" },
-                  { title: "Contracts", icon: discover, router: "contract" },
-                  { title: "Billing", icon: discover, router: "billing" },
-                  { title: "Help & FAQs", icon: discover, router: "faq" },
+                  {
+                    title: "Discover",
+                    icon: <FiCompass />,
+                    router: "discover",
+                  },
+                  {
+                    title: "Interview",
+                    icon: <FiUsers />,
+                    router: "interview",
+                  },
+                  {
+                    title: "Contracts",
+                    icon: <FiFileText />,
+                    router: "contract",
+                  },
+                  {
+                    title: "Billing",
+                    icon: <FiHelpCircle />,
+                    router: "billing",
+                  },
+                  {
+                    title: "Help & FAQs",
+                    icon: <FiHelpCircle />,
+                    router: "faq",
+                  },
                 ]}
               />
             )}
@@ -30,13 +59,16 @@ const Layout = () => {
               <SideBar
                 role={2}
                 menu={[
-                  { title: "Help & FAQs", icon: discover, router: "faq" },
                   {
                     title: "Profile",
-                    icon: discover,
+                    icon: <FiHelpCircle />,
                     router: "profile",
                   },
-                 
+                  {
+                    title: "Help & FAQs",
+                    icon: <FiHelpCircle />,
+                    router: "faq",
+                  },
                 ]}
               />
             )}
@@ -46,27 +78,27 @@ const Layout = () => {
                 menu={[
                   {
                     title: "Home",
-                    icon: discover,
+                    icon: <FiHome />,
                     router: "adminHome",
                   },
                   {
                     title: "Profile",
-                    icon: discover,
+                    icon: <FaRegCircleUser />,
                     router: "customerProfile",
                   },
                   {
                     title: "Contracts",
-                    icon: discover,
+                    icon: <FiFileText />,
                     router: "admincontracts",
                   },
                   {
                     title: "Team members",
-                    icon: discover,
+                    icon: <LuUsers2 />,
                     router: "adminteam",
                   },
                   {
                     title: "Settings",
-                    icon: discover,
+                    icon: <FiSettings />,
                     router: "settings",
                   },
                 ]}

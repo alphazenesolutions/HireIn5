@@ -137,12 +137,9 @@ const SideBar = (props) => {
                       id={data.router}
                       className="menu1Active"
                     >
-                      <img
-                        id={data.router}
-                        className="menuImg"
-                        src={data.icon}
-                        alt=""
-                      />
+                      <span id={data.router} className="menuIcon" alt="">
+                        {data.icon}
+                      </span>
                       <h4 id={data.router} className="menuName">
                         {data.title}
                       </h4>
@@ -156,12 +153,9 @@ const SideBar = (props) => {
                       onClick={HoverHandler}
                       className="menu1"
                     >
-                      <img
-                        id={data.router}
-                        className="menuImg"
-                        src={data.icon}
-                        alt=""
-                      />
+                      <span id={data.router} className="menuIcon" alt="">
+                        {data.icon}
+                      </span>
                       <h4 id={data.router} className="menuName">
                         {data.title}
                       </h4>
