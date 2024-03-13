@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
+import { GoGlobe } from "react-icons/go";
 
 const TravelHistory = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -269,7 +270,9 @@ const TravelHistory = () => {
             className={isArrow === true ? "travelHistoryHead" : "bottomBorder"}
           >
             <div className="travelHistoryHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <GoGlobe />
+              </span>
               <h1>Travel History</h1>
             </div>
             <div className="travelHistoryLeftIcon">

@@ -13,6 +13,7 @@ import gallery from "../../../../assests/gallery.svg";
 import trash from "../../../../assests/trash-2.svg";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
+import { FiBookOpen } from "react-icons/fi";
 
 const Education = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -171,7 +172,9 @@ const Education = () => {
         <div className="innerEducation">
           <div className={isArrow === true ? "educationHead" : "bottomBorder"}>
             <div className="educationHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <FiBookOpen />
+              </span>
               <h1>Education</h1>
             </div>
             <div className="educationLeftIcon">

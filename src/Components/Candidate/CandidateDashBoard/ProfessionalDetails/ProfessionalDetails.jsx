@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
+import { FiBriefcase } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
 
 const ProfessionalDetails = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -156,7 +158,9 @@ const ProfessionalDetails = () => {
             className={isArrow === true ? "projectDetailsHead" : "bottomBorder"}
           >
             <div className="professionalDetailsHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <FiBriefcase />
+              </span>
               <h1>Professional Details</h1>
             </div>
             <div className="professionalDetailsLeftIcon">

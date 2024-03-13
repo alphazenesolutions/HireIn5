@@ -11,6 +11,7 @@ import { storeAction } from "../../../../Store/Store";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
 import country_and_states from "../../../../assests/country-states";
+import { FiUser } from "react-icons/fi";
 
 const PersonalDetails = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -157,7 +158,9 @@ const PersonalDetails = () => {
             }
           >
             <div className="personalDetailsHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <FiUser />
+              </span>
               <h1>Personal Details</h1>
             </div>
             <div className="personalDetailsLeftIcon">
