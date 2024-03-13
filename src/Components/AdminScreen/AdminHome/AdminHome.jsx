@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../Store/Store";
 import back from "../../../assests/billingX.png";
 import ProgressBar from "../../PrelineComponent/ProgressBar/ProgressBar";
+import candidateNotificaionApprove from "../../../assests/approveCandidate.svg";
+import candidateNotificaionInterview from "../../../assests/office.svg";
+import candidateNotificaionOffice from "../../../assests/interview.svg";
 
 const AdminHome = () => {
   const dispatch = useDispatch();
@@ -60,6 +63,7 @@ const AdminHome = () => {
           </div>
           <div className="adminNotificationLog">
             <Notification
+              Img={candidateNotificaionApprove}
               head="Surya Narreddi"
               desc="has onboarded as a candidate"
               button="Approve Candidate"
@@ -68,6 +72,7 @@ const AdminHome = () => {
               date="Sunday, Jan 22"
             />
             <Notification
+              Img={candidateNotificaionInterview}
               head="Office for digital design "
               desc="has onboarded as a candidate"
               button="has onboarded as a client subscribed to Starter plan"
@@ -75,6 +80,7 @@ const AdminHome = () => {
               date="Sunday, Jan 22"
             />
             <Notification
+              Img={candidateNotificaionOffice}
               head1="Yasir Quazi"
               head2="Nuva Corp"
               desc="Interview scheduled between"
@@ -85,6 +91,7 @@ const AdminHome = () => {
               date="Sunday, Jan 22"
             />
             <Notification
+              Img={candidateNotificaionApprove}
               head="Surya Narreddi"
               desc="has onboarded as a candidate"
               button="Approve Candidate"
@@ -93,6 +100,7 @@ const AdminHome = () => {
               date="Sunday, Jan 22"
             />
             <Notification
+              Img={candidateNotificaionInterview}
               head="Office for digital design "
               desc="has onboarded as a candidate"
               button="has onboarded as a client subscribed to Starter plan"
@@ -100,6 +108,7 @@ const AdminHome = () => {
               date="Sunday, Jan 22"
             />
             <Notification
+              Img={candidateNotificaionOffice}
               head1="Yasir Quazi"
               head2="Nuva Corp"
               desc="Interview scheduled between"
