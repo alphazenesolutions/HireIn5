@@ -98,6 +98,7 @@ const AdminClientProfileComp = () => {
       setalldata(totaldata);
     }
   };
+  console.log(currentRecords, "currentRecords");
   return (
     <div>
       <div className="AdminClientProfileComp">
@@ -128,6 +129,7 @@ const AdminClientProfileComp = () => {
                     <tr className="adminTableRow" key={index}>
                       <td>
                         <div className="tableName">
+                         
                           {data.company !== null ? (
                             data.profile_picture.length !== 0 ? (
                               <img src={data.profile_picture} alt="" />

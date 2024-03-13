@@ -17,12 +17,13 @@ const AdminCandidateProfile = () => {
   const [alldata, setalldata] = useState([]);
   const [totaldata, settotaldata] = useState([]);
   const [loading, setloading] = useState(true);
- 
+
   useEffect(() => {
     GetallCandidate();
   }, []);
   const GetallCandidate = async () => {
     if (alluserdata.length !== 0) {
+      console.log(alluserdata, "alluserdata");
       setloading(false);
       setalldata(alluserdata);
       settotaldata(alluserdata);

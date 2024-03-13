@@ -323,6 +323,20 @@ const TravelHistory = () => {
 
                   {userdata[0].travel_info !== null ? (
                     <div className="travelGridOne">
+                      <h1>Residency details</h1>
+
+                      <h3 className="marginTop20">
+                        Current Place of Residence: :{" "}
+                        <p>{userdata[0].current_place_of_residence}</p>
+                      </h3>
+                      <h3>
+                        Duration : <p>{userdata[0].travel_info.duration}</p>
+                      </h3>
+                    </div>
+                  ) : null}
+
+                  {userdata[0].travel_info !== null ? (
+                    <div className="travelGridOne">
                       <h1>Countries you’re willing to travel to for work</h1>
 
                       {userdata[0].travel_info.country.length !== 0

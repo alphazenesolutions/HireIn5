@@ -119,11 +119,23 @@ const SideBar = (props) => {
               </div>
               <div className="profilePic">
                 {userdata.length !== 0 ? (
-                  <Avatar
-                    name={userdata[0].first_name}
-                    size={50}
-                    round="50px"
-                  />
+                  userdata[0].profile_picture !== null ? (
+                    userdata[0].profile_picture.length !== 0 ? (
+                      <img src={userdata[0].profile_picture} alt="" />
+                    ) : (
+                      <Avatar
+                        name={userdata[0].first_name}
+                        size={50}
+                        round="50px"
+                      />
+                    )
+                  ) : (
+                    <Avatar
+                      name={userdata[0].first_name}
+                      size={50}
+                      round="50px"
+                    />
+                  )
                 ) : null}
                 {/* <img src={profile} alt="" /> */}
               </div>

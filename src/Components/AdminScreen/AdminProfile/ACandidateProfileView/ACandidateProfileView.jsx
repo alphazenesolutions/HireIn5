@@ -73,6 +73,9 @@ const ACandidateProfileView = () => {
   var [certificate, setcertificate] = useState([]);
   const Getallinfo = async () => {
     if (singleuser.length !== 0) {
+      setresumevideo(
+        singleuser[0].video_resume !== null ? singleuser[0].video_resume : ""
+      );
       setformdata({
         name: singleuser[0].first_name,
         email: singleuser[0].email,
@@ -444,6 +447,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -495,6 +499,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -552,6 +557,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -666,6 +672,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -721,6 +728,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -786,6 +794,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -855,6 +864,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -922,6 +932,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1010,6 +1021,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1090,6 +1102,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1226,6 +1239,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1240,7 +1254,98 @@ const ACandidateProfileView = () => {
       setIsLoading(false);
     }
   };
-  console.log(singleuser, passportdata, "travelrow");
+  const getalldata = async () => {
+    var allfacility = await axios
+      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        },
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+
+    dispatch(
+      storeAction.allcompanydataHander({
+        allcompanydata: allfacility.faculties,
+      })
+    );
+  };
+  const [resumevideo, setresumevideo] = useState(null);
+  const [uploadstatus, setuploadstatus] = useState(false);
+  const videoresume = async (e) => {
+    setuploadstatus(false);
+    formData.append("image", e.target.files[0]);
+    formData.append("name", `resume${singleuser[0].id}`);
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    setuploadstatus(true);
+    setresumevideo(response.data.img_url);
+  };
+  const saveresume = async () => {
+    setIsLoading(true);
+    var newobj = {
+      username: singleuser[0].username,
+      video_resume: resumevideo,
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}/`,
+        newobj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      var userinfo = await axios
+        .get(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+        setuploadstatus(false);
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
+      setTimeout(() => {
+        dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
+      }, 10);
+      dispatch(storeAction.isPopUpHander());
+
+      setIsLoading(false);
+    }
+  };
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -3380,9 +3485,9 @@ const ACandidateProfileView = () => {
                     <h2>Duration of project</h2>
                     <input
                       type="text"
-                      name="duration"
+                      name="duration_of_project"
                       onChange={handlechangenew}
-                      defaultValue={projectdata.duration}
+                      defaultValue={projectdata.duration_of_project}
                     />
                   </div>
                   <div className="adminEditOverlayContent">
@@ -3599,28 +3704,17 @@ const ACandidateProfileView = () => {
                 </div>
                 <div className="adminEditOverlayBody">
                   <div className="adminEditOverlayContent">
-                    <h3>Aadhaar Card Front</h3>
-                    <div className="adminEditOverlayUpload backGround">
-                      <div className="adminEditOverlayUploadHead">
-                        <img src={file} alt="" />
-                        <div className="adminEditOverlayUploadHeadRight">
-                          <h4>Aadhaar_card_front.jpg</h4>
-                          {/* <h5>1 MB</h5> */}
-                        </div>
-                      </div>
-                      <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
-                      <button>Upload new file</button>
-                    </div>
-                  </div>
-                  <div className="adminEditOverlayContent"></div>
-                  <div className="adminEditOverlayUpload marginTop20 backGround">
-                    <div className="adminEditOverlayUploadHead">
-                      <img src={file} alt="" />
-                      <div className="adminEditOverlayUploadHeadRight">
-                        <h4>Aadhaar_card_front.jpg</h4>
-                        {/* <h5>1 MB</h5> */}
-                      </div>
-                    </div>
+                    <h2>Upload Video Resume</h2>
+                    <input
+                      type="file"
+                      accept="video/*"
+                      onChange={videoresume}
+                    />
+                    {uploadstatus && (
+                      <h6 className="text-green-500 text-sm font-semibold my-2">
+                        Video Resume Uploaded Successfully
+                      </h6>
+                    )}
                   </div>
                 </div>
                 {/* <button className="adminEditAddMore">Add More</button> */}
@@ -3635,7 +3729,7 @@ const ACandidateProfileView = () => {
                   </button>
 
                   {loading === false ? (
-                    <button className="save" onClick={displayHandler}>
+                    <button className="save" onClick={saveresume}>
                       Save & Close
                     </button>
                   ) : (

@@ -1,6 +1,5 @@
 import React from "react";
 import "./Notification.css";
-import candidateNotificaion from "../../../assests/approveCandidate.svg";
 
 const Notification = (props) => {
   return (
