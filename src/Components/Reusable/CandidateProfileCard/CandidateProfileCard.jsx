@@ -587,8 +587,8 @@ const CandidateProfileCard = (props) => {
                         <div className="gradeCertificate1">
                           <img src={gallery} alt="" />
                           <div className="gradeCertificateDesc1">
-                            <h6>certificate01.jpeg</h6>
-                            <p>4 MB</p>
+                            <h6 className="mt-5">certificate01.jpeg</h6>
+                           
                           </div>
                         </div>
                       ) : null}

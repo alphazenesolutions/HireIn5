@@ -260,6 +260,7 @@ const TravelHistory = () => {
     }
     Getalldata();
   };
+  console.log(userdata, "userdata");
   return (
     <div>
       <div className="travelHistory">
@@ -357,6 +358,30 @@ const TravelHistory = () => {
                       </h3>
                     </div>
                   ) : null}
+
+                  {userdata[0].travel_info !== null
+                    ? userdata[0].travel_info.relocate_for_work.length !== 0
+                      ? userdata[0].travel_info.relocate_for_work.map(
+                          (data, index) => (
+                            <div className="travelGridOne" key={index}>
+                              <h1>Willing to locate to</h1>
+
+                              <h3>
+                                Are you willing : <p>{data.split(":")[0]}</p>
+                              </h3>
+                              <h3 className="marginBottom20">
+                                Preferred Countries :{" "}
+                                <p>{data.split(":")[1]}</p>
+                              </h3>
+                              <h3>
+                                How long are you willing to relocate :{" "}
+                                <p>{data.split(":")[2]}</p>
+                              </h3>
+                            </div>
+                          )
+                        )
+                      : null
+                    : null}
 
                   {/* <div className="travelGridOne">
                     <h1>Residency details</h1>
