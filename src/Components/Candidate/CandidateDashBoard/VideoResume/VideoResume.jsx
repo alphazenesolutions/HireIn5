@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
+import { FiVideo } from "react-icons/fi";
 
 const VideoResume = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -29,7 +30,7 @@ const VideoResume = () => {
 
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("video"));
-    setuploadstatus(false)
+    setuploadstatus(false);
   };
 
   const fileInputRef = useRef(null);
@@ -101,7 +102,9 @@ const VideoResume = () => {
             className={isArrow === true ? "videoResumeHead" : "bottomBorder"}
           >
             <div className="videoResumeHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <FiVideo />
+              </span>
               <h1>Video Resume</h1>
             </div>
             <div className="projectDetailsLeftIcon">

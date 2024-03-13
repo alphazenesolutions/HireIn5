@@ -14,6 +14,7 @@ import gallery from "../../../../assests/gallery.svg";
 import trash from "../../../../assests/trash-2.svg";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
+import { FiAward } from "react-icons/fi";
 
 const Certificate = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -175,7 +176,9 @@ const Certificate = () => {
             className={isArrow === true ? "certificateHead" : "bottomBorder"}
           >
             <div className="certificateHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <FiAward />
+              </span>
               <h1>Certificate</h1>
             </div>
             <div className="certificateLeftIcon">

@@ -12,6 +12,7 @@ import { storeAction } from "../../../../Store/Store";
 import plus from "../../../../assests/plus.svg";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
+import { LuFolderOpen } from "react-icons/lu";
 
 const ProjectDetails = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -140,7 +141,9 @@ const ProjectDetails = () => {
             className={isArrow === true ? "projectDetailsHead" : "bottomBorder"}
           >
             <div className="projectDetailsHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <LuFolderOpen />
+              </span>
               <h1>Project Details</h1>
             </div>
             <div className="projectDetailsLeftIcon">
