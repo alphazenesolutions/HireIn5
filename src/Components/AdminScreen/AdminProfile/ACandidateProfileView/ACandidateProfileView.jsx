@@ -3599,16 +3599,28 @@ const ACandidateProfileView = () => {
                 </div>
                 <div className="adminEditOverlayBody">
                   <div className="adminEditOverlayContent">
-                    <h2>Willingness to relocate</h2>
-                    <input type="text" />
+                    <h3>Aadhaar Card Front</h3>
+                    <div className="adminEditOverlayUpload backGround">
+                      <div className="adminEditOverlayUploadHead">
+                        <img src={file} alt="" />
+                        <div className="adminEditOverlayUploadHeadRight">
+                          <h4>Aadhaar_card_front.jpg</h4>
+                          {/* <h5>1 MB</h5> */}
+                        </div>
+                      </div>
+                      <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
+                      <button>Upload new file</button>
+                    </div>
                   </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Preferred countries</h2>
-                    <input type="text" />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Preferred duration for relocation</h2>
-                    <input type="text" />
+                  <div className="adminEditOverlayContent"></div>
+                  <div className="adminEditOverlayUpload marginTop20 backGround">
+                    <div className="adminEditOverlayUploadHead">
+                      <img src={file} alt="" />
+                      <div className="adminEditOverlayUploadHeadRight">
+                        <h4>Aadhaar_card_front.jpg</h4>
+                        {/* <h5>1 MB</h5> */}
+                      </div>
+                    </div>
                   </div>
                 </div>
                 {/* <button className="adminEditAddMore">Add More</button> */}

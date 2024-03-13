@@ -9,7 +9,7 @@ const Notification = (props) => {
         <div className="notificationContent ">
           <div className="alert"></div>
           <div className="notificationImg">
-            <img src={candidateNotificaion} alt="" />
+            {/* <img src={candidateNotificaion} alt="" /> */}
             <img src={props.Img} alt="" />
           </div>
           <div className="notificationInfo">

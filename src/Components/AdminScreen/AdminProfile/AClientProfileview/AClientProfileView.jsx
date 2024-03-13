@@ -12,6 +12,8 @@ import { storeAction } from "../../../../Store/Store";
 import { FiLoader } from "react-icons/fi";
 import Avatar from "react-avatar";
 import axios from "axios";
+import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
+import ContractCard from "../../../Reusable/ContractCard/ContractCard";
 
 const AClientProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
@@ -337,9 +339,7 @@ const AClientProfileView = () => {
       };
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
       setTimeout(() => {
-        dispatch(
-          storeAction.singleuserHander({ singleuser: [updatedObject] })
-        );
+        dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
       }, 10);
       dispatch(storeAction.isPopUpHander());
       setIsLoading(false);
@@ -431,6 +431,17 @@ const AClientProfileView = () => {
               }
             >
               Billing
+            </h5>
+            <h5
+              onClick={toggleHandler}
+              id="adminclientcontracts"
+              className={
+                isToggle === "adminclientcontracts"
+                  ? "clientViewTabActive"
+                  : "clientViewTabInactive"
+              }
+            >
+              Contracts
             </h5>
           </div>
           {isToggle === "basic" && (
@@ -1016,6 +1027,20 @@ const AClientProfileView = () => {
                       <FiLoader className="loadingIcon" />
                     </button>
                   )}
+                </div>
+              </div>
+            </>
+          )}
+          {isToggle == "adminclientcontracts" && (
+            <>
+              <div className="paddingTop50">
+                <div className="adminContractCard">
+                  <ContractCard />
+                  <ContractCard />
+                  <ContractCard />
+                  <div className="addContractCard">
+                    <p>+ Add contract</p>
+                  </div>
                 </div>
               </div>
             </>
