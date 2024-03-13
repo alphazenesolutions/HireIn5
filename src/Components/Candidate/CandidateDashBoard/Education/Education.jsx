@@ -304,13 +304,16 @@ const Education = () => {
                     defaultValue={educationdata.education_level}
                   />
                   <h2>Study Mode</h2>
-                  <input
-                    placeholder="Full-Time"
-                    type="text"
+                  <select
                     name="study_mode"
                     onChange={handlechange}
                     defaultValue={educationdata.study_mode}
-                  />
+                    selected={educationdata.study_mode}
+                  >
+                    <option value="">Select Study Mode</option>
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                  </select>
                 </div>
               </div>
 
