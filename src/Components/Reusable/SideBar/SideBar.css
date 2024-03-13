@@ -141,8 +141,8 @@
     font-weight: 500;
 }
 
-.menuImg {
-    height: 22px;
+.menuIcon {
+    font-size: 18px;
     object-fit: cover;
     margin-right: 10px;
 }
@@ -155,7 +155,7 @@
     color: var(--primaryColor);
 }
 
-.menu1:hover .menuImg {
+.menu1:hover .menuIcon {
     color: var(--primaryColor);
 }
 
