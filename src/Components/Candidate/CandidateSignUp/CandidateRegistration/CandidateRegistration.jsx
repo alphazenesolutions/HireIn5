@@ -27,6 +27,10 @@ import Select from "react-select";
 import country_and_states from "../../../../assests/country-states";
 
 const CandidateRegistration = () => {
+  const [validity, setValidity] = useState("");
+  const validityHandler = (e) => {
+    setValidity(e.target.id);
+  };
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const inputref = useRef("");
@@ -2325,20 +2329,49 @@ const CandidateRegistration = () => {
                             />
                           </div>
                           <div className="candidateInfo h-full">
-                            <h3>Validity of Visa</h3>
-                            <input
-                              type="date"
-                              placeholder="DD/MM/YYYY"
-                              onChange={(e) => {
-                                handlechangetravel(
-                                  e.target.value,
-                                  index,
-                                  "validity_of_visa"
-                                );
-                              }}
-                              defaultValue={data.validity_of_visa}
-                            />
+                            <h3>Do your Visa Valid</h3>
+                            <div className="validityButton">
+                              <button
+                                onClick={validityHandler}
+                                id="no"
+                                className={
+                                  validity == "no"
+                                    ? "validityNo"
+                                    : "validityNoDisable"
+                                }
+                              >
+                                NO
+                              </button>
+                              <button
+                                onClick={validityHandler}
+                                id="yes"
+                                className={
+                                  validity == "yes"
+                                    ? "validityYes"
+                                    : "validityYesDisable"
+                                }
+                              >
+                                Yes
+                              </button>
+                            </div>
                           </div>
+                          {validity == "yes" && (
+                            <div className="candidateInfo h-full">
+                              <h3>Validity of Visa</h3>
+                              <input
+                                type="date"
+                                placeholder="DD/MM/YYYY"
+                                onChange={(e) => {
+                                  handlechangetravel(
+                                    e.target.value,
+                                    index,
+                                    "validity_of_visa"
+                                  );
+                                }}
+                                defaultValue={data.validity_of_visa}
+                              />
+                            </div>
+                          )}
                         </div>
                         <hr className="border border-gray-400 my-5" />
                       </div>
