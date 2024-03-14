@@ -93,7 +93,6 @@ const SideBar = (props) => {
   const exitOverlayHandler = () => {
     dispatch(storeAction.isPopUpHander());
   };
-  console.log(isHover, "isHover");
   return (
     <div>
       <div className="sideNav">

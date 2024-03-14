@@ -14,6 +14,8 @@ import { FiLoader } from "react-icons/fi";
 import axios from "axios";
 import { FiBriefcase } from "react-icons/fi";
 import { FiUser } from "react-icons/fi";
+import Select from "react-select";
+import Skilllist from "../../../../assests/skillsJSON.json";
 
 const ProfessionalDetails = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -86,13 +88,38 @@ const ProfessionalDetails = () => {
               ? userdata[0].professional_details_info.years_active.split(",")[1]
               : ""
             : "",
-        skills:
-          userdata[0].professional_details_info !== null
-            ? userdata[0].professional_details_info.skills !== undefined
-              ? userdata[0].professional_details_info.skills.toString(" , ")
-              : ""
-            : "",
       });
+      if (userdata[0].professional_details_info !== null) {
+        if (userdata[0].professional_details_info.skills.length !== 0) {
+          var filter = [];
+          for (
+            var a = 0;
+            a < userdata[0].professional_details_info.skills.length;
+            a++
+          ) {
+            filter.push({
+              value: userdata[0].professional_details_info.skills[a],
+              label: userdata[0].professional_details_info.skills[a],
+            });
+          }
+          setSelectedOptionskill(filter);
+          setskill_list(userdata[0].professional_details_info.skills);
+        }
+      }
+    }
+    var skillarrray = Skilllist;
+    const uniqueSkills = Array.from(
+      new Set(skillarrray.map((skill) => skill.Skill))
+    );
+    if (uniqueSkills.length !== 0) {
+      var filter1 = [];
+      for (var i = 0; i < uniqueSkills.length; i++) {
+        filter1.push({
+          value: uniqueSkills[i],
+          label: uniqueSkills[i],
+        });
+      }
+      setskilloption(filter1);
     }
   };
 
@@ -111,7 +138,7 @@ const ProfessionalDetails = () => {
         location: educationdata.location,
         title: educationdata.title,
         years_active: `${educationdata.years_active_start},${educationdata.years_active_end}`,
-        skills: educationdata.skills.split(),
+        skills: skill_list,
       },
     };
     var updatedata = await axios
@@ -149,6 +176,34 @@ const ProfessionalDetails = () => {
       setloading(false);
     }
     getUserinfo();
+  };
+  const [selectedOptionskill, setSelectedOptionskill] = useState(null);
+  const [skilloption, setskilloption] = useState([]);
+  const [skill_list, setskill_list] = useState([]);
+  useEffect(() => {
+    getLocationdata();
+  }, [selectedOptionskill]);
+  const getLocationdata = async () => {
+    if (selectedOptionskill !== null) {
+      if (selectedOptionskill.length > 5) {
+        setSelectedOptionskill(null);
+        // setTimeout(() => {
+        //   setSelectedOptionskill(selectedOptionskill.slice(0, 5));
+        // }, 10);
+      } else {
+        if (selectedOptionskill !== null) {
+          const values_Array = selectedOptionskill.map(
+            (country) => country.value
+          );
+          setskill_list(values_Array);
+        }
+      }
+    }
+  };
+  const handleSelectChange = (selectedOptions) => {
+    if (selectedOptions.length <= 5) {
+      setSelectedOptionskill(selectedOptions);
+    }
   };
   return (
     <div>
@@ -318,12 +373,18 @@ const ProfessionalDetails = () => {
                     />
                   </div>
                   <h2>Skills</h2>
-                  <input
+                  {/* <input
                     placeholder="HTML"
                     type="text"
                     name="skills"
                     onChange={handlechange}
                     defaultValue={educationdata.skills}
+                  /> */}
+                  <Select
+                    value={selectedOptionskill}
+                    options={skilloption}
+                    isMulti
+                    onChange={handleSelectChange}
                   />
                   <div className="textDesc">
                     <h2>Description / Additional</h2>

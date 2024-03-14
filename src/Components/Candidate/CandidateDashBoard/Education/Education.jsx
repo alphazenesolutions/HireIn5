@@ -166,6 +166,8 @@ const Education = () => {
     updatedElements.splice(id, 1);
     setcertificate(updatedElements);
   };
+
+  
   return (
     <div>
       <div className="education">
@@ -218,15 +220,23 @@ const Education = () => {
                     <p>{userdata[0].education_info.cgpa}</p>
                   </div>
                   {certificate.length !== 0
-                    ? certificate.map((data, index) => (
-                        <div className="gradeCertificate">
-                          <img src={gallery} alt="" />
-                          <div className="gradeCertificateDesc">
-                            <h2>certificate0{index + 1}.jpeg</h2>
-                            {/* <p>4 MB</p> */}
+                    ? certificate.map((data, index) =>
+                        data.length !== 0 ? (
+                          <div
+                            className="gradeCertificate"
+                            key={index}
+                            onClick={() => {
+                              window.open(`${data}`, "_blank");
+                            }}
+                          >
+                            <img src={gallery} alt="" />
+                            <div className="gradeCertificateDesc">
+                              <h2>{data.split("/images/")[1].split("/")[1]}</h2>
+                              {/* <p>4 MB</p> */}
+                            </div>
                           </div>
-                        </div>
-                      ))
+                        ) : null
+                      )
                     : null}
                 </div>
               ) : (

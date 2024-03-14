@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./AClientProfileView.css";
 import clientProfile from "../../../../assests/gpay.png";
 import back from "../../../../assests/back.png";
@@ -14,6 +14,8 @@ import Avatar from "react-avatar";
 import axios from "axios";
 import ContractCard from "../../../Reusable/ContractCard/ContractCard";
 import { IoMdArrowBack } from "react-icons/io";
+import contractCard from "../../../../assests/contractCard.png";
+import moment from "moment";
 
 const AClientProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
@@ -60,6 +62,7 @@ const AClientProfileView = () => {
     title: "",
     phone: "",
   });
+  const [formdata, setformdata] = useState([]);
   useEffect(() => {
     getAllinfo();
   }, [singleuser]);
@@ -368,6 +371,79 @@ const AClientProfileView = () => {
         allcompanydata: allfacility.companies,
       })
     );
+  };
+
+  const fileInputRef = useRef(null);
+  const [formData] = useState(new FormData());
+  const handleFileInputChange = async (e) => {
+    formData.append("image", e.target.files[0]);
+    formData.append("name", `contract_${singleuser[0].id}`);
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    if (response.data.img_url.length !== 0) {
+      var obj = {
+        file: response.data.img_url,
+        user: singleuser[0].id,
+        name: e.target.files[0].name,
+      };
+      var createdata = await axios
+        .post(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${singleuser[0].id}/`,
+          obj,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      if (createdata !== null) {
+        fileInputRef.current.value = "";
+        getAlldata();
+      }
+    }
+    fileInputRef.current.value = "";
+  };
+  const showhandler = (data) => {
+    fileInputRef.current.click();
+  };
+  useEffect(() => {
+    getAlldata();
+  }, [singleuser]);
+  const getAlldata = async () => {
+    if (singleuser.length !== 0) {
+      var contactdata = await axios
+        .get(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${singleuser[0].id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      setformdata(contactdata);
+    }
   };
   return (
     <div>
@@ -1058,13 +1134,56 @@ const AClientProfileView = () => {
             <>
               <div className="paddingTop50">
                 <div className="adminContractCard">
-                  <ContractCard />
-                  <ContractCard />
-                  <ContractCard />
-                  <div className="addContractCard">
+                  <ContractCard name="Non Disclosure Agreement (NDA)" />
+                  <ContractCard name="Master Service Agreement (MSA)" />
+                  <ContractCard name="Statement of Work (SOW)" />
+                  {formdata.length !== 0
+                    ? formdata.map((data, index) =>
+                        data.name != "Non Disclosure Agreement (NDA)" &&
+                        data.name != "Master Service Agreement (MSA)" &&
+                        data.name != "Statement of Work (SOW)" ? (
+                          <div className="contractCard" key={index}>
+                            <div
+                              className="contractInner"
+                              onClick={() => {
+                                window.open(`${data.file}`, "_blank");
+                              }}
+                            >
+                              <div className="contractInnerImg">
+                                <img src={contractCard} alt="" />
+                              </div>
+                              <div className="contractInnerDesc">
+                                <h2>{data.name}</h2>
+                                Updated on {moment(data.uplaod_date).format("DD/MM/YYYY")}
+                              </div>
+                            </div>
+                            <input
+                              type="file"
+                              ref={fileInputRef}
+                              style={{ display: "none" }}
+                              name="aadhaarfront"
+                              onChange={handleFileInputChange}
+                            />
+                            <button title="" onClick={showhandler}>
+                              Upload again
+                            </button>
+                          </div>
+                        ) : null
+                      )
+                    : null}
+                  <div className="addContractCard" onClick={showhandler}>
                     <p>+ Add contract</p>
+
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      style={{ display: "none" }}
+                      name="aadhaarfront"
+                      onChange={handleFileInputChange}
+                    />
                   </div>
                 </div>
+                {/* <p>Contract Uploaded Successfully</p> */}
               </div>
             </>
           )}

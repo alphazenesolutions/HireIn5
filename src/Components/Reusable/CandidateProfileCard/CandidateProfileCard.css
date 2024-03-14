@@ -581,7 +581,9 @@ progress::-webkit-progress-value {
     align-items: flex-start;
     padding: 10px 12px;
     border-radius: 6px;
+    align-items: center;
     border: 1px solid var(--borderColor);
+    cursor: pointer;
 }
 
 .gradeCertificate1 img {

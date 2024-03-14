@@ -15,6 +15,8 @@ import trash from "../../../../assests/trash-2.svg";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
 import { FiAward } from "react-icons/fi";
+import Select from "react-select";
+import Skilllist from "../../../../assests/skillsJSON.json";
 
 const Certificate = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -40,7 +42,7 @@ const Certificate = () => {
         date_issued: educationdata.date_issued,
         description: educationdata.description,
         url: educationdata.url,
-        skills: educationdata.skills.split(),
+        skills: skill_list,
         certificate_file: certificate,
       },
     };
@@ -121,17 +123,37 @@ const Certificate = () => {
           userdata[0].certificate_info !== null
             ? userdata[0].certificate_info.url
             : "",
-
-        skills:
-          userdata[0].certificate_info !== null
-            ? userdata[0].certificate_info.skills !== undefined
-              ? userdata[0].certificate_info.skills.toString(" , ")
-              : ""
-            : "",
       });
       if (userdata[0].certificate_info !== null) {
         setcertificate(userdata[0].certificate_info.certificate_file);
       }
+      if (userdata[0].certificate_info !== null) {
+        if (userdata[0].certificate_info.skills.length !== 0) {
+          var filter = [];
+          for (var a = 0; a < userdata[0].certificate_info.skills.length; a++) {
+            filter.push({
+              value: userdata[0].certificate_info.skills[a],
+              label: userdata[0].certificate_info.skills[a],
+            });
+          }
+          setSelectedOptionskill(filter);
+          setskill_list(userdata[0].certificate_info.skills);
+        }
+      }
+    }
+    var skillarrray = Skilllist;
+    const uniqueSkills = Array.from(
+      new Set(skillarrray.map((skill) => skill.Skill))
+    );
+    if (uniqueSkills.length !== 0) {
+      var filter1 = [];
+      for (var i = 0; i < uniqueSkills.length; i++) {
+        filter1.push({
+          value: uniqueSkills[i],
+          label: uniqueSkills[i],
+        });
+      }
+      setskilloption(filter1);
     }
   };
   const handlechange = (e) => {
@@ -167,7 +189,34 @@ const Certificate = () => {
     updatedElements.splice(id, 1);
     setcertificate(updatedElements);
   };
-  console.log(certificate, "certificate");
+  const [selectedOptionskill, setSelectedOptionskill] = useState(null);
+  const [skilloption, setskilloption] = useState([]);
+  const [skill_list, setskill_list] = useState([]);
+  useEffect(() => {
+    getLocationdata();
+  }, [selectedOptionskill]);
+  const getLocationdata = async () => {
+    if (selectedOptionskill !== null) {
+      if (selectedOptionskill.length > 5) {
+        setSelectedOptionskill(null);
+        // setTimeout(() => {
+        //   setSelectedOptionskill(selectedOptionskill.slice(0, 5));
+        // }, 10);
+      } else {
+        if (selectedOptionskill !== null) {
+          const values_Array = selectedOptionskill.map(
+            (country) => country.value
+          );
+          setskill_list(values_Array);
+        }
+      }
+    }
+  };
+  const handleSelectChange = (selectedOptions) => {
+    if (selectedOptions.length <= 5) {
+      setSelectedOptionskill(selectedOptions);
+    }
+  };
   return (
     <div>
       <div className="certificate">
@@ -258,21 +307,25 @@ const Certificate = () => {
                     <p>{userdata[0].certificate_info.description}</p>
                   </div>
                 ) : null}
-                {certificate.length !== 0
-                  ? certificate.map((data, index) => (
-                      <div
-                        className="gradeCertificate"
-                        onClick={() => {
-                          window.open(`${data}`, "_blank");
-                        }}
-                      >
-                        <img src={gallery} alt="" />
-                        <div className="gradeCertificateDesc">
-                          <h2>certificate{index + 1}.jpeg</h2>
-                        </div>
-                      </div>
-                    ))
-                  : null}
+                <div className="flex gap-4">
+                  {certificate.length !== 0
+                    ? certificate.map((data, index) =>
+                        data.length !== 0 ? (
+                          <div
+                            className="gradeCertificate"
+                            onClick={() => {
+                              window.open(`${data}`, "_blank");
+                            }}
+                          >
+                            <img src={gallery} alt="" />
+                            <div className="gradeCertificateDesc">
+                              <h2>{data.split("/images/")[1].split("/")[1]}</h2>
+                            </div>
+                          </div>
+                        ) : null
+                      )
+                    : null}
+                </div>
               </div>
             ) : (
               <div className="educationDesc">
@@ -373,11 +426,17 @@ const Certificate = () => {
                       defaultValue={educationdata.date_issued}
                     />
                     <h2>Skills</h2>
-                    <input
+                    {/* <input
                       type="text"
                       name="skills"
                       onChange={handlechange}
                       defaultValue={educationdata.skills}
+                    /> */}
+                    <Select
+                      value={selectedOptionskill}
+                      options={skilloption}
+                      isMulti
+                      onChange={handleSelectChange}
                     />
                     <h2>Description</h2>
                     <input
@@ -407,39 +466,44 @@ const Certificate = () => {
                     onChange={handleFileInputChange}
                   />
                 </>
-                {isUpload === true ? (
-                  <>
-                    {certificate.length !== 0
-                      ? certificate.map((data, index) => (
-                          <div className="educationUploaded">
-                            <div className="educationUploadedFlex">
-                              <div className="educationUploadedFlexLeft">
-                                <img src={gallery} alt="" />
-                                <div className="educationUploadedFlexLeftDesc">
+                <>
+                  {certificate.length !== 0
+                    ? certificate.map((data, index) => (
+                        <div className="educationUploaded">
+                          <div className="educationUploadedFlex">
+                            <div className="educationUploadedFlexLeft">
+                              <img src={gallery} alt="" />
+                              <div className="educationUploadedFlexLeftDesc">
+                                {data.length !== 0 ? (
+                                  <h2>
+                                    {data.split("/images/")[1].split("/")[1]}
+                                  </h2>
+                                ) : (
                                   <h2>certificate{index + 1}.jpeg</h2>
-                                  {/* <p>4 MB</p> */}
-                                </div>
-                              </div>
-                              <div
-                                className="educationUploadedFlexRight"
-                                onClick={() => {
-                                  deletebtn(index);
-                                }}
-                              >
-                                <img src={trash} alt="" />
+                                )}
+
+                                {/* <p>4 MB</p> */}
                               </div>
                             </div>
-                            <div className="percent">
-                              <div className="range">
-                                <div className="InnerRange"></div>
-                              </div>
-                              <h2>100%</h2>
+                            <div
+                              className="educationUploadedFlexRight"
+                              onClick={() => {
+                                deletebtn(index);
+                              }}
+                            >
+                              <img src={trash} alt="" />
                             </div>
                           </div>
-                        ))
-                      : null}
-                  </>
-                ) : null}
+                          <div className="percent">
+                            <div className="range">
+                              <div className="InnerRange"></div>
+                            </div>
+                            <h2>100%</h2>
+                          </div>
+                        </div>
+                      ))
+                    : null}
+                </>
               </div>
               {/* <div className="AddMore">
                 <button>

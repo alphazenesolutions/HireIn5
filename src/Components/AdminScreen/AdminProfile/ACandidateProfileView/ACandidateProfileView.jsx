@@ -25,7 +25,6 @@ const ACandidateProfileView = () => {
   const token = useSelector((store) => store.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isDrop, setIsDrop] = useState(false);
   const [isToggle, setIsToggle] = useState("personal");
   const toggleHandler = (e) => {
     setIsToggle(e.target.id);
@@ -46,6 +45,46 @@ const ACandidateProfileView = () => {
   };
   const CloseOverlay = () => {
     dispatch(storeAction.isPopUpHander());
+  };
+  const approvrbtn = async () => {
+    setIsLoading(true);
+    var obj = {
+      username: singleuser[0].username,
+      apprual: true,
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}/`,
+        obj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      let updatedObject = {
+        ...singleuser[0],
+        apprual: true,
+      };
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata();
+      setTimeout(() => {
+        dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
+      }, 10);
+      dispatch(storeAction.isPopUpHander());
+      setIsLoading(false);
+    }
+    // dispatch(storeAction.isPopUpHander());
   };
 
   const [loading, setIsLoading] = useState(false);
@@ -399,7 +438,6 @@ const ACandidateProfileView = () => {
     } else {
       setformdata((values) => ({ ...values, [name]: value }));
     }
-    console.log(name, value, "name, value");
   };
   const savebasic = async () => {
     setIsLoading(true);
@@ -1388,8 +1426,11 @@ const ACandidateProfileView = () => {
                 <div className="clientProfileViewFlexLeftDesc">
                   <div className="clientProfileViewFlexLeftDescHead">
                     <h1>{singleuser[0].first_name}</h1>
-                    <span className="pendingApproval">Approval Pending</span>
-                    <img src={approvedTick} alt="" />
+                    {singleuser[0].apprual === false ? (
+                      <span className="pendingApproval">Approval Pending</span>
+                    ) : (
+                      <img src={approvedTick} alt="" />
+                    )}
                   </div>
                   {singleuser[0].preference_info !== null ? (
                     <div className="clientProfileViewFlexLeftDescRole">
@@ -1412,18 +1453,22 @@ const ACandidateProfileView = () => {
                 <button onClick={dropDownHandler} className="disableProfile">
                   <BsThreeDots />
                 </button>
-                {isPopUp == "approvedropdown" && (
-                  <div className="approvalMenu">
-                    <h3
-                      id="approveconformation"
-                      onClick={editHandler1}
-                      className="approvalMenuActive"
-                    >
-                      Approve Candidate
-                    </h3>
-                    <h3 className="approvalMenuDisable">Disable Profile</h3>
-                  </div>
-                )}
+                {isPopUp == "approvedropdown" &&
+                  (singleuser.length !== 0 ? (
+                    <div className="approvalMenu">
+                      {singleuser[0].apprual === false ? (
+                        <h3
+                          id="approveconformation"
+                          onClick={editHandler1}
+                          className="approvalMenuActive"
+                        >
+                          Approve Candidate
+                        </h3>
+                      ) : null}
+
+                      <h3 className="approvalMenuDisable">Disable Profile</h3>
+                    </div>
+                  ) : null)}
               </div>
             </div>
             <div className="calendlyLink">
@@ -3844,11 +3889,18 @@ const ACandidateProfileView = () => {
                 You’ve checked all the details and have confirmed that this
                 candidate has completed their profile.
               </p>
+
               <div className="approveCandidateOverlayButton">
                 <button className="discard">Cancel</button>
-                <button onClick={CloseOverlay} className="save">
-                  Yes, Approve
-                </button>
+                {loading === false ? (
+                  <button onClick={approvrbtn} className="save">
+                    Yes, Approve
+                  </button>
+                ) : (
+                  <button className="save w-[10rem] flex justify-center items-center">
+                    <FiLoader className="loadingIcon" />
+                  </button>
+                )}
               </div>
             </div>
           </div>
