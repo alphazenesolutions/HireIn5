@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -32,6 +33,7 @@ const DiscoverComp = () => {
   const dispatch = useDispatch();
   const token = useSelector((store) => store.token);
   const userid = useSelector((store) => store.userid);
+  const search_user = useSelector((store) => store.searchuser);
   const [isInput, setIsInput] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
   const [alldata, setalldata] = useState([]);
@@ -199,50 +201,102 @@ const DiscoverComp = () => {
   };
 
   const getSearchuser = async () => {
-    var allsearchfacility = await axios
-      .get(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/recentlyvisited/${userid}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    if (allsearchfacility.recently_visited.length !== 0) {
-      var unique = allsearchfacility.recently_visited.filter(
-        (value, index, array) => array.indexOf(value) === index
-      );
-      let data = JSON.stringify({
-        users_list: unique,
-      });
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}`,
-        headers: {
-          Authorization: `JWT ${token}`,
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-      var alluserdata = await axios
-        .request(config)
-        .then((response) => {
-          return response.data;
+    if (search_user.length !== 0) {
+      setsearchuser(search_user);
+      dispatch(storeAction.searchuserHander({ searchuser: search_user }));
+      var allsearchfacility = await axios
+        .get(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/recentlyvisited/${userid}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
         })
-        .catch((error) => {
-          return error;
+        .catch((err) => {
+          return err.response;
         });
-      setsearchuser(alluserdata);
+      if (allsearchfacility.recently_visited.length !== 0) {
+        var unique = allsearchfacility.recently_visited.filter(
+          (value, index, array) => array.indexOf(value) === index
+        );
+        let data = JSON.stringify({
+          users_list: unique,
+        });
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}`,
+          headers: {
+            Authorization: `JWT ${token}`,
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
+        var alluserdata = await axios
+          .request(config)
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            return error;
+          });
+        setsearchuser(alluserdata);
+        dispatch(storeAction.searchuserHander({ searchuser: alluserdata }));
+      } else {
+        setsearchuser([]);
+      }
     } else {
-      setsearchuser([]);
+      var allsearchfacility = await axios
+        .get(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/recentlyvisited/${userid}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      if (allsearchfacility.recently_visited.length !== 0) {
+        var unique = allsearchfacility.recently_visited.filter(
+          (value, index, array) => array.indexOf(value) === index
+        );
+        let data = JSON.stringify({
+          users_list: unique,
+        });
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}`,
+          headers: {
+            Authorization: `JWT ${token}`,
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
+        var alluserdata = await axios
+          .request(config)
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            return error;
+          });
+        setsearchuser(alluserdata);
+        dispatch(storeAction.searchuserHander({ searchuser: alluserdata }));
+      } else {
+        setsearchuser([]);
+      }
     }
   };
 
@@ -358,7 +412,6 @@ const DiscoverComp = () => {
       setselectseacrh(false);
     }
   };
-
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">

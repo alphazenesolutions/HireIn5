@@ -98,7 +98,6 @@ const AdminClientProfileComp = () => {
       setalldata(totaldata);
     }
   };
-  console.log(currentRecords, "currentRecords");
   return (
     <div>
       <div className="AdminClientProfileComp">

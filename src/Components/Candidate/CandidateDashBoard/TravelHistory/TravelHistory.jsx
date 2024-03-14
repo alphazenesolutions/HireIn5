@@ -261,7 +261,6 @@ const TravelHistory = () => {
     }
     Getalldata();
   };
-  console.log(userdata, "userdata");
   return (
     <div>
       <div className="travelHistory">
@@ -342,7 +341,6 @@ const TravelHistory = () => {
                   {userdata[0].travel_info !== null ? (
                     <div className="travelGridOne">
                       <h1>Countries you’re willing to travel to for work</h1>
-
                       {userdata[0].travel_info.country.length !== 0
                         ? userdata[0].travel_info.country.map((item, index) => (
                             <h2 key={index}>{item}</h2>
@@ -1045,7 +1043,7 @@ const TravelHistory = () => {
                         <div className="willingFlexLeft">
                           <div className="upto">
                             <h2>Country</h2>
-                            <h3>Select upto 3 countries</h3>
+                            {/* <h3>Select upto 3 countries</h3> */}
                           </div>
                           <input
                             type="text"

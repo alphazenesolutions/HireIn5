@@ -820,7 +820,8 @@ const CandidateRegistration = () => {
         travel_info: {
           travelled_to: arrayOfStrings,
           relocate_for_work: arrayOfStrings1,
-          country: valuesArray.length !== 0 ? valuesArray : [""],
+          // country: valuesArray.length !== 0 ? valuesArray : [""],
+          country: [travelform.country],
           onlyfor: travelform.onlyfor,
           duration: travelform.duration,
           travel_readlines: travelform.travel_readlines,
@@ -849,7 +850,12 @@ const CandidateRegistration = () => {
       if (
         update1_data.message === "User and Associated Info updated successfully"
       ) {
+        let updatedObject = {
+          ...userdata[0],
+          travel_info: update1_data.user.travel_info,
+        };
         setIsLoading(false);
+        dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
         setIsPage("page4");
         routeHandler();
       }
@@ -1989,7 +1995,7 @@ const CandidateRegistration = () => {
                   <h3>Optional</h3> */}
                 </div>
                 <input
-                  type="text"
+                  type="number"
                   placeholder="Link to proifle"
                   name="hackerrank"
                   onChange={handlechange}
@@ -2251,7 +2257,7 @@ const CandidateRegistration = () => {
                           </div>
 
                           <div className="candidateInfo h-full">
-                            <h3>Duration (In Days)</h3>
+                            <h3>Duration (In Weeks)</h3>
                             <p>
                               <input
                                 type="number"
@@ -2393,14 +2399,28 @@ const CandidateRegistration = () => {
               <div className="candidateInfo h-full">
                 <div className="infoHead">
                   <h3>Country</h3>
-                  <h3 title="">Select upto 3 countries</h3>
+                  {/* <h3 title="">Select upto 3 countries</h3> */}
                 </div>
-                <Select
+                {/* <Select
                   defaultValue={selectedOption}
                   onChange={setSelectedOption}
                   options={options}
                   isMulti
-                />
+                /> */}
+                <select
+                  id=""
+                  name="country"
+                  defaultValue={travelform.country}
+                  onChange={handlechange_travel}
+                  selected={travelform.country}
+                >
+                  <option value="">Select Country</option>
+                  <option value="Japan">Japan</option>
+                  <option value="Dubai">Dubai</option>
+                  <option value="Saudi Arabia"> Saudi Arabia</option>
+                  <option value="Singapore"> Singapore</option>
+                  <option value="Malaysia"> Malaysia</option>
+                </select>
               </div>
               <div className="candidateInfo h-full">
                 <h3>Only for</h3>
@@ -2447,7 +2467,7 @@ const CandidateRegistration = () => {
                       <option value="">Select duration</option>
                       <option value="3-6 months">3-6 months</option>
                       <option value="6-12 months">6-12 months</option>
-                      <option value="12 months"> 12 months</option>
+                      <option value=">12 months"> {">"}12 months</option>
                     </select>
                   </p>
                 </div>
@@ -2477,9 +2497,9 @@ const CandidateRegistration = () => {
                   </p>
                 </div>
               </div>
-              <button className="travelBottomButton" onClick={addcountrelocate}>
+              {/* <button className="travelBottomButton" onClick={addcountrelocate}>
                 + Add more
-              </button>
+              </button> */}
             </div>
             <div className="travelBottom">
               <h2>COUNTRIES YOU'RE WILLING TO RELOCATE FOR WORK</h2>

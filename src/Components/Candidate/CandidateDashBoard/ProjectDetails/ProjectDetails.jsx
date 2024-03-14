@@ -13,6 +13,8 @@ import plus from "../../../../assests/plus.svg";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
 import { LuFolderOpen } from "react-icons/lu";
+import Select from "react-select";
+import Skilllist from "../../../../assests/skillsJSON.json";
 
 const ProjectDetails = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -70,13 +72,38 @@ const ProjectDetails = () => {
           userdata[0].project_details_info !== null
             ? userdata[0].project_details_info.role
             : "",
-        skills:
-          userdata[0].project_details_info !== null
-            ? userdata[0].project_details_info.skills !== undefined
-              ? userdata[0].project_details_info.skills.toString(" , ")
-              : ""
-            : "",
       });
+      if (userdata[0].project_details_info !== null) {
+        if (userdata[0].project_details_info.skills.length !== 0) {
+          var filter = [];
+          for (
+            var a = 0;
+            a < userdata[0].project_details_info.skills.length;
+            a++
+          ) {
+            filter.push({
+              value: userdata[0].project_details_info.skills[a],
+              label: userdata[0].project_details_info.skills[a],
+            });
+          }
+          setSelectedOptionskill(filter);
+          setskill_list(userdata[0].project_details_info.skills);
+        }
+      }
+    }
+    var skillarrray = Skilllist;
+    const uniqueSkills = Array.from(
+      new Set(skillarrray.map((skill) => skill.Skill))
+    );
+    if (uniqueSkills.length !== 0) {
+      var filter1 = [];
+      for (var i = 0; i < uniqueSkills.length; i++) {
+        filter1.push({
+          value: uniqueSkills[i],
+          label: uniqueSkills[i],
+        });
+      }
+      setskilloption(filter1);
     }
   };
 
@@ -94,7 +121,7 @@ const ProjectDetails = () => {
         project_title: educationdata.project_title,
         reporting_to: educationdata.reporting_to,
         role: educationdata.role,
-        skills: educationdata.skills.split(),
+        skills: skill_list,
       },
     };
     var updatedata = await axios
@@ -132,6 +159,34 @@ const ProjectDetails = () => {
       setloading(false);
     }
     getUserinfo();
+  };
+  const [selectedOptionskill, setSelectedOptionskill] = useState(null);
+  const [skilloption, setskilloption] = useState([]);
+  const [skill_list, setskill_list] = useState([]);
+  useEffect(() => {
+    getLocationdata();
+  }, [selectedOptionskill]);
+  const getLocationdata = async () => {
+    if (selectedOptionskill !== null) {
+      if (selectedOptionskill.length > 5) {
+        setSelectedOptionskill(null);
+        // setTimeout(() => {
+        //   setSelectedOptionskill(selectedOptionskill.slice(0, 5));
+        // }, 10);
+      } else {
+        if (selectedOptionskill !== null) {
+          const values_Array = selectedOptionskill.map(
+            (country) => country.value
+          );
+          setskill_list(values_Array);
+        }
+      }
+    }
+  };
+  const handleSelectChange = (selectedOptions) => {
+    if (selectedOptions.length <= 5) {
+      setSelectedOptionskill(selectedOptions);
+    }
   };
   return (
     <div>
@@ -261,14 +316,20 @@ const ProjectDetails = () => {
                   />
                   <div className="skillFlex">
                     <h2>Key Skills</h2>
-                    {/* <h5>Minimum 5 skills and top 3 skills</h5> */}
+                    <h5>Maximum 5 skills and top 3 skills</h5>
                   </div>
-                  <input
+                  <Select
+                    value={selectedOptionskill}
+                    options={skilloption}
+                    isMulti
+                    onChange={handleSelectChange}
+                  />
+                  {/* <input
                     type="text"
                     name="skills"
                     onChange={handlechange}
                     defaultValue={educationdata.skills}
-                  />
+                  /> */}
                 </div>
                 <div className="projectDetailsOverlayFlexRight">
                   <h2>Description</h2>

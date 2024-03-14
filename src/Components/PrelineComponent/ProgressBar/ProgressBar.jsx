@@ -1,6 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const ProgressBar = () => {
+  const alluserdata = useSelector((store) => store.alluserdata);
   return (
     <div>
       <div class="relative size-[130px]">
@@ -38,7 +40,7 @@ const ProgressBar = () => {
         </svg>
         <div class="flex flex-col	 absolute top-1/2 start-1/2 transform -translate-y-1/2 -translate-x-1/2">
           <span class="text-center text-2xl font-bold text-gray-800 dark:text-black">
-            200
+            {alluserdata.length}
           </span>
           <p className="text-[#71717a]">Onboarded</p>
         </div>

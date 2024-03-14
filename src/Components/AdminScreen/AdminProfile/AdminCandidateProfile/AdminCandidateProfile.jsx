@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./AdminCandidateProfile.css";
@@ -9,7 +10,7 @@ import Avatar from "react-avatar";
 import { storeAction } from "../../../../Store/Store";
 import Pagination from "./Pagination";
 
-const AdminCandidateProfile = () => {
+const AdminCandidateProfile = ({ country }) => {
   const token = useSelector((store) => store.token);
   const alluserdata = useSelector((store) => store.alluserdata);
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ const AdminCandidateProfile = () => {
   }, []);
   const GetallCandidate = async () => {
     if (alluserdata.length !== 0) {
-      console.log(alluserdata, "alluserdata");
       setloading(false);
       setalldata(alluserdata);
       settotaldata(alluserdata);
@@ -85,6 +85,22 @@ const AdminCandidateProfile = () => {
       });
       setalldata(matchingSkills);
     } else {
+      setalldata(totaldata);
+    }
+  };
+  useEffect(() => {
+    Getfilter();
+  }, [country]);
+  const Getfilter = async () => {
+    if (country.length !== 0) {
+      const matchingSkills = totaldata.filter((skill) => {
+        return skill.current_place_of_residence == country;
+      });
+      setalldata(matchingSkills);
+    } else {
+      setTimeout(() => {
+        setalldata(alluserdata);
+      }, 10);
       setalldata(totaldata);
     }
   };

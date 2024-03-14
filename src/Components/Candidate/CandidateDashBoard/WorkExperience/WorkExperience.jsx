@@ -46,7 +46,7 @@ const WorkExperience = () => {
     location1: "",
     location2: "",
     location3: "",
-    preferred_work_timing: "",
+    preffered_work_timings: "",
   });
   const [loading, setloading] = useState(false);
 
@@ -91,7 +91,7 @@ const WorkExperience = () => {
         website_url: Experiencedata.website_url,
         hackerrank_url: Experiencedata.hackerrank_url,
         github_url: Experiencedata.github_url,
-        preffered_work_timings: Experiencedata.preferred_work_timing,
+        preffered_work_timings: Experiencedata.preffered_work_timings,
         preferred_method_of_work: [
           Experiencedata.preference1,
           Experiencedata.preference2,
@@ -184,8 +184,8 @@ const WorkExperience = () => {
             userdata[0].work_preference_info.preffered_work_location[1],
           location3:
             userdata[0].work_preference_info.preffered_work_location[2],
-          preferred_work_timing:
-            userdata[0].work_preference_info.preferred_work_timing,
+          preffered_work_timings:
+            userdata[0].work_preference_info.preffered_work_timings,
         });
         if (userdata[0].work_preference_info.key_skills.length !== 0) {
           var filter = [];
@@ -208,10 +208,14 @@ const WorkExperience = () => {
             i < userdata[0].work_preference_info.language.length;
             i++
           ) {
+    
             newfilter.push({
-              languages:
-                userdata[0].work_preference_info.language[i].split(":")[0],
-              level: userdata[0].work_preference_info.language[i].split(":")[1],
+              languages: userdata[0].work_preference_info.language[i]
+                .split(":")[0]
+                .replace(/\s/g, ""),
+              level: userdata[0].work_preference_info.language[i]
+                .split(":")[1]
+                .replace(/\s/g, ""),
             });
           }
           setrow(newfilter);
@@ -219,7 +223,6 @@ const WorkExperience = () => {
       }
     }
   };
-
   return (
     <div>
       <div className="workExperience">
@@ -487,11 +490,13 @@ const WorkExperience = () => {
                       <h3>Preferred Work Timings</h3>
                     </div>
                     <div className="keyskills2">
+                    
                       <select
-                        name="preferred_work_timing"
+                        name="preffered_work_timings"
                         onChange={handlechange}
-                        defaultValue={Experiencedata.preferred_work_timing}
+                        defaultValue={Experiencedata.preffered_work_timings}
                         placeholder="On Contract"
+                        selected={Experiencedata.preffered_work_timings}
                       >
                         <option value="">Select</option>
                         <option value="05:00 to 14:00 IST">

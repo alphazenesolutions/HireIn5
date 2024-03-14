@@ -13,6 +13,20 @@
 
 }
 
+.profileselect {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.selectdiv {
+    width: 40%;
+    gap: 2rem;
+    display: flex;
+}
+
 .AdminClientProfileCompSearch input {
     width: 100%;
     padding: 10px;
@@ -148,7 +162,7 @@
 /* page css for adminprofilepage */
 .shortListButtonDisable {
     width: 200px;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid var(--borderColor);
     margin-right: 15px;
     border-radius: 8px;
@@ -156,7 +170,7 @@
 
 .shortListButtonActive {
     width: 200px;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid var(--borderColor);
     margin-right: 15px;
     border-radius: 8px;
