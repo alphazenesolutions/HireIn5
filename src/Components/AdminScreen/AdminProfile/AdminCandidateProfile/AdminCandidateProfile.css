@@ -14,11 +14,18 @@
 }
 
 .profileselect {
-    width: 100%;
+    /* width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor); */
+
+    width: 50%;
     padding: 10px;
     border-radius: 8px;
     margin-top: 5px;
     border: 1px solid var(--borderColor);
+    margin-left: 234px;
 }
 
 .selectdiv {

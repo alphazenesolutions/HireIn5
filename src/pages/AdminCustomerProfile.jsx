@@ -45,7 +45,12 @@ const AdminCustomerProfile = () => {
         </div>
         {isButton === "candidate" && (
           <div className="selectdiv">
-            <select
+           
+            {/* <select className="profileselect" disabled>
+              <option value="">Status</option>
+              <option value="Benched">Benched</option>
+            </select> */}
+             <select
               className="profileselect"
               onChange={(e) => {
                 setcountry(e.target.value);
@@ -60,10 +65,6 @@ const AdminCustomerProfile = () => {
                   ))
                 : null}
             </select>
-            {/* <select className="profileselect" disabled>
-              <option value="">Status</option>
-              <option value="Benched">Benched</option>
-            </select> */}
           </div>
         )}
         {isButton === "client" && (
