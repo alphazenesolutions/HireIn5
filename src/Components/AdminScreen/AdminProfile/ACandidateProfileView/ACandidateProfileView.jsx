@@ -21,6 +21,7 @@ import { IoMdArrowBack } from "react-icons/io";
 
 const ACandidateProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
+  const alluserdata = useSelector((store) => store.alluserdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
   const dispatch = useDispatch();
@@ -77,7 +78,7 @@ const ACandidateProfileView = () => {
         apprual: true,
       };
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(updatedObject);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
       }, 10);
@@ -497,7 +498,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -549,7 +550,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -607,7 +608,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -722,7 +723,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -778,7 +779,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -844,7 +845,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -914,7 +915,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -982,7 +983,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1071,7 +1072,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1152,7 +1153,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1289,7 +1290,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1304,7 +1305,17 @@ const ACandidateProfileView = () => {
       setIsLoading(false);
     }
   };
-  const getalldata = async () => {
+  const getalldata = async (data) => {
+    const index = alluserdata.findIndex((item) => item.id === data.id);
+    if (index !== -1) {
+      const updatedArray = [...alluserdata];
+      updatedArray[index] = { ...updatedArray[index], ...data };
+
+      console.log(updatedArray);
+      dispatch(storeAction.alluserdataHander({ alluserdata: updatedArray }));
+    } else {
+      console.error("Object with the specified ID not found.");
+    }
     var allfacility = await axios
       .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {
         headers: {
@@ -1320,8 +1331,8 @@ const ACandidateProfileView = () => {
       });
 
     dispatch(
-      storeAction.allcompanydataHander({
-        allcompanydata: allfacility.faculties,
+      storeAction.alluserdataHander({
+        alluserdata: allfacility.faculties,
       })
     );
   };
@@ -1387,7 +1398,7 @@ const ACandidateProfileView = () => {
         });
       setuploadstatus(false);
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);

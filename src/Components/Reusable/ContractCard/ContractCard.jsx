@@ -125,7 +125,7 @@ const ContractCard = ({ name }) => {
         />
         {matchingObject && matchingObject.name === name ? (
           loading === false ? (
-            <button title="" onClick={showhandler}>
+            <button title="" onClick={showhandler} disabled>
               Upload again
             </button>
           ) : (

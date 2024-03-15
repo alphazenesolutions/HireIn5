@@ -47,7 +47,7 @@
     gap: 15px;
 }
 .contractCard button[title]{
-    background-color: white;
+    background-color: lightgray;
     border: 1px solid var(--borderColor);
     border-radius: 8px;
     color: black;

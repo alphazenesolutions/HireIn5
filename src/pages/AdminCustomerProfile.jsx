@@ -60,15 +60,15 @@ const AdminCustomerProfile = () => {
                   ))
                 : null}
             </select>
-            <select className="profileselect" disabled>
+            {/* <select className="profileselect" disabled>
               <option value="">Status</option>
               <option value="Benched">Benched</option>
-            </select>
+            </select> */}
           </div>
         )}
         {isButton === "client" && (
           <div className="selectdiv">
-            <select className="profileselect" disabled>
+            {/* <select className="profileselect" disabled>
               <option>Subscription Type</option>
               <option value="Starter">Starter</option>
               <option value="Pro">Pro</option>
@@ -77,7 +77,7 @@ const AdminCustomerProfile = () => {
               <option value="">Status</option>
               <option value="Inactive">Inactive</option>
               <option value="Active">Active</option>
-            </select>
+            </select> */}
           </div>
         )}
       </div>

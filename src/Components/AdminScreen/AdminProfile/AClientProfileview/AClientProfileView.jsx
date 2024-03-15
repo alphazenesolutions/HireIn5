@@ -1164,7 +1164,7 @@ const AClientProfileView = () => {
                               name="aadhaarfront"
                               onChange={handleFileInputChange}
                             />
-                            <button title="" onClick={showhandler}>
+                            <button title="" disabled onClick={showhandler}>
                               Upload again
                             </button>
                           </div>
