@@ -119,7 +119,7 @@ const AdminClientProfileComp = () => {
               <th>SUBSCRIPTION TYPE</th>
               <th>BILLING CYCLE</th>
               <th>STATUS</th>
-              <th>AGREEMENT STATUS</th>
+              {/* <th>AGREEMENT STATUS</th> */}
               <th></th>
             </tr>
             {!loading && currentRecords.length !== 0
@@ -159,9 +159,9 @@ const AdminClientProfileComp = () => {
                       <td>
                         <h1>-</h1>
                       </td>
-                      <td>
+                      {/* <td>
                         <h1>-</h1>
-                      </td>
+                      </td> */}
                       <td>
                         <p className={data.statusClass}>{data.clientStatus}</p>
                       </td>
