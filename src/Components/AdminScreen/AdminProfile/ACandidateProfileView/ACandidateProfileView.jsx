@@ -1310,31 +1310,27 @@ const ACandidateProfileView = () => {
     if (index !== -1) {
       const updatedArray = [...alluserdata];
       updatedArray[index] = { ...updatedArray[index], ...data };
-
-      console.log(updatedArray);
       dispatch(storeAction.alluserdataHander({ alluserdata: updatedArray }));
-    } else {
-      console.error("Object with the specified ID not found.");
     }
-    var allfacility = await axios
-      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${token}`,
-        },
-      })
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
+    // var allfacility = await axios
+    //   .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `JWT ${token}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     return res.data;
+    //   })
+    //   .catch((err) => {
+    //     return err.response;
+    //   });
 
-    dispatch(
-      storeAction.alluserdataHander({
-        alluserdata: allfacility.faculties,
-      })
-    );
+    // dispatch(
+    //   storeAction.alluserdataHander({
+    //     alluserdata: allfacility.faculties,
+    //   })
+    // );
   };
   const [resumevideo, setresumevideo] = useState(null);
   const [uploadstatus, setuploadstatus] = useState(false);
