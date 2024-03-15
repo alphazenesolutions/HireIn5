@@ -3886,7 +3886,7 @@ const ACandidateProfileView = () => {
         <>
           <div className="approveCandidateOverlay">
             <div className="candidateRateCardOverlayHead">
-              <h1>Candidate’s Rate (Pricing)</h1>
+              <h1>Approve Candidate</h1>
               <span onClick={CloseOverlay}>
                 <RxCross2 />
               </span>
