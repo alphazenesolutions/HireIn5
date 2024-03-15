@@ -2329,7 +2329,7 @@ const CandidateRegistration = () => {
                             />
                           </div>
                           <div className="candidateInfo h-full">
-                            <h3>Do your Visa Valid</h3>
+                            <h3>Do your Visa Valid?</h3>
                             <div className="validityButton">
                               <button
                                 onClick={validityHandler}
