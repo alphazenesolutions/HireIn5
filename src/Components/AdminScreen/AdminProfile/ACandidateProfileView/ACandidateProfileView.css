@@ -26,6 +26,14 @@
     border: 1px solid var(--borderColor);
 }
 
+.candidateRateSliderBody input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid var(--borderColor);
+}
+
 .CandidateProfileViewCardBody {
     border: 1px solid var(--borderColor);
     border-bottom: none;

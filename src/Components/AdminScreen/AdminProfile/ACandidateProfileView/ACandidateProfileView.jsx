@@ -18,8 +18,19 @@ import { BsThreeDots } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import approvedTick from "../../../../assests/approvedTick.svg";
 import { IoMdArrowBack } from "react-icons/io";
+import { toast, Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ACandidateProfileView = () => {
+  const customToastStyle = {
+    background: "#14B8A6", // Change this to the desired background color
+    // color: "#FFFFF", // Text color
+    "& .Toastify__toast-body svg": {
+      fill: "var(--toastify-color-light)", // Color of the success icon
+    },
+    color: "white", // Text color
+    "--toastify-icon-color-success": "white",
+  };
   const singleuser = useSelector((store) => store.singleuser);
   const alluserdata = useSelector((store) => store.alluserdata);
   const userid = useSelector((store) => store.userid);
@@ -73,6 +84,11 @@ const ACandidateProfileView = () => {
     if (
       updatedata.message === "User and Associated Info updated successfully"
     ) {
+      toast.success("Candidate approved", {
+        autoClose: 2000,
+        transition: Slide,
+        style: customToastStyle,
+      });
       let updatedObject = {
         ...singleuser[0],
         apprual: true,
@@ -191,6 +207,7 @@ const ACandidateProfileView = () => {
             i < singleuser[0].travel_info.travelled_to.length;
             i++
           ) {
+            console.log(singleuser[0], "lll");
             newarray.push({
               country:
                 singleuser[0].travel_info.travelled_to[i].split(":")[0]
@@ -1545,7 +1562,7 @@ const ACandidateProfileView = () => {
                 </div>
                 <div className="ClientProfileViewCardBody">
                   <div className="ClientProfileViewCardBodyTable">
-                    <h2>First Name</h2>
+                    <h2>First Name & Middle</h2>
                     <h3>{singleuser[0].first_name}</h3>
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
@@ -3834,26 +3851,26 @@ const ACandidateProfileView = () => {
               <div className="candidateRateCardOverlayBody">
                 <div className="candidateRateSlider">
                   <div className="candidateRateSliderHead">
-                    <h2>Hourly Rate</h2> <h3>Select a price range</h3>
+                    <h2>Hourly Rate</h2>
                   </div>
                   <div className="candidateRateSliderBody">
-                    <RangeSlider setrangevalue={setrangevalue} />
+                    <input type="number" />
                   </div>
                 </div>
                 <div className="candidateRateSlider">
                   <div className="candidateRateSliderHead">
-                    <h2>Hourly Rate</h2> <h3>Select a price range</h3>
+                    <h2>Hourly Rate</h2>
                   </div>
                   <div className="candidateRateSliderBody">
-                    <RangeSlider setrangevalue={setrangevalue} />
+                    <input type="number" />
                   </div>
                 </div>
                 <div className="candidateRateSlider">
                   <div className="candidateRateSliderHead">
-                    <h2>Hourly Rate</h2> <h3>Select a price range</h3>
+                    <h2>Hourly Rate</h2>
                   </div>
                   <div className="candidateRateSliderBody">
-                    <RangeSlider setrangevalue={setrangevalue} />
+                    <input type="number" />
                   </div>
                 </div>
               </div>
@@ -3913,6 +3930,7 @@ const ACandidateProfileView = () => {
           </div>
         </>
       )}
+      <ToastContainer />
     </div>
   );
 };

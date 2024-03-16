@@ -202,6 +202,7 @@ const DiscoverComp = () => {
 
   const getSearchuser = async () => {
     if (search_user.length !== 0) {
+      console.log("if");
       setsearchuser(search_user);
       dispatch(storeAction.searchuserHander({ searchuser: search_user }));
       var allsearchfacility = await axios
@@ -412,6 +413,7 @@ const DiscoverComp = () => {
       setselectseacrh(false);
     }
   };
+  console.log(searchuser, "searchuser");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100">

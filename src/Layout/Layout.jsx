@@ -87,11 +87,7 @@ const Layout = () => {
                     icon: <FaRegCircleUser />,
                     router: "customerProfile",
                   },
-                  {
-                    title: "Contracts",
-                    icon: <FiFileText />,
-                    router: "admincontracts",
-                  },
+
                   {
                     title: "Team members",
                     icon: <LuUsers2 />,

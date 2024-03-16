@@ -13,12 +13,15 @@ const ContractCard = ({ name }) => {
   const singleuser = useSelector((store) => store.singleuser);
   const token = useSelector((store) => store.token);
   const [loading, setloading] = useState(false);
+  const [updateid, setupdateid] = useState(null);
   const [formdata, setformdata] = useState([]);
 
   const fileInputRef = useRef(null);
+  const fileInputRef1 = useRef(null);
   const [formData] = useState(new FormData());
 
   const handleFileInputChange = async (e) => {
+
     setloading(true);
     formData.append("image", e.target.files[0]);
     formData.append("name", `contract_${singleuser[0].id}`);
@@ -37,32 +40,64 @@ const ContractCard = ({ name }) => {
         user: singleuser[0].id,
         name: name,
       };
-      var createdata = await axios
-        .post(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${singleuser[0].id}/`,
-          obj,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `JWT ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
-        });
-      if (createdata !== null) {
-        fileInputRef.current.value = "";
-        getAlldata();
+      if (e.target.name === "upload") {
+        var createdata = await axios
+          .post(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${singleuser[0].id}/`,
+            obj,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+        if (createdata !== null) {
+          fileInputRef.current.value = "";
+          fileInputRef1.current.value = "";
+
+          getAlldata();
+        }
+      } else {
+        var create_data = await axios
+          .put(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${updateid}/`,
+            obj,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+        if (create_data !== null) {
+          fileInputRef.current.value = "";
+          fileInputRef1.current.value = "";
+
+          getAlldata();
+        }
       }
     }
     setloading(false);
   };
   const showhandler = (data) => {
     fileInputRef.current.click();
+  };
+  const showhandler1 = (data) => {
+    setupdateid(data.id);
+    fileInputRef1.current.click();
   };
   useEffect(() => {
     getAlldata();
@@ -120,12 +155,25 @@ const ContractCard = ({ name }) => {
           type="file"
           ref={fileInputRef}
           style={{ display: "none" }}
-          name="aadhaarfront"
+          name="upload"
           onChange={handleFileInputChange}
         />
+        <input
+          type="file"
+          ref={fileInputRef1}
+          style={{ display: "none" }}
+          name="uploadagain"
+          onChange={handleFileInputChange}
+        />
+
         {matchingObject && matchingObject.name === name ? (
           loading === false ? (
-            <button title="" onClick={showhandler} disabled>
+            <button
+              title=""
+              onClick={() => {
+                showhandler1(matchingObject);
+              }}
+            >
               Upload again
             </button>
           ) : (

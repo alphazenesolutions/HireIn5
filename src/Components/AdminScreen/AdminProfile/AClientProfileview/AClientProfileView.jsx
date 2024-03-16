@@ -19,6 +19,7 @@ import moment from "moment";
 
 const AClientProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
+  const allcompanydata = useSelector((store) => store.allcompanydata);
   const token = useSelector((store) => store.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,9 +37,6 @@ const AClientProfileView = () => {
     dispatch(storeAction.isPopUpHander(e.target.id));
   };
   const [loading, setIsLoading] = useState(false);
-  const displayHandler = () => {
-    setIsLoading(true);
-  };
   const [companydata, setcompanydata] = useState({
     billing_address: "",
     billing_company: "",
@@ -90,8 +88,8 @@ const AClientProfileView = () => {
               : "",
           company_location:
             singleuser[0].company !== null
-              ? singleuser[0].company.company_location !== null
-                ? singleuser[0].company.company_location
+              ? singleuser[0].company.billing_address !== null
+                ? singleuser[0].company.billing_address
                 : ""
               : "",
           company_name:
@@ -184,7 +182,7 @@ const AClientProfileView = () => {
       username: singleuser[0].username,
       company: {
         company_name: companydata.company_name,
-        company_location: companydata.company_location,
+        billing_address: companydata.company_location,
         company_url: companydata.company_url,
       },
     };
@@ -210,7 +208,7 @@ const AClientProfileView = () => {
       "User and Associated Info updated successfully"
     ) {
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(updatedatabilling.user);
       setTimeout(() => {
         dispatch(
           storeAction.singleuserHander({ singleuser: [updatedatabilling.user] })
@@ -255,7 +253,7 @@ const AClientProfileView = () => {
       "User and Associated Info updated successfully"
     ) {
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(updatedatabilling.user);
       setTimeout(() => {
         dispatch(
           storeAction.singleuserHander({ singleuser: [updatedatabilling.user] })
@@ -296,7 +294,7 @@ const AClientProfileView = () => {
       "User and Associated Info updated successfully"
     ) {
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(updatedatabilling.user);
       setTimeout(() => {
         dispatch(
           storeAction.singleuserHander({ singleuser: [updatedatabilling.user] })
@@ -344,7 +342,7 @@ const AClientProfileView = () => {
         phone: basicdata.phone,
       };
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(updatedObject);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
       }, 10);
@@ -352,30 +350,23 @@ const AClientProfileView = () => {
       setIsLoading(false);
     }
   };
-  const getalldata = async () => {
-    var allfacility = await axios
-      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getCompanies`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${token}`,
-        },
-      })
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    dispatch(
-      storeAction.allcompanydataHander({
-        allcompanydata: allfacility.companies,
-      })
-    );
+  const getalldata = async (data) => {
+    const index = allcompanydata.findIndex((item) => item.id === data.id);
+    if (index !== -1) {
+      const updatedArray = [...allcompanydata];
+      updatedArray[index] = { ...updatedArray[index], ...data };
+      dispatch(
+        storeAction.allcompanydataHander({ allcompanydata: updatedArray })
+      );
+    }
   };
 
   const fileInputRef = useRef(null);
+  const fileInputRef1 = useRef(null);
+  const [updateid, setupdateid] = useState(null);
   const [formData] = useState(new FormData());
   const handleFileInputChange = async (e) => {
+    console.log(e.target.name);
     formData.append("image", e.target.files[0]);
     formData.append("name", `contract_${singleuser[0].id}`);
     const response = await axios.post(
@@ -394,37 +385,66 @@ const AClientProfileView = () => {
         user: singleuser[0].id,
         name: e.target.files[0].name,
       };
-      var createdata = await axios
-        .post(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${singleuser[0].id}/`,
-          obj,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `JWT ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
-        });
-      if (createdata !== null) {
-        fileInputRef.current.value = "";
-        getAlldata();
+      if (e.target.name === "upload") {
+        var createdata = await axios
+          .post(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${singleuser[0].id}/`,
+            obj,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+        if (createdata !== null) {
+          fileInputRef.current.value = "";
+          fileInputRef1.current.value = "";
+          getAll_data();
+        }
+      } else {
+        var create_data = await axios
+          .put(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${updateid}/`,
+            obj,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+        if (create_data !== null) {
+          fileInputRef.current.value = "";
+          fileInputRef1.current.value = "";
+          getAll_data();
+        }
       }
     }
-    fileInputRef.current.value = "";
   };
   const showhandler = (data) => {
     fileInputRef.current.click();
   };
+  const showhandler1 = (data) => {
+    setupdateid(data.id);
+    fileInputRef1.current.click();
+  };
   useEffect(() => {
-    getAlldata();
+    getAll_data();
   }, [singleuser]);
-  const getAlldata = async () => {
+  const getAll_data = async () => {
     if (singleuser.length !== 0) {
       var contactdata = await axios
         .get(
@@ -445,6 +465,46 @@ const AClientProfileView = () => {
       setformdata(contactdata);
     }
   };
+  const disablebtn = async (data) => {
+    setIsLoading(true);
+    var obj = {
+      username: data.username,
+      dissabled: true,
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${data.id}/`,
+        obj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      let updatedObject = {
+        ...singleuser[0],
+        dissabled: true,
+      };
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata(updatedObject);
+      setTimeout(() => {
+        dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
+      }, 10);
+      dispatch(storeAction.isPopUpHander());
+      setIsLoading(false);
+    }
+  };
+  console.log(singleuser, "singleuser[0].company");
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -504,7 +564,24 @@ const AClientProfileView = () => {
                 </div>
               </div>
               <div className="clientProfileViewFlexRight">
-                <button className="disableProfile">Disable profile</button>
+                {singleuser[0].dissabled == false ? (
+                  loading === false ? (
+                    <button
+                      className="disableProfile"
+                      onClick={() => {
+                        disablebtn(singleuser[0]);
+                      }}
+                    >
+                      Disable profile
+                    </button>
+                  ) : (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  )
+                ) : (
+                  <button className="disable_Profile">Disabled</button>
+                )}
               </div>
             </div>
           </div>
@@ -815,10 +892,55 @@ const AClientProfileView = () => {
                       <h3>-</h3>
                     )}
                   </div>
-                  {/* <div className="ClientProfileViewCardBodyTable">
+                  <div className="ClientProfileViewCardBodyTable">
+                    <h2>Company location</h2>
+                    {singleuser[0].company !== null ? (
+                      singleuser[0].company.company_location !== null ? (
+                        singleuser[0].company.company_location.length !== 0 ? (
+                          <h3>{singleuser[0].company.company_location}</h3>
+                        ) : (
+                          <h3>-</h3>
+                        )
+                      ) : (
+                        <h3>-</h3>
+                      )
+                    ) : (
+                      <h3>-</h3>
+                    )}
+                  </div>
+                  <div className="ClientProfileViewCardBodyTable">
+                    <h2>Company</h2>
+                    {singleuser[0].company !== null ? (
+                      singleuser[0].company.pincode !== null ? (
+                        singleuser[0].company.pincode.length !== 0 ? (
+                          <h3>{singleuser[0].company.pincode}</h3>
+                        ) : (
+                          <h3>-</h3>
+                        )
+                      ) : (
+                        <h3>-</h3>
+                      )
+                    ) : (
+                      <h3>-</h3>
+                    )}
+                  </div>
+                  <div className="ClientProfileViewCardBodyTable">
                     <h2>Company Registration No.</h2>
-                    <h3>-</h3>
-                  </div> */}
+                    {singleuser[0].company !== null ? (
+                      singleuser[0].company.company_register_no !== null ? (
+                        singleuser[0].company.company_register_no.length !==
+                        0 ? (
+                          <h3>{singleuser[0].company.company_register_no}</h3>
+                        ) : (
+                          <h3>-</h3>
+                        )
+                      ) : (
+                        <h3>-</h3>
+                      )
+                    ) : (
+                      <h3>-</h3>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="ClientProfileViewCard">
@@ -975,10 +1097,10 @@ const AClientProfileView = () => {
                       defaultValue={companydata.billing_address}
                     />
                   </div>
-                  {/* <div className="adminEditOverlayContent">
+                  <div className="adminEditOverlayContent">
                     <h2>Company Registration No.</h2>
                     <input type="text" />
-                  </div> */}
+                  </div>
                 </div>
                 {/* <button className="adminEditAddMore">Add More</button> */}
                 <div className="editOverlayButton">
@@ -1154,17 +1276,24 @@ const AClientProfileView = () => {
                               </div>
                               <div className="contractInnerDesc">
                                 <h2>{data.name}</h2>
-                                Updated on {moment(data.uplaod_date).format("DD/MM/YYYY")}
+                                Updated on{" "}
+                                {moment(data.uplaod_date).format("DD/MM/YYYY")}
                               </div>
                             </div>
+
                             <input
                               type="file"
-                              ref={fileInputRef}
+                              ref={fileInputRef1}
                               style={{ display: "none" }}
-                              name="aadhaarfront"
+                              name="uploadagain"
                               onChange={handleFileInputChange}
                             />
-                            <button title="" disabled onClick={showhandler}>
+                            <button
+                              title=""
+                              onClick={() => {
+                                showhandler1(data);
+                              }}
+                            >
                               Upload again
                             </button>
                           </div>
@@ -1178,7 +1307,7 @@ const AClientProfileView = () => {
                       type="file"
                       ref={fileInputRef}
                       style={{ display: "none" }}
-                      name="aadhaarfront"
+                      name="upload"
                       onChange={handleFileInputChange}
                     />
                   </div>
