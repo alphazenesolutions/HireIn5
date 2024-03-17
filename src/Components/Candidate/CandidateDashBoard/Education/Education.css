@@ -349,3 +349,42 @@
     font-weight: 400;
     opacity: 0.4;
 }
+
+@media only screen and (max-width: 600px) {
+    .educationDescOverlay {
+        width: 100%;
+        height: 100%;
+    }
+
+    .educationDescOverlayFlex {
+        flex-direction: column;
+        padding: 20px;
+        padding-top: 5px;
+    }
+
+    .educationDescOverlayFlexLeft {
+        width: 100%;
+        margin-right: 0%;
+    }
+
+    .educationDescOverlayFlexRight {
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .innerEducationOverlay {
+        height: 100%;
+        overflow-y: scroll;
+    }
+
+    .educationUpload {
+        width: 88%;
+        margin-bottom: 0%;
+    }
+
+    .educationUploaded {
+        width: 88%;
+        margin-top: 15px;
+        margin-bottom: 0%;
+    }
+}

@@ -213,6 +213,16 @@
     padding: 20px;
 }
 
+.travelHistoryHeadOverlay {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    border-bottom: 1px solid var(--dropBorderColor);
+    background-color: var(--dropColor);
+}
+
 .travelHistoryDescOverlay h6 {
     font-size: 14px;
     opacity: 0.5;
@@ -499,4 +509,73 @@
     font-weight: 600;
     opacity: 0.5;
     margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    .travelHistoryDescOverlay {
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+    }
+
+    .travelHistoryDescOverlay h6 {
+        padding: 20px;
+        padding-bottom: 0%;
+    }
+
+    .travelUpdateFlex {
+        flex-direction: column;
+    }
+
+    .travelUpdateFlexLeft {
+        width: 100%;
+    }
+
+    .travelUpdateFlexCenter {
+        width: 100%;
+    }
+
+    .travelUpdateFlexRight {
+        width: 100%;
+    }
+
+    .travelHistoryDescOverlay h6 {
+        padding: 10px 20px;
+        padding-bottom: 0;
+    }
+
+    .willingTravel {
+        padding-bottom: 0%;
+    }
+
+    .willingFlex {
+        flex-direction: column;
+    }
+
+    .willingFlexLeft {
+        width: 100%;
+        margin-right: 0%;
+    }
+
+    .willingFlexRight {
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .travelGrid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .travelHistoryDesc {
+        padding: 20px;
+    }
+
+    .travelUpdate h6 {
+        padding: 0px;
+    }
+
+    .innerTravelHistoryOverlay {
+        height: 100%;
+        overflow-y: scroll;
+    }
 }

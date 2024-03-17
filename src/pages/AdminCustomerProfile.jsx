@@ -218,7 +218,7 @@ const AdminCustomerProfile = () => {
             <select
               className="profileselect"
               onChange={(e) => {
-                setcountry(e.target.value);
+                // setcountry(e.target.value);
               }}
             >
               <option value="">Country</option>

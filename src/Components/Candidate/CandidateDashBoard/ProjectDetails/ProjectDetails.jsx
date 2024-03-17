@@ -15,6 +15,7 @@ import { FiLoader } from "react-icons/fi";
 import { LuFolderOpen } from "react-icons/lu";
 import Select from "react-select";
 import Skilllist from "../../../../assests/skillsJSON.json";
+import { RxCross1 } from "react-icons/rx";
 
 const ProjectDetails = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -33,6 +34,10 @@ const ProjectDetails = () => {
 
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("project"));
+  };
+
+  const exitOverlayHandler = () => {
+    dispatch(storeAction.isPopUpHander());
   };
 
   const [educationdata, seteducationdata] = useState({
@@ -268,7 +273,7 @@ const ProjectDetails = () => {
             ))}
           {isPopUp === "project" && (
             <div className="projectDetailsOverlay">
-              <div className="innerprojectDetails">
+              <div className="innerprojectDetailsOverlay">
                 <div
                   className={
                     isArrow === true ? "projectDetailsHead" : "bottomBorder"
@@ -277,6 +282,24 @@ const ProjectDetails = () => {
                   <div className="projectDetailsHeadLeft">
                     <img src={user} alt="" />
                     <h1>Project Details</h1>
+                  </div>
+                  <div
+                    onClick={exitOverlayHandler}
+                    className="projectDetailsLeftIcon"
+                  >
+                    <RxCross1 />
+
+                    {/* <img
+                      className="projectDetailsLeftIconSvg"
+                      onClick={overLayHandler}
+                      src={edit}
+                      alt=""
+                    />
+                    {isArrow === true ? (
+                      <img onClick={dropDownhandler} src={dropUp} alt="" />
+                    ) : (
+                      <img onClick={dropDownhandler} src={dropDown} alt="" />
+                    )} */}
                   </div>
                 </div>
               </div>

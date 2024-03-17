@@ -71,44 +71,43 @@ const AdminClientProfileComp = ({
               {/* <th>AGREEMENT STATUS</th> */}
               <th></th>
             </tr>
-            {!loading && currentRecords.length !== 0
-              ? currentRecords.map((data, index) => {
-                  return (
-                    <tr className="adminTableRow" key={index}>
-                      <td>
-                        <div className="tableName">
-                         
-                          {data.company !== null ? (
-                            data.profile_picture.length !== 0 ? (
-                              <img src={data.profile_picture} alt="" />
-                            ) : (
-                              <Avatar
-                                name={
-                                  data.company.company_name.length !== 0
-                                    ? data.company.company_name
-                                    : data.first_name
-                                }
-                                size={30}
-                                round="50px"
-                              />
-                            )
-                          ) : (
+            {!loading && currentRecords.length !== 0 ? (
+              currentRecords.map((data, index) => {
+                return (
+                  <tr className="adminTableRow" key={index}>
+                    <td>
+                      <div className="tableName">
+                        {data.company !== null ? (
+                          data.profile_picture.length !== 0 ? (
                             <img src={data.profile_picture} alt="" />
-                          )}
-                          {data.company !== null ? (
-                            <h1>{data.company.company_name}</h1>
                           ) : (
-                            <h1>{data.first_name}</h1>
-                          )}
-                        </div>
-                      </td>
-                      <td>
-                        <h1>{data.first_name}</h1>
-                      </td>
-                      <td>
-                        <h1>-</h1>
-                      </td>
-                      <td>
+                            <Avatar
+                              name={
+                                data.company.company_name.length !== 0
+                                  ? data.company.company_name
+                                  : data.first_name
+                              }
+                              size={30}
+                              round="50px"
+                            />
+                          )
+                        ) : (
+                          <img src={data.profile_picture} alt="" />
+                        )}
+                        {data.company !== null ? (
+                          <h1>{data.company.company_name}</h1>
+                        ) : (
+                          <h1>{data.first_name}</h1>
+                        )}
+                      </div>
+                    </td>
+                    <td>
+                      <h1>{data.first_name}</h1>
+                    </td>
+                    <td>
+                      <h1>-</h1>
+                    </td>
+                    {/* <td>
                         <h1>-</h1>
                       </td> */}
                     <td>
