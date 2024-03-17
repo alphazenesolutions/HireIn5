@@ -14,7 +14,6 @@ const OnBoard = () => {
   }, [islogin]);
   const Checkuser = () => {
     if (islogin === true) {
-      console.log(loginrole, "loginrole");
       if (loginrole == "2") {
         dispatch(storeAction.issidebarHandler({ issidebar: true }));
         window.location.replace("/#/discover");

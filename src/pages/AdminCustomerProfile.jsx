@@ -79,7 +79,6 @@ const AdminCustomerProfile = () => {
   };
   const getallclient = async () => {
     if (allcompanydata.length !== 0) {
-      console.log(allcompanydata, "allcompanydata");
       setloading(false);
       setalldata1(allcompanydata);
       settotaldata1(allcompanydata);
@@ -105,7 +104,6 @@ const AdminCustomerProfile = () => {
         })
       );
     } else {
-      console.log("ele");
       var allfacility_1 = await axios
         .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getCompanies`, {
           headers: {
@@ -167,7 +165,6 @@ const AdminCustomerProfile = () => {
         });
         setalldata(benchuser);
       } else if (e === "Hired") {
-        console.log("object");
         var hireduser = await totaldata.filter((data) => {
           return data.status === "Hired";
         });
@@ -247,12 +244,24 @@ const AdminCustomerProfile = () => {
           </div>
         )}
         {isButton === "client" && (
+          // <div className="selectdiv">
+          //   <select className="profileselect">
+          //     <option>Subscription Type</option>
+          //     <option value="Starter">Starter</option>
+          //     <option value="Pro">Pro</option>
+          //   </select>
+          //   <select
+          //     className="profileselect"
+          //     onChange={(e) => {
+          //       changestatus(e.target.value);
+          //     }}
+          //   >
+          //     <option value="">Status</option>
+          //     <option value="Inactive">Inactive</option>
+          //     <option value="Active">Active</option>
+          //   </select>
+          // </div>
           <div className="selectdiv">
-            {/* <select className="profileselect" disabled>
-              <option>Subscription Type</option>
-              <option value="Starter">Starter</option>
-              <option value="Pro">Pro</option>
-            </select> */}
             <select
               className="profileselect"
               onChange={(e) => {
@@ -263,6 +272,16 @@ const AdminCustomerProfile = () => {
               <option value="Inactive">Inactive</option>
               <option value="Active">Active</option>
             </select>
+            {/* <select
+              className="profileselect"
+              onChange={(e) => {
+                changecountry(e.target.value);
+              }}
+            >
+              <option value="">Subscription Type</option>
+              <option value="Starter">Starter</option>
+              <option value="Pro">Pro</option>
+            </select> */}
           </div>
         )}
       </div>
