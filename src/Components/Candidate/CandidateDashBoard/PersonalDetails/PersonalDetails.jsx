@@ -12,6 +12,7 @@ import axios from "axios";
 import { FiLoader } from "react-icons/fi";
 import country_and_states from "../../../../assests/country-states";
 import { FiUser } from "react-icons/fi";
+import { RxCross1 } from "react-icons/rx";
 
 const PersonalDetails = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -32,6 +33,9 @@ const PersonalDetails = () => {
 
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("personal"));
+  };
+  const exitOverLayHandler = () => {
+    dispatch(storeAction.isPopUpHander(""));
   };
   useEffect(() => {
     getUserinfo();
@@ -234,8 +238,12 @@ const PersonalDetails = () => {
                     <img src={user} alt="" />
                     <h1>Personal Details</h1>
                   </div>
-                  <div className="personalDetailsLeftIcon">
-                    <img
+                  <div
+                    onClick={exitOverLayHandler}
+                    className="personalDetailsLeftIcon"
+                  >
+                    <RxCross1 />
+                    {/* <img
                       className="personalDetailsLeftIconSvg"
                       onClick={overLayHandler}
                       src={edit}
@@ -245,7 +253,7 @@ const PersonalDetails = () => {
                       <img onClick={dropDownhandler} src={dropUp} alt="" />
                     ) : (
                       <img onClick={dropDownhandler} src={dropDown} alt="" />
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>

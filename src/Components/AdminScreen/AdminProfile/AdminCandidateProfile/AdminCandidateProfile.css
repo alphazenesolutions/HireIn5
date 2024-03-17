@@ -5,6 +5,17 @@
     margin-bottom: 30px;
 }
 
+.customerView {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.shortListButtonLeft {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .AdminClientProfileCompSearch {
     padding: 10px;
     position: relative;
@@ -35,11 +46,11 @@
     border: 1px solid var(--borderColor);
 }
 
-.AdminClientProfileCompSearch img {
+/* .AdminClientProfileCompSearch img {
     position: absolute;
     top: 25%;
     left: 2%;
-}
+} */
 
 /* table */
 
@@ -150,16 +161,24 @@
 }
 
 /* tablePagination */
-.tablePagination {
+/* .tablePagination {
     width: 100%;
     padding: 40px;
     border: 1px solid var(--borderColor);
     border-top: none;
     border-radius: 0px 0px 8px 8px;
-}
+} */
 
 
 /* page css for adminprofilepage */
+.shortListButton {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-between;
+
+}
+
 .shortListButtonDisable {
     width: 200px;
     padding: 10px;
@@ -228,4 +247,32 @@ nav {
     /* border: 1px solid #ccc; */
     color: #999;
     border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .shortListButton {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .shortListButtonDisable {
+        width: 48%;
+        margin-right: 0px;
+        padding: 5px;
+    }
+
+    .shortListButtonActive {
+        width: 48%;
+        margin-right: 0px;
+        padding: 5px;
+    }
+
+    .selectdiv {
+        display: none;
+    }
+
+    .shortListButtonLeft {
+        width: 100%;
+    }
+
 }

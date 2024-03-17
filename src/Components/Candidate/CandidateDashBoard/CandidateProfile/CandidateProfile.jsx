@@ -62,7 +62,7 @@ const CandidateProfile = () => {
   };
   return (
     <div>
-      <div className="paddingLeft100 paddingRight100">
+      <div className="profilePage paddingLeft100 paddingRight100">
         <DashHead
           left=""
           center=""

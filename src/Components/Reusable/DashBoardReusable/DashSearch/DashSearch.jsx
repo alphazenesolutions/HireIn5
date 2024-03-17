@@ -720,23 +720,27 @@ const DashSearch = (props) => {
             </div>
             <div className="workHistory">
               <div className="FilterToggle">
-                <h2>Currently available for work</h2>
-                <div
-                  onClick={toggleHandler}
-                  className={
-                    isToggle === true ? "toggleBodyRight" : "toggleBodyLeft"
-                  }
-                >
-                  <div className="toggle"></div>
+                <div className="FilterToggleLeft">
+                  <h2>Currently available for work</h2>
+                  <div
+                    onClick={toggleHandler}
+                    className={
+                      isToggle === true ? "toggleBodyRight" : "toggleBodyLeft"
+                    }
+                  >
+                    <div className="toggle"></div>
+                  </div>
                 </div>
-                <h2>Eligible for Overseas Travel</h2>
-                <div
-                  onClick={toggleHandler1}
-                  className={
-                    isToggle1 === true ? "toggleBodyRight" : "toggleBodyLeft"
-                  }
-                >
-                  <div className="toggle"></div>
+                <div className="FilterToggleLeft">
+                  <h2>Eligible for Overseas Travel</h2>
+                  <div
+                    onClick={toggleHandler1}
+                    className={
+                      isToggle1 === true ? "toggleBodyRight" : "toggleBodyLeft"
+                    }
+                  >
+                    <div className="toggle"></div>
+                  </div>
                 </div>
               </div>
             </div>

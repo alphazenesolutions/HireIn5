@@ -128,7 +128,6 @@ const AdminClientProfileComp = () => {
                     <tr className="adminTableRow" key={index}>
                       <td>
                         <div className="tableName">
-                         
                           {data.company !== null ? (
                             data.profile_picture.length !== 0 ? (
                               <img src={data.profile_picture} alt="" />
@@ -192,16 +191,16 @@ const AdminClientProfileComp = () => {
               </tr>
             )}
           </table>
-          {pageNumbers.length !== 0 ? (
-            <div className="tablePagination">
-              <Pagination
-                nPages={nPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-              />
-            </div>
-          ) : null}
         </div>
+        {pageNumbers.length !== 0 ? (
+          <div className="tablePagination">
+            <Pagination
+              nPages={nPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );

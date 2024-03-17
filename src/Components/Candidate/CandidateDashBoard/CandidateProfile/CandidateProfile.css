@@ -33,3 +33,11 @@
     border-radius: 8px;
     background-color: var(--primaryColor);
 }
+
+@media only screen and (max-width: 600px) {
+    .profilePage {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+}

@@ -16,7 +16,9 @@ const RangeSlider = ({ setrangevalue }) => {
 
   return (
     <div>
-      <h4 className="py-5">{value !== null ? `USD ${value[0]}-${value[1]}` : "Hourly Rate"}</h4>{" "}
+      <h4 className="pb-5 pt-2">
+        {value !== null ? `USD ${value[0]}-${value[1]}` : "Hourly Rate"}
+      </h4>{" "}
       <Box sx={{ width: 385 }}>
         <Slider
           value={value}

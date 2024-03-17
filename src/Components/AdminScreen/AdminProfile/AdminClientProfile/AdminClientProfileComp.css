@@ -145,3 +145,37 @@
 
 
 /* page css for adminprofilepage */
+
+@media only screen and (max-width: 600px) {
+    .AdminClientProfileCompTable {
+        overflow: scroll;
+    }
+
+    .AdminClientProfileCompSearch img {
+        left: 5%;
+    }
+
+    .AdminClientTable {
+        overflow-x: scroll;
+    }
+
+    .tablePagination {
+        padding: 10px;
+    }
+
+    .shortListButtonDisable {
+        width: 48%;
+        margin-right: 0px;
+        padding: 5px;
+    }
+
+    .shortListButtonActive {
+        width: 48%;
+        margin-right: 0px;
+        padding: 5px;
+    }
+
+    .shortListButtonLeft {
+        width: 100%;
+    }
+}

@@ -218,6 +218,10 @@
     margin-right: 15px;
 }
 
+.FilterToggleLeft {
+    display: flex;
+}
+
 .workHistory {
     display: flex;
     align-items: center;
@@ -428,4 +432,124 @@
 .searchDropDown h2:hover {
     background-color: var(--disableColor);
     border-radius: 8px;
+}
+
+@media only screen and (max-width: 600px) {
+    .dashBoardMainSearch {
+        padding-right: 0px;
+    }
+
+    .allFilter {
+        width: 100%;
+        transform: translate(-50%, -50%);
+        overflow-y: scroll;
+        height: 100%;
+    }
+
+    .FilterToggle {
+        width: 100%;
+        flex-direction: column;
+        padding: 0px 10px;
+    }
+
+    .FilterToggleLeft {
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    .workHistory {
+        justify-content: space-between;
+    }
+
+    .allFilterBodyButton {
+        flex-direction: column;
+        padding: 20px;
+        padding-top: 10px;
+
+    }
+
+    .ResetAll {
+        margin-right: 0px;
+        width: 100%;
+        padding: 8px 10px;
+        margin-bottom: 15px;
+    }
+
+    .SetFilter {
+        width: 100%;
+        padding: 8px 10px;
+    }
+
+    .filterRate {
+        width: 100%;
+        margin-right: 0px;
+    }
+
+    .filterSkill {
+        padding: 0px 20px;
+        padding-top: 15px;
+    }
+
+    .filterSkillHead {
+        margin-bottom: 10px;
+    }
+
+    .allFilterBody {
+        flex-direction: column;
+        padding: 20px;
+
+    }
+
+    .allFilterBody h4 {
+        margin-top: 0px;
+    }
+
+    .allFilterBodyBottom {
+        flex-direction: column;
+        padding: 0px 20px;
+
+    }
+
+    .allFilterBodyBottom input {
+        margin-bottom: 15px;
+    }
+
+    .workExp {
+        margin-right: 0px;
+        width: 100%;
+    }
+
+    .language {
+        width: 100%;
+    }
+
+    .fliterLocation {
+        width: 100%;
+    }
+
+    .fliterLocation h2 {
+        margin-bottom: 10px;
+    }
+
+    .location {
+        width: 310px;
+        left: 0;
+    }
+
+    .searchButton {
+        opacity: 1;
+        right: 5%;
+        top: 12%;
+    }
+
+    .dashBoardMainSelect {
+        justify-content: space-between;
+    }
+
+    .dashBoardMainSelectbutton {
+        margin-right: 0px;
+        font-size: 12px;
+    }
 }
