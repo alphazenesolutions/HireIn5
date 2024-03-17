@@ -1,16 +1,16 @@
-.adminTeamMember{
+.adminTeamMember {
     width: 100%;
     height: 100%;
     background-color: white;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    border:  1px solid #E4E4E7;
+    border: 1px solid #E4E4E7;
     border-radius: 10px;
     margin-bottom: 50px;
 }
 
-.teamMemberInputs{
+.teamMemberInputs {
     width: 100%;
     height: 100%;
     /* background-color: green; */
@@ -18,24 +18,29 @@
     flex-direction: column;
     margin: 10px 0px;
 }
-.adminTeamMember h3{
+
+.adminTeamMember h3 {
     font-size: 18px;
     font-weight: 600;
 }
-.teamMemberInputs h4{
+
+.teamMemberInputs h4 {
     margin-bottom: 5px;
     font-size: 14px;
     font-weight: 600;
 }
-.teamMemberInputs input{
+
+.teamMemberInputs input {
     padding: 10px;
     border-radius: 7px;
-    border:  1px solid #E4E4E7;
+    border: 1px solid #E4E4E7;
 }
-.teamMemberInputs input::placeholder{
-    color:#D4D4D8;
+
+.teamMemberInputs input::placeholder {
+    color: #D4D4D8;
 }
-.teamMemberLevel{
+
+.teamMemberLevel {
     width: 40%;
     height: 100%;
     /* background-color: green; */
@@ -43,91 +48,124 @@
     flex-direction: column;
     margin: 0px 0px;
     margin-left: 20px;
-}.teamMemberLevel h4{
+}
+
+.teamMemberLevel h4 {
     font-weight: 600;
 }
-.teamMemberLevel .editAccess{
+
+.teamMemberLevel .editAccess {
     width: 100%;
     padding: 0;
     margin: 0;
     display: flex;
     position: relative;
 }
-.teamMemberLevel .editAccess1 input::placeholder{
+
+.teamMemberLevel .editAccess1 input::placeholder {
     color: black;
 }
-.teamMemberLevel .editAccess .editAccess1{
+
+.teamMemberLevel .editAccess .editAccess1 {
     width: 100%;
     padding: 0px;
 
 }
-.teamMemberLevel .editDropDown{
+
+.teamMemberLevel .editDropDown {
     width: 100%;
     background-color: white;
     bottom: -170px;
     position: absolute;
 }
-.teamMemberLevel h4{
+
+.teamMemberLevel h4 {
     margin-bottom: 5px;
 }
-.teamMemberLevel button{
+
+.Toastify__toast-theme--light {
+    color: white !important;
+}
+
+.Toastify__close-button{
+    display: none;
+}
+
+/* .Toastify__progress-bar--wrp {
+    display: none;
+} */
+
+.toastify-icon-color-success {
+    color: white !important;
+}
+
+.teamMemberLevel button {
     padding: 10px;
     border-radius: 7px;
-    border:  1px solid #E4E4E7;
+    border: 1px solid #E4E4E7;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     font-weight: 500;
 }
-.teamMemberLevel input::placeholder{
-    color:#D4D4D8;
+
+.teamMemberLevel input::placeholder {
+    color: #D4D4D8;
 }
 
-.teamMember{
+.teamMember {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.TeamSend{
+
+.TeamSend {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding: 10px 0px;
 }
-.TeamSend button{
-    background-color: #E4E4E7;
+
+.TeamSend button {
+    background-color: var(--primaryColor);
     padding: 8px 10px;
-    border-radius:8px;
-    color: #A1A1AA;
+    border-radius: 8px;
+    color: white;
 }
-.manageMember{
+
+.manageMember {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     margin: 10px 0px;
-}.manageMember h2{
+}
+
+.manageMember h2 {
     text-transform: uppercase;
 }
-.manageMember h2{
+
+.manageMember h2 {
     font-size: 13px;
     font-family: 500;
     color: #A1A1AA;
     margin: 10px 0px;
     font-weight: 600;
 }
-.manageMemberEdit{
+
+.manageMemberEdit {
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--borderColor);
-    padding:10px 0px;
+    padding: 10px 0px;
 }
-.manageMember .editAccess{
+
+.manageMember .editAccess {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -135,7 +173,8 @@
     position: relative;
 
 }
-.manageMember .editAccess1{
+
+.manageMember .editAccess1 {
     width: 120px;
     display: flex;
     align-items: center;
@@ -144,7 +183,8 @@
     border: 1px solid var(--borderColor);
     border-radius: 8px;
 }
-.manageMember .editAccess1 button{
+
+.manageMember .editAccess1 button {
     width: 100%;
     height: 100%;
     border: none;
@@ -152,13 +192,14 @@
     font-weight: 500;
     font-size: 14px;
     display: flex;
-    padding:2px;
+    padding: 2px;
     border-radius: 7px;
     align-items: center;
     justify-content: space-between;
     font-weight: bold;
 }
-.manageMember .editAccess1 input{
+
+.manageMember .editAccess1 input {
     width: 100%;
     height: 100%;
     border: none;
@@ -167,18 +208,21 @@
     font-size: 14px;
 }
 
-.manageMember .editAccess1 input::placeholder{
+.manageMember .editAccess1 input::placeholder {
     color: black !important;
 
 }
-.checkicon{
+
+.checkicon {
     margin-top: 5px;
 }
-.editIcon{
+
+.editIcon {
     display: flex;
     flex-direction: column;
 }
-.manageMemberEdit .dropHandler{
+
+.manageMemberEdit .dropHandler {
     width: 180px;
     height: auto;
     padding: 20px;
@@ -189,9 +233,10 @@
     bottom: -200px;
     position: absolute;
     right: 0;
-    background-color:white ;
+    background-color: white;
 }
-.editDropDown h3{
+
+.editDropDown h3 {
     margin: 7px 0px;
     padding: 5px 10px;
     border-radius: 8px;
@@ -201,19 +246,23 @@
     align-items: center;
     justify-content: space-between;
 }
-.editDropDown h3 img{
+
+.editDropDown h3 img {
     opacity: 0;
 }
-.editDropDown h3:hover{
+
+.editDropDown h3:hover {
     background-color: #EDE9FE;
     color: #8B5CF6;
     padding: 5px 10px;
 
 }
-.editDropDown h3:hover img{
+
+.editDropDown h3:hover img {
     opacity: 1;
 }
-.manageMemberEdit .dropHandler h3[title]{
+
+.manageMemberEdit .dropHandler h3[title] {
     margin: 7px 0px;
     padding: 5px 10px;
     border-radius: 8px;
@@ -221,41 +270,48 @@
     font-weight: 500;
 
 }
-.manageMemberEdit p{
+
+.manageMemberEdit p {
     color: #A1A1AA;
 }
-.manageMemberEdit .dropHandler h3[title]{
+
+.manageMemberEdit .dropHandler h3[title] {
     background-color: #FEF2F2;
     color: #F87171;
     padding: 5px 10px;
 }
-.dropHandler{
+
+.dropHandler {
     width: 100%;
     padding: 15px;
     margin-top: 10px;
-    background-color:white;
+    background-color: white;
     border-radius: 8px;
-    border:  1px solid var(--borderColor);
+    border: 1px solid var(--borderColor);
 }
-.dropHandler h3{
+
+.dropHandler h3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 4px 0px;
     font-size: 12px;
-     font-weight: 500;
-     padding: 5px 10px;
-     border-radius: 8px;
-     transition: 0.5s;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: 0.5s;
 }
-.dropHandler h3:hover{
+
+.dropHandler h3:hover {
     background-color: #EDE9FE;
     color: #8B5CF6;
 }
-.dropHandler h3 img{
+
+.dropHandler h3 img {
     opacity: 0;
     transition: 0.5s;
 }
-.dropHandler h3:hover img{
+
+.dropHandler h3:hover img {
     opacity: 1;
 }

@@ -168,9 +168,7 @@ const CandidateProfileCard = (props) => {
         dispatch(
           storeAction.singleuserHander({ singleuser: [updatedata.user] })
         );
-        dispatch(
-          storeAction.userdataHander({ userdata: [updatedata.user] })
-        );
+        dispatch(storeAction.userdataHander({ userdata: [updatedata.user] }));
       }, 10);
     }
   };
@@ -272,10 +270,11 @@ const CandidateProfileCard = (props) => {
                     <img src={user} alt="" />
                     <h5>Part-time availability</h5>
                   </div>
-                  {singleuser[0].current_place_of_residence !== null ? (
+                  {singleuser[0].address !== null ? (
                     <div className="proExperience">
                       <img src={map} alt="" />
-                      <h5>{singleuser[0].current_place_of_residence}</h5>
+                      <h5>{singleuser[0].address.city}, {singleuser[0].address.state}, {singleuser[0].address.country}</h5>
+                      
                     </div>
                   ) : null}
                 </div>
@@ -393,7 +392,7 @@ const CandidateProfileCard = (props) => {
                   {isSelect === "assessments" && (
                     <div className="work">
                       <h5 onClick={buttonHandler1} id="technical">
-                        Technical (Self)
+                        Resume
                       </h5>
                       <h5 onClick={buttonHandler1} id="certificate">
                         Certifications
@@ -588,7 +587,6 @@ const CandidateProfileCard = (props) => {
                           <img src={gallery} alt="" />
                           <div className="gradeCertificateDesc1">
                             <h6 className="mt-5">certificate01.jpeg</h6>
-                           
                           </div>
                         </div>
                       ) : null}

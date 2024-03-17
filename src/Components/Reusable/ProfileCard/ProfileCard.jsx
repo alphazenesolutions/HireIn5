@@ -91,11 +91,11 @@ const ProfileCard = ({ filterdata, fun }) => {
                         <img src={user_check} alt="" /> Part-time availability
                       </p>
                     </div>
-                    {data.current_place_of_residence !== null ? (
+                    {data.address !== null ? (
                       <div className="candidateDiscoverExp">
                         <p>
                           <img src={location} alt="" />{" "}
-                          {data.current_place_of_residence}
+                          {data.address.city}, {data.address.state}, {data.address.country}
                         </p>
                       </div>
                     ) : null}

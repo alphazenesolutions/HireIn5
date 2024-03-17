@@ -18,9 +18,21 @@ import { BsThreeDots } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import approvedTick from "../../../../assests/approvedTick.svg";
 import { IoMdArrowBack } from "react-icons/io";
+import { toast, Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ACandidateProfileView = () => {
+  const customToastStyle = {
+    background: "#14B8A6", // Change this to the desired background color
+    // color: "#FFFFF", // Text color
+    "& .Toastify__toast-body svg": {
+      fill: "var(--toastify-color-light)", // Color of the success icon
+    },
+    color: "white", // Text color
+    "--toastify-icon-color-success": "white",
+  };
   const singleuser = useSelector((store) => store.singleuser);
+  const alluserdata = useSelector((store) => store.alluserdata);
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
   const dispatch = useDispatch();
@@ -72,12 +84,17 @@ const ACandidateProfileView = () => {
     if (
       updatedata.message === "User and Associated Info updated successfully"
     ) {
+      toast.success("Candidate approved", {
+        autoClose: 2000,
+        transition: Slide,
+        style: customToastStyle,
+      });
       let updatedObject = {
         ...singleuser[0],
         apprual: true,
       };
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(updatedObject);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
       }, 10);
@@ -497,7 +514,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -549,7 +566,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -607,7 +624,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -722,7 +739,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -778,7 +795,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -844,7 +861,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -914,7 +931,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -982,7 +999,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1071,7 +1088,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1152,7 +1169,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1289,7 +1306,7 @@ const ACandidateProfileView = () => {
           return err.response;
         });
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1304,26 +1321,32 @@ const ACandidateProfileView = () => {
       setIsLoading(false);
     }
   };
-  const getalldata = async () => {
-    var allfacility = await axios
-      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${token}`,
-        },
-      })
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
+  const getalldata = async (data) => {
+    const index = alluserdata.findIndex((item) => item.id === data.id);
+    if (index !== -1) {
+      const updatedArray = [...alluserdata];
+      updatedArray[index] = { ...updatedArray[index], ...data };
+      dispatch(storeAction.alluserdataHander({ alluserdata: updatedArray }));
+    }
+    // var allfacility = await axios
+    //   .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `JWT ${token}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     return res.data;
+    //   })
+    //   .catch((err) => {
+    //     return err.response;
+    //   });
 
-    dispatch(
-      storeAction.allcompanydataHander({
-        allcompanydata: allfacility.faculties,
-      })
-    );
+    // dispatch(
+    //   storeAction.alluserdataHander({
+    //     alluserdata: allfacility.faculties,
+    //   })
+    // );
   };
   const [resumevideo, setresumevideo] = useState(null);
   const [uploadstatus, setuploadstatus] = useState(false);
@@ -1387,7 +1410,7 @@ const ACandidateProfileView = () => {
         });
       setuploadstatus(false);
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata();
+      getalldata(userinfo);
       setTimeout(() => {
         dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
       }, 10);
@@ -1538,7 +1561,7 @@ const ACandidateProfileView = () => {
                 </div>
                 <div className="ClientProfileViewCardBody">
                   <div className="ClientProfileViewCardBodyTable">
-                    <h2>First Name</h2>
+                    <h2>First Name & Middle</h2>
                     <h3>{singleuser[0].first_name}</h3>
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
@@ -3827,26 +3850,26 @@ const ACandidateProfileView = () => {
               <div className="candidateRateCardOverlayBody">
                 <div className="candidateRateSlider">
                   <div className="candidateRateSliderHead">
-                    <h2>Hourly Rate</h2> <h3>Select a price range</h3>
+                    <h2>Hourly Rate</h2>
                   </div>
                   <div className="candidateRateSliderBody">
-                    <RangeSlider setrangevalue={setrangevalue} />
+                    <input type="number" />
                   </div>
                 </div>
                 <div className="candidateRateSlider">
                   <div className="candidateRateSliderHead">
-                    <h2>Hourly Rate</h2> <h3>Select a price range</h3>
+                    <h2>Hourly Rate</h2>
                   </div>
                   <div className="candidateRateSliderBody">
-                    <RangeSlider setrangevalue={setrangevalue} />
+                    <input type="number" />
                   </div>
                 </div>
                 <div className="candidateRateSlider">
                   <div className="candidateRateSliderHead">
-                    <h2>Hourly Rate</h2> <h3>Select a price range</h3>
+                    <h2>Hourly Rate</h2>
                   </div>
                   <div className="candidateRateSliderBody">
-                    <RangeSlider setrangevalue={setrangevalue} />
+                    <input type="number" />
                   </div>
                 </div>
               </div>
@@ -3879,7 +3902,7 @@ const ACandidateProfileView = () => {
         <>
           <div className="approveCandidateOverlay">
             <div className="candidateRateCardOverlayHead">
-              <h1>Candidate’s Rate (Pricing)</h1>
+              <h1>Approve Candidate</h1>
               <span onClick={CloseOverlay}>
                 <RxCross2 />
               </span>
@@ -3906,6 +3929,7 @@ const ACandidateProfileView = () => {
           </div>
         </>
       )}
+      <ToastContainer />
     </div>
   );
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./CandidateProfile.css";
 import Education from "../Education/Education";
@@ -80,16 +81,37 @@ const CandidateProfile = () => {
         />
         <div className="candidateProgress">
           <div className="candidateProgressHead">
-            <h1>Profile is completed</h1>
+            {isPage === false ? (
+              <h1>Profile is completed</h1>
+            ) : (
+              <h1>You are now ready to get Hired-in-5!</h1>
+            )}
+
             <h2>{percentage}%</h2>
           </div>
           {/* <div className="candidateProgressBar">
             <div className={`candidateProgressBarBackgound w-[${percentage}%]`}></div>
           </div> */}
           <div className="progress-container">
-            <progress id="file" value={percentage} max="100">
-              {percentage}%
-            </progress>
+            {isPage === false ? (
+              <progress
+                id="file"
+                value={percentage}
+                max="100"
+                class="progress_bar1 bg-primaryColor"
+              >
+                {percentage}%
+              </progress>
+            ) : (
+              <progress
+                id="file"
+                value={percentage}
+                max="100"
+                class="progress_bar bg-primaryColor"
+              >
+                {percentage}%
+              </progress>
+            )}
           </div>
         </div>
         {isPage === false && (

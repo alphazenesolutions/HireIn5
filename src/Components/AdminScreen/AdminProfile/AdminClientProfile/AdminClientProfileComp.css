@@ -118,6 +118,11 @@
     color: #EF4444;
 }
 
+.Active {
+    background-color: #dcfce7;
+    color: green;
+}
+
 .status {
     text-align: center;
     font-size: 13px;

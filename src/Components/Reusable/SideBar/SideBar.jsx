@@ -73,6 +73,10 @@ const SideBar = (props) => {
     dispatch(storeAction.tokenHandler({ token: null }));
     dispatch(storeAction.useridHandler({ userid: 5 }));
     dispatch(storeAction.isPopUpHander(""));
+    dispatch(storeAction.searchuserHander({ searchuser: [] }));
+    dispatch(storeAction.singleuserHander({ singleuser: [] }));
+    dispatch(storeAction.userdataHander({ userdata: [] }));
+    dispatch(storeAction.loginroleHander({ islogin: null }));
     window.location.replace("/#/login");
   };
 
