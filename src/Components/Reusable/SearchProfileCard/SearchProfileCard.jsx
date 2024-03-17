@@ -82,120 +82,122 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
   };
   return (
     <div>
-      <div className="clientInterview">
-        <div className="clientInterviewInner">
-          <div className="clientCarts">
-            <div className="clientCarts1">
-              <div className="candidateCartProfile">
-                <div className="candidateCartProfile1">
-                  <div className="candidateImage">
-                    {/* <img src={candidateimges} alt="" /> */}
-                    {datanew.profile_picture.length == 0 ? (
-                      <Avatar
-                        name={datanew.first_name}
-                        size={50}
-                        round="50px"
-                      />
-                    ) : (
-                      <img src={datanew.profile_picture} alt="" />
-                    )}
-                  </div>
-                  <div className="candidateCartName">
-                    <h3>{datanew.first_name}</h3>
-                    <h5>Candidate</h5>
-                  </div>
-                </div>
-                <div className="candidateHours">
-                  {/* <h2>&#8377; {datanew.hourly_rate}/hr</h2> */}
-                  <h2> Not provided yet</h2>
-                </div>
-              </div>
-              <div className="candidateCartSkills">
-                {datanew.preference_info.skills.length !== 0
-                  ? datanew.preference_info.skills.map((item, index) =>
-                      index == 0 || index == 1 || index == 2 ? (
-                        <h4>
-                          <img src={courseIcons} alt="" />
-                          {item}
-                        </h4>
+      {datanew !== undefined ? (
+        <div className="clientInterview">
+          <div className="clientInterviewInner">
+            <div className="clientCarts">
+              <div className="clientCarts1">
+                <div className="candidateCartProfile">
+                  <div className="candidateCartProfile1">
+                    <div className="candidateImage">
+                      {/* <img src={candidateimges} alt="" /> */}
+                      {datanew.profile_picture.length == 0 ? (
+                        <Avatar
+                          name={datanew.first_name}
+                          size={50}
+                          round="50px"
+                        />
                       ) : (
-                        <h4 key={index}>{item}</h4>
-                      )
-                    )
-                  : null}
-              </div>
-              <div className="candidateCartExperience">
-                {datanew.preference_info !== null ? (
-                  <>
-                    <div className="candidateCartExp">
-                      <p>
-                        <img src={briefcase} alt="" />{" "}
-                        {datanew.preference_info.year_of_experience} years of
-                        experience
-                      </p>
+                        <img src={datanew.profile_picture} alt="" />
+                      )}
                     </div>
-                    <div className="candidateCartExp">
-                      <p>
-                        <img src={graduation_cap} alt="" />{" "}
-                        {datanew.preference_info.qualification}
-                      </p>
+                    <div className="candidateCartName">
+                      <h3>{datanew.first_name}</h3>
+                      <h5>Candidate</h5>
                     </div>
-                  </>
-                ) : null}
-
-                <div className="candidateCartExp">
-                  <p>
-                    <img src={user_check} alt="" />
-                    Not provided yet
-                  </p>
+                  </div>
+                  <div className="candidateHours">
+                    {/* <h2>&#8377; {datanew.hourly_rate}/hr</h2> */}
+                    <h2> Not provided yet</h2>
+                  </div>
                 </div>
-                {datanew.current_place_of_residence !== null ? (
+                <div className="candidateCartSkills">
+                  {datanew.preference_info.skills.length !== 0
+                    ? datanew.preference_info.skills.map((item, index) =>
+                        index == 0 || index == 1 || index == 2 ? (
+                          <h4>
+                            <img src={courseIcons} alt="" />
+                            {item}
+                          </h4>
+                        ) : (
+                          <h4 key={index}>{item}</h4>
+                        )
+                      )
+                    : null}
+                </div>
+                <div className="candidateCartExperience">
+                  {datanew.preference_info !== null ? (
+                    <>
+                      <div className="candidateCartExp">
+                        <p>
+                          <img src={briefcase} alt="" />{" "}
+                          {datanew.preference_info.year_of_experience} years of
+                          experience
+                        </p>
+                      </div>
+                      <div className="candidateCartExp">
+                        <p>
+                          <img src={graduation_cap} alt="" />{" "}
+                          {datanew.preference_info.qualification}
+                        </p>
+                      </div>
+                    </>
+                  ) : null}
+
                   <div className="candidateCartExp">
                     <p>
-                      <img src={location} alt="" />{" "}
-                      {datanew.current_place_of_residence}
+                      <img src={user_check} alt="" />
+                      Not provided yet
                     </p>
                   </div>
-                ) : null}
-              </div>
-              <div className="candidateCartButton">
-                <div className="cartbtnimg">
-                  {bookmarkdata.includes(datanew.id) ? (
-                    <img
-                      src={BookMarkSimple}
-                      alt=""
-                      onClick={() => {
-                        removebookmark(datanew.id);
-                      }}
-                    />
-                  ) : (
-                    <img
-                      src={Bookmarkwhite}
-                      alt=""
-                      onClick={() => {
-                        addbookmark(datanew.id);
-                      }}
-                    />
-                  )}
+                  {datanew.address !== null ? (
+                    <div className="candidateCartExp">
+                      <p>
+                        <img src={location} alt="" />{" "}
+                        {datanew.address.city}, {datanew.address.state}, {datanew.address.country}
+                      </p>
+                    </div>
+                  ) : null}
+                </div>
+                <div className="candidateCartButton">
+                  <div className="cartbtnimg">
+                    {bookmarkdata.includes(datanew.id) ? (
+                      <img
+                        src={BookMarkSimple}
+                        alt=""
+                        onClick={() => {
+                          removebookmark(datanew.id);
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={Bookmarkwhite}
+                        alt=""
+                        onClick={() => {
+                          addbookmark(datanew.id);
+                        }}
+                      />
+                    )}
 
-                  <button
-                    onClick={() => reserve("reserve", datanew)}
-                    className="cartbtnimgbutton1"
-                  >
-                    Reserve candidate
-                  </button>
-                  <button
-                    className="cartbtnimgbutton2"
-                    onClick={() => viewbtn(datanew)}
-                  >
-                    view
-                  </button>
+                    <button
+                      onClick={() => reserve("reserve", datanew)}
+                      className="cartbtnimgbutton1"
+                    >
+                      Reserve candidate
+                    </button>
+                    <button
+                      className="cartbtnimgbutton2"
+                      onClick={() => viewbtn(datanew)}
+                    >
+                      view
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

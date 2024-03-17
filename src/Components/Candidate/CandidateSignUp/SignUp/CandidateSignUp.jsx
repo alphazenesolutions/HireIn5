@@ -58,6 +58,7 @@ const CandidateSignUp = () => {
           username: signupdata.username,
           password: signupdata.password,
           role: 3,
+          status:"Benched"
         };
         var createuser = await axios
           .post(`https://hirein5-server.onrender.com/user/create/`, newobj)

@@ -207,7 +207,6 @@ const ACandidateProfileView = () => {
             i < singleuser[0].travel_info.travelled_to.length;
             i++
           ) {
-            console.log(singleuser[0], "lll");
             newarray.push({
               country:
                 singleuser[0].travel_info.travelled_to[i].split(":")[0]

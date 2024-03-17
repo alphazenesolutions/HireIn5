@@ -19,6 +19,7 @@
 
 .recentHeadRight h2 {
     color: var(--primaryColor);
+    font-weight: 500;
 }
 
 .recentHead button {

@@ -319,7 +319,6 @@ const AdminTeamMemberComp = () => {
       });
     setalldata(alldata);
   };
-  console.log(alldata, show, "alldata");
   return (
     <div>
       <div className="paddingLeft100 paddingRight100 ">

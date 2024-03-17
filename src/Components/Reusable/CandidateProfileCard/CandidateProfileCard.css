@@ -82,7 +82,7 @@
 progress {
     width: 100%;
     height: 12px;
-    background-color: var(--primaryColor);
+    /* background-color: var(--primaryColor); */
     border-radius: 20px;
     appearance: none;
 }
@@ -92,8 +92,17 @@ progress::-webkit-progress-bar {
     border-radius: 20px;
 }
 
-progress::-webkit-progress-value {
+.progress_bar {
+    background-color: red !important;
+}
+
+progress.progress_bar1::-webkit-progress-value {
     background-color: var(--primaryColor);
+    border-radius: 20px;
+}
+
+progress.progress_bar::-webkit-progress-value {
+    background-color: #14a6b8;
     border-radius: 20px;
 }
 

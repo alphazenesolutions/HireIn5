@@ -16,6 +16,7 @@ import ContractCard from "../../../Reusable/ContractCard/ContractCard";
 import { IoMdArrowBack } from "react-icons/io";
 import contractCard from "../../../../assests/contractCard.png";
 import moment from "moment";
+import country_and_states from "../../../../assests/country-states";
 
 const AClientProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
@@ -53,6 +54,8 @@ const AClientProfileView = () => {
     secondary_email: "",
     secondary_name: "",
     secondary_phone: "",
+    pincode: "",
+    company_register_no: "",
   });
   const [basicdata, setbasicdata] = useState({
     first_name: "",
@@ -116,6 +119,12 @@ const AClientProfileView = () => {
                 ? singleuser[0].company.country
                 : ""
               : "",
+          pincode:
+            singleuser[0].company !== null
+              ? singleuser[0].company.pincode !== null
+                ? singleuser[0].company.pincode
+                : ""
+              : "",
           duration:
             singleuser[0].company !== null
               ? singleuser[0].company.duration !== null
@@ -156,6 +165,12 @@ const AClientProfileView = () => {
             singleuser[0].company !== null
               ? singleuser[0].company.secondary_phone !== null
                 ? singleuser[0].company.secondary_phone
+                : ""
+              : "",
+          company_register_no:
+            singleuser[0].company !== null
+              ? singleuser[0].company.company_register_no !== null
+                ? singleuser[0].company.company_register_no
                 : ""
               : "",
         });
@@ -270,6 +285,9 @@ const AClientProfileView = () => {
       company: {
         billing_company: companydata.billing_company,
         billing_address: companydata.billing_address,
+        country: companydata.country,
+        pincode: companydata.pincode,
+        company_register_no: companydata.company_register_no,
       },
     };
     var updatedatabilling = await axios
@@ -366,7 +384,6 @@ const AClientProfileView = () => {
   const [updateid, setupdateid] = useState(null);
   const [formData] = useState(new FormData());
   const handleFileInputChange = async (e) => {
-    console.log(e.target.name);
     formData.append("image", e.target.files[0]);
     formData.append("name", `contract_${singleuser[0].id}`);
     const response = await axios.post(
@@ -504,7 +521,6 @@ const AClientProfileView = () => {
       setIsLoading(false);
     }
   };
-  console.log(singleuser, "singleuser[0].company");
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -896,8 +912,8 @@ const AClientProfileView = () => {
                     <h2>Company location</h2>
                     {singleuser[0].company !== null ? (
                       singleuser[0].company.company_location !== null ? (
-                        singleuser[0].company.company_location.length !== 0 ? (
-                          <h3>{singleuser[0].company.company_location}</h3>
+                        singleuser[0].company.country.length !== 0 ? (
+                          <h3>{singleuser[0].company.country}</h3>
                         ) : (
                           <h3>-</h3>
                         )
@@ -1098,8 +1114,50 @@ const AClientProfileView = () => {
                     />
                   </div>
                   <div className="adminEditOverlayContent">
+                    <h2>Company Country</h2>
+                    {/* <input
+                      type="text"
+                      name="billing_address"
+                      onChange={handlechange}
+                      defaultValue={companydata.country}
+                    /> */}
+                    <select
+                      onChange={handlechange}
+                      defaultValue={companydata.country}
+                      name="country"
+                      selected={companydata.country}
+                    >
+                      <option value="">Country</option>
+                      {country_and_states.country.length !== 0
+                        ? country_and_states.country.map((item, index) => (
+                            <option
+                              value={item.name}
+                              key={index}
+                              selected={companydata.country}
+                            >
+                              {item.name}
+                            </option>
+                          ))
+                        : null}
+                    </select>
+                  </div>
+                  <div className="adminEditOverlayContent">
+                    <h2>Company Pincode</h2>
+                    <input
+                      type="text"
+                      name="pincode"
+                      onChange={handlechange}
+                      defaultValue={companydata.pincode}
+                    />
+                  </div>
+                  <div className="adminEditOverlayContent">
                     <h2>Company Registration No.</h2>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      name="company_register_no"
+                      onChange={handlechange}
+                      defaultValue={companydata.company_register_no}
+                    />
                   </div>
                 </div>
                 {/* <button className="adminEditAddMore">Add More</button> */}

@@ -602,6 +602,24 @@ const DashSearch = (props) => {
     }
     setcount(count);
   };
+  const clearallbtn = async () => {
+    setallfilter([]);
+    dispatch(storeAction.isPopUpHander());
+    setIsToggle1(false);
+    setIsToggle(false);
+    setSelectedOption(null);
+    setSelectedOptionskill(null);
+    props.setfilterdata(props.alldata);
+    setcount(0);
+    setskill_list([]);
+    setlocation_list([]);
+    setallfilterdata({
+      experience: "",
+      languages: "",
+    });
+    setCost(false)
+    setlocationlist([]);
+  };
   return (
     <div>
       <div className={props.class}>
@@ -652,6 +670,9 @@ const DashSearch = (props) => {
             {count !== 0 ? <h6>{count}</h6> : null}
             <img src={downArrow} alt="" />
           </button>
+          <div className="recentHeadRight" onClick={clearallbtn}>
+            <h2 className="cursor-pointer">Clear All</h2>
+          </div>
         </div>
         {isPopUp === "hourly" && (
           <div className="hourlyRate">
