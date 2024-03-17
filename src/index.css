@@ -85,3 +85,15 @@ code {
 .paddingTop50 {
   padding-top: 50px;
 }
+
+.displayFlex {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.paddingXY10 {
+  padding-left: 15px;
+  padding-right: 15px;
+}

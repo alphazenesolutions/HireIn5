@@ -171,16 +171,16 @@ const AdminCandidateProfile = ({ alldata, totaldata, loading, setalldata }) => {
               )}
             </tbody>
           </table>
-          {pageNumbers.length !== 0 ? (
-            <div className="tablePagination">
-              <Pagination
-                nPages={nPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-              />
-            </div>
-          ) : null}
         </div>
+        {pageNumbers.length !== 0 ? (
+          <div className="tablePagination">
+            <Pagination
+              nPages={nPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );

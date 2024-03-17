@@ -218,18 +218,7 @@ const AdminCustomerProfile = () => {
             <select
               className="profileselect"
               onChange={(e) => {
-                change_status(e.target.value);
-              }}
-            >
-              <option value="">Status</option>
-              <option value="Benched">Benched</option>
-              <option value="Hired">Hired</option>
-              <option value="On-contract">On-contract</option>
-            </select>
-            <select
-              className="profileselect"
-              onChange={(e) => {
-                changecountry(e.target.value);
+                setcountry(e.target.value);
               }}
             >
               <option value="">Country</option>
@@ -241,47 +230,24 @@ const AdminCustomerProfile = () => {
                   ))
                 : null}
             </select>
+            <select className="profileselect" disabled>
+              <option value="">Status</option>
+              <option value="Benched">Benched</option>
+            </select>
           </div>
         )}
         {isButton === "client" && (
-          // <div className="selectdiv">
-          //   <select className="profileselect">
-          //     <option>Subscription Type</option>
-          //     <option value="Starter">Starter</option>
-          //     <option value="Pro">Pro</option>
-          //   </select>
-          //   <select
-          //     className="profileselect"
-          //     onChange={(e) => {
-          //       changestatus(e.target.value);
-          //     }}
-          //   >
-          //     <option value="">Status</option>
-          //     <option value="Inactive">Inactive</option>
-          //     <option value="Active">Active</option>
-          //   </select>
-          // </div>
           <div className="selectdiv">
-            <select
-              className="profileselect"
-              onChange={(e) => {
-                changestatus(e.target.value);
-              }}
-            >
+            <select className="profileselect" disabled>
+              <option>Subscription Type</option>
+              <option value="Starter">Starter</option>
+              <option value="Pro">Pro</option>
+            </select>
+            <select className="profileselect" disabled>
               <option value="">Status</option>
               <option value="Inactive">Inactive</option>
               <option value="Active">Active</option>
             </select>
-            {/* <select
-              className="profileselect"
-              onChange={(e) => {
-                changecountry(e.target.value);
-              }}
-            >
-              <option value="">Subscription Type</option>
-              <option value="Starter">Starter</option>
-              <option value="Pro">Pro</option>
-            </select> */}
           </div>
         )}
       </div>

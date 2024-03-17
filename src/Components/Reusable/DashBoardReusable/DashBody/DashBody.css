@@ -42,3 +42,15 @@
     margin-top: 20px;
     border-radius: 8px;
 }
+
+@media only screen and (max-width: 600px) {
+    .dashBoardMainBodyInner p {
+        width: 100%;
+    }
+
+    .dashBoardMainBodyInner img {
+        width: 130px;
+        height: 130px;
+    }
+
+}

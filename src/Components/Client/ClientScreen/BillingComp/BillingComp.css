@@ -341,3 +341,10 @@ textarea::placeholder {
     background-color: var(--white);
     color: var(--textColorDark);
 }
+
+@media only screen and (max-width: 600px) {
+    .dashBoardMain {
+        padding: 0px 30px;
+        height: 100vh;
+    }
+}

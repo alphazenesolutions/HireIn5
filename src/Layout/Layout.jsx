@@ -4,7 +4,7 @@ import React from "react";
 import "./Layout.css";
 import Routing from "../Routing/Routing";
 import SideBar from "../Components/Reusable/SideBar/SideBar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import discover from "../assests/Discover.svg";
 import { FiUsers } from "react-icons/fi";
 import { FiFileText } from "react-icons/fi";
@@ -15,10 +15,19 @@ import { FiHome } from "react-icons/fi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { LuUsers2 } from "react-icons/lu";
 import { FiSettings } from "react-icons/fi";
+import { storeAction } from "../Store/Store";
 
 const Layout = () => {
+  const dispatch = useDispatch();
   const issidebar = useSelector((store) => store.issidebar);
   const loginrole = useSelector((store) => store.loginrole);
+
+  const isPopUp = (store) => {
+    return store.isPopUp;
+  };
+  const overlayHandler = () => {
+    dispatch.storeAction.isPopupHandler("sidebar");
+  };
   return (
     <div>
       {issidebar && (
@@ -108,7 +117,12 @@ const Layout = () => {
           </div>
         </div>
       )}
-      {!issidebar && <Routing />}
+      <div className="routing">{!issidebar && <Routing />}</div>
+
+      <div className="MobScreen backGround">
+        <Routing />
+        {isPopUp == "sidebar" && <SideBar />}
+      </div>
     </div>
   );
 };

@@ -20,6 +20,20 @@
     background-color: #fafafa;
 }
 
+.MobScreen {
+    display: none;
+}
+
 /* .main::-webkit-scrollbar {
     display: none;
 } */
+
+@media only screen and (max-width: 600px) {
+    .MobScreen {
+        display: block;
+    }
+
+    .dashboard {
+        display: none;
+    }
+}

@@ -27,5 +27,11 @@ span.MuiSlider-thumb.MuiSlider-thumbSizeMedium.MuiSlider-thumbColorPrimary.MuiSl
 }
 
 .css-v3ate2 {
-    width: 100%;
+    width: 100% !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .css-v3ate2 {
+        width: 100%;
+    }
 }
