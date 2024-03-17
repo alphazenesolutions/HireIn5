@@ -1474,6 +1474,7 @@ const CandidateRegistration = () => {
                         ref={fileInputRef}
                         style={{ display: "none" }}
                         name="aadhaarfront"
+                        accept=".pdf,.jpeg,.jpg,.png"
                         onChange={handleFileInputChange}
                       />
                       {formdataerror.aadhaarfront && (
@@ -1511,6 +1512,7 @@ const CandidateRegistration = () => {
                         ref={fileInputRef}
                         style={{ display: "none" }}
                         name="aadhaarback"
+                        accept=".pdf,.jpeg,.jpg,.png"
                         onChange={handleFileInputChange}
                       />
                       {formdataerror.aadhaarback && (
@@ -1562,6 +1564,7 @@ const CandidateRegistration = () => {
                       ref={fileInputRef}
                       style={{ display: "none" }}
                       name="pan_front"
+                      accept=".pdf,.jpeg,.jpg,.png"
                       onChange={handleFileInputChange}
                     />
                     {formdataerror.pan_front && (
@@ -1714,6 +1717,7 @@ const CandidateRegistration = () => {
                         ref={fileInputRef}
                         style={{ display: "none" }}
                         name="passport_front"
+                        accept=".pdf,.jpeg,.jpg,.png"
                         onChange={handleFileInputChange}
                       />
                       {fileuploadsuccess.passport_front && (
@@ -1746,6 +1750,7 @@ const CandidateRegistration = () => {
                         ref={fileInputRef}
                         style={{ display: "none" }}
                         name="passport_back"
+                        accept=".pdf,.jpeg,.jpg,.png"
                         onChange={handleFileInputChange}
                       />
                       {fileuploadsuccess.passport_back && (

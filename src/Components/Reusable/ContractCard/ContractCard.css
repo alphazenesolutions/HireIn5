@@ -46,7 +46,8 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
 }
-.contractCard button[title]{
+
+.contractCard button[title] {
     background-color: white;
     border: 1px solid var(--borderColor);
     border-radius: 8px;
