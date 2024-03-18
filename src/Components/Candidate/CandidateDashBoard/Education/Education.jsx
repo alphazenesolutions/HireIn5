@@ -198,58 +198,68 @@ const Education = () => {
               )}
             </div>
           </div>
-          {userdata.length !== 0
-            ? isArrow === true &&
-              (userdata[0].education_info !== null ? (
-                <div className="educationDesc">
-                  <h1>Add your education and degrees here</h1>
-                  <h2>{userdata[0].education_info.degree}</h2>
-                  <div className="educationDescFlex">
-                    <h3>Name of University/School : </h3>
-                    <p>{userdata[0].education_info.university_name} </p>
-                  </div>
-                  <div className="educationDescFlex">
-                    <h3>Year of Graduation : </h3>
-                    <p>{userdata[0].education_info.year_of_graduation}</p>
-                  </div>
-                  <div className="educationDescFlex">
-                    <h3>Education Level : </h3>
-                    <p>{userdata[0].education_info.education_level} </p>
-                  </div>
-                  <div className="educationDescFlex">
-                    <h4>Study Mode : </h4>
-                    <p>{userdata[0].education_info.study_mode}</p>
-                  </div>
-                  <div className="educationDescFlexLast">
-                    <h4>CGPA : </h4>
-                    <p>{userdata[0].education_info.cgpa}</p>
-                  </div>
-                  {certificate.length !== 0
-                    ? certificate.map((data, index) =>
-                        data.length !== 0 ? (
-                          <div
-                            className="gradeCertificate"
-                            key={index}
-                            onClick={() => {
-                              window.open(`${data}`, "_blank");
-                            }}
-                          >
-                            <img src={gallery} alt="" />
-                            <div className="gradeCertificateDesc">
-                              <h2>{data.split("/images/")[1].split("/")[1]}</h2>
-                              {/* <p>4 MB</p> */}
-                            </div>
+          {userdata.length !== 0 ? (
+            isArrow === true &&
+            (userdata[0].education_info !== null ? (
+              <div className="educationDesc">
+                <h1>Add your education and degrees here</h1>
+                <h2>{userdata[0].education_info.degree}</h2>
+                <div className="educationDescFlex">
+                  <h3>Name of University/School : </h3>
+                  <p>{userdata[0].education_info.university_name} </p>
+                </div>
+                <div className="educationDescFlex">
+                  <h3>Year of Graduation : </h3>
+                  <p>{userdata[0].education_info.year_of_graduation}</p>
+                </div>
+                <div className="educationDescFlex">
+                  <h3>Education Level : </h3>
+                  <p>{userdata[0].education_info.education_level} </p>
+                </div>
+                <div className="educationDescFlex">
+                  <h4>Study Mode : </h4>
+                  <p>{userdata[0].education_info.study_mode}</p>
+                </div>
+                <div className="educationDescFlexLast">
+                  <h4>CGPA : </h4>
+                  <p>{userdata[0].education_info.cgpa}</p>
+                </div>
+                {certificate.length !== 0
+                  ? certificate.map((data, index) =>
+                      data.length !== 0 ? (
+                        <div
+                          className="gradeCertificate"
+                          key={index}
+                          onClick={() => {
+                            window.open(`${data}`, "_blank");
+                          }}
+                        >
+                          <img src={gallery} alt="" />
+                          <div className="gradeCertificateDesc">
+                            <h2>{data.split("/images/")[1].split("/")[1]}</h2>
+                            {/* <p>4 MB</p> */}
                           </div>
-                        ) : null
-                      )
-                    : null}
-                </div>
-              ) : (
-                <div className="educationDesc">
-                  <h1>Add your education and degrees here</h1>
-                </div>
-              ))
-            : null}
+                        </div>
+                      ) : null
+                    )
+                  : null}
+              </div>
+            ) : (
+              <div className="educationDesc">
+                <h1>Add your education and degrees here</h1>
+                <button className="touchButtonnew" onClick={overLayHandler}>
+                  <h4>Add Education Details</h4>
+                </button>
+              </div>
+            ))
+          ) : (
+            <div className="educationDesc">
+              <h1>Add your education and degrees here</h1>
+              <button className="touchButtonnew" onClick={overLayHandler}>
+                <h4>Add Education Details</h4>
+              </button>
+            </div>
+          )}
           {isPopUp === "education" && (
             <div className="educationDescOverlay">
               <div

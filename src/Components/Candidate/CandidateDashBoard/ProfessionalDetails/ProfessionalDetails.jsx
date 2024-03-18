@@ -238,56 +238,55 @@ const ProfessionalDetails = () => {
           </div>
           {isArrow === true &&
             (userdata.length !== 0 ? (
-              <div className="professionalDetailsDesc">
-                {userdata[0].professional_details_info !== null ? (
-                  <>
-                    <h1>
-                      Add your current & Past professional experience here
-                    </h1>
-                    <h2>{userdata[0].professional_details_info.title}</h2>
-                    <h3>
-                      {userdata[0].professional_details_info.company_name}
-                    </h3>
-                    <h4>
-                      {
-                        userdata[0].professional_details_info.years_active.split(
-                          ","
-                        )[0]
-                      }{" "}
-                      -{" "}
-                      {
-                        userdata[0].professional_details_info.years_active.split(
-                          ","
-                        )[1]
-                      }
-                    </h4>
-                    <h4>{userdata[0].professional_details_info.location}</h4>
-                    <h5>{userdata[0].professional_details_info.description}</h5>
-
-                    <h6>
-                      Key Skills :{" "}
-                      <span className="professionalDetailsDescSkills">
-                        {userdata[0].professional_details_info.skills.toString()}{" "}
-                      </span>
-                    </h6>
-
-                    <h6>
-                      Gross Annual Salary :{" "}
-                      {userdata[0].professional_details_info.annual_salary}{" "}
-                    </h6>
-                    <div className="projectDetailsHighlight">
-                      <img src={star} alt="" />
-                      <p>
-                        Did you know that highlighting more projects enhances
-                        your credibility and attracts the attention of potential
-                        employers?
-                      </p>
-                    </div>
-                  </>
-                ) : (
+              userdata[0].professional_details_info !== null ? (
+                <div className="professionalDetailsDesc">
                   <h1>Add your current & Past professional experience here</h1>
-                )}
-              </div>
+                  <h2>{userdata[0].professional_details_info.title}</h2>
+                  <h3>{userdata[0].professional_details_info.company_name}</h3>
+                  <h4>
+                    {
+                      userdata[0].professional_details_info.years_active.split(
+                        ","
+                      )[0]
+                    }{" "}
+                    -{" "}
+                    {
+                      userdata[0].professional_details_info.years_active.split(
+                        ","
+                      )[1]
+                    }
+                  </h4>
+                  <h4>{userdata[0].professional_details_info.location}</h4>
+                  <h5>{userdata[0].professional_details_info.description}</h5>
+
+                  <h6>
+                    Key Skills :{" "}
+                    <span className="professionalDetailsDescSkills">
+                      {userdata[0].professional_details_info.skills.toString()}{" "}
+                    </span>
+                  </h6>
+
+                  <h6>
+                    Gross Annual Salary :{" "}
+                    {userdata[0].professional_details_info.annual_salary}{" "}
+                  </h6>
+                  <div className="projectDetailsHighlight">
+                    <img src={star} alt="" />
+                    <p>
+                      Did you know that highlighting more projects enhances your
+                      credibility and attracts the attention of potential
+                      employers?
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="educationDesc">
+                  <h1> Add your current & Past professional experience here</h1>
+                  <button className="touchButtonnew" onClick={overLayHandler}>
+                    <h4>Add Professional Details</h4>
+                  </button>
+                </div>
+              )
             ) : (
               <div className="educationDesc">
                 <h1> Add your current & Past professional experience here</h1>

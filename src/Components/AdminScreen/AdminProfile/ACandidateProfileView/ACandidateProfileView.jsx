@@ -109,9 +109,7 @@ const ACandidateProfileView = () => {
   };
 
   const [loading, setIsLoading] = useState(false);
-  const displayHandler = () => {
-    setIsLoading(true);
-  };
+
   const [rangevalue, setrangevalue] = useState([50, 250]);
   useEffect(() => {
     Getallinfo();
@@ -438,6 +436,35 @@ const ACandidateProfileView = () => {
           pan_number:
             singleuser[0].kyc_info !== null
               ? singleuser[0].kyc_info.pan_number
+              : "",
+        });
+      }
+      if (singleuser[0].rate_card_info !== null) {
+        console.log(singleuser[0].rate_card_info,'singleuser[0].rate_card_info');
+        setratecard({
+          remote_hourly:
+            singleuser[0].rate_card_info !== null
+              ? singleuser[0].rate_card_info.remote_hourly
+              : "",
+          remote_monthly:
+            singleuser[0].rate_card_info !== null
+              ? singleuser[0].rate_card_info.remote_monthly
+              : "",
+          remote_annualy:
+            singleuser[0].rate_card_info !== null
+              ? singleuser[0].rate_card_info.remote_annualy
+              : "",
+          onsite_hourly:
+            singleuser[0].rate_card_info !== null
+              ? singleuser[0].rate_card_info.onsite_hourly
+              : "",
+          onsite_monthly:
+            singleuser[0].rate_card_info !== null
+              ? singleuser[0].rate_card_info.onsite_monthly
+              : "",
+          onsite_annualy:
+            singleuser[0].rate_card_info !== null
+              ? singleuser[0].rate_card_info.onsite_annualy
               : "",
         });
       }
@@ -1423,6 +1450,78 @@ const ACandidateProfileView = () => {
       setIsLoading(false);
     }
   };
+  const [ratecard, setratecard] = useState({
+    remote_hourly: "",
+    remote_monthly: "",
+    remote_annualy: "",
+    onsite_hourly: "",
+    onsite_monthly: "",
+    onsite_annualy: "",
+  });
+  const handlechange_rate = async (e) => {
+    const { name, value } = e.target;
+    setratecard((values) => ({ ...values, [name]: value }));
+  };
+  const displayHandler = async () => {
+    setIsLoading(true);
+    var newobj = {
+      username: singleuser[0].username,
+      rate_card_info: {
+        remote_hourly: ratecard.remote_hourly,
+        remote_monthly: ratecard.remote_monthly,
+        remote_annualy: ratecard.remote_annualy,
+        onsite_hourly: ratecard.onsite_hourly,
+        onsite_monthly: ratecard.onsite_monthly,
+        onsite_annualy: ratecard.onsite_annualy,
+      },
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}/`,
+        newobj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      var userinfo = await axios
+        .get(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      setuploadstatus(false);
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata(userinfo);
+      setTimeout(() => {
+        dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
+      }, 10);
+      dispatch(storeAction.isPopUpHander());
+      setIsLoading(false);
+    }
+  };
+  console.log(ratecard,'ratecard');
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -3878,23 +3977,38 @@ const ACandidateProfileView = () => {
                       <h2>Hourly Rate</h2>
                     </div>
                     <div className="candidateRateSliderBody">
-                      <input type="number" />
+                      <input
+                        type="number"
+                        onChange={handlechange_rate}
+                        name="remote_hourly"
+                        defaultValue={ratecard.remote_hourly}
+                      />
                     </div>
                   </div>
                   <div className="candidateRateSlider">
                     <div className="candidateRateSliderHead">
-                      <h2>Hourly Rate</h2>
+                      <h2>Monthly Rate</h2>
                     </div>
                     <div className="candidateRateSliderBody">
-                      <input type="number" />
+                      <input
+                        type="number"
+                        onChange={handlechange_rate}
+                        name="remote_monthly"
+                        defaultValue={ratecard.remote_monthly}
+                      />
                     </div>
                   </div>
                   <div className="candidateRateSlider">
                     <div className="candidateRateSliderHead">
-                      <h2>Hourly Rate</h2>
+                      <h2>Annualy Rate</h2>
                     </div>
                     <div className="candidateRateSliderBody">
-                      <input type="number" />
+                      <input
+                        type="number"
+                        onChange={handlechange_rate}
+                        name="remote_annualy"
+                        defaultValue={ratecard.remote_annualy}
+                      />
                     </div>
                   </div>
                 </div>
@@ -3903,26 +4017,41 @@ const ACandidateProfileView = () => {
                 <div className="candidateRateCardOverlayBody">
                   <div className="candidateRateSlider">
                     <div className="candidateRateSliderHead">
-                      <h2>Hourly Rate Onsite</h2>
+                      <h2>Hourly Rate</h2>
                     </div>
                     <div className="candidateRateSliderBody">
-                      <input type="number" />
+                      <input
+                        type="number"
+                        onChange={handlechange_rate}
+                        name="onsite_hourly"
+                        defaultValue={ratecard.onsite_hourly}
+                      />
                     </div>
                   </div>
                   <div className="candidateRateSlider">
                     <div className="candidateRateSliderHead">
-                      <h2>Hourly Rate</h2>
+                      <h2>Monthly Rate</h2>
                     </div>
                     <div className="candidateRateSliderBody">
-                      <input type="number" />
+                      <input
+                        type="number"
+                        onChange={handlechange_rate}
+                        name="onsite_monthly"
+                        defaultValue={ratecard.onsite_monthly}
+                      />
                     </div>
                   </div>
                   <div className="candidateRateSlider">
                     <div className="candidateRateSliderHead">
-                      <h2>Hourly Rate</h2>
+                      <h2>Annualy Rate</h2>
                     </div>
                     <div className="candidateRateSliderBody">
-                      <input type="number" />
+                      <input
+                        type="number"
+                        onChange={handlechange_rate}
+                        name="onsite_annualy"
+                        defaultValue={ratecard.onsite_annualy}
+                      />
                     </div>
                   </div>
                 </div>
