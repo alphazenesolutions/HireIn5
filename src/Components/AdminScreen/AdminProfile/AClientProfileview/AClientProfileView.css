@@ -40,10 +40,25 @@
     margin-left: 20px;
 }
 
+.clientProfileViewFlexLeftDescHead {
+    display: flex;
+    align-items: center;
+}
+
+.pendingApproval {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #A16207;
+    background-color: #FEF9C3;
+}
+
 .clientProfileViewFlexLeftDesc h1 {
     font-size: 25px;
     font-weight: 600;
     text-transform: capitalize;
+    margin-right: 15px;
 }
 
 .clientProfileViewFlexLeftDesc h2 {
@@ -72,18 +87,27 @@
 }
 
 .clientProfileViewFlexRight {
-    /* width: 40%; */
     display: flex;
     align-items: flex-start;
+    position: relative;
 }
 
 .disableProfile {
-    font-size: 14px;
+    font-size: 19px;
     background-color: var(--white);
-    padding: 6px 15px;
+    padding: 8px 10px;
     border: 1px solid var(--borderColor);
     border-radius: 8px;
-    margin-right: 10px;
+    margin-left: 10px;
+}
+.disable_Profile{
+    font-size: 19px;
+    background-color:lightgray;
+    padding: 8px 10px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    margin-left: 10px;
+    cursor: auto;
 }
 
 .editRate {
@@ -99,6 +123,46 @@
 
 .editRate img {
     margin-right: 10px;
+}
+
+.approvalMenu {
+    padding: 10px;
+    z-index: 10 !important;
+    position: absolute;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    top: 120%;
+    right: 0%;
+
+}
+
+.approvalMenuActive {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.approvalMenuActive:hover {
+    color: var(--primaryColor);
+    background-color: var(--approveColor);
+}
+
+.approvalMenuDisable {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 5px 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.approvalMenuDisable:hover {
+    color: #EF4444;
+    background-color: #FEE2E2;
 }
 
 /* tab */
@@ -140,7 +204,7 @@
     font-size: 14px;
     font-weight: 600;
     margin: 15px 15px 15px 0px;
-
+    text-transform: uppercase;
 }
 
 .ClientProfileViewCardEdit {

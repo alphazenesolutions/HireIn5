@@ -20,6 +20,63 @@
     background-color: #fafafa;
 }
 
+.MobScreen {
+    display: none;
+}
+
 /* .main::-webkit-scrollbar {
     display: none;
 } */
+.sidebarOverlay {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-38%, -50%);
+}
+
+.fadeIn {
+    animation: fadeInAnimation 0.5s ease-in forwards;
+    opacity: 1;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        transform: translate(60%, -50%);
+    }
+
+    to {
+        transform: translate(-38%, -50%);
+    }
+}
+
+.fadeOut {
+    animation: fadeInAnimation1 0.5s ease-in forwards;
+    opacity: 1;
+}
+
+@keyframes fadeInAnimation1 {
+    from {
+        transform: translate(-38%, -50%);
+    }
+
+    to {
+
+        transform: translate(62%, -50%);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .MobScreen {
+        display: block;
+    }
+
+    .dashboard {
+        display: none;
+    }
+}

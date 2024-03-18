@@ -133,7 +133,7 @@ const ClientLogin = () => {
             } else {
               dispatch(storeAction.isloginHandler({ islogin: true }));
               dispatch(storeAction.issidebarHandler({ issidebar: true }));
-              navigate("/customerProfile");
+              navigate("/adminHome");
             }
           }
         } else {
@@ -156,7 +156,7 @@ const ClientLogin = () => {
       } else if (loginrole == "3") {
         window.location.replace("/#/profile");
       } else {
-        window.location.replace("/#/customerProfile");
+        window.location.replace("/#/adminHome");
       }
     }
   };

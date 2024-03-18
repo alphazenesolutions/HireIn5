@@ -13,6 +13,9 @@ import gallery from "../../../../assests/gallery.svg";
 import trash from "../../../../assests/trash-2.svg";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
+import { RxCross1 } from "react-icons/rx";
+
+import { FiBookOpen } from "react-icons/fi";
 
 const Education = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -23,6 +26,9 @@ const Education = () => {
   const [isArrow, setIsArrow] = useState(false);
   const dropDownhandler = () => {
     setIsArrow(!isArrow);
+  };
+  const exitOverlayHandler = () => {
+    dispatch(storeAction.isPopUpHander());
   };
 
   const [isUpload, setIsUpload] = useState(false);
@@ -35,6 +41,7 @@ const Education = () => {
 
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("education"));
+    setIsArrow(true);
   };
   const [educationdata, seteducationdata] = useState({
     cgpa: "",
@@ -165,13 +172,16 @@ const Education = () => {
     updatedElements.splice(id, 1);
     setcertificate(updatedElements);
   };
+
   return (
     <div>
       <div className="education">
         <div className="innerEducation">
           <div className={isArrow === true ? "educationHead" : "bottomBorder"}>
             <div className="educationHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <FiBookOpen />
+              </span>
               <h1>Education</h1>
             </div>
             <div className="educationLeftIcon">
@@ -188,188 +198,211 @@ const Education = () => {
               )}
             </div>
           </div>
-          {userdata.length !== 0
-            ? isArrow === true &&
-              (userdata[0].education_info !== null ? (
-                <div className="educationDesc">
-                  <h1>Add your education and degrees here</h1>
-                  <h2>{userdata[0].education_info.degree}</h2>
-                  <div className="educationDescFlex">
-                    <h3>Name of University/School : </h3>
-                    <p>{userdata[0].education_info.university_name} </p>
-                  </div>
-                  <div className="educationDescFlex">
-                    <h3>Year of Graduation : </h3>
-                    <p>{userdata[0].education_info.year_of_graduation}</p>
-                  </div>
-                  <div className="educationDescFlex">
-                    <h3>Education Level : </h3>
-                    <p>{userdata[0].education_info.education_level} </p>
-                  </div>
-                  <div className="educationDescFlex">
-                    <h4>Study Mode : </h4>
-                    <p>{userdata[0].education_info.study_mode}</p>
-                  </div>
-                  <div className="educationDescFlexLast">
-                    <h4>CGPA : </h4>
-                    <p>{userdata[0].education_info.cgpa}</p>
-                  </div>
-                  {certificate.length !== 0
-                    ? certificate.map((data, index) => (
-                        <div className="gradeCertificate">
+          {userdata.length !== 0 ? (
+            isArrow === true &&
+            (userdata[0].education_info !== null ? (
+              <div className="educationDesc">
+                <h1>Add your education and degrees here</h1>
+                <h2>{userdata[0].education_info.degree}</h2>
+                <div className="educationDescFlex">
+                  <h3>Name of University/School : </h3>
+                  <p>{userdata[0].education_info.university_name} </p>
+                </div>
+                <div className="educationDescFlex">
+                  <h3>Year of Graduation : </h3>
+                  <p>{userdata[0].education_info.year_of_graduation}</p>
+                </div>
+                <div className="educationDescFlex">
+                  <h3>Education Level : </h3>
+                  <p>{userdata[0].education_info.education_level} </p>
+                </div>
+                <div className="educationDescFlex">
+                  <h4>Study Mode : </h4>
+                  <p>{userdata[0].education_info.study_mode}</p>
+                </div>
+                <div className="educationDescFlexLast">
+                  <h4>CGPA : </h4>
+                  <p>{userdata[0].education_info.cgpa}</p>
+                </div>
+                {certificate.length !== 0
+                  ? certificate.map((data, index) =>
+                      data.length !== 0 ? (
+                        <div
+                          className="gradeCertificate"
+                          key={index}
+                          onClick={() => {
+                            window.open(`${data}`, "_blank");
+                          }}
+                        >
                           <img src={gallery} alt="" />
                           <div className="gradeCertificateDesc">
-                            <h2>certificate0{index + 1}.jpeg</h2>
+                            <h2>{data.split("/images/")[1].split("/")[1]}</h2>
                             {/* <p>4 MB</p> */}
                           </div>
                         </div>
-                      ))
-                    : null}
-                </div>
-              ) : (
-                <div className="educationDesc">
-                  <h1>Add your education and degrees here</h1>
-                </div>
-              ))
-            : null}
+                      ) : null
+                    )
+                  : null}
+              </div>
+            ) : (
+              <div className="educationDesc">
+                <h1>Add your education and degrees here</h1>
+                <button className="touchButtonnew" onClick={overLayHandler}>
+                  <h4>Add Education Details</h4>
+                </button>
+              </div>
+            ))
+          ) : (
+            <div className="educationDesc">
+              <h1>Add your education and degrees here</h1>
+              <button className="touchButtonnew" onClick={overLayHandler}>
+                <h4>Add Education Details</h4>
+              </button>
+            </div>
+          )}
           {isPopUp === "education" && (
             <div className="educationDescOverlay">
-              <div className="innerEducation">
-                <div
-                  className={
-                    isArrow === true ? "educationHead" : "bottomBorder"
-                  }
-                >
-                  <div className="educationHeadLeft">
-                    <img src={user} alt="" />
-                    <h1>Education</h1>
-                  </div>
-                  <div className="educationLeftIcon">
-                    <img
-                      className="educationLeftIconSvg"
-                      onClick={overLayHandler}
-                      src={edit}
-                      alt=""
+              <div
+                className={isArrow === true ? "educationHead" : "bottomBorder"}
+              >
+                <div className="educationHeadLeft">
+                  <img src={user} alt="" />
+                  <h1>Education</h1>
+                </div>
+                <div onClick={exitOverlayHandler} className="educationLeftIcon">
+                  <RxCross1 />
+
+                  {/* <img
+                    className="educationLeftIconSvg"
+                    onClick={overLayHandler}
+                    src={edit}
+                    alt=""
+                  />
+                  {isArrow === true ? (
+                    <img onClick={dropDownhandler} src={dropUp} alt="" />
+                  ) : (
+                    <img onClick={dropDownhandler} src={dropDown} alt="" />
+                  )} */}
+                </div>
+              </div>
+              <div className="innerEducationOverlay">
+                <h6>
+                  Add certification / course Details here to enhance your
+                  profile
+                </h6>
+                <div className="educationDescOverlayFlex">
+                  <div className="educationDescOverlayFlexLeft">
+                    <h2>Degree</h2>
+                    <input
+                      type="text"
+                      name="degree"
+                      onChange={handlechange}
+                      defaultValue={educationdata.degree}
                     />
-                    {isArrow === true ? (
-                      <img onClick={dropDownhandler} src={dropUp} alt="" />
-                    ) : (
-                      <img onClick={dropDownhandler} src={dropDown} alt="" />
-                    )}
+                    <h2>Name of University / School</h2>
+                    <input
+                      type="text"
+                      name="university_name"
+                      onChange={handlechange}
+                      defaultValue={educationdata.university_name}
+                    />
+                    <h2>CGPA</h2>
+                    <input
+                      type="text"
+                      name="cgpa"
+                      onChange={handlechange}
+                      defaultValue={educationdata.cgpa}
+                    />
+                  </div>
+                  <div className="educationDescOverlayFlexRight">
+                    <h2>Year of Graduation</h2>
+                    <input
+                      type="text"
+                      name="year_of_graduation"
+                      onChange={handlechange}
+                      defaultValue={educationdata.year_of_graduation}
+                    />
+                    <h2>Education Level</h2>
+
+                    <input
+                      placeholder="Undergraduate"
+                      type="text"
+                      name="education_level"
+                      onChange={handlechange}
+                      defaultValue={educationdata.education_level}
+                    />
+                    <h2>Study Mode</h2>
+                    <select
+                      name="study_mode"
+                      onChange={handlechange}
+                      defaultValue={educationdata.study_mode}
+                      selected={educationdata.study_mode}
+                    >
+                      <option value="">Select Study Mode</option>
+                      <option value="full-time">Full-time</option>
+                      <option value="part-time">Part-time</option>
+                    </select>
                   </div>
                 </div>
-              </div>
-              <h6>
-                Add certification / course Details here to enhance your profile
-              </h6>
-              <div className="educationDescOverlayFlex">
-                <div className="educationDescOverlayFlexLeft">
-                  <h2>Degree</h2>
-                  <input
-                    type="text"
-                    name="degree"
-                    onChange={handlechange}
-                    defaultValue={educationdata.degree}
-                  />
-                  <h2>Name of University / School</h2>
-                  <input
-                    type="text"
-                    name="university_name"
-                    onChange={handlechange}
-                    defaultValue={educationdata.university_name}
-                  />
-                  <h2>CGPA</h2>
-                  <input
-                    type="text"
-                    name="cgpa"
-                    onChange={handlechange}
-                    defaultValue={educationdata.cgpa}
-                  />
-                </div>
-                <div className="educationDescOverlayFlexRight">
-                  <h2>Year of Graduation</h2>
-                  <input
-                    type="text"
-                    name="year_of_graduation"
-                    onChange={handlechange}
-                    defaultValue={educationdata.year_of_graduation}
-                  />
-                  <h2>Education Level</h2>
 
-                  <input
-                    placeholder="Undergraduate"
-                    type="text"
-                    name="education_level"
-                    onChange={handlechange}
-                    defaultValue={educationdata.education_level}
-                  />
-                  <h2>Study Mode</h2>
-                  <input
-                    placeholder="Full-Time"
-                    type="text"
-                    name="study_mode"
-                    onChange={handlechange}
-                    defaultValue={educationdata.study_mode}
-                  />
-                </div>
-              </div>
-
-              <>
-                <div onClick={uploadHandler} className="educationUpload">
-                  <h2>
-                    Drop your files here or
-                    <span className="browser">browse</span>
-                  </h2>
-                  <h5>Maximum size: 5MB</h5>
-                  <h5>PDF, JPEG and PNG accepted</h5>
-                </div>
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  style={{ display: "none" }}
-                  name="aadhaarfront"
-                  onChange={handleFileInputChange}
-                />
-              </>
-              {isUpload === true ? (
                 <>
-                  {certificate.length !== 0
-                    ? certificate.map((data, index) => (
-                        <div className="educationUploaded">
-                          <div className="educationUploadedFlex">
-                            <div className="educationUploadedFlexLeft">
-                              <img src={gallery} alt="" />
-                              <div className="educationUploadedFlexLeftDesc">
-                                <h2>certificate{index + 1}.jpeg</h2>
-                                {/* <p>4 MB</p> */}
+                  <div onClick={uploadHandler} className="educationUpload">
+                    <h2>
+                      Drop your files here or
+                      <span className="browser">browse</span>
+                    </h2>
+                    <h5>Maximum size: 5MB</h5>
+                    <h5>PDF, JPEG and PNG accepted</h5>
+                  </div>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: "none" }}
+                    name="aadhaarfront"
+                    onChange={handleFileInputChange}
+                  />
+                </>
+                {isUpload === true ? (
+                  <>
+                    {certificate.length !== 0
+                      ? certificate.map((data, index) => (
+                          <div className="educationUploaded">
+                            <div className="educationUploadedFlex">
+                              <div className="educationUploadedFlexLeft">
+                                <img src={gallery} alt="" />
+                                <div className="educationUploadedFlexLeftDesc">
+                                  <h2>certificate{index + 1}.jpeg</h2>
+                                  {/* <p>4 MB</p> */}
+                                </div>
+                              </div>
+                              <div
+                                className="educationUploadedFlexRight"
+                                onClick={() => {
+                                  deletebtn(index);
+                                }}
+                              >
+                                <img src={trash} alt="" />
                               </div>
                             </div>
-                            <div
-                              className="educationUploadedFlexRight"
-                              onClick={() => {
-                                deletebtn(index);
-                              }}
-                            >
-                              <img src={trash} alt="" />
+                            <div className="percent">
+                              <div className="range">
+                                <div className="InnerRange"></div>
+                              </div>
+                              <h2>100%</h2>
                             </div>
                           </div>
-                          <div className="percent">
-                            <div className="range">
-                              <div className="InnerRange"></div>
-                            </div>
-                            <h2>100%</h2>
-                          </div>
-                        </div>
-                      ))
-                    : null}
-                </>
-              ) : null}
-              {/* <div className="AddMore">
+                        ))
+                      : null}
+                  </>
+                ) : null}
+
+                {/* <div className="AddMore">
                 <button>
                   <img src={plus} alt="" />
                   <h3>ADD MORE WORK HISTROY</h3>
                 </button>
               </div> */}
+              </div>
               <div className="vedioResumeButtons">
                 <button
                   className="discard"

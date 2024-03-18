@@ -1208,6 +1208,71 @@
     margin-right: 10px;
 }
 
+.validityButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.validityNoDisable {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    margin-right: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: var(--white);
+}
+
+.validityYesDisable {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: var(--white);
+}
+
+
+.validityNo {
+    width: 50%;
+    padding: 8px;
+    border-radius: 8px;
+    margin-right: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #FEE2E2;
+    color: #EF4444;
+    border: 1px solid #EF4444;
+}
+
+.validityNoDisable:hover {
+    background-color: #FEE2E2;
+    color: #EF4444;
+    border: 1px solid #EF4444;
+}
+
+.validityYesDisable:hover {
+    background-color: #DCFCE7;
+    color: #15803D;
+    border: 1px solid #15803D;
+}
+
+
+.validityYes {
+    width: 50%;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #DCFCE7;
+    color: #15803D;
+    border: 1px solid #15803D;
+}
+
 @media screen and (max-width: 768px) {
     .candidateRegistration {
         background-color: #f4f4f5;

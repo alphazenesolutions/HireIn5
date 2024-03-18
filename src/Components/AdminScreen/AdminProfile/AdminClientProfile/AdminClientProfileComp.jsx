@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
@@ -6,72 +7,57 @@ import search from "../../../../assests/search.png";
 import tableProfile from "../../../../assests/profile.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Avatar from "react-avatar";
+import { storeAction } from "../../../../Store/Store";
+import Pagination from "../AdminCandidateProfile/Pagination";
 
-const AdminClientProfileComp = () => {
-  const token = useSelector((store) => store.token);
+const AdminClientProfileComp = ({
+  alldata1,
+  totaldata1,
+  loading,
+  setalldata1,
+}) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [alldata, setalldata] = useState([]);
-  const adminTableData = [
-    {
-      name: "Yasir Quazi",
-      company: "Google Pay",
-      location: "New York, USA",
-      type: "Starter",
-      cycle: "Monthly",
-      clientStatus: "Active",
-      statusClass: "status hiringActive",
-      agreeStatusClass: "agreementStatus inComplete",
-      agreementStatus: "Yet to sign",
-    },
-    {
-      name: "Yasir Quazi",
-      company: "Dribbble",
-      location: "New York, USA",
-      type: "Starter",
-      cycle: "Monthly",
-      clientStatus: "Inactive",
-      statusClass: "status inActive",
-      agreeStatusClass: "agreementStatus inComplete",
-      agreementStatus: "Yet to sign",
-    },
-    {
-      name: "Yasir Quazi",
-      company: "Behance",
-      location: "New York, USA",
-      type: "Pro",
-      cycle: "yearly",
-      clientStatus: "Inactive",
-      statusClass: "status inActive",
-      agreeStatusClass: "agreementStatus inComplete",
-      agreementStatus: "Yet to sign",
-    },
-  ];
-  useEffect(() => {
-    GetallCandidate();
-  }, []);
-  const GetallCandidate = async () => {
-    var allfacility = await axios
-      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getCompanies`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${token}`,
-        },
-      })
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    setalldata(allfacility.faculties);
-  };
 
+  const viewbtn = (data) => {
+    dispatch(storeAction.singleuserHander({ singleuser: [data] }));
+    navigate("/adminclientview");
+  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(10);
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = alldata1.slice(indexOfFirstRecord, indexOfLastRecord);
+  const nPages = Math.ceil(alldata1.length / recordsPerPage);
+  const pageNumbers = [...Array(nPages + 1).keys()].slice(1);
+
+  const searchvalue = async (e) => {
+    if (e.length !== 0) {
+      const matchingSkills = totaldata1.filter((skill) => {
+        if (skill.company !== null) {
+          return skill.company.company_name
+            .toLowerCase()
+            .includes(e.toLowerCase());
+        }
+      });
+      setalldata1(matchingSkills);
+    } else {
+      setalldata1(totaldata1);
+    }
+  };
   return (
     <div>
       <div className="AdminClientProfileComp">
         <div className="AdminClientProfileCompSearch">
-          <input type="text" placeholder="Search..." />
+          <input
+            type="text"
+            placeholder="Search..."
+            onChange={(e) => {
+              searchvalue(e.target.value);
+            }}
+          />
           <img src={search} alt="" />
         </div>
         <div className="AdminClientProfileCompTable">
@@ -82,49 +68,101 @@ const AdminClientProfileComp = () => {
               <th>SUBSCRIPTION TYPE</th>
               <th>BILLING CYCLE</th>
               <th>STATUS</th>
-              <th>AGREEMENT STATUS</th>
+              {/* <th>AGREEMENT STATUS</th> */}
               <th></th>
             </tr>
-            {adminTableData.map((data) => {
-              return (
-                <tr className="adminTableRow">
+            {!loading && currentRecords.length !== 0 ? (
+              currentRecords.map((data, index) => (
+                <tr className="adminTableRow" key={index}>
                   <td>
                     <div className="tableName">
-                      <img src={tableProfile} alt="" />
-                      <h1>{data.company}</h1>
+                      {data.company !== null ? (
+                        data.profile_picture.length !== 0 ? (
+                          <img src={data.profile_picture} alt="" />
+                        ) : (
+                          <Avatar
+                            name={
+                              data.company.company_name.length !== 0
+                                ? data.company.company_name
+                                : data.first_name
+                            }
+                            size={30}
+                            round="50px"
+                          />
+                        )
+                      ) : (
+                        <img src={data.profile_picture} alt="" />
+                      )}
+                      {data.company !== null ? (
+                        <h1>{data.company.company_name}</h1>
+                      ) : (
+                        <h1>{data.first_name}</h1>
+                      )}
                     </div>
                   </td>
                   <td>
-                    <h1>{data.name}</h1>
+                    <h1>{data.first_name}</h1>
                   </td>
                   <td>
-                    <h1>{data.type}</h1>
+                    <h1>-</h1>
                   </td>
                   <td>
-                    <h1>{data.cycle}</h1>
+                    <h1>-</h1>
                   </td>
                   <td>
                     <p className={data.statusClass}>{data.clientStatus}</p>
                   </td>
                   <td>
-                    <p className={data.agreeStatusClass}>
-                      {data.agreementStatus}
-                    </p>
+                    {data.dissabled === true ? (
+                      <p className="status inActive">Inactive</p>
+                    ) : (
+                      <p className="status Active">Active</p>
+                    )}
                   </td>
                   <td>
                     <button
-                      onClick={() => navigate("/adminclientview")}
+                      onClick={() => viewbtn(data)}
                       className="viewButton"
                     >
                       View
                     </button>
                   </td>
                 </tr>
-              );
-            })}
+              ))
+            ) : (
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <h6 className="text-center py-8">No data found...</h6>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+            )}
+
+            {loading && (
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <h6 className="text-center py-8">Please wait...</h6>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+            )}
           </table>
-          <div className="tablePagination"></div>
         </div>
+        {pageNumbers.length !== 0 ? (
+          <div className="tablePagination">
+            <Pagination
+              nPages={nPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );

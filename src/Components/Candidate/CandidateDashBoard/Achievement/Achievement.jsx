@@ -14,6 +14,7 @@ import gallery from "../../../../assests/gallery.svg";
 import trash from "../../../../assests/trash-2.svg";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
+import { TfiCup } from "react-icons/tfi";
 
 const Achievement = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,9 @@ const Achievement = () => {
             className={isArrow === true ? "achievementHead" : "bottomBorder"}
           >
             <div className="achievementHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <TfiCup />
+              </span>
               <h1>Achievements</h1>
             </div>
             <div className="achievementHeadLeftIcon">

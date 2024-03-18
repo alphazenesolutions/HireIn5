@@ -27,19 +27,19 @@ const CandidateProfileCard = (props) => {
   const [status, setstatus] = useState(false);
 
   const buttonHandler = (e) => {
-    if (isSelect == "demographic") {
+    if (e.target.id == "demographic") {
       setIsSelect1("personal");
     }
-    if (isSelect == "assessments") {
+    if (e.target.id == "assessments") {
       setIsSelect1("technical");
     }
-    if (isSelect == "workhistory") {
+    if (e.target.id == "workhistory") {
       setIsSelect1("employ");
     }
-    if (isSelect == "availability") {
+    if (e.target.id == "availability") {
       setIsSelect1("available");
     }
-    if (isSelect == "Rate Card") {
+    if (e.target.id == "Rate Card") {
       setIsSelect1("remote");
     }
     setIsSelect(e.target.id);
@@ -163,10 +163,12 @@ const CandidateProfileCard = (props) => {
       updatedata.message === "User and Associated Info updated successfully"
     ) {
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      dispatch(storeAction.userdataHander({ userdata: [] }));
       setTimeout(() => {
         dispatch(
           storeAction.singleuserHander({ singleuser: [updatedata.user] })
         );
+        dispatch(storeAction.userdataHander({ userdata: [updatedata.user] }));
       }, 10);
     }
   };
@@ -266,12 +268,24 @@ const CandidateProfileCard = (props) => {
 
                   <div className="proExperience">
                     <img src={user} alt="" />
-                    <h5>Part-time availability</h5>
+                    {singleuser[0].work_preference_info !== null ? (
+                      <h5>
+                        {
+                          singleuser[0].work_preference_info
+                            .preferred_mode_of_engagement
+                        }{" "}
+                        availability
+                      </h5>
+                    ) : null}
                   </div>
-                  {singleuser[0].current_place_of_residence !== null ? (
+                  {singleuser[0].address !== null ? (
                     <div className="proExperience">
                       <img src={map} alt="" />
-                      <h5>{singleuser[0].current_place_of_residence}</h5>
+                      <h5>
+                        {singleuser[0].address.city},{" "}
+                        {singleuser[0].address.state},{" "}
+                        {singleuser[0].address.country}
+                      </h5>
                     </div>
                   ) : null}
                 </div>
@@ -389,7 +403,7 @@ const CandidateProfileCard = (props) => {
                   {isSelect === "assessments" && (
                     <div className="work">
                       <h5 onClick={buttonHandler1} id="technical">
-                        Technical (Self)
+                        Resume
                       </h5>
                       <h5 onClick={buttonHandler1} id="certificate">
                         Certifications
@@ -410,9 +424,9 @@ const CandidateProfileCard = (props) => {
                       <h5 onClick={buttonHandler1} id="project">
                         Projects
                       </h5>
-                      <h5 onClick={buttonHandler1} id="achievements">
+                      {/* <h5 onClick={buttonHandler1} id="achievements">
                         Achievements
-                      </h5>
+                      </h5> */}
                     </div>
                   )}
                   {isSelect === "availability" && (
@@ -532,7 +546,7 @@ const CandidateProfileCard = (props) => {
                             : "-"
                           : "-"}
                       </h2>
-                      <h2>Uploaded</h2>
+                      <h2>Not Uploaded</h2>
                     </div>
                   </div>
                 </div>
@@ -541,8 +555,24 @@ const CandidateProfileCard = (props) => {
                 <div className="technical">
                   <div className="video">
                     {/* <video controls src={vedio}></video> */}
-                    <img src={vedio} alt="" />
-                    <h1>Yasir Quazi’s Video Resume</h1>
+                    {/* <img src={vedio} alt="" /> */}
+                    {singleuser[0].video_resume !== null ? (
+                      singleuser[0].video_resume.length !== 0 ? (
+                        <video controls>
+                          <source
+                            src={singleuser[0].video_resume}
+                            type="video/mp4"
+                          />
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <img src={vedio} alt="" />
+                      )
+                    ) : (
+                      <img src={vedio} alt="" />
+                    )}
+
+                    <h1>{singleuser[0].first_name}’s Video Resume</h1>
                     <h2>
                       Some quick example text to build on the card title and
                       make up the bulk of the card's content.
@@ -550,14 +580,7 @@ const CandidateProfileCard = (props) => {
                   </div>
                   <div className="bio">
                     <h3>Bio</h3>
-                    <h4>
-                      “Lorem ipsum dolor sit amet consectetur. Mauris auctor
-                      faucibus suspendisse purus tristique morbi mattis nec.
-                      Neque sollicitudin proin egestas malesuada iaculis.
-                      Ultrices vulputate quis egestas sit metus velit leo a
-                      nibh. Amet odio purus risus sodales nunc tellus felis
-                      aliquam. Elit fringilla semper amet ut euismod.”
-                    </h4>
+                    <h4>{singleuser[0].bio}</h4>
                   </div>
                 </div>
               )}
@@ -583,8 +606,7 @@ const CandidateProfileCard = (props) => {
                         <div className="gradeCertificate1">
                           <img src={gallery} alt="" />
                           <div className="gradeCertificateDesc1">
-                            <h6>certificate01.jpeg</h6>
-                            <p>4 MB</p>
+                            <h6 className="mt-5">certificate01.jpeg</h6>
                           </div>
                         </div>
                       ) : null}
@@ -693,95 +715,137 @@ const CandidateProfileCard = (props) => {
                       <h1>Preferred method of working</h1>
                       <h1>Preferred Work Locations</h1>
                     </div>
-                    <div className="availableFlexRight">
-                      <h2>Yes</h2>
-                      <h2>03 / 08 / 2024</h2>
-                      <h2>Part time</h2>
-                      <h4>10:00 IST - 18:00 IST</h4>
-                      <h4>Remote, Hybrid</h4>
-                      <h4>Japan, United Kingdom, Singapore</h4>
-                    </div>
+                    {console.log(singleuser, "singleuser")}
+                    {singleuser[0].work_preference_info !== null ? (
+                      <div className="availableFlexRight">
+                        <h2>Yes</h2>
+                        <h2>03 / 08 / 2024</h2>
+                        <h2>
+                          {
+                            singleuser[0].work_preference_info
+                              .preferred_mode_of_engagement
+                          }
+                        </h2>
+                        <h4>
+                          {
+                            singleuser[0].work_preference_info
+                              .preffered_work_timings
+                          }
+                        </h4>
+                        <h4>
+                          {singleuser[0].work_preference_info.preferred_method_of_work.toString()}
+                        </h4>
+                        <h4>
+                          {singleuser[0].work_preference_info.preffered_work_location.toString()}
+                        </h4>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               )}
               {isSelect1 === "travel" && (
                 <div className="travel">
-                  <div className="travelslider">
-                    <div className="travelslider1">
-                      <h3>Current VISa status</h3>
-                      <div className="visaStatus">
-                        <h1>USA</h1>
-                        <p>
-                          Type of Visa :<span>H1B</span>
-                        </p>
-                        <p>
-                          Validity of Visa :<span> 21 / 03 / 2025</span>
-                        </p>
+                  {singleuser[0].travel_info !== null ? (
+                    <div className="travelslider">
+                      <div className="travelslider1">
+                        <h3>Travel history</h3>
+                        {singleuser[0].travel_info.travelled_to.length !== 0
+                          ? singleuser[0].travel_info.travelled_to.map(
+                              (data, index) => (
+                                <div className="visaStatus" key={index}>
+                                  <h1>{data.split(":")[0]}</h1>
+                                  <p>
+                                    Year of Travel :
+                                    <span>{data.split(":")[1]}</span>
+                                  </p>
+                                  <p>
+                                    Duration : <span>{data.split(":")[2]}</span>
+                                  </p>
+                                  <p>
+                                    Purpose : <span>{data.split(":")[3]}</span>
+                                  </p>
+                                  <p>
+                                    Type of Visa :
+                                    <span>{data.split(":")[4]}</span>
+                                  </p>
+                                  <p>
+                                    Validity of Visa :
+                                    <span> {data.split(":")[5]}</span>
+                                  </p>
+                                </div>
+                              )
+                            )
+                          : null}
+                      </div>
+
+                      <div className="travelslider1">
+                        <h3>Countries willing to travel to for work</h3>
+                        {singleuser[0].travel_info.travel_to_for_work.length !==
+                        0
+                          ? singleuser[0].travel_info.travel_to_for_work.map(
+                              (data, index) => (
+                                <>
+                                  <div className="visaStatus" key={index}>
+                                    <h1 title="">{data.split(":")[0]}</h1>
+                                  </div>
+                                  <div className="visaStatus">
+                                    <p>
+                                      Only for :{" "}
+                                      <span>{data.split(":")[1]}</span>
+                                    </p>
+                                    <p>
+                                      Duration :{" "}
+                                      <span> {data.split(":")[2]}</span>
+                                    </p>
+                                    <p>
+                                      Travel Readiness:{" "}
+                                      <span>{data.split(":")[3]}</span>
+                                    </p>
+                                  </div>
+                                </>
+                              )
+                            )
+                          : null}
+                      </div>
+                      <div className="travelslider1">
+                        <h3>Countries willing to relocate to</h3>
+                        {singleuser[0].travel_info.relocate_for_work.length !==
+                        0
+                          ? singleuser[0].travel_info.relocate_for_work.map(
+                              (data, index) => (
+                                <>
+                                  <div className="visaStatus">
+                                    <p>
+                                      Are you willing :{" "}
+                                      <span>{data.split(":")[0]}</span>
+                                    </p>
+                                    <p>
+                                      Preferred Countries :{" "}
+                                      <span> {data.split(":")[1]}</span>
+                                    </p>
+                                    <p>
+                                      How long are you willing to relocate ::{" "}
+                                      <span>{data.split(":")[2]}</span>
+                                    </p>
+                                  </div>
+                                </>
+                              )
+                            )
+                          : null}
+                      </div>
+
+                      <div className="travelslider1">
+                        <h3>Residency details</h3>
+                        <div className="visaStatus">
+                          <p>
+                            Current Place of Residence:{" "}
+                            {singleuser[0].current_place_of_residence}
+                          </p>
+                          <p>Duration : {singleuser[0].lived_at_current_residence}</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="travelslider1">
-                      <h3>Travel history</h3>
-                      <div className="visaStatus">
-                        <h1 title="">USA</h1>
-                        <p>
-                          Year of Travel : <span>2017</span>
-                        </p>
-                        <p>
-                          Duration : <span>5 months</span>
-                        </p>
-                      </div>
-                      <div className="visaStatus">
-                        <p>
-                          Purpose : <span>Work</span>
-                        </p>
-                        <p>
-                          Type of Visa : <span>H1B</span>
-                        </p>
-                        <p>
-                          Validity of Visa : <span>21 / 03 / 2025</span>
-                        </p>
-                      </div>
-                      <div className="visaStatus">
-                        <h1 title="">UAE</h1>
-                        <p>
-                          Year of Travel : <span>2018</span>
-                        </p>
-                        <p>
-                          Duration : <span>3 months</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="travelslider1">
-                      <h3>Countries willing to travel to for work</h3>
-                      <div className="visaStatus">
-                        <h1 title="">USA</h1>
-                        <h1 title="">Singapore</h1>
-                        <h1 title="">Saudi Arabia</h1>
-                      </div>
-                      <div className="visaStatus">
-                        <p>
-                          Only for : <span>Work</span>
-                        </p>
-                        <p>
-                          Duration : <span> 6 months</span>
-                        </p>
-                        <p>
-                          Travel Readiness: <span>Immediate</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="travelslider1">
-                      <h3>Countries willing to relocate to</h3>
-                      <h4>Candidate unwilling to relocate </h4>
-                    </div>
-                    <div className="travelslider1">
-                      <h3>Residency details</h3>
-                      <div className="visaStatus">
-                        <p>Current Place of Residence: Bengaluru, India</p>
-                        <p>Duration : 5 years</p>
-                      </div>
-                    </div>
-                  </div>
+                  ) : null}
                 </div>
               )}
               {isSelect1 === "remote" && (
@@ -792,11 +856,13 @@ const CandidateProfileCard = (props) => {
                       <h1>Monthly</h1>
                       <h1>Annual</h1>
                     </div>
-                    <div className="remoteFlexRight">
-                      <h2>USD 80</h2>
-                      <h2>USD 100</h2>
-                      <h2>USD 2000</h2>
-                    </div>
+                    {singleuser[0].rate_card_info !== null ? (
+                      <div className="remoteFlexRight">
+                        <h2>{singleuser[0].rate_card_info.remote_hourly}</h2>
+                        <h2>{singleuser[0].rate_card_info.remote_monthly}</h2>
+                        <h2>{singleuser[0].rate_card_info.remote_annualy}</h2>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               )}
@@ -809,11 +875,13 @@ const CandidateProfileCard = (props) => {
                       <h1>Monthly</h1>
                       <h1>Annual</h1>
                     </div>
-                    <div className="remoteFlexRight">
-                      <h2>USD 80</h2>
-                      <h2>USD 100</h2>
-                      <h2>USD 2000</h2>
-                    </div>
+                    {singleuser[0].rate_card_info !== null ? (
+                      <div className="remoteFlexRight">
+                        <h2>{singleuser[0].rate_card_info.onsite_hourly}</h2>
+                        <h2>{singleuser[0].rate_card_info.onsite_monthly}</h2>
+                        <h2>{singleuser[0].rate_card_info.onsite_annualy}</h2>
+                      </div>
+                    ) : null}
                   </div>
                   <div className="onsiteNote">
                     <img src={info} alt="" />

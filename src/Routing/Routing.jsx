@@ -23,7 +23,8 @@ import AClientProfileView from "../Components/AdminScreen/AdminProfile/AClientPr
 import AClientProfile from "../pages/AClientProfile";
 import ACandidateProfile from "../pages/ACandidateProfile";
 import AdminContractCards from "../pages/AdminContractCards";
-import AdminTeamMemberCart from "../pages/AdminTeamMemberCart";
+import AdminTeamMember from "../pages/AdminTeamMember";
+import AdminHomePage from "../pages/AdminHomePage";
 
 const Routing = () => {
   return (
@@ -47,10 +48,11 @@ const Routing = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/upgrade" element={<Upgrade />} />
         <Route path="/customerProfile" element={<AdminCustomerProfile />} />
-        <Route path="/adminteam" element={<AdminTeamMemberCart />} />
+        <Route path="/adminteam" element={<AdminTeamMember />} />
         <Route path="/admincontracts" element={<AdminContractCards />} />
         <Route path="/adminclientview" element={<AClientProfile />} />
         <Route path="/admincandidateview" element={<ACandidateProfile />} />
+        <Route path="/adminhome" element={<AdminHomePage />} />
       </Routes>
     </div>
   );

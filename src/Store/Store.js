@@ -20,6 +20,8 @@ const StoreSlice = createSlice({
     singleuser: [],
     onboarding_status: null,
     alluserdata: [],
+    allcompanydata: [],
+    searchuser: [],
   },
   reducers: {
     roleHandler(state, payload) {
@@ -61,6 +63,12 @@ const StoreSlice = createSlice({
     alluserdataHander(state, action) {
       state.alluserdata = action.payload.alluserdata;
     },
+    allcompanydataHander(state, action) {
+      state.allcompanydata = action.payload.allcompanydata;
+    },
+    searchuserHander(state, action) {
+      state.searchuser = action.payload.searchuser;
+    },
   },
 });
 
@@ -80,6 +88,9 @@ const persistConfig = {
     "userdata",
     "alluserdata",
     "singleuser",
+    "allcompanydata",
+    "searchuser",
+    "bookmarkdata",
   ],
 };
 

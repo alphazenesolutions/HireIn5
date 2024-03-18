@@ -26,6 +26,14 @@
     border: 1px solid var(--borderColor);
 }
 
+.candidateRateSliderBody input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid var(--borderColor);
+}
+
 .CandidateProfileViewCardBody {
     border: 1px solid var(--borderColor);
     border-bottom: none;
@@ -73,6 +81,9 @@
 
 .candidateRateCardOverlayHead {
     padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border-top-left-radius: 8px;
     border-top-Right-radius: 8px;
     background-color: var(--dropColor);
@@ -93,12 +104,7 @@
     border-bottom: 1px solid var(--borderColor);
 }
 
-.candidateRateCardOverlayTab h5 {
-    padding: 10px 15px;
-    font-size: 14px;
-    font-weight: 500;
-    border-bottom: 2px solid var(--primaryColor);
-}
+
 
 .candidateRateCardOverlayBody {
     padding: 15px 25px;
@@ -131,3 +137,168 @@
 
 }
 
+
+/* admin edit overlay */
+.adminEditOverlay {
+    width: 60%;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.adminEditOverlayHead {
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: var(--dropColor);
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.adminEditOverlayBody {
+    padding: 0px 20px 20px 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 25px;
+}
+
+.adminEditOverlayBody h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.adminEditOverlayBody input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+}
+
+.adminEditOverlayBody select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+}
+
+.editOverlayButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0px 20px 20px 20px;
+
+}
+
+.adminEditAddMore {
+    width: 95.5%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+
+/* upload  */
+.adminEditOverlayContent h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.adminEditOverlayUpload {
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px dotted var(--borderColor);
+    cursor: pointer;
+}
+
+.adminEditOverlayUploadHead {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.adminEditOverlayUploadHead img {
+    height: 32px;
+    padding: 5px;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.adminEditOverlayUploadHead h4 {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.6;
+}
+
+.adminEditOverlayUploadHead h5 {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+.adminEditOverlayUpload p {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--textColor);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.adminEditOverlayUpload button {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+}
+
+/* approve Candidate */
+.approveCandidateOverlay {
+    width: 35%;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.approveCandidateOverlayBody p {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 20px;
+    color: var(--textColor);
+}
+
+.approveCandidateOverlayButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px;
+
+}
+
+.cancelApprove {}

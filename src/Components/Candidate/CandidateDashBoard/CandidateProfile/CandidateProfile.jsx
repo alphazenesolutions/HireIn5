@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import "./CandidateProfile.css";
 import Education from "../Education/Education";
 import Certificate from "../Certifications/Certificate";
@@ -19,13 +21,50 @@ const CandidateProfile = () => {
   const dispatch = useDispatch();
   const userdata = useSelector((store) => store.userdata);
   const [isPage, setIsPage] = useState(false);
+  const [percentage, setpercentage] = useState(0);
   const pageHandler = (event) => {
     setIsPage(!isPage);
     dispatch(storeAction.singleuserHander({ singleuser: userdata }));
   };
+  useEffect(() => {
+    GetPercentage();
+  }, [userdata]);
+  const GetPercentage = async () => {
+    if (userdata.length !== 0) {
+      var count = 0;
+      if (userdata[0].address !== null) {
+        count += 1;
+      }
+      if (userdata[0].work_preference_info !== null) {
+        count += 1;
+      }
+      if (userdata[0].professional_details_info !== null) {
+        count += 1;
+      }
+      if (userdata[0].project_details_info !== null) {
+        count += 1;
+      }
+      if (userdata[0].certificate_info !== null) {
+        count += 1;
+      }
+      if (userdata[0].travel_info !== null) {
+        count += 1;
+      }
+      if (userdata[0].education_info !== null) {
+        count += 1;
+      }
+      if (userdata[0].video_resume !== null) {
+        if (userdata[0].video_resume.length !== 0) {
+          count += 1;
+        }
+      }
+      let percent = Math.round((count / 8) * 100);
+      setpercentage(percent);
+    }
+  };
   return (
     <div>
-      <div className="paddingLeft100 paddingRight100">
+      <div className="profilePage paddingLeft100 paddingRight100">
         <DashHead
           left=""
           center=""
@@ -41,11 +80,46 @@ const CandidateProfile = () => {
           btnClass="dashBoardMainHeadDescButton"
           fun={pageHandler}
         />
+        <div className="candidateProgress">
+          <div className="candidateProgressHead">
+            {isPage === false ? (
+              <h1>Profile is completed</h1>
+            ) : (
+              <h1>You are now ready to get Hired-in-5!</h1>
+            )}
+
+            <h2>{percentage}%</h2>
+          </div>
+          {/* <div className="candidateProgressBar">
+            <div className={`candidateProgressBarBackgound w-[${percentage}%]`}></div>
+          </div> */}
+          <div className="progress-container">
+            {isPage === false ? (
+              <progress
+                id="file"
+                value={percentage}
+                max="100"
+                class="progress_bar1 bg-primaryColor"
+              >
+                {percentage}%
+              </progress>
+            ) : (
+              <progress
+                id="file"
+                value={percentage}
+                max="100"
+                class="progress_bar bg-primaryColor"
+              >
+                {percentage}%
+              </progress>
+            )}
+          </div>
+        </div>
         {isPage === false && (
           <div className="">
             <PersonalDetails />
             <WorkExperience />
-            <Achievement />
+            {/* <Achievement /> */}
             <ProfessionalDetails />
             <ProjectDetails />
             <Certificate />

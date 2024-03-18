@@ -16,11 +16,12 @@ const OnBoard = () => {
     if (islogin === true) {
       if (loginrole == "2") {
         dispatch(storeAction.issidebarHandler({ issidebar: true }));
-        
         window.location.replace("/#/discover");
-      } else {
+      } else if (loginrole == "3") {
         dispatch(storeAction.issidebarHandler({ issidebar: true }));
         window.location.replace("/#/profile");
+      } else {
+        window.location.replace("/#/adminHome");
       }
     }
   };

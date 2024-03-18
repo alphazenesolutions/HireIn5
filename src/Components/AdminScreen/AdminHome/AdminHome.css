@@ -1,0 +1,295 @@
+.adminNotification {
+    width: 100%;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.adminNotificationHead {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.adminNotificationHead h1 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.adminNotificationHead h6 {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--textColor);
+}
+
+.adminNotificationTab {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.adminNotificationTabActive {
+    padding: 10px;
+    border-bottom: 2px solid var(--primaryColor);
+}
+
+.adminNotificationTabInactive {
+    padding: 10px;
+    border-bottom: 2px solid transparent;
+}
+
+.adminNotificationLog {
+    width: 100%;
+    height: 280px;
+    overflow-y: scroll;
+}
+
+.homeProgress {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.homeProgressCandidate {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-radius: 8px;
+    padding: 15px 25px;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+}
+
+.homeProgressClient {
+    width: 100%;
+    border-radius: 8px;
+    padding: 15px 25px;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+}
+
+.homeProgressClient h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.homeProgressClientFlex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.homeProgressClientFlexContent {
+    margin-right: 25px;
+}
+
+.progressHike {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #22C55E;
+}
+
+.progressDecrement h3,
+.progressHike h3 {
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.progressDecrement {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #F87171;
+}
+
+.homeProgressClientFlexContent h4 {
+    font-size: 30px;
+    font-weight: 500;
+}
+
+
+.homeProgressClientFlexContent h2 {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--textColor);
+}
+
+.homeProgressClientSubscribe {
+    margin-top: 15px;
+}
+
+.homeProgressClientSubscribeFlex {
+    display: flex;
+
+}
+
+.homeProgressClientSubscribe h2 {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--textColor);
+}
+
+.homeProgressClientFlexContent h5 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.homeProgressClientFlexContent h6 {
+    font-size: 14px;
+    color: var(--textColor);
+}
+
+/* overlay */
+.interViewDetailOverlay {
+    width: 30%;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.interViewDetailOverlayHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: var(--dropColor);
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.interViewDetailOverlayHead h1 {
+    font-size: 16px;
+    font-weight: 600;
+
+}
+
+.interViewDetailOverlayContent {
+    padding: 15px;
+}
+
+.interViewDetailOverlayContent h2 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.interViewDetailOverlayContent h3 {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--textColor);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.homeProgressCandidate h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.homeProgressCandidateFlex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.homeProgressCandidateLeft {
+    height: 90%;
+}
+
+.homeProgressCandidateRight {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+.homeProgressCandidateRightOne {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+
+.homeProgressCandidateRightOne h2 {
+    font-size: 14px;
+    font-weight: 400;
+
+}
+
+.homeProgressCandidateRightOne h3 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.indication {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.candidateHomeHired {
+    background-color: var(--primaryColor);
+}
+
+.yetToBeHired {
+    background-color: var(--emailHighlighter);
+}
+
+@media only screen and (max-width: 600px) {
+    .adminHomePage {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .homeProgress {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .homeProgressClientSubscribe h2 {
+        font-size: 12px;
+    }
+
+    .homeProgressClientFlexContent h4 {
+        font-size: 18px;
+    }
+
+    .adminNotification {
+        /* width: 800px; */
+        overflow: scroll;
+    }
+
+    .innerAdminNotification {
+        width: 800px;
+        /* overflow: hidden; */
+        overflow-x: scroll;
+    }
+
+    .adminNotificationLog {
+        width: 800px;
+        overflow-x: scroll;
+    }
+}

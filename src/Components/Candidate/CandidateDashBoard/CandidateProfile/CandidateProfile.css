@@ -1,0 +1,43 @@
+.candidateProgress {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.candidateProgressHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.candidateProgressHead h1 {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.candidateProgressHead h2 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.candidateProgressBar {
+    width: 100%;
+    height: 10px;
+    border-radius: 8px;
+    background-color: #F3F4F6;
+}
+
+.candidateProgressBarBackgound {
+    /* width: 50%; */
+    height: 10px;
+    border-radius: 8px;
+    background-color: var(--primaryColor);
+}
+
+@media only screen and (max-width: 600px) {
+    .profilePage {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+}

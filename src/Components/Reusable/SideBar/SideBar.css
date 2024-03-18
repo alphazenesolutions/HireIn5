@@ -63,6 +63,13 @@
     color: var(--textColor);
 }
 
+.profilePic img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .cash {
     display: flex;
     border-radius: 8px;
@@ -102,6 +109,7 @@
     padding: 15px 25px;
     border-top: 1px solid var(--borderColor);
     padding-bottom: 0px;
+    cursor: pointer;
 }
 
 .logout img {
@@ -134,8 +142,8 @@
     font-weight: 500;
 }
 
-.menuImg {
-    height: 22px;
+.menuIcon {
+    font-size: 18px;
     object-fit: cover;
     margin-right: 10px;
 }
@@ -148,7 +156,7 @@
     color: var(--primaryColor);
 }
 
-.menu1:hover .menuImg {
+.menu1:hover .menuIcon {
     color: var(--primaryColor);
 }
 
@@ -177,4 +185,80 @@
     background-color: #e4deff;
     border-radius: 50%;
     margin-left: 6px;
+}
+
+/* overlay */
+.logoutPopUp {
+    width: 30%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+
+.logoutPopUpHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoutPopUpHead h1 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.logoutPopUpHead img {
+    cursor: pointer;
+}
+
+.logoutPopUp h2 {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--textColor);
+}
+
+.logoutInaciveButton {
+    padding: 10px;
+    font-size: 14px;
+    background-color: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.logoutActiveButton {
+    padding: 10px;
+    font-size: 14px;
+    background-color: var(--primaryColor);
+    border-radius: 8px;
+    border: none;
+    color: var(--white);
+    margin-top: 15px;
+}
+
+.IconClose {
+    position: absolute;
+    top: 4.5%;
+    right: 10%;
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .sideNavInner {
+        height: 92%;
+    }
+
+    .IconClose {
+        display: block;
+    }
 }

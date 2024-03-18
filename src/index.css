@@ -37,6 +37,7 @@ code {
   --borderColor: #dbdbdb;
   --dropBorderColor: #E2E8F0;
   --dropColor: #F8FAFC;
+  --approveColor: #EDE9FE;
 }
 
 .sectionWidth {
@@ -79,4 +80,30 @@ code {
 
 .paddingRight100 {
   padding-right: 100px;
+}
+
+.paddingTop50 {
+  padding-top: 50px;
+}
+
+.displayFlex {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.paddingXY10 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.displayHandler {
+  display: block;
+}
+
+@media only screen and (max-width: 600px) {
+  .displayHandler {
+    display: none;
+  }
 }

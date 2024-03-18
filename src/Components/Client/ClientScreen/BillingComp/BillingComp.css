@@ -1,7 +1,7 @@
 .dashBoardMain {
     /* width: 82%; */
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     overflow-y: scroll;
     background-color: #f8f8f8;
 }
@@ -340,4 +340,31 @@ textarea::placeholder {
     border: 1px solid var(--borderColor);
     background-color: var(--white);
     color: var(--textColorDark);
+}
+
+@media only screen and (max-width: 600px) {
+    .dashBoardMain {
+        padding: 0px 25px;
+        /* height: 100vh; */
+    }
+
+    .innerTable {
+        overflow-x: scroll;
+    }
+
+    .billingCard {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .billRight h4 {
+        font-size: 12px;
+    }
+
+    .billDescOne h3 {
+        font-size: 12px;
+    }
+
+    .billingInfo1 {
+        width: 100%;
+    }
 }

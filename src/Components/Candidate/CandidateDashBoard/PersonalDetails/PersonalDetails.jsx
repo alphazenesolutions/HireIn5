@@ -11,6 +11,8 @@ import { storeAction } from "../../../../Store/Store";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
 import country_and_states from "../../../../assests/country-states";
+import { FiUser } from "react-icons/fi";
+import { RxCross1 } from "react-icons/rx";
 
 const PersonalDetails = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -32,6 +34,9 @@ const PersonalDetails = () => {
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("personal"));
   };
+  const exitOverLayHandler = () => {
+    dispatch(storeAction.isPopUpHander(""));
+  };
   useEffect(() => {
     getUserinfo();
   }, [userdata.length !== 0]);
@@ -48,6 +53,7 @@ const PersonalDetails = () => {
     aadhar: "",
     pan: "",
     country: "",
+    bio: "",
   });
   const [statelist, setstatelist] = useState([]);
 
@@ -74,6 +80,7 @@ const PersonalDetails = () => {
             : null,
         country:
           userdata[0].address !== null ? userdata[0].address.country : null,
+        bio: userdata[0].bio,
       });
     } else {
       setTimeout(() => {
@@ -103,6 +110,7 @@ const PersonalDetails = () => {
       phone: formdata.phone,
       current_place_of_residence: formdata.current_address,
       username: userdata[0].username,
+      bio: formdata.bio,
       address: {
         address: formdata.current_address,
         city: formdata.city,
@@ -157,7 +165,9 @@ const PersonalDetails = () => {
             }
           >
             <div className="personalDetailsHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <FiUser />
+              </span>
               <h1>Personal Details</h1>
             </div>
             <div className="personalDetailsLeftIcon">
@@ -217,6 +227,12 @@ const PersonalDetails = () => {
                   </div>
                 </div>
               ) : null}
+              {userdata.length !== 0 ? (
+                <>
+                  <h2 className="bioLabel">Bio</h2>
+                  <h3 className="biocontent">{userdata[0].bio}</h3>
+                </>
+              ) : null}
             </div>
           )}
           {isPopUp === "personal" && (
@@ -231,8 +247,12 @@ const PersonalDetails = () => {
                     <img src={user} alt="" />
                     <h1>Personal Details</h1>
                   </div>
-                  <div className="personalDetailsLeftIcon">
-                    <img
+                  <div
+                    onClick={exitOverLayHandler}
+                    className="personalDetailsLeftIcon"
+                  >
+                    <RxCross1 />
+                    {/* <img
                       className="personalDetailsLeftIconSvg"
                       onClick={overLayHandler}
                       src={edit}
@@ -242,7 +262,7 @@ const PersonalDetails = () => {
                       <img onClick={dropDownhandler} src={dropUp} alt="" />
                     ) : (
                       <img onClick={dropDownhandler} src={dropDown} alt="" />
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>
@@ -368,6 +388,13 @@ const PersonalDetails = () => {
                     {/* <input placeholder="India" type="text" /> */}
                   </div>
                 </div>
+                <h2 className="biohead">Bio</h2>
+                <textarea
+                  className="biotext"
+                  name="bio"
+                  onChange={handlechange}
+                  defaultValue={formdata.bio}
+                ></textarea>
               </div>
               <div className="vedioResumeButtons">
                 <button className="discard" onClick={cancelbtn}>

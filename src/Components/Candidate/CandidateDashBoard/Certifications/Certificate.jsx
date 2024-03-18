@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Certificate.css";
 import user from "../../../../assests/User.svg";
 import dropDown from "../../../../assests/arrowDown.svg";
@@ -14,6 +14,10 @@ import gallery from "../../../../assests/gallery.svg";
 import trash from "../../../../assests/trash-2.svg";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
+import { FiAward } from "react-icons/fi";
+import Select from "react-select";
+import Skilllist from "../../../../assests/skillsJSON.json";
+import { RxCross1 } from "react-icons/rx";
 
 const Certificate = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -27,9 +31,6 @@ const Certificate = () => {
   };
 
   const [isUpload, setIsUpload] = useState(false);
-  const uploadHandler = () => {
-    setIsUpload(!isUpload);
-  };
 
   const [isShow, setIsShow] = useState(false);
 
@@ -42,7 +43,8 @@ const Certificate = () => {
         date_issued: educationdata.date_issued,
         description: educationdata.description,
         url: educationdata.url,
-        skills: educationdata.skills.split(),
+        skills: skill_list,
+        certificate_file: certificate,
       },
     };
     var updatedata = await axios
@@ -90,6 +92,10 @@ const Certificate = () => {
     dispatch(storeAction.isPopUpHander("certificate"));
   };
 
+  const exitOverlayHandler = () => {
+    dispatch(storeAction.isPopUpHander());
+  };
+
   const [educationdata, seteducationdata] = useState({
     course_name: "",
     date_issued: "",
@@ -122,19 +128,99 @@ const Certificate = () => {
           userdata[0].certificate_info !== null
             ? userdata[0].certificate_info.url
             : "",
-
-        skills:
-          userdata[0].certificate_info !== null
-            ? userdata[0].certificate_info.skills !== undefined
-              ? userdata[0].certificate_info.skills.toString(" , ")
-              : ""
-            : "",
       });
+      if (userdata[0].certificate_info !== null) {
+        setcertificate(userdata[0].certificate_info.certificate_file);
+      }
+      if (userdata[0].certificate_info !== null) {
+        if (userdata[0].certificate_info.skills.length !== 0) {
+          var filter = [];
+          for (var a = 0; a < userdata[0].certificate_info.skills.length; a++) {
+            filter.push({
+              value: userdata[0].certificate_info.skills[a],
+              label: userdata[0].certificate_info.skills[a],
+            });
+          }
+          setSelectedOptionskill(filter);
+          setskill_list(userdata[0].certificate_info.skills);
+        }
+      }
+    }
+    var skillarrray = Skilllist;
+    const uniqueSkills = Array.from(
+      new Set(skillarrray.map((skill) => skill.Skill))
+    );
+    if (uniqueSkills.length !== 0) {
+      var filter1 = [];
+      for (var i = 0; i < uniqueSkills.length; i++) {
+        filter1.push({
+          value: uniqueSkills[i],
+          label: uniqueSkills[i],
+        });
+      }
+      setskilloption(filter1);
     }
   };
   const handlechange = (e) => {
     const { name, value } = e.target;
     seteducationdata((values) => ({ ...values, [name]: value }));
+  };
+  const fileInputRef = useRef(null);
+
+  const uploadHandler = (data) => {
+    // setIsUpload(!isUpload);
+    fileInputRef.current.click();
+  };
+  var [certificate, setcertificate] = useState([]);
+  const [formData] = useState(new FormData());
+  const handleFileInputChange = async (e) => {
+    formData.append("image", e.target.files[0]);
+    formData.append("name", `certificate${userid}`);
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    setcertificate([...certificate, response.data.img_url]);
+    fileInputRef.current.value = "";
+    setIsUpload(true);
+  };
+  const deletebtn = async (id) => {
+    const updatedElements = [...certificate];
+    updatedElements.splice(id, 1);
+    setcertificate(updatedElements);
+  };
+  const [selectedOptionskill, setSelectedOptionskill] = useState(null);
+  const [skilloption, setskilloption] = useState([]);
+  const [skill_list, setskill_list] = useState([]);
+  useEffect(() => {
+    getLocationdata();
+  }, [selectedOptionskill]);
+  const getLocationdata = async () => {
+    if (selectedOptionskill !== null) {
+      if (selectedOptionskill.length > 5) {
+        setSelectedOptionskill(null);
+        // setTimeout(() => {
+        //   setSelectedOptionskill(selectedOptionskill.slice(0, 5));
+        // }, 10);
+      } else {
+        if (selectedOptionskill !== null) {
+          const values_Array = selectedOptionskill.map(
+            (country) => country.value
+          );
+          setskill_list(values_Array);
+        }
+      }
+    }
+  };
+  const handleSelectChange = (selectedOptions) => {
+    if (selectedOptions.length <= 5) {
+      setSelectedOptionskill(selectedOptions);
+    }
   };
   return (
     <div>
@@ -144,7 +230,9 @@ const Certificate = () => {
             className={isArrow === true ? "certificateHead" : "bottomBorder"}
           >
             <div className="certificateHeadLeft">
-              <img src={user} alt="" />
+              <span>
+                <FiAward />
+              </span>
               <h1>Certificate</h1>
             </div>
             <div className="certificateLeftIcon">
@@ -193,7 +281,6 @@ const Certificate = () => {
                         <img src={gallery} alt="" />
                         <div className="gradeCertificateDesc">
                           <h2>certificate01.jpeg</h2>
-                          <p>4 MB</p>
                         </div>
                       </div>
                     )}
@@ -225,16 +312,25 @@ const Certificate = () => {
                     <p>{userdata[0].certificate_info.description}</p>
                   </div>
                 ) : null}
-
-                {isShow === true && (
-                  <div className="gradeCertificate">
-                    <img src={gallery} alt="" />
-                    <div className="gradeCertificateDesc">
-                      <h2>certificate01.jpeg</h2>
-                      <p>4 MB</p>
-                    </div>
-                  </div>
-                )}
+                <div className="flex gap-4">
+                  {certificate.length !== 0
+                    ? certificate.map((data, index) =>
+                        data.length !== 0 ? (
+                          <div
+                            className="gradeCertificate"
+                            onClick={() => {
+                              window.open(`${data}`, "_blank");
+                            }}
+                          >
+                            <img src={gallery} alt="" />
+                            <div className="gradeCertificateDesc">
+                              <h2>{data.split("/images/")[1].split("/")[1]}</h2>
+                            </div>
+                          </div>
+                        ) : null
+                      )
+                    : null}
+                </div>
               </div>
             ) : (
               <div className="educationDesc">
@@ -250,7 +346,7 @@ const Certificate = () => {
             ))}
           {isPopUp === "certificate" && (
             <div className="certificateDescOverlay">
-              <div className="innerCertificate">
+              <div className="innerCertificateOverlay">
                 <div
                   className={
                     isArrow === true ? "certificateHead" : "bottomBorder"
@@ -260,8 +356,13 @@ const Certificate = () => {
                     <img src={user} alt="" />
                     <h1>Certificate</h1>
                   </div>
-                  <div className="certificateLeftIcon">
-                    <img
+                  <div
+                    onClick={exitOverlayHandler}
+                    className="certificateLeftIcon"
+                  >
+                    <RxCross1 />
+
+                    {/* <img
                       className="certificateLeftIconSvg"
                       onClick={overLayHandler}
                       src={edit}
@@ -271,7 +372,7 @@ const Certificate = () => {
                       <img onClick={dropDownhandler} src={dropUp} alt="" />
                     ) : (
                       <img onClick={dropDownhandler} src={dropDown} alt="" />
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>
@@ -335,11 +436,17 @@ const Certificate = () => {
                       defaultValue={educationdata.date_issued}
                     />
                     <h2>Skills</h2>
-                    <input
+                    {/* <input
                       type="text"
                       name="skills"
                       onChange={handlechange}
                       defaultValue={educationdata.skills}
+                    /> */}
+                    <Select
+                      value={selectedOptionskill}
+                      options={skilloption}
+                      isMulti
+                      onChange={handleSelectChange}
                     />
                     <h2>Description</h2>
                     <input
@@ -350,31 +457,7 @@ const Certificate = () => {
                     />
                   </div>
                 </div>
-                {isUpload === true ? (
-                  <div
-                    onClick={uploadHandler}
-                    className="certificationUploaded"
-                  >
-                    <div className="educationUploadedFlex">
-                      <div className="educationUploadedFlexLeft">
-                        <img src={gallery} alt="" />
-                        <div className="educationUploadedFlexLeftDesc">
-                          <h2>certificate01.jpeg</h2>
-                          <p>4 MB</p>
-                        </div>
-                      </div>
-                      <div className="educationUploadedFlexRight">
-                        <img src={trash} alt="" />
-                      </div>
-                    </div>
-                    <div className="percent">
-                      <div className="range">
-                        <div className="InnerRange"></div>
-                      </div>
-                      <h2>50%</h2>
-                    </div>
-                  </div>
-                ) : (
+                <>
                   <div onClick={uploadHandler} className="uploadCertificate">
                     <h2 className="drop">
                       Drag your fies here to{" "}
@@ -385,7 +468,52 @@ const Certificate = () => {
                       <br /> PDF, JPEG and PNG accepted
                     </h3>
                   </div>
-                )}
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: "none" }}
+                    name="aadhaarfront"
+                    onChange={handleFileInputChange}
+                  />
+                </>
+                <>
+                  {certificate.length !== 0
+                    ? certificate.map((data, index) => (
+                        <div className="educationUploaded">
+                          <div className="educationUploadedFlex">
+                            <div className="educationUploadedFlexLeft">
+                              <img src={gallery} alt="" />
+                              <div className="educationUploadedFlexLeftDesc">
+                                {data.length !== 0 ? (
+                                  <h2>
+                                    {data.split("/images/")[1].split("/")[1]}
+                                  </h2>
+                                ) : (
+                                  <h2>certificate{index + 1}.jpeg</h2>
+                                )}
+
+                                {/* <p>4 MB</p> */}
+                              </div>
+                            </div>
+                            <div
+                              className="educationUploadedFlexRight"
+                              onClick={() => {
+                                deletebtn(index);
+                              }}
+                            >
+                              <img src={trash} alt="" />
+                            </div>
+                          </div>
+                          <div className="percent">
+                            <div className="range">
+                              <div className="InnerRange"></div>
+                            </div>
+                            <h2>100%</h2>
+                          </div>
+                        </div>
+                      ))
+                    : null}
+                </>
               </div>
               {/* <div className="AddMore">
                 <button>

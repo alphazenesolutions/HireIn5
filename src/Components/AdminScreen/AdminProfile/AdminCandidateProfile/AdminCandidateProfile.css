@@ -5,12 +5,44 @@
     margin-bottom: 30px;
 }
 
+.customerView {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.shortListButtonLeft {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .AdminClientProfileCompSearch {
     padding: 10px;
     position: relative;
     border: 1px solid var(--borderColor);
     border-radius: 8px 8px 0px 0px;
 
+}
+
+.profileselect {
+    /* width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor); */
+
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--borderColor);
+    /* margin-left: 234px; */
+}
+
+.selectdiv {
+    /* width: 40%; */
+    gap: 2rem;
+    display: flex;
 }
 
 .AdminClientProfileCompSearch input {
@@ -21,11 +53,11 @@
     border: 1px solid var(--borderColor);
 }
 
-.AdminClientProfileCompSearch img {
+/* .AdminClientProfileCompSearch img {
     position: absolute;
     top: 25%;
     left: 2%;
-}
+} */
 
 /* table */
 
@@ -136,19 +168,27 @@
 }
 
 /* tablePagination */
-.tablePagination {
+/* .tablePagination {
     width: 100%;
     padding: 40px;
     border: 1px solid var(--borderColor);
     border-top: none;
     border-radius: 0px 0px 8px 8px;
-}
+} */
 
 
 /* page css for adminprofilepage */
+.shortListButton {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-between;
+
+}
+
 .shortListButtonDisable {
     width: 200px;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid var(--borderColor);
     margin-right: 15px;
     border-radius: 8px;
@@ -156,7 +196,7 @@
 
 .shortListButtonActive {
     width: 200px;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid var(--borderColor);
     margin-right: 15px;
     border-radius: 8px;
@@ -214,4 +254,32 @@ nav {
     /* border: 1px solid #ccc; */
     color: #999;
     border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .shortListButton {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .shortListButtonDisable {
+        width: 48%;
+        margin-right: 0px;
+        padding: 5px;
+    }
+
+    .shortListButtonActive {
+        width: 48%;
+        margin-right: 0px;
+        padding: 5px;
+    }
+
+    .selectdiv {
+        display: none;
+    }
+
+    .shortListButtonLeft {
+        width: 100%;
+    }
+
 }

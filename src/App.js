@@ -8,6 +8,7 @@ import Layout from "./Layout/Layout";
 import { storeAction } from "./Store/Store";
 import { useEffect } from "react";
 import axios from "axios";
+import { LuAlignJustify } from "react-icons/lu";
 
 function App() {
   const userid = useSelector((store) => store.userid);
@@ -19,6 +20,10 @@ function App() {
   const CloseOverlay = () => {
     dispatch(storeAction.isPopUpHander());
   };
+  const navbarHandler = () => {
+    dispatch(storeAction.isPopUpHander("navbar"));
+  };
+  console.log(navbarHandler);
   useEffect(() => {
     Getuserinfo();
   }, [token, userid]);
@@ -49,7 +54,12 @@ function App() {
           <Layout />
         </HashRouter>
       </div>
+      <div onClick={navbarHandler} className="navButton">
+        <LuAlignJustify />
+      </div>
       {isPopUp == "video" ||
+      isPopUp == "mobfilter" ||
+      isPopUp == "navbar" ||
       isPopUp == "personal" ||
       isPopUp == "professional" ||
       isPopUp == "Experience" ||
@@ -62,10 +72,34 @@ function App() {
       isPopUp == "reserveSuccess" ||
       isPopUp == "achievements" ||
       isPopUp == "candidateRate" ||
+      isPopUp == "interviewDetails" ||
+      isPopUp == "logoutPopUp" ||
+      isPopUp == "adminpersonal" ||
+      isPopUp == "adminbasicdetails" ||
+      isPopUp == "adminprofessionaldetails" ||
+      isPopUp == "countriestravelledto" ||
+      isPopUp == "adminresidencydetails" ||
+      isPopUp == "willingnesstorelocate" ||
+      isPopUp == "travelforwork" ||
+      isPopUp == "adminprojectdetails" ||
+      isPopUp == "admincertification" ||
+      isPopUp == "admineducation" ||
+      isPopUp == "adminvedioresume" ||
+      isPopUp == "admincompanydetails" ||
+      isPopUp == "adminbillingcontact" ||
+      isPopUp == "adminbillinginformation" ||
+      isPopUp == "adminprimarycontact" ||
+      isPopUp == "adminsecondarycontact" ||
+      isPopUp == "aadhar" ||
+      isPopUp == "passport" ||
+      isPopUp == "approveconformation" ||
       isPopUp == "project" ? (
         <div onClick={CloseOverlay} id="overlay"></div>
       ) : null}
-      {isPopUp == "hourly" || isPopUp == "location" ? (
+      {isPopUp == "hourly" ||
+      isPopUp == "location" ||
+      isPopUp == "mobfilter" ||
+      isPopUp == "approvedropdown" ? (
         <div onClick={CloseOverlay} id="overlayTransparent"></div>
       ) : null}
     </>
