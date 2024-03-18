@@ -32,19 +32,13 @@
 }
 
 .contractCard button {
-    padding: 10px;
+    padding: 5px;
     width: 100%;
     background-color: var(--primaryColor);
     color: var(--white);
     border-radius: 8px;
     margin-top: 20px;
 
-}
-
-.Contract {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
 }
 
 .contractCard button[title] {

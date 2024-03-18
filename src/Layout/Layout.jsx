@@ -204,40 +204,9 @@ const Layout = () => {
                 ]}
               />
             )}
-        
           </div>
         )}
       </div>
-      {/* {isPopUp == "navbar" && (
-        <div className="">
-          <SideBar
-            role={2}
-            menu={[
-              {
-                title: "Home",
-                icon: <FiHome />,
-                router: "adminHome",
-              },
-              {
-                title: "Profile",
-                icon: <FaRegCircleUser />,
-                router: "customerProfile",
-              },
-
-              {
-                title: "Team members",
-                icon: <LuUsers2 />,
-                router: "adminteam",
-              },
-              {
-                title: "Settings",
-                icon: <FiSettings />,
-                router: "settings",
-              },
-            ]}
-          />
-        </div>
-      )} */}
     </div>
   );
 };

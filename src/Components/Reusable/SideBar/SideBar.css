@@ -250,10 +250,15 @@
     position: absolute;
     top: 4.5%;
     right: 10%;
+    display: none;
 }
 
 @media only screen and (max-width: 600px) {
     .sideNavInner {
         height: 92%;
+    }
+
+    .IconClose {
+        display: block;
     }
 }
