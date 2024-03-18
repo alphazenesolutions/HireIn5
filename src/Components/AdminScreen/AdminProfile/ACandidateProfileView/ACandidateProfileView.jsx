@@ -38,10 +38,14 @@ const ACandidateProfileView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isToggle, setIsToggle] = useState("personal");
+  const [isToggle1, setIsToggle1] = useState("remote");
+
   const toggleHandler = (e) => {
     setIsToggle(e.target.id);
   };
-
+  const toggleHandler1 = (e) => {
+    setIsToggle1(e.target.id);
+  };
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
@@ -3844,35 +3848,85 @@ const ACandidateProfileView = () => {
                 <h1>Candidate’s Rate (Pricing)</h1>
               </div>
               <div className="candidateRateCardOverlayTab">
-                <h5>Remote</h5>
-                <h5>On-Site</h5>
+                <h5
+                  onClick={toggleHandler1}
+                  id="remote"
+                  className={
+                    isToggle1 === "remote"
+                      ? "clientViewTabActive"
+                      : "clientViewTabInactive"
+                  }
+                >
+                  Remote
+                </h5>
+                <h5
+                  onClick={toggleHandler1}
+                  id="onsite"
+                  className={
+                    isToggle1 === "onsite"
+                      ? "clientViewTabActive"
+                      : "clientViewTabInactive"
+                  }
+                >
+                  On-Site
+                </h5>
               </div>
-              <div className="candidateRateCardOverlayBody">
-                <div className="candidateRateSlider">
-                  <div className="candidateRateSliderHead">
-                    <h2>Hourly Rate</h2>
+              {isToggle1 == "remote" && (
+                <div className="candidateRateCardOverlayBody">
+                  <div className="candidateRateSlider">
+                    <div className="candidateRateSliderHead">
+                      <h2>Hourly Rate</h2>
+                    </div>
+                    <div className="candidateRateSliderBody">
+                      <input type="number" />
+                    </div>
                   </div>
-                  <div className="candidateRateSliderBody">
-                    <input type="number" />
+                  <div className="candidateRateSlider">
+                    <div className="candidateRateSliderHead">
+                      <h2>Hourly Rate</h2>
+                    </div>
+                    <div className="candidateRateSliderBody">
+                      <input type="number" />
+                    </div>
+                  </div>
+                  <div className="candidateRateSlider">
+                    <div className="candidateRateSliderHead">
+                      <h2>Hourly Rate</h2>
+                    </div>
+                    <div className="candidateRateSliderBody">
+                      <input type="number" />
+                    </div>
                   </div>
                 </div>
-                <div className="candidateRateSlider">
-                  <div className="candidateRateSliderHead">
-                    <h2>Hourly Rate</h2>
+              )}
+              {isToggle1 == "onsite" && (
+                <div className="candidateRateCardOverlayBody">
+                  <div className="candidateRateSlider">
+                    <div className="candidateRateSliderHead">
+                      <h2>Hourly Rate Onsite</h2>
+                    </div>
+                    <div className="candidateRateSliderBody">
+                      <input type="number" />
+                    </div>
                   </div>
-                  <div className="candidateRateSliderBody">
-                    <input type="number" />
+                  <div className="candidateRateSlider">
+                    <div className="candidateRateSliderHead">
+                      <h2>Hourly Rate</h2>
+                    </div>
+                    <div className="candidateRateSliderBody">
+                      <input type="number" />
+                    </div>
+                  </div>
+                  <div className="candidateRateSlider">
+                    <div className="candidateRateSliderHead">
+                      <h2>Hourly Rate</h2>
+                    </div>
+                    <div className="candidateRateSliderBody">
+                      <input type="number" />
+                    </div>
                   </div>
                 </div>
-                <div className="candidateRateSlider">
-                  <div className="candidateRateSliderHead">
-                    <h2>Hourly Rate</h2>
-                  </div>
-                  <div className="candidateRateSliderBody">
-                    <input type="number" />
-                  </div>
-                </div>
-              </div>
+              )}
               <div className="vedioResumeButtons">
                 <button
                   className="discard"
