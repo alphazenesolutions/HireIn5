@@ -4,7 +4,7 @@ import "./MobileCandidateProfile.css";
 const MobileCandidateProfile = () => {
   return (
     <div>
-      <div className=""></div>
+      <div className="">hii</div>
     </div>
   );
 };
