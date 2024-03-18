@@ -78,6 +78,8 @@ const SideBar = (props) => {
     dispatch(storeAction.singleuserHander({ singleuser: [] }));
     dispatch(storeAction.userdataHander({ userdata: [] }));
     dispatch(storeAction.loginroleHander({ islogin: null }));
+    dispatch(storeAction.bookmarkdataHander({ bookmarkdata: [] }));
+
     window.location.replace("/#/login");
   };
 

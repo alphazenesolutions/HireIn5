@@ -6,9 +6,16 @@ import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
 import SearchProfileCard from "../../../Reusable/SearchProfileCard/SearchProfileCard";
 import tabImg from "../../../../assests/table.png";
 import tabFirst from "../../../../assests/colar.png";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { storeAction } from "../../../../Store/Store";
 
 const InterviewComp = (props) => {
   const [isPage, setIsPage] = useState("page1");
+  const dispatch = useDispatch();
+  const search_user = useSelector((store) => store.searchuser);
+  const token = useSelector((store) => store.token);
+  const userid = useSelector((store) => store.userid);
   const PageHandler = (event) => {
     setIsPage(event.target.id);
   };
@@ -45,6 +52,60 @@ const InterviewComp = (props) => {
       date: "24/12/23",
     },
   ];
+  const addbookmark = async (id) => {
+    let data = JSON.stringify({
+      user: userid.toString(),
+      bookmarked_user: id.toString(),
+    });
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `https://hirein5-server.onrender.com/bookmark/`,
+      headers: {
+        Authorization: `JWT ${token}`,
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    await axios
+      .request(config)
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        return error;
+      });
+    getBookmarkdata();
+  };
+  const getBookmarkdata = async () => {
+    var config1 = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    };
+    var tabledata = await axios(config1)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        return error;
+      });
+
+    if (tabledata.length !== 0) {
+      const bookmarkedUserArray = tabledata.map((item) => item.bookmarked_user);
+      dispatch(
+        storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
+      );
+    }
+  };
+  const overLayHandler = (e, data) => {
+    dispatch(storeAction.isPopUpHander(e));
+    dispatch(storeAction.singleuserHander({ singleuser: [data] }));
+  };
+  console.log(search_user, "search_user");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100 paddingRight100">
@@ -148,10 +209,18 @@ const InterviewComp = (props) => {
               Schedule call with your shortlisted candidates
             </h1>
             <div className="interviewCard">
-              <SearchProfileCard />
-              <SearchProfileCard />
-              <SearchProfileCard />
-              <SearchProfileCard />
+              {search_user.length !== 0
+                ? search_user.map((datanew, index1) => (
+                    <div className="recentWrap" key={index1}>
+                      <SearchProfileCard
+                        datanew={datanew}
+                        addbookmark={addbookmark}
+                        reserve={overLayHandler}
+                        setIsPage={setIsPage}
+                      />
+                    </div>
+                  ))
+                : null}
             </div>
           </div>
         )}

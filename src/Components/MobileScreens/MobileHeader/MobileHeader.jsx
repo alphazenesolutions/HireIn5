@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from "react";
 import "./MobileHeader.css";
 import { CiSearch } from "react-icons/ci";

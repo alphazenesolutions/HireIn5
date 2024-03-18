@@ -47,8 +47,12 @@ const ProfileCard = ({ filterdata, fun }) => {
                       </div>
                     </div>
                     <div className="candidateDiscoverHours">
-                      {/* <h2>&#8377; {data.hourly_rate}/hr</h2> */}
-                      <h2> Not provided yet</h2>
+                     
+                      {data.rate_card_info !== null ? (
+                        <h2> {data.rate_card_info.remote_hourly}/hr</h2>
+                      ) : (
+                        <h5 className="rateHour">Not provided yet</h5>
+                      )}
                     </div>
                   </div>
                   <div className="candidateDiscoverSkills">
