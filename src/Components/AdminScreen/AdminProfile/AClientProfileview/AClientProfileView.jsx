@@ -524,7 +524,7 @@ const AClientProfileView = () => {
   return (
     <div>
       {singleuser.length !== 0 ? (
-        <div className="paddingLeft100 paddingRight100 ">
+        <div className="clientProfileOverview paddingLeft100 paddingRight100 ">
           <div className="clientProfileViewHeader">
             <div className="ClientProfileBackButton">
               <span onClick={() => navigate("/customerProfile")}>
@@ -599,6 +599,94 @@ const AClientProfileView = () => {
                   <button className="disable_Profile">Disabled</button>
                 )}
               </div>
+            </div>
+          </div>
+          <div className="clientProfileViewHeaderMob">
+            <div className="ClientProfileBackButton">
+              <span onClick={() => navigate("/customerProfile")}>
+                <IoMdArrowBack />
+              </span>
+
+              <h5 onClick={() => navigate("/customerProfile")}>
+                Back to profile page
+              </h5>
+            </div>
+            <div className="clientProfileViewFlex">
+              <div className="clientProfileViewFlexLeft">
+                <div className="clientProfileViewFlexLeftImg">
+                  {singleuser[0].profile_picture.length !== 0 ? (
+                    <img src={singleuser[0].profile_picture} alt="" />
+                  ) : (
+                    <Avatar
+                      name={singleuser[0].first_name}
+                      size={100}
+                      round="50px"
+                    />
+                  )}
+                </div>
+                <div className="clientProfileViewFlexLeftDesc">
+                  <div className="clientProfileViewFlexLeftDescHead">
+                    <h1>{singleuser[0].first_name}</h1>
+                    {singleuser[0].apprual === false ? (
+                      <span className="pendingApproval">Approval Pending</span>
+                    ) : (
+                      <img src={approvedTick} alt="" />
+                    )}
+                  </div>
+                  {singleuser[0].preference_info !== null ? (
+                    <div className="clientProfileViewFlexLeftDescRole">
+                      <h2>{singleuser[0].preference_info.qualification}</h2>
+                    </div>
+                  ) : null}
+
+                  <div className="clientProfileViewFlexLeftDescLocation">
+                    {/* <img src={candidateProfile} alt="" /> */}
+                    <h2>{singleuser[0].current_place_of_residence}</h2>
+                    <h2>₹4500/hr</h2>
+                  </div>
+                </div>
+              </div>
+              <div className="clientProfileViewFlexRightMob">
+                {/* <button onClick={overLayHandler} className="editRate">
+                  <img src={editOutline} alt="" />
+                  Edit Rate (Pricing)
+                </button> */}
+                <div className="clientProfileViewFlexRightButtonMob">
+                  <button
+                    id="approveconformation"
+                    onClick={editHandler1}
+                    className="disableProfile"
+                  >
+                    Approve Candidate
+                  </button>
+                  <button className="disableProfile">Disable Profile</button>
+                </div>
+
+                {isPopUp == "approvedropdown" &&
+                  (singleuser.length !== 0 ? (
+                    <div className="approvalMenu">
+                      {singleuser[0].apprual === false ? (
+                        <h3
+                          id="approveconformation"
+                          onClick={editHandler1}
+                          className="approvalMenuActive"
+                        >
+                          Approve Candidate
+                        </h3>
+                      ) : null}
+
+                      <h3 className="approvalMenuDisable">Disable Profile</h3>
+                    </div>
+                  ) : null)}
+              </div>
+              {/* <div className="calendlyLink">
+                <h4>Calendly Link (for interview)</h4>
+                <input
+                  type="text"
+                  placeholder="https://calendly.com/meet/usernamelink"
+                />
+                <h5>Edit</h5>
+              </div> */}
             </div>
           </div>
           <div className="clientViewTab">
