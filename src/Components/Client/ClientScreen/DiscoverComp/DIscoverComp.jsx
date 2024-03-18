@@ -29,6 +29,7 @@ import moment from "moment";
 import Skilllist from "../../../../assests/skillsJSON.json";
 import Avatar from "react-avatar";
 import MobileHeader from "../../../MobileScreens/MobileHeader/MobileHeader";
+import MobileCandidateProfile from "../../../MobileScreens/MobileCandidateProfile/MobileCandidateProfile";
 
 const DiscoverComp = () => {
   const dispatch = useDispatch();
@@ -508,11 +509,18 @@ const DiscoverComp = () => {
           </div>
         )}
         {isPage === "page2" && (
-          <CandidateProfileCard
-            main="candidateProfile"
-            fun={pageHandler}
-            back="candidateBack"
-          />
+          <>
+            <div className="displayHandler">
+              <CandidateProfileCard
+                main="candidateProfile"
+                fun={pageHandler}
+                back="candidateBack"
+              />
+            </div>
+            <div className="displayHandler">
+              <MobileCandidateProfile />
+            </div>
+          </>
         )}
       </div>
       {isPopUp === "reserve" && (

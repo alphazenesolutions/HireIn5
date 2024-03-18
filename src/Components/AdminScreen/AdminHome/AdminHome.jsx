@@ -52,33 +52,35 @@ const AdminHome = () => {
           descClass="dashBoardMainHeadDescBetween"
         />
         <div className="adminNotification">
-          <div className="adminNotificationHead">
-            <h1>Notifications</h1>
-            <h6>Mark all as read</h6>
-          </div>
-          <div className="adminNotificationTab">
-            <h5
-              id="activity"
-              onClick={targetHandler}
-              className={
-                target == "activity"
-                  ? "adminNotificationTabActive"
-                  : "adminNotificationTabInactive"
-              }
-            >
-              Activity
-            </h5>
-            <h5
-              id="read"
-              onClick={targetHandler}
-              className={
-                target == "read"
-                  ? "adminNotificationTabActive"
-                  : "adminNotificationTabInactive"
-              }
-            >
-              Read
-            </h5>
+          <div className="innerAdminNotification">
+            <div className="adminNotificationHead">
+              <h1>Notifications</h1>
+              <h6>Mark all as read</h6>
+            </div>
+            <div className="adminNotificationTab">
+              <h5
+                id="activity"
+                onClick={targetHandler}
+                className={
+                  target == "activity"
+                    ? "adminNotificationTabActive"
+                    : "adminNotificationTabInactive"
+                }
+              >
+                Activity
+              </h5>
+              <h5
+                id="read"
+                onClick={targetHandler}
+                className={
+                  target == "read"
+                    ? "adminNotificationTabActive"
+                    : "adminNotificationTabInactive"
+                }
+              >
+                Read
+              </h5>
+            </div>
           </div>
           <div className="adminNotificationLog">
             <Notification

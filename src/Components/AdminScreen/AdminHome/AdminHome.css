@@ -258,3 +258,38 @@
 .yetToBeHired {
     background-color: var(--emailHighlighter);
 }
+
+@media only screen and (max-width: 600px) {
+    .adminHomePage {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .homeProgress {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .homeProgressClientSubscribe h2 {
+        font-size: 12px;
+    }
+
+    .homeProgressClientFlexContent h4 {
+        font-size: 18px;
+    }
+
+    .adminNotification {
+        /* width: 800px; */
+        overflow: scroll;
+    }
+
+    .innerAdminNotification {
+        width: 800px;
+        /* overflow: hidden; */
+        overflow-x: scroll;
+    }
+
+    .adminNotificationLog {
+        width: 800px;
+        overflow-x: scroll;
+    }
+}
