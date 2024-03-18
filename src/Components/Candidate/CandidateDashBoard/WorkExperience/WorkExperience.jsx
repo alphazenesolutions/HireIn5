@@ -208,7 +208,6 @@ const WorkExperience = () => {
             i < userdata[0].work_preference_info.language.length;
             i++
           ) {
-    
             newfilter.push({
               languages: userdata[0].work_preference_info.language[i]
                 .split(":")[0]
@@ -229,6 +228,7 @@ const WorkExperience = () => {
         <div className="innerWorkExperience">
           <div
             className={isArrow === true ? "workExperienceHead" : "bottomBorder"}
+            bottomBorder
           >
             <div className="workExperienceHeadLeft">
               <img src={user} alt="" />
@@ -490,7 +490,6 @@ const WorkExperience = () => {
                       <h3>Preferred Work Timings</h3>
                     </div>
                     <div className="keyskills2">
-                    
                       <select
                         name="preffered_work_timings"
                         onChange={handlechange}

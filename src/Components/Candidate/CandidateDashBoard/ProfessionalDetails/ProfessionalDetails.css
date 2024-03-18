@@ -257,3 +257,36 @@
 .AddMore h3 {
     margin-left: 20px;
 }
+
+@media only screen and (max-width: 600px) {
+    .professionalDetailsOverlay {
+        width: 100%;
+        height: 100%;
+    }
+
+    .professionalDetailsOverlay h6 {
+        padding: 0px 20px;
+    }
+
+    .innerprofessionalDetailsOverlay {
+        height: 15%;
+        overflow-y: scroll;
+    }
+
+    .professionalDetailsOverlayFlex {
+        height: 100%;
+        padding: 20px;
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+
+    .professionalDetailsOverlayLeft {
+        width: 100%;
+    }
+
+    .professionalDetailsOverlayRight {
+        width: 100%;
+        margin-left: 0px;
+    }
+
+}

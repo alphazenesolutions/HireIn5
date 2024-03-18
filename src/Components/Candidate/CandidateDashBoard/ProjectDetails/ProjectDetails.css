@@ -243,3 +243,43 @@
     border: 1px solid var(--borderColor);
 
 }
+
+@media only screen and (max-width: 600px) {
+    .projectDetailsOverlay {
+        width: 100%;
+        height: 100%;
+    }
+
+    .innerprojectDetailsOverlay {
+        height: 17%;
+        overflow-y: scroll;
+        border-radius: 8px;
+        border: 1px solid var(--dropBorderColor);
+    }
+
+    .projectDetailsOverlay h6 {
+        padding: 5px 20px;
+    }
+
+    .projectDetailsOverlayFlex {
+        flex-direction: column;
+        overflow-y: scroll;
+        padding: 20px;
+        padding-top: 0px;
+    }
+
+    .projectDetailsOverlayFlexLeft {
+        width: 100%;
+        margin-right: 0px;
+    }
+
+    .projectDetailsOverlayFlexRight {
+        width: 100%;
+        margin-left: 0px;
+    }
+
+    .projectDetailsOverlayFlexRight textarea {
+        height: 200px;
+    }
+
+}
