@@ -40,7 +40,7 @@ const CandidateRegistration = () => {
   const token = useSelector((store) => store.token);
   const onboarding_status = useSelector((store) => store.onboarding_status);
 
-  const [isPage, setIsPage] = useState("page1");
+  const [isPage, setIsPage] = useState("page3");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -1078,17 +1078,17 @@ const CandidateRegistration = () => {
     CheckStage();
   }, [onboarding_status]);
   const CheckStage = async () => {
-    if (onboarding_status > 3) {
-      window.location.replace("/#/profile");
-    } else {
-      if (onboarding_status == 1) {
-        setIsPage("page1");
-      } else if (onboarding_status == 2) {
-        setIsPage("page2");
-      } else if (onboarding_status == 3) {
-        setIsPage("page3");
-      }
-    }
+    // if (onboarding_status > 3) {
+    //   window.location.replace("/#/profile");
+    // } else {
+    //   if (onboarding_status == 1) {
+    //     setIsPage("page1");
+    //   } else if (onboarding_status == 2) {
+    //     setIsPage("page2");
+    //   } else if (onboarding_status == 3) {
+    //     setIsPage("page3");
+    //   }
+    // }
   };
   const skipbtn = () => {
     setIsPage("page4");

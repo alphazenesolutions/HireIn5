@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./CandidateProfile.css";
@@ -118,7 +119,7 @@ const CandidateProfile = () => {
           <div className="">
             <PersonalDetails />
             <WorkExperience />
-            <Achievement />
+            {/* <Achievement /> */}
             <ProfessionalDetails />
             <ProjectDetails />
             <Certificate />

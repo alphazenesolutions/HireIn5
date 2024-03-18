@@ -71,67 +71,64 @@ const AdminClientProfileComp = ({
               {/* <th>AGREEMENT STATUS</th> */}
               <th></th>
             </tr>
-            {!loading && currentRecords.length !== 0
-              ? currentRecords.map((data, index) => {
-                  return (
-                    <tr className="adminTableRow" key={index}>
-                      <td>
-                        <div className="tableName">
-                         
-                          {data.company !== null ? (
-                            data.profile_picture.length !== 0 ? (
-                              <img src={data.profile_picture} alt="" />
-                            ) : (
-                              <Avatar
-                                name={
-                                  data.company.company_name.length !== 0
-                                    ? data.company.company_name
-                                    : data.first_name
-                                }
-                                size={30}
-                                round="50px"
-                              />
-                            )
-                          ) : (
-                            <img src={data.profile_picture} alt="" />
-                          )}
-                          {data.company !== null ? (
-                            <h1>{data.company.company_name}</h1>
-                          ) : (
-                            <h1>{data.first_name}</h1>
-                          )}
-                        </div>
-                      </td>
-                      <td>
-                        <h1>{data.first_name}</h1>
-                      </td>
-                      <td>
-                        <h1>-</h1>
-                      </td>
-                      <td>
-                        <h1>-</h1>
-                      </td> */}
-                    <td>
-                      <p className={data.statusClass}>{data.clientStatus}</p>
-                    </td>
-                    <td>
-                      {data.dissabled === true ? (
-                        <p className="status inActive">Inactive</p>
+            {!loading && currentRecords.length !== 0 ? (
+              currentRecords.map((data, index) => (
+                <tr className="adminTableRow" key={index}>
+                  <td>
+                    <div className="tableName">
+                      {data.company !== null ? (
+                        data.profile_picture.length !== 0 ? (
+                          <img src={data.profile_picture} alt="" />
+                        ) : (
+                          <Avatar
+                            name={
+                              data.company.company_name.length !== 0
+                                ? data.company.company_name
+                                : data.first_name
+                            }
+                            size={30}
+                            round="50px"
+                          />
+                        )
                       ) : (
-                        <p className="status Active">Active</p>
+                        <img src={data.profile_picture} alt="" />
                       )}
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => viewbtn(data)}
-                        className="viewButton"
-                      >
-                        View
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
+                      {data.company !== null ? (
+                        <h1>{data.company.company_name}</h1>
+                      ) : (
+                        <h1>{data.first_name}</h1>
+                      )}
+                    </div>
+                  </td>
+                  <td>
+                    <h1>{data.first_name}</h1>
+                  </td>
+                  <td>
+                    <h1>-</h1>
+                  </td>
+                  <td>
+                    <h1>-</h1>
+                  </td>
+                  <td>
+                    <p className={data.statusClass}>{data.clientStatus}</p>
+                  </td>
+                  <td>
+                    {data.dissabled === true ? (
+                      <p className="status inActive">Inactive</p>
+                    ) : (
+                      <p className="status Active">Active</p>
+                    )}
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => viewbtn(data)}
+                      className="viewButton"
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))
             ) : (
               <tr>
                 <td></td>
@@ -143,6 +140,7 @@ const AdminClientProfileComp = ({
                 <td></td>
               </tr>
             )}
+
             {loading && (
               <tr>
                 <td></td>

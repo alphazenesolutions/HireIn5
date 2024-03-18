@@ -273,8 +273,11 @@ const CandidateProfileCard = (props) => {
                   {singleuser[0].address !== null ? (
                     <div className="proExperience">
                       <img src={map} alt="" />
-                      <h5>{singleuser[0].address.city}, {singleuser[0].address.state}, {singleuser[0].address.country}</h5>
-                      
+                      <h5>
+                        {singleuser[0].address.city},{" "}
+                        {singleuser[0].address.state},{" "}
+                        {singleuser[0].address.country}
+                      </h5>
                     </div>
                   ) : null}
                 </div>
@@ -535,7 +538,7 @@ const CandidateProfileCard = (props) => {
                             : "-"
                           : "-"}
                       </h2>
-                      <h2>Uploaded</h2>
+                      <h2>Not Uploaded</h2>
                     </div>
                   </div>
                 </div>
