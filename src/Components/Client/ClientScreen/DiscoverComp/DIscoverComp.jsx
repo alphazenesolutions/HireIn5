@@ -149,6 +149,7 @@ const DiscoverComp = () => {
       });
     if (tabledata.length !== 0) {
       const bookmarkedUserArray = tabledata.map((item) => item.bookmarked_user);
+      console.log(bookmarkedUserArray, "bookmarkedUserArray");
       dispatch(
         storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
       );
@@ -582,10 +583,14 @@ const DiscoverComp = () => {
                     </div>
                   </div>
                   <div className="reserveCandidateFlexRightHeadRight">
-                    <h5 className="rateHour">
-                      {/* {reserveduser[0].hourly_rate}/hr */}
-                      Not provided yet
-                    </h5>
+                    {reserveduser[0].rate_card_info !== null ? (
+                      <h5>
+                        {" "}
+                        {reserveduser[0].rate_card_info.remote_hourly}/hr
+                      </h5>
+                    ) : (
+                      <h5 className="rateHour">Not provided yet</h5>
+                    )}
                   </div>
                 </div>
                 {reserveduser[0].preference_info !== null ? (
@@ -613,7 +618,15 @@ const DiscoverComp = () => {
                       </h6>
                       <h6 className="briefH5">
                         <img src={userCheck} alt="" />
-                        <p>Part-time availability</p>
+                        {reserveduser[0].work_preference_info !== null ? (
+                          <p>
+                            {
+                              reserveduser[0].work_preference_info
+                                .preferred_mode_of_engagement
+                            }{" "}
+                            availability
+                          </p>
+                        ) : null}
                       </h6>
                     </div>
                   </>

@@ -90,6 +90,7 @@ const persistConfig = {
     "singleuser",
     "allcompanydata",
     "searchuser",
+    "bookmarkdata",
   ],
 };
 

@@ -97,7 +97,21 @@
     margin-bottom: 5px;
 }
 
+.bioLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--textColor);
+    margin-bottom: 5px;
+}
+
 .personalDetailsDescLeft h3 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--textColorDark);
+    margin-bottom: 20px;
+}
+
+.biocontent {
     font-size: 15px;
     font-weight: 500;
     color: var(--textColorDark);
@@ -176,6 +190,12 @@
 
 }
 
+.biohead {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
 .updatePersonalDetailsLeft input {
     width: 100%;
     padding: 10px;
@@ -196,6 +216,14 @@
 }
 
 .updatePersonalDetailsRight input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+}
+
+.biotext {
     width: 100%;
     padding: 10px;
     margin-top: 8px;

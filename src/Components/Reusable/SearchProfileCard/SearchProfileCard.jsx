@@ -107,8 +107,11 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
                     </div>
                   </div>
                   <div className="candidateHours">
-                    {/* <h2>&#8377; {datanew.hourly_rate}/hr</h2> */}
-                    <h2> Not provided yet</h2>
+                    {datanew.rate_card_info !== null ? (
+                      <h2> {datanew.rate_card_info.remote_hourly}/hr</h2>
+                    ) : (
+                      <h2 className="rateHour">Not provided yet</h2>
+                    )}
                   </div>
                 </div>
                 <div className="candidateCartSkills">
@@ -145,16 +148,22 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
                   ) : null}
 
                   <div className="candidateCartExp">
-                    <p>
-                      <img src={user_check} alt="" />
-                      Not provided yet
-                    </p>
+                    {datanew.work_preference_info !== null ? (
+                      <p>
+                        <img src={user_check} alt="" />
+                        {
+                          datanew.work_preference_info
+                            .preferred_mode_of_engagement
+                        }{" "}
+                        availability
+                      </p>
+                    ) : null}
                   </div>
                   {datanew.address !== null ? (
                     <div className="candidateCartExp">
                       <p>
-                        <img src={location} alt="" />{" "}
-                        {datanew.address.city}, {datanew.address.state}, {datanew.address.country}
+                        <img src={location} alt="" /> {datanew.address.city},{" "}
+                        {datanew.address.state}, {datanew.address.country}
                       </p>
                     </div>
                   ) : null}

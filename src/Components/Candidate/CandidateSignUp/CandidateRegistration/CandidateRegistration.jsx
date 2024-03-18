@@ -808,11 +808,15 @@ const CandidateRegistration = () => {
       setIsLoading(true);
       const arrayOfStrings = travelrow.map(
         (obj) =>
-          `${obj.country}: ${obj.year_of_travel}: ${obj.duration}: ${obj.purpose}: ${obj.type_of_visa}: ${obj.validity_of_visa}`
+          `${obj.country}:${obj.year_of_travel}:${obj.duration}:${obj.purpose}:${obj.type_of_visa}:${obj.validity_of_visa}`
       );
       const arrayOfStrings1 = relocate.map(
         (obj) =>
-          `${obj.are_you_willing}: ${obj.preferred_countries}: ${obj.how_long}`
+          `${obj.are_you_willing}:${obj.preferred_countries}:${obj.how_long}`
+      );
+      const arrayOfStrings2 = travelwork.map(
+        (obj) =>
+          `${obj.country}:${obj.only_for}:${obj.duration}:${obj.readlines}`
       );
       var valuesArray = [];
       if (selectedOption !== null && selectedOption !== undefined) {
@@ -824,11 +828,7 @@ const CandidateRegistration = () => {
         travel_info: {
           travelled_to: arrayOfStrings,
           relocate_for_work: arrayOfStrings1,
-          // country: valuesArray.length !== 0 ? valuesArray : [""],
-          country: [travelform.country],
-          onlyfor: travelform.onlyfor,
-          duration: travelform.duration,
-          travel_readlines: travelform.travel_readlines,
+          travel_to_for_work: arrayOfStrings2,
         },
         current_place_of_residence: travelform.current_place_of_residence,
         lived_at_current_residence: travelform.lived_at_current_residence,
@@ -915,13 +915,10 @@ const CandidateRegistration = () => {
       validity_of_visa: "",
     },
   ]);
+
   const [travelform, settravelform] = useState({
     current_place_of_residence: "",
     lived_at_current_residence: "",
-    travel_readlines: "",
-    duration: "",
-    country: "",
-    onlyfor: "",
   });
 
   const handlechange_travel = (e) => {
@@ -936,7 +933,14 @@ const CandidateRegistration = () => {
       how_long: "",
     },
   ]);
-
+  const [travelwork, settravelwork] = useState([
+    {
+      country: "",
+      only_for: "",
+      duration: "",
+      readlines: "",
+    },
+  ]);
   const addcount = () => {
     var newobj = {
       languages: "",
@@ -955,6 +959,15 @@ const CandidateRegistration = () => {
       validity_of_visa: "",
     };
     settravelrow((prevState) => [...prevState, newobj]);
+  };
+  const addcountwork = () => {
+    var newobj = {
+      country: "",
+      only_for: "",
+      duration: "",
+      readlines: "",
+    };
+    settravelwork((prevState) => [...prevState, newobj]);
   };
 
   const addcountrelocate = () => {
@@ -980,100 +993,13 @@ const CandidateRegistration = () => {
     relocate[index][name] = value;
     setrelocate([...relocate]);
   };
+
+  const handlechangework = (value, index, name) => {
+    travelwork[index][name] = value;
+    settravelwork([...travelwork]);
+  };
   const [selectedOption, setSelectedOption] = useState(null);
-  const options = [
-    { value: "Afghanistan", label: "Afghanistan" },
-    { value: "Albania", label: "Albania" },
-    { value: "Algeria", label: "Algeria" },
-    { value: "Andorra", label: "Andorra" },
-    { value: "Angola", label: "Angola" },
-    { value: "Antigua and Barbuda", label: "Antigua and Barbuda" },
-    { value: "Argentina", label: "Argentina" },
-    { value: "Armenia", label: "Armenia" },
-    { value: "Australia", label: "Australia" },
-    { value: "Austria", label: "Austria" },
-    { value: "Azerbaijan", label: "Azerbaijan" },
-    { value: "Bahamas", label: "Bahamas" },
-    { value: "Bahrain", label: "Bahrain" },
-    { value: "Bangladesh", label: "Bangladesh" },
-    { value: "Barbados", label: "Barbados" },
-    { value: "Belarus", label: "Belarus" },
-    { value: "Belgium", label: "Belgium" },
-    { value: "Belize", label: "Belize" },
-    { value: "Benin", label: "Benin" },
-    { value: "Bhutan", label: "Bhutan" },
-    { value: "Bolivia", label: "Bolivia" },
-    { value: "Bosnia and Herzegovina", label: "Bosnia and Herzegovina" },
-    { value: "Botswana", label: "Botswana" },
-    { value: "Brazil", label: "Brazil" },
-    { value: "Brunei", label: "Brunei" },
-    { value: "Bulgaria", label: "Bulgaria" },
-    { value: "Burkina Faso", label: "Burkina Faso" },
-    { value: "Burundi", label: "Burundi" },
-    { value: "Cambodia", label: "Cambodia" },
-    { value: "Cameroon", label: "Cameroon" },
-    { value: "Canada", label: "Canada" },
-    { value: "Cape Verde", label: "Cape Verde" },
-    { value: "Central African Republic", label: "Central African Republic" },
-    { value: "Chad", label: "Chad" },
-    { value: "Chile", label: "Chile" },
-    { value: "China", label: "China" },
-    { value: "Colombia", label: "Colombia" },
-    { value: "Comoros", label: "Comoros" },
-    { value: "Congo", label: "Congo" },
-    { value: "Costa Rica", label: "Costa Rica" },
-    { value: "Croatia", label: "Croatia" },
-    { value: "Cuba", label: "Cuba" },
-    { value: "Cyprus", label: "Cyprus" },
-    { value: "Czech Republic", label: "Czech Republic" },
-    { value: "Denmark", label: "Denmark" },
-    { value: "Djibouti", label: "Djibouti" },
-    { value: "Dominica", label: "Dominica" },
-    { value: "Dominican Republic", label: "Dominican Republic" },
-    { value: "East Timor (Timor-Leste)", label: "East Timor (Timor-Leste)" },
-    { value: "Ecuador", label: "Ecuador" },
-    { value: "Egypt", label: "Egypt" },
-    { value: "El Salvador", label: "El Salvador" },
-    { value: "Equatorial Guinea", label: "Equatorial Guinea" },
-    { value: "Eritrea", label: "Eritrea" },
-    { value: "Estonia", label: "Estonia" },
-    { value: "Ethiopia", label: "Ethiopia" },
-    { value: "Fiji", label: "Fiji" },
-    { value: "Finland", label: "Finland" },
-    { value: "France", label: "France" },
-    { value: "Gabon", label: "Gabon" },
-    { value: "Gambia", label: "Gambia" },
-    { value: "Georgia", label: "Georgia" },
-    { value: "Germany", label: "Germany" },
-    { value: "Ghana", label: "Ghana" },
-    { value: "Greece", label: "Greece" },
-    { value: "Grenada", label: "Grenada" },
-    { value: "Guatemala", label: "Guatemala" },
-    { value: "Guinea", label: "Guinea" },
-    { value: "Guinea-Bissau", label: "Guinea-Bissau" },
-    { value: "Guyana", label: "Guyana" },
-    { value: "Haiti", label: "Haiti" },
-    { value: "Honduras", label: "Honduras" },
-    { value: "Hungary", label: "Hungary" },
-    { value: "Iceland", label: "Iceland" },
-    { value: "India", label: "India" },
-    { value: "Indonesia", label: "Indonesia" },
-    { value: "Iran", label: "Iran" },
-    { value: "Iraq", label: "Iraq" },
-    { value: "Ireland", label: "Ireland" },
-    { value: "Israel", label: "Israel" },
-    { value: "Italy", label: "Italy" },
-    { value: "Ivory Coast", label: "Ivory Coast" },
-    { value: "Jamaica", label: "Jamaica" },
-    { value: "Japan", label: "Japan" },
-    { value: "Jordan", label: "Jordan" },
-    { value: "Kazakhstan", label: "Kazakhstan" },
-    { value: "Kenya", label: "Kenya" },
-    { value: "Kiribati", label: "Kiribati" },
-    { value: "Korea, North", label: "Korea, North" },
-    { value: "Korea, South", label: "Korea, South" },
-    { value: "Kuwait", label: "Kuwait" },
-  ];
+
   useEffect(() => {
     CheckStage();
   }, [onboarding_status]);
@@ -1094,6 +1020,7 @@ const CandidateRegistration = () => {
     setIsPage("page4");
     routeHandler();
   };
+  console.log(travelwork, "travelwork");
   return (
     <>
       <div className="candidateRegistration">
@@ -2434,110 +2361,110 @@ const CandidateRegistration = () => {
 
             <div className="travelResidence">
               <h2>COUNTRIES YOU'RE WILLING TO TRAVEL TO FOR WORK</h2>
-              <div className="candidateInfo h-full">
-                <div className="infoHead">
-                  <h3>Country</h3>
-                  {/* <h3 title="">Select upto 3 countries</h3> */}
-                </div>
-                {/* <Select
-                  defaultValue={selectedOption}
-                  onChange={setSelectedOption}
-                  options={options}
-                  isMulti
-                /> */}
-                <select
-                  id=""
-                  name="country"
-                  defaultValue={travelform.country}
-                  onChange={handlechange_travel}
-                  selected={travelform.country}
-                >
-                  <option value="">Select Country</option>
-                  <option value="Japan">Japan</option>
-                  <option value="Dubai">Dubai</option>
-                  <option value="Saudi Arabia"> Saudi Arabia</option>
-                  <option value="Singapore"> Singapore</option>
-                  <option value="Malaysia"> Malaysia</option>
-                </select>
-              </div>
-              <div className="candidateInfo h-full">
-                <h3>Only for</h3>
-                <p>
-                  {/* <input
-                    type="text"
-
-                    placeholder="Work Onsite"
-                    name="lived_at_current_residence"
-                    defaultValue={travelform.lived_at_current_residence}
-                    onChange={handlechange_travel}
-                  /> */}
-                  <select
-                    name="onlyfor"
-                    defaultValue={travelform.onlyfor}
-                    onChange={handlechange_travel}
-                    className="w-full"
-                  >
-                    <option value="">Only for</option>
-                    <option value="Work Onsite">Work Onsite</option>
-                    <option value="Short-term business visit">
-                      Short-term business visit
-                    </option>
-                  </select>
-                </p>
-              </div>
-              <div className="travelDuration">
-                <div className="candidateInfo h-full">
-                  <h3>Duration</h3>
-                  <p>
-                    {/* <input
-                      type="number"
-                      placeholder="Short Term - 6 months"
-                      name="duration"
-                      defaultValue={travelform.duration}
-                      onChange={handlechange_travel}
-                    /> */}
-                    <select
-                      id=""
-                      name="duration"
-                      defaultValue={travelform.duration}
-                      onChange={handlechange_travel}
-                    >
-                      <option value="">Select duration</option>
-                      <option value="3-6 months">3-6 months</option>
-                      <option value="6-12 months">6-12 months</option>
-                      <option value=">12 months"> {">"}12 months</option>
-                    </select>
-                  </p>
-                </div>
-                <div className="candidateInfo h-full">
-                  <h3>Readlines to Travel</h3>
-                  <p>
-                    {/* <input
-                      type="text"
-                      placeholder="Immediate"
-                      name="travel_readlines"
-                      defaultValue={travelform.travel_readlines}
-                      onChange={handlechange_travel}
-                    /> */}
-                    <select
-                      id=""
-                      name="travel_readlines"
-                      defaultValue={travelform.travel_readlines}
-                      onChange={handlechange_travel}
-                    >
-                      <option value="">Select Travel Readlines</option>
-                      <option value="Immediate">Immediate</option>
-                      <option value="In the next 6 months">
-                        In the next 6 months
-                      </option>
-                      <option value="6 months">6 months</option>
-                    </select>
-                  </p>
-                </div>
-              </div>
-              {/* <button className="travelBottomButton" onClick={addcountrelocate}>
+              {travelwork.length !== 0
+                ? travelwork.map((data, index) => (
+                    <>
+                      <div className="candidateInfo h-full" key={index}>
+                        <div className="infoHead">
+                          <h3>Country</h3>
+                          <h3 title="">Select upto 3 countries</h3>
+                        </div>
+                        <select
+                          id=""
+                          name="country"
+                          onChange={(e) => {
+                            handlechangework(e.target.value, index, "country");
+                          }}
+                          defaultValue={data.country}
+                        >
+                          <option value="">Select Country</option>
+                          <option value="Japan">Japan</option>
+                          <option value="Dubai">Dubai</option>
+                          <option value="Saudi Arabia"> Saudi Arabia</option>
+                          <option value="Singapore"> Singapore</option>
+                          <option value="Malaysia"> Malaysia</option>
+                        </select>
+                      </div>
+                      <div className="candidateInfo h-full">
+                        <h3>Only for</h3>
+                        <p>
+                          <select
+                            name="only_for"
+                            onChange={(e) => {
+                              handlechangework(
+                                e.target.value,
+                                index,
+                                "only_for"
+                              );
+                            }}
+                            defaultValue={data.only_for}
+                            className="w-full"
+                          >
+                            <option value="">Only for</option>
+                            <option value="Work Onsite">Work Onsite</option>
+                            <option value="Short-term business visit">
+                              Short-term business visit
+                            </option>
+                          </select>
+                        </p>
+                      </div>
+                      <div className="travelDuration">
+                        <div className="candidateInfo h-full">
+                          <h3>Duration</h3>
+                          <p>
+                            <select
+                              id=""
+                              name="duration"
+                              onChange={(e) => {
+                                handlechangework(
+                                  e.target.value,
+                                  index,
+                                  "duration"
+                                );
+                              }}
+                              defaultValue={data.duration}
+                            >
+                              <option value="">Select duration</option>
+                              <option value="3-6 months">3-6 months</option>
+                              <option value="6-12 months">6-12 months</option>
+                              <option value=">12 months">
+                                {" "}
+                                {">"}12 months
+                              </option>
+                            </select>
+                          </p>
+                        </div>
+                        <div className="candidateInfo h-full">
+                          <h3>Readlines to Travel</h3>
+                          <p>
+                            <select
+                              id=""
+                              name="readlines"
+                              onChange={(e) => {
+                                handlechangework(
+                                  e.target.value,
+                                  index,
+                                  "readlines"
+                                );
+                              }}
+                              defaultValue={data.readlines}
+                            >
+                              <option value="">Select Travel Readlines</option>
+                              <option value="Immediate">Immediate</option>
+                              <option value="In the next 6 months">
+                                In the next 6 months
+                              </option>
+                              <option value="6 months">6 months</option>
+                            </select>
+                          </p>
+                        </div>
+                      </div>
+                    </>
+                  ))
+                : null}
+              <button className="travelBottomButton" onClick={addcountwork}>
                 + Add more
-              </button> */}
+              </button>
             </div>
             <div className="travelBottom">
               <h2>COUNTRIES YOU'RE WILLING TO RELOCATE FOR WORK</h2>
@@ -2620,18 +2547,6 @@ const CandidateRegistration = () => {
                   <div className="candidateInfo h-full">
                     <h3>Preferred duration for relocation</h3>
                     <p>
-                      {/* <input
-                        type="text"
-                        placeholder="Country"
-                        onChange={(e) => {
-                          handlechangerelocate(
-                            e.target.value,
-                            index,
-                            "how_long"
-                          );
-                        }}
-                        defaultValue={relocate.how_long}
-                      /> */}
                       <select
                         name=""
                         id=""

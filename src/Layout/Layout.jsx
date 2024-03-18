@@ -127,32 +127,84 @@ const Layout = () => {
                 : "sidebarOverlay fadeOut"
             }
           >
-            <SideBar
-              role={2}
-              menu={[
-                {
-                  title: "Home",
-                  icon: <FiHome />,
-                  router: "adminHome",
-                },
-                {
-                  title: "Profile",
-                  icon: <FaRegCircleUser />,
-                  router: "customerProfile",
-                },
+            {loginrole == 2 && (
+              <SideBar
+                role={1}
+                menu={[
+                  {
+                    title: "Discover",
+                    icon: <FiCompass />,
+                    router: "discover",
+                  },
+                  {
+                    title: "Interview",
+                    icon: <FiUsers />,
+                    router: "interview",
+                  },
+                  {
+                    title: "Contracts",
+                    icon: <FiFileText />,
+                    router: "contract",
+                  },
+                  {
+                    title: "Billing",
+                    icon: <FiHelpCircle />,
+                    router: "billing",
+                  },
+                  {
+                    title: "Help & FAQs",
+                    icon: <FiHelpCircle />,
+                    router: "faq",
+                  },
+                ]}
+              />
+            )}
+            {loginrole == 3 && (
+              <SideBar
+                role={2}
+                menu={[
+                  {
+                    title: "Profile",
+                    icon: <FaRegCircleUser />,
+                    router: "profile",
+                  },
+                  {
+                    title: "Help & FAQs",
+                    icon: <FiHelpCircle />,
+                    router: "faq",
+                  },
+                ]}
+              />
+            )}
+            {loginrole == 1 && (
+              <SideBar
+                role={2}
+                menu={[
+                  {
+                    title: "Home",
+                    icon: <FiHome />,
+                    router: "adminHome",
+                  },
+                  {
+                    title: "Profile",
+                    icon: <FaRegCircleUser />,
+                    router: "customerProfile",
+                  },
 
-                {
-                  title: "Team members",
-                  icon: <LuUsers2 />,
-                  router: "adminteam",
-                },
-                {
-                  title: "Settings",
-                  icon: <FiSettings />,
-                  router: "settings",
-                },
-              ]}
-            />
+                  {
+                    title: "Team members",
+                    icon: <LuUsers2 />,
+                    router: "adminteam",
+                  },
+                  {
+                    title: "Settings",
+                    icon: <FiSettings />,
+                    router: "settings",
+                  },
+                ]}
+              />
+            )}
+        
           </div>
         )}
       </div>
