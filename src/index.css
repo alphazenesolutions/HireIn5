@@ -97,3 +97,13 @@ code {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+.displayHandler {
+  display: block;
+}
+
+@media only screen and (max-width: 600px) {
+  .displayHandler {
+    display: none;
+  }
+}

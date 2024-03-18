@@ -36,3 +36,22 @@
   z-index: 2;
   cursor: pointer;
 }
+
+.navButton {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .navButton {
+    display: block;
+    padding: 10px;
+    position: absolute;
+    top: 2.5%;
+    right: 5%;
+    z-index: 5 !important;
+    background-color: var(--primaryColor);
+    color: var(--white);
+    border-radius: 8px;
+    border: none;
+  }
+}

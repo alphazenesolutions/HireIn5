@@ -197,10 +197,10 @@
 
 .allFilterHead {
     width: 100%;
-
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    background-color: #E2E8F0;
+    background-color: var(--dropColor);
+    border: 1px solid var(--dropBorderColor);
     padding: 15px;
 
     display: flex;

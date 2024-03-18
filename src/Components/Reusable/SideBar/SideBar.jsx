@@ -11,6 +11,7 @@ import { storeAction } from "../../../Store/Store";
 import { useNavigate } from "react-router-dom";
 import Avatar from "react-avatar";
 import back from "../../../assests/billingX.png";
+import { RxCross1 } from "react-icons/rx";
 
 const SideBar = (props) => {
   const navigate = useNavigate();
@@ -90,8 +91,8 @@ const SideBar = (props) => {
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
-  const overLayHandler = () => {
-    dispatch(storeAction.isPopUpHander("logoutPopUp"));
+  const overLayHandler = (e) => {
+    dispatch(storeAction.isPopUpHander(e.target.id));
   };
 
   const exitOverlayHandler = () => {
@@ -195,9 +196,11 @@ const SideBar = (props) => {
             </div>
           </div> */}
         </div>
-        <div className="logout cursor-pointer" onClick={overLayHandler}>
-          <img src={logout} alt="" onClick={overLayHandler} />
-          <h6 onClick={overLayHandler}>Log out</h6>
+        <div id="logoutPopUp" className="logout" onClick={overLayHandler}>
+          <img id="logoutPopUp" src={logout} alt="" onClick={overLayHandler} />
+          <h6 id="logoutPopUp" onClick={overLayHandler}>
+            Log out
+          </h6>
         </div>
         {isPopUp == "logoutPopUp" && (
           <div className="logoutPopUp">
@@ -212,9 +215,17 @@ const SideBar = (props) => {
             <button onClick={logoutbtn} className="logoutActiveButton">
               Yes, logout
             </button>
-            <button className="logoutInaciveButton">Cancel</button>
+            <button
+              onClick={exitOverlayHandler}
+              className="logoutInaciveButton"
+            >
+              Cancel
+            </button>
           </div>
         )}
+      </div>
+      <div onClick={overLayHandler} className="IconClose">
+        <RxCross1 />
       </div>
     </div>
   );
