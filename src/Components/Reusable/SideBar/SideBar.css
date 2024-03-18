@@ -109,6 +109,7 @@
     padding: 15px 25px;
     border-top: 1px solid var(--borderColor);
     padding-bottom: 0px;
+    cursor: pointer;
 }
 
 .logout img {
@@ -243,4 +244,16 @@
     border: none;
     color: var(--white);
     margin-top: 15px;
+}
+
+.IconClose {
+    position: absolute;
+    top: 4.5%;
+    right: 10%;
+}
+
+@media only screen and (max-width: 600px) {
+    .sideNavInner {
+        height: 92%;
+    }
 }

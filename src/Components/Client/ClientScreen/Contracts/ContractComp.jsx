@@ -7,18 +7,6 @@ import tabImg from "../../../../assests/table.png";
 import ContractCard from "../../../Reusable/ContractCard/ContractCard";
 
 const ContractComp = () => {
-  const [isSelect, setIsSelect] = useState(false);
-  const buttonHandler = () => {
-    setIsSelect(true);
-    setIsSelect2(false);
-  };
-
-  const [isSelect2, setIsSelect2] = useState(false);
-  const buttonHandler2 = () => {
-    setIsSelect(false);
-    setIsSelect2(true);
-  };
-
   const [isPage, setIsPage] = useState("page1");
   const PageHandler = (event) => {
     setIsPage(event.target.id);
@@ -73,16 +61,18 @@ const ContractComp = () => {
         />
         <div className="tableButton marginBottom20">
           <button
-            onClick={buttonHandler}
+            id="page2"
+            onClick={PageHandler}
             className={
-              isSelect === true ? "shortListedActive" : "shortListedInActive"
+              isPage === "page2" ? "shortListedActive" : "shortListedInActive"
             }
           >
             Hiring related
           </button>
           <button
-            onClick={buttonHandler2}
-            className={isSelect2 === true ? "hiredActive" : "hired"}
+            id="page3"
+            onClick={PageHandler}
+            className={isPage === "page3" ? "hiredActive" : "hired"}
           >
             Standard
           </button>
