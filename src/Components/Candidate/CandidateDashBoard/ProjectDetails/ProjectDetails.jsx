@@ -222,47 +222,46 @@ const ProjectDetails = () => {
           </div>
           {isArrow === true &&
             (userdata.length !== 0 ? (
-              <div className="projectDetailsDesc">
-                {userdata[0].project_details_info !== null ? (
-                  <>
-                    <h1>
-                      Add details of projects you worked on in your career
-                    </h1>
-                    <h2>{userdata[0].project_details_info.project_title}</h2>
-                    <div className="projectDetailsDescFlex">
-                      <h3>Role : </h3>
-                      <p>{userdata[0].project_details_info.role}</p>
-                    </div>
-                    <div className="projectDetailsDescFlex">
-                      <h3>Reporting to : </h3>
-                      <p>{userdata[0].project_details_info.reporting_to}</p>
-                    </div>
-                    <div className="projectDetailsDescFlex">
-                      <h3>Duration : </h3>
-                      <p>
-                        {userdata[0].project_details_info.duration_of_project}{" "}
-                      </p>
-                    </div>
-                    <div className="projectDetailsDescFlexLast">
-                      <h4>Key Skills:</h4>
-                      <p>
-                        {userdata[0].project_details_info.skills.toString()}
-                      </p>
-                    </div>
-                    <h6>{userdata[0].project_details_info.description}</h6>
-                    <div className="projectDetailsHighlight">
-                      <img src={star} alt="" />
-                      <p>
-                        Did you know that highlighting more projects enhances
-                        your credibility and attracts the attention of potential
-                        employers?
-                      </p>
-                    </div>
-                  </>
-                ) : (
+              userdata[0].project_details_info !== null ? (
+                <div className="projectDetailsDesc">
                   <h1>Add details of projects you worked on in your career</h1>
-                )}
-              </div>
+                  <h2>{userdata[0].project_details_info.project_title}</h2>
+                  <div className="projectDetailsDescFlex">
+                    <h3>Role : </h3>
+                    <p>{userdata[0].project_details_info.role}</p>
+                  </div>
+                  <div className="projectDetailsDescFlex">
+                    <h3>Reporting to : </h3>
+                    <p>{userdata[0].project_details_info.reporting_to}</p>
+                  </div>
+                  <div className="projectDetailsDescFlex">
+                    <h3>Duration : </h3>
+                    <p>
+                      {userdata[0].project_details_info.duration_of_project}{" "}
+                    </p>
+                  </div>
+                  <div className="projectDetailsDescFlexLast">
+                    <h4>Key Skills:</h4>
+                    <p>{userdata[0].project_details_info.skills.toString()}</p>
+                  </div>
+                  <h6>{userdata[0].project_details_info.description}</h6>
+                  <div className="projectDetailsHighlight">
+                    <img src={star} alt="" />
+                    <p>
+                      Did you know that highlighting more projects enhances your
+                      credibility and attracts the attention of potential
+                      employers?
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="educationDesc">
+                  <h1> Add details of projects you worked on in your career</h1>
+                  <button className="touchButtonnew" onClick={overLayHandler}>
+                    <h4>Add Project Details</h4>
+                  </button>
+                </div>
+              )
             ) : (
               <div className="educationDesc">
                 <h1> Add details of projects you worked on in your career</h1>

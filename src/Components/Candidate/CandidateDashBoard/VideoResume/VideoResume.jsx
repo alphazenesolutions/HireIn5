@@ -92,7 +92,11 @@ const VideoResume = () => {
     if (
       updatedata.message === "User and Associated Info updated successfully"
     ) {
-      dispatch(storeAction.userdataHander({ userdata: [updatedata.user] }));
+      let updatedObject = {
+        ...userdata[0],
+        video_resume: updatedata.user.video_resume,
+      };
+      dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
       dispatch(storeAction.isPopUpHander());
       setloading(false);
     } else {

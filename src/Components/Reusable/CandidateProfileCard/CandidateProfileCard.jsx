@@ -416,9 +416,9 @@ const CandidateProfileCard = (props) => {
                       <h5 onClick={buttonHandler1} id="project">
                         Projects
                       </h5>
-                      <h5 onClick={buttonHandler1} id="achievements">
+                      {/* <h5 onClick={buttonHandler1} id="achievements">
                         Achievements
-                      </h5>
+                      </h5> */}
                     </div>
                   )}
                   {isSelect === "availability" && (
