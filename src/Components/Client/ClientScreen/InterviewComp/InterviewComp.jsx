@@ -147,7 +147,6 @@ const InterviewComp = (props) => {
             <h1 className="interviewHead">
               Schedule call with your shortlisted candidates
             </h1>
-
             <div className="interviewCard">
               <SearchProfileCard />
               <SearchProfileCard />

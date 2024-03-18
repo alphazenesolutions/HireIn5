@@ -28,6 +28,7 @@ import success from "../../../../assests/Succcess.png";
 import moment from "moment";
 import Skilllist from "../../../../assests/skillsJSON.json";
 import Avatar from "react-avatar";
+import MobileHeader from "../../../MobileScreens/MobileHeader/MobileHeader";
 
 const DiscoverComp = () => {
   const dispatch = useDispatch();
@@ -414,6 +415,9 @@ const DiscoverComp = () => {
   };
   return (
     <div>
+      <div className="mobileHeaderComp">
+        <MobileHeader />
+      </div>
       <div className="dashBoardMain paddingLeft100">
         {isPage === "page1" && (
           <div className="">
@@ -423,18 +427,20 @@ const DiscoverComp = () => {
               highLight="Contact us"
               descClass="dashBoardMainHeadDescBetween"
             />
-            <DashSearch
-              class="dashBoardMainSearch paddingRight100"
-              function2={searchHandler}
-              buttonHandler={buttonHandler}
-              skilldata={skilldata}
-              isButton={isButton}
-              seachuser={seachuser}
-              alldata={alldata}
-              setfilterdata={setfilterdata}
-              setIsInput={setIsInput}
-              setsearchvalue={setsearchvalue}
-            />
+            <div className="displayHandler">
+              <DashSearch
+                class="dashBoardMainSearch paddingRight100"
+                function2={searchHandler}
+                buttonHandler={buttonHandler}
+                skilldata={skilldata}
+                isButton={isButton}
+                seachuser={seachuser}
+                alldata={alldata}
+                setfilterdata={setfilterdata}
+                setIsInput={setIsInput}
+                setsearchvalue={setsearchvalue}
+              />
+            </div>
             {isInput === false ? (
               <div>
                 {selectseacrh === false ? (

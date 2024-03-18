@@ -22,12 +22,10 @@ const Layout = () => {
   const issidebar = useSelector((store) => store.issidebar);
   const loginrole = useSelector((store) => store.loginrole);
 
-  const isPopUp = (store) => {
+  const isPopUp = useSelector((store) => {
     return store.isPopUp;
-  };
-  const overlayHandler = () => {
-    dispatch.storeAction.isPopupHandler("sidebar");
-  };
+  });
+  console.log(isPopUp);
   return (
     <div>
       {issidebar && (
@@ -121,8 +119,73 @@ const Layout = () => {
 
       <div className="MobScreen backGround">
         <Routing />
-        {isPopUp == "sidebar" && <SideBar />}
+        {isPopUp == "navbar" && (
+          <div
+            className={
+              isPopUp == "navbar"
+                ? "sidebarOverlay fadeIn"
+                : "sidebarOverlay fadeOut"
+            }
+          >
+            <SideBar
+              role={2}
+              menu={[
+                {
+                  title: "Home",
+                  icon: <FiHome />,
+                  router: "adminHome",
+                },
+                {
+                  title: "Profile",
+                  icon: <FaRegCircleUser />,
+                  router: "customerProfile",
+                },
+
+                {
+                  title: "Team members",
+                  icon: <LuUsers2 />,
+                  router: "adminteam",
+                },
+                {
+                  title: "Settings",
+                  icon: <FiSettings />,
+                  router: "settings",
+                },
+              ]}
+            />
+          </div>
+        )}
       </div>
+      {/* {isPopUp == "navbar" && (
+        <div className="">
+          <SideBar
+            role={2}
+            menu={[
+              {
+                title: "Home",
+                icon: <FiHome />,
+                router: "adminHome",
+              },
+              {
+                title: "Profile",
+                icon: <FaRegCircleUser />,
+                router: "customerProfile",
+              },
+
+              {
+                title: "Team members",
+                icon: <LuUsers2 />,
+                router: "adminteam",
+              },
+              {
+                title: "Settings",
+                icon: <FiSettings />,
+                router: "settings",
+              },
+            ]}
+          />
+        </div>
+      )} */}
     </div>
   );
 };

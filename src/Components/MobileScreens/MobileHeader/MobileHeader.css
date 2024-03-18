@@ -1,0 +1,68 @@
+.mobileHeader {
+    width: 100%;
+    padding: 15px 25px;
+    background-color: var(--dropColor);
+    border-bottom: 1px solid var(--dropBorderColor);
+
+}
+
+.mobileHeaderFlex {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mobileHeaderLeft {
+    width: 85%;
+    position: relative;
+}
+
+.mobileHeaderLeft input {
+    width: 100%;
+    padding: 10px;
+    padding-left: 40px;
+    font-size: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+}
+
+.mobSearchIcon {
+    position: absolute;
+    z-index: 5;
+    top: 25%;
+    left: 3%;
+    font-size: 20px;
+}
+
+.mobOptionIcon {
+    position: absolute;
+    z-index: 5;
+    top: 30%;
+    font-size: 16px;
+    right: 3%;
+}
+
+.mobFilters {
+    position: absolute;
+    background-color: var(--white);
+    padding: 10px;
+    border-radius: 8px;
+    top: 115%;
+    right: 0%;
+    z-index: 5;
+    border: 1px solid var(--borderColor);
+}
+
+.mobFilters h5 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.mobFilters h5:hover {
+    color: var(--white);
+    background-color: var(--primaryColor);
+}
