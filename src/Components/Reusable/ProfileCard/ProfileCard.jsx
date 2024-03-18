@@ -88,14 +88,23 @@ const ProfileCard = ({ filterdata, fun }) => {
 
                     <div className="candidateDiscoverExp">
                       <p>
-                        <img src={user_check} alt="" /> Part-time availability
+                        <img src={user_check} alt="" />
+                        {data.work_preference_info !== null ? (
+                          <h5>
+                            {
+                              data.work_preference_info
+                                .preferred_mode_of_engagement
+                            }{" "}
+                            availability
+                          </h5>
+                        ) : null}
                       </p>
                     </div>
                     {data.address !== null ? (
                       <div className="candidateDiscoverExp">
                         <p>
-                          <img src={location} alt="" />{" "}
-                          {data.address.city}, {data.address.state}, {data.address.country}
+                          <img src={location} alt="" /> {data.address.city},{" "}
+                          {data.address.state}, {data.address.country}
                         </p>
                       </div>
                     ) : null}

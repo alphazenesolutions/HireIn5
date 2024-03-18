@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./TravelHistory.css";
@@ -145,10 +146,6 @@ const TravelHistory = () => {
         settravelform({
           current_place_of_residence: userdata[0].current_place_of_residence,
           lived_at_current_residence: userdata[0].lived_at_current_residence,
-          travel_readlines: userdata[0].travel_info.travel_readlines,
-          duration: userdata[0].travel_info.duration,
-          country: userdata[0].travel_info.country.toString(),
-          onlyfor: userdata[0].travel_info.onlyfor,
         });
 
         if (userdata[0].travel_info.relocate_for_work.length !== 0) {
@@ -184,6 +181,39 @@ const TravelHistory = () => {
           }
           setrelocate(new_array);
         }
+       
+        if (userdata[0].travel_info.travel_to_for_work.length !== 0) {
+          var new_array1 = [];
+          for (
+            var j = 0;
+            j < userdata[0].travel_info.travel_to_for_work.length;
+            j++
+          ) {
+            new_array1.push({
+              country:
+                userdata[0].travel_info.travel_to_for_work[j].split(":")[0]
+                  .length !== 0
+                  ? userdata[0].travel_info.travel_to_for_work[j].split(":")[0]
+                  : "",
+              only_for:
+                userdata[0].travel_info.travel_to_for_work[j].split(":")[1]
+                  .length !== 0
+                  ? userdata[0].travel_info.travel_to_for_work[j].split(":")[1]
+                  : "",
+              duration:
+                userdata[0].travel_info.travel_to_for_work[j].split(":")[2]
+                  .length !== 0
+                  ? userdata[0].travel_info.travel_to_for_work[j].split(":")[2]
+                  : "",
+              readlines:
+                userdata[0].travel_info.travel_to_for_work[j].split(":")[2]
+                  .length !== 0
+                  ? userdata[0].travel_info.travel_to_for_work[j].split(":")[3]
+                  : "",
+            });
+          }
+          settravelwork(new_array1);
+        }
       }
     }
   };
@@ -194,6 +224,29 @@ const TravelHistory = () => {
       how_long: "",
     },
   ]);
+  const [travelwork, settravelwork] = useState([
+    {
+      country: "",
+      only_for: "",
+      duration: "",
+      readlines: "",
+    },
+  ]);
+
+  const addcountwork = () => {
+    var newobj = {
+      country: "",
+      only_for: "",
+      duration: "",
+      readlines: "",
+    };
+    settravelwork((prevState) => [...prevState, newobj]);
+  };
+
+  const handlechangework = (value, index, name) => {
+    travelwork[index][name] = value;
+    settravelwork([...travelwork]);
+  };
   const [loading, setloading] = useState(false);
   const addcountrelocate = () => {
     var newobj = {
@@ -212,21 +265,22 @@ const TravelHistory = () => {
     setloading(true);
     const arrayOfStrings = travelrow.map(
       (obj) =>
-        `${obj.country}: ${obj.year_of_travel}: ${obj.duration}: ${obj.purpose}: ${obj.type_of_visa}: ${obj.validity_of_visa}`
+        `${obj.country}:${obj.year_of_travel}:${obj.duration}:${obj.purpose}:${obj.type_of_visa}:${obj.validity_of_visa}`
     );
     const arrayOfStrings1 = relocate.map(
       (obj) =>
-        `${obj.are_you_willing}: ${obj.preferred_countries}: ${obj.how_long}`
+        `${obj.are_you_willing}:${obj.preferred_countries}:${obj.how_long}`
+    );
+    const arrayOfStrings2 = travelwork.map(
+      (obj) =>
+        `${obj.country}:${obj.only_for}:${obj.duration}:${obj.readlines}`
     );
     var newobj1 = {
       username: userdata[0].username,
       travel_info: {
         travelled_to: arrayOfStrings,
         relocate_for_work: arrayOfStrings1,
-        country: travelform.country.split(","),
-        onlyfor: "test",
-        duration: travelform.duration,
-        travel_readlines: travelform.travel_readlines,
+        travel_to_for_work: arrayOfStrings2,
       },
       current_place_of_residence: travelform.current_place_of_residence,
       lived_at_current_residence: travelform.lived_at_current_residence,
@@ -266,6 +320,7 @@ const TravelHistory = () => {
     }
     Getalldata();
   };
+  console.log(travelwork, "travelwork");
   return (
     <div>
       <div className="travelHistory">
@@ -338,32 +393,34 @@ const TravelHistory = () => {
                         <p>{userdata[0].current_place_of_residence}</p>
                       </h3>
                       <h3>
-                        Duration : <p>{userdata[0].travel_info.duration}</p>
+                        Duration : <p>{userdata[0].lived_at_current_residence}</p>
                       </h3>
                     </div>
                   ) : null}
 
-                  {userdata[0].travel_info !== null ? (
-                    <div className="travelGridOne">
-                      <h1>Countries you’re willing to travel to for work</h1>
-                      {userdata[0].travel_info.country.length !== 0
-                        ? userdata[0].travel_info.country.map((item, index) => (
-                            <h2 key={index}>{item}</h2>
-                          ))
-                        : null}
-
-                      <h3 className="marginTop20">
-                        Only For : <p>{userdata[0].travel_info.onlyfor}</p>
-                      </h3>
-                      <h3>
-                        Duration : <p>{userdata[0].travel_info.duration}</p>
-                      </h3>
-                      <h3>
-                        Travel Readiness :
-                        <p>{userdata[0].travel_info.travel_readlines}</p>
-                      </h3>
-                    </div>
-                  ) : null}
+                  {userdata[0].travel_info !== null
+                    ? userdata[0].travel_info.travel_to_for_work.length !== 0
+                      ? userdata[0].travel_info.travel_to_for_work.map(
+                          (data, index) => (
+                            <div className="travelGridOne" key={index}>
+                              <h1>Travel to for work</h1>
+                              <h3>
+                                Country : <p>{data.split(":")[0]}</p>
+                              </h3>
+                              <h3 className="marginBottom20">
+                                Only For : <p>{data.split(":")[1]}</p>
+                              </h3>
+                              <h3>
+                                Duration : <p>{data.split(":")[2]}</p>
+                              </h3>
+                              <h3>
+                                Readlines : <p>{data.split(":")[3]}</p>
+                              </h3>
+                            </div>
+                          )
+                        )
+                      : null
+                    : null}
 
                   {userdata[0].travel_info !== null
                     ? userdata[0].travel_info.relocate_for_work.length !== 0
@@ -388,28 +445,6 @@ const TravelHistory = () => {
                         )
                       : null
                     : null}
-
-                  {/* <div className="travelGridOne">
-                    <h1>Residency details</h1>
-                    <h3 className="marginTop20">
-                      Current Place of Residence:
-                      <p>Pending</p>
-                    </h3>
-                    <h3 className="marginTop20">
-                      Duration:
-                      <p>Pending</p>
-                    </h3>
-                  </div>
-                  <div className="travelGridOne">
-                    <h1>Countries you’re willing to travel to for work</h1>
-                    <h2>Country 1</h2>
-                    <h2>Country 2</h2>
-                    <h2>Country 3</h2>
-                    <h3 className="marginTop20">
-                      Preferred Duration:
-                      <p>Pending</p>
-                    </h3>
-                  </div> */}
                 </div>
               </div>
             ) : (
@@ -1080,58 +1115,119 @@ const TravelHistory = () => {
                     <div className="willingTravel">
                       <div className="willingTravelInner">
                         <h6>Countries you’re willing to travel to for work</h6>
-                        <div className="willingFlex">
-                          <div className="willingFlexLeft">
-                            <div className="upto">
-                              <h2>Country</h2>
-                              {/* <h3>Select upto 3 countries</h3> */}
-                            </div>
-                            <input
-                              type="text"
-                              name="country"
-                              defaultValue={travelform.country}
-                              onChange={handlechange_travel}
-                            />
-                            <h2>Duration</h2>
-                            <input
-                              type="text"
-                              name="duration"
-                              defaultValue={travelform.duration}
-                              onChange={handlechange_travel}
-                            />
-                          </div>
-                          <div className="willingFlexRight">
-                            <h2>Only For</h2>
-                            <input
-                              type="text"
-                              name="onlyfor"
-                              defaultValue={travelform.onlyfor}
-                              onChange={handlechange_travel}
-                            />
-                            <h2>Travel Readlines</h2>
-                            <input
-                              type="text"
-                              name="travel_readlines"
-                              defaultValue={travelform.travel_readlines}
-                              onChange={handlechange_travel}
-                            />
-                          </div>
-                        </div>
+                        {travelwork.length !== 0
+                          ? travelwork.map((data, index) => (
+                              <div className="willingFlex">
+                                <div className="willingFlexLeft">
+                                  <div className="upto">
+                                    <h2>Country</h2>
+                                  </div>
+                                  <select
+                                    id=""
+                                    name="country"
+                                    onChange={(e) => {
+                                      handlechangework(
+                                        e.target.value,
+                                        index,
+                                        "country"
+                                      );
+                                    }}
+                                    defaultValue={data.country}
+                                    selected={data.country}
+                                  >
+                                    <option value="">Select Country</option>
+                                    <option value="Japan">Japan</option>
+                                    <option value="Dubai">Dubai</option>
+                                    <option value="Saudi Arabia">
+                                      {" "}
+                                      Saudi Arabia
+                                    </option>
+                                    <option value="Singapore">
+                                      {" "}
+                                      Singapore
+                                    </option>
+                                    <option value="Malaysia"> Malaysia</option>
+                                  </select>
+                                  <h2>Duration</h2>
+                                  <select
+                                    id=""
+                                    name="duration"
+                                    onChange={(e) => {
+                                      handlechangework(
+                                        e.target.value,
+                                        index,
+                                        "duration"
+                                      );
+                                    }}
+                                    defaultValue={data.duration}
+                                    selected={data.duration}
+                                  >
+                                    <option value="">Select duration</option>
+                                    <option value="3-6 months">
+                                      3-6 months
+                                    </option>
+                                    <option value="6-12 months">
+                                      6-12 months
+                                    </option>
+                                    <option value=">12 months">
+                                      {">"}12 months
+                                    </option>
+                                  </select>
+                                </div>
+                                <div className="willingFlexRight">
+                                  <h2>Only For</h2>
+                                  <select
+                                    name="only_for"
+                                    onChange={(e) => {
+                                      handlechangework(
+                                        e.target.value,
+                                        index,
+                                        "only_for"
+                                      );
+                                    }}
+                                    defaultValue={data.only_for}
+                                    selected={data.only_for}
+                                    className="w-full"
+                                  >
+                                    <option value="">Only for</option>
+                                    <option value="Work Onsite">
+                                      Work Onsite
+                                    </option>
+                                    <option value="Short-term business visit">
+                                      Short-term business visit
+                                    </option>
+                                  </select>
+                                  <h2>Travel Readlines</h2>
+                                  {console.log(data.readlines, "mmmmm")}
+                                  <select
+                                    id=""
+                                    name="readlines"
+                                    onChange={(e) => {
+                                      handlechangework(
+                                        e.target.value,
+                                        index,
+                                        "readlines"
+                                      );
+                                    }}
+                                    selected={data.readlines}
+                                    defaultValue={data.readlines}
+                                  >
+                                    <option value="">
+                                      Select Travel Readlines
+                                    </option>
+                                    <option value="Immediate">Immediate</option>
+                                    <option value="In the next 6 months">
+                                      In the next 6 months
+                                    </option>
+                                    <option value="6 months">6 months</option>
+                                  </select>
+                                </div>
+                              </div>
+                            ))
+                          : null}
+                          <button onClick={addcountwork} className="addmorebtn">+ Add more</button>
                       </div>
                     </div>
-                    {/* <div className="vedioResumeButtons">
-                      <button
-                        className="discard"
-                        onClick={() => {
-                          dispatch(storeAction.isPopUpHander());
-                        }}
-                      >
-                        Discard Changes
-                      </button>
-                      <button id="page3" onClick={pagehandler} className="save">
-                        Save & Close
-                      </button>
-                    </div> */}
                   </div>
                 )}
               </div>

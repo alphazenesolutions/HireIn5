@@ -53,6 +53,7 @@ const PersonalDetails = () => {
     aadhar: "",
     pan: "",
     country: "",
+    bio: "",
   });
   const [statelist, setstatelist] = useState([]);
 
@@ -79,6 +80,7 @@ const PersonalDetails = () => {
             : null,
         country:
           userdata[0].address !== null ? userdata[0].address.country : null,
+        bio: userdata[0].bio,
       });
     } else {
       setTimeout(() => {
@@ -108,6 +110,7 @@ const PersonalDetails = () => {
       phone: formdata.phone,
       current_place_of_residence: formdata.current_address,
       username: userdata[0].username,
+      bio: formdata.bio,
       address: {
         address: formdata.current_address,
         city: formdata.city,
@@ -223,6 +226,12 @@ const PersonalDetails = () => {
                     ) : null}
                   </div>
                 </div>
+              ) : null}
+              {userdata.length !== 0 ? (
+                <>
+                  <h2 className="bioLabel">Bio</h2>
+                  <h3 className="biocontent">{userdata[0].bio}</h3>
+                </>
               ) : null}
             </div>
           )}
@@ -379,6 +388,13 @@ const PersonalDetails = () => {
                     {/* <input placeholder="India" type="text" /> */}
                   </div>
                 </div>
+                <h2 className="biohead">Bio</h2>
+                <textarea
+                  className="biotext"
+                  name="bio"
+                  onChange={handlechange}
+                  defaultValue={formdata.bio}
+                ></textarea>
               </div>
               <div className="vedioResumeButtons">
                 <button className="discard" onClick={cancelbtn}>

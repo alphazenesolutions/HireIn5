@@ -607,7 +607,15 @@ const DiscoverComp = () => {
                       </h6>
                       <h6 className="briefH5">
                         <img src={userCheck} alt="" />
-                        <p>Part-time availability</p>
+                        {reserveduser[0].work_preference_info !== null ? (
+                          <p>
+                            {
+                              reserveduser[0].work_preference_info
+                                .preferred_mode_of_engagement
+                            }{" "}
+                            availability
+                          </p>
+                        ) : null}
                       </h6>
                     </div>
                   </>

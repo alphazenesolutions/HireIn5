@@ -370,6 +370,13 @@
     margin-top: 20px;
     border-radius: 8px;
 }
+.addmorebtn{
+    width: 100%;
+    padding: 9px;
+    border: 1px solid var(--borderColor);
+    margin-top: 20px;
+    border-radius: 8px;
+}
 
 .residency button {
     width: 100%;

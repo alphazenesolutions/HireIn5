@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
@@ -259,10 +260,6 @@ const ACandidateProfileView = () => {
         settravelform({
           current_place_of_residence: singleuser[0].current_place_of_residence,
           lived_at_current_residence: singleuser[0].lived_at_current_residence,
-          travel_readlines: singleuser[0].travel_info.travel_readlines,
-          duration: singleuser[0].travel_info.duration,
-          country: singleuser[0].travel_info.country.toString(),
-          onlyfor: singleuser[0].travel_info.onlyfor,
         });
 
         if (singleuser[0].travel_info.relocate_for_work.length !== 0) {
@@ -297,6 +294,46 @@ const ACandidateProfileView = () => {
             });
           }
           setrelocate(new_array);
+        }
+        if (singleuser[0].travel_info.travel_to_for_work.length !== 0) {
+          var new_array1 = [];
+          for (
+            var j = 0;
+            j < singleuser[0].travel_info.travel_to_for_work.length;
+            j++
+          ) {
+            new_array1.push({
+              country:
+                singleuser[0].travel_info.travel_to_for_work[j].split(":")[0]
+                  .length !== 0
+                  ? singleuser[0].travel_info.travel_to_for_work[j].split(
+                      ":"
+                    )[0]
+                  : "",
+              only_for:
+                singleuser[0].travel_info.travel_to_for_work[j].split(":")[1]
+                  .length !== 0
+                  ? singleuser[0].travel_info.travel_to_for_work[j].split(
+                      ":"
+                    )[1]
+                  : "",
+              duration:
+                singleuser[0].travel_info.travel_to_for_work[j].split(":")[2]
+                  .length !== 0
+                  ? singleuser[0].travel_info.travel_to_for_work[j].split(
+                      ":"
+                    )[2]
+                  : "",
+              readlines:
+                singleuser[0].travel_info.travel_to_for_work[j].split(":")[2]
+                  .length !== 0
+                  ? singleuser[0].travel_info.travel_to_for_work[j].split(
+                      ":"
+                    )[3]
+                  : "",
+            });
+          }
+          settravelwork(new_array1);
         }
       }
       if (singleuser[0].project_details_info !== null) {
@@ -439,8 +476,8 @@ const ACandidateProfileView = () => {
               : "",
         });
       }
+      console.log(singleuser[0].rate_card_info, "singleuser[0].rate_card_info");
       if (singleuser[0].rate_card_info !== null) {
-        console.log(singleuser[0].rate_card_info,'singleuser[0].rate_card_info');
         setratecard({
           remote_hourly:
             singleuser[0].rate_card_info !== null
@@ -683,10 +720,6 @@ const ACandidateProfileView = () => {
   const [travelform, settravelform] = useState({
     current_place_of_residence: "",
     lived_at_current_residence: "",
-    travel_readlines: "",
-    duration: "",
-    country: "",
-    onlyfor: "",
   });
   const addcounttravel = () => {
     var newobj = {
@@ -716,11 +749,11 @@ const ACandidateProfileView = () => {
     setIsLoading(true);
     const arrayOfStrings = travelrow.map(
       (obj) =>
-        `${obj.country}: ${obj.year_of_travel}: ${obj.duration}: ${obj.purpose}: ${obj.type_of_visa}: ${obj.validity_of_visa}`
+        `${obj.country}:${obj.year_of_travel}:${obj.duration}:${obj.purpose}:${obj.type_of_visa}:${obj.validity_of_visa}`
     );
     const arrayOfStrings1 = relocate.map(
       (obj) =>
-        `${obj.are_you_willing}: ${obj.preferred_countries}: ${obj.how_long}`
+        `${obj.are_you_willing}:${obj.preferred_countries}:${obj.how_long}`
     );
     var newobj1 = {
       username: singleuser[0].username,
@@ -780,13 +813,13 @@ const ACandidateProfileView = () => {
   };
   const savetravelled = async () => {
     setIsLoading(true);
+    const arrayOfStrings2 = travelwork.map(
+      (obj) => `${obj.country}:${obj.only_for}:${obj.duration}:${obj.readlines}`
+    );
     var newobj1 = {
       username: singleuser[0].username,
       travel_info: {
-        country: travelform.country.split(","),
-        onlyfor: travelform.onlyfor,
-        duration: travelform.duration,
-        travel_readlines: travelform.travel_readlines,
+        travel_to_for_work: arrayOfStrings2,
       },
     };
     var updatedata = await axios
@@ -838,7 +871,7 @@ const ACandidateProfileView = () => {
     setIsLoading(true);
     const arrayOfStrings = travelrow.map(
       (obj) =>
-        `${obj.country}: ${obj.year_of_travel}: ${obj.duration}: ${obj.purpose}: ${obj.type_of_visa}: ${obj.validity_of_visa}`
+        `${obj.country}:${obj.year_of_travel}:${obj.duration}:${obj.purpose}:${obj.type_of_visa}:${obj.validity_of_visa}`
     );
     const arrayOfStrings1 = relocate.map(
       (obj) =>
@@ -911,6 +944,30 @@ const ACandidateProfileView = () => {
   const handlechangenew = (e) => {
     const { name, value } = e.target;
     setprojectdata((values) => ({ ...values, [name]: value }));
+  };
+
+  const [travelwork, settravelwork] = useState([
+    {
+      country: "",
+      only_for: "",
+      duration: "",
+      readlines: "",
+    },
+  ]);
+  console.log(travelwork, "travelwork");
+  const addcountwork = () => {
+    var newobj = {
+      country: "",
+      only_for: "",
+      duration: "",
+      readlines: "",
+    };
+    settravelwork((prevState) => [...prevState, newobj]);
+  };
+
+  const handlechangework = (value, index, name) => {
+    travelwork[index][name] = value;
+    settravelwork([...travelwork]);
   };
   const saveproject = async () => {
     setIsLoading(true);
@@ -1521,7 +1578,7 @@ const ACandidateProfileView = () => {
       setIsLoading(false);
     }
   };
-  console.log(ratecard,'ratecard');
+  console.log(ratecard, "ratecard");
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -2706,24 +2763,36 @@ const ACandidateProfileView = () => {
                     Edit
                   </button>
                 </div>
+                {console.log(singleuser, "singleusersingleuser")}
                 {singleuser[0].travel_info !== null ? (
                   <div className="ClientProfileViewCardBody">
-                    <div className="ClientProfileViewCardBodyTable">
-                      <h2>Countries</h2>
-                      <h3>{singleuser[0].travel_info.country.toString()}</h3>
-                    </div>
-                    <div className="ClientProfileViewCardBodyTable">
-                      <h2>Only for</h2>
-                      <h3>{singleuser[0].travel_info.onlyfor}</h3>
-                    </div>
-                    <div className="ClientProfileViewCardBodyTable">
-                      <h2>Duration</h2>
-                      <h3>{singleuser[0].travel_info.duration}</h3>
-                    </div>
-                    <div className="ClientProfileViewCardBodyTable">
-                      <h2>Readiness to Travel</h2>
-                      <h3>{singleuser[0].travel_info.travel_readlines}</h3>
-                    </div>
+                    {singleuser[0].travel_info !== null
+                      ? singleuser[0].travel_info.travel_to_for_work.length !==
+                        0
+                        ? singleuser[0].travel_info.travel_to_for_work.map(
+                            (data, index) => (
+                              <div key={index}>
+                                <div className="ClientProfileViewCardBodyTable">
+                                  <h2>Country {index + 1}</h2>
+                                  <h3>{data.split(":")[0]}</h3>
+                                </div>
+                                <div className="ClientProfileViewCardBodyTable">
+                                  <h2>Only For</h2>
+                                  <h3>{data.split(":")[1]}</h3>
+                                </div>
+                                <div className="ClientProfileViewCardBodyTable">
+                                  <h2>Duration</h2>
+                                  <h3>{data.split(":")[2]}</h3>
+                                </div>
+                                <div className="ClientProfileViewCardBodyTable">
+                                  <h2>Travel Readiness</h2>
+                                  <h3>{data.split(":")[3]}</h3>
+                                </div>
+                              </div>
+                            )
+                          )
+                        : null
+                      : null}
                   </div>
                 ) : null}
               </div>
@@ -3313,45 +3382,104 @@ const ACandidateProfileView = () => {
                 <div className="adminEditOverlayHead">
                   <h1>Countries travelled to</h1>
                 </div>
-                <div className="adminEditOverlayBody">
-                  <div className="adminEditOverlayContent">
-                    <h2>Countries</h2>
-                    <input
-                      type="text"
-                      name="country"
-                      onChange={handlechange_travel}
-                      defaultValue={travelform.country}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Only for</h2>
-                    <input
-                      type="text"
-                      name="onlyfor"
-                      onChange={handlechange_travel}
-                      defaultValue={travelform.onlyfor}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Duration</h2>
-                    <input
-                      type="text"
-                      name="duration"
-                      onChange={handlechange_travel}
-                      defaultValue={travelform.duration}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Readiness to Travel</h2>
-                    <input
-                      type="text"
-                      name="travel_readlines"
-                      onChange={handlechange_travel}
-                      defaultValue={travelform.travel_readlines}
-                    />
-                  </div>
-                </div>
-                {/* <button className="adminEditAddMore">Add More</button> */}
+                {travelwork.length !== 0
+                  ? travelwork.map((data, index) => (
+                      <div className="adminEditOverlayBody" key={index}>
+                        <div className="adminEditOverlayContent">
+                          <h2>Countries</h2>
+                          <select
+                            id=""
+                            name="country"
+                            onChange={(e) => {
+                              handlechangework(
+                                e.target.value,
+                                index,
+                                "country"
+                              );
+                            }}
+                            defaultValue={data.country}
+                            selected={data.country}
+                          >
+                            <option value="">Select Country</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Dubai">Dubai</option>
+                            <option value="Saudi Arabia"> Saudi Arabia</option>
+                            <option value="Singapore"> Singapore</option>
+                            <option value="Malaysia"> Malaysia</option>
+                          </select>
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Only for </h2>
+                          <select
+                            name="only_for"
+                            onChange={(e) => {
+                              handlechangework(
+                                e.target.value,
+                                index,
+                                "only_for"
+                              );
+                            }}
+                            defaultValue={data.only_for}
+                            selected={data.only_for}
+                            className="w-full"
+                          >
+                            <option value="">Only for</option>
+                            <option value="Work Onsite">Work Onsite</option>
+                            <option value="Short-term business visit">
+                              Short-term business visit
+                            </option>
+                          </select>
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Duration</h2>
+                          <select
+                            id=""
+                            name="duration"
+                            onChange={(e) => {
+                              handlechangework(
+                                e.target.value,
+                                index,
+                                "duration"
+                              );
+                            }}
+                            defaultValue={data.duration}
+                            selected={data.duration}
+                          >
+                            <option value="">Select duration</option>
+                            <option value="3-6 months">3-6 months</option>
+                            <option value="6-12 months">6-12 months</option>
+                            <option value=">12 months">{">"}12 months</option>
+                          </select>
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Readiness to Travel</h2>
+                          <select
+                            id=""
+                            name="readlines"
+                            onChange={(e) => {
+                              handlechangework(
+                                e.target.value,
+                                index,
+                                "readlines"
+                              );
+                            }}
+                            selected={data.readlines}
+                            defaultValue={data.readlines}
+                          >
+                            <option value="">Select Travel Readlines</option>
+                            <option value="Immediate">Immediate</option>
+                            <option value="In the next 6 months">
+                              In the next 6 months
+                            </option>
+                            <option value="6 months">6 months</option>
+                          </select>
+                        </div>
+                      </div>
+                    ))
+                  : null}
+                <button className="adminEditAddMore" onClick={addcountwork}>
+                  Add More
+                </button>
                 <div className="editOverlayButton">
                   <button
                     className="discard"
