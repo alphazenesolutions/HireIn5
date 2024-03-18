@@ -104,12 +104,7 @@
     border-bottom: 1px solid var(--borderColor);
 }
 
-.candidateRateCardOverlayTab h5 {
-    padding: 10px 15px;
-    font-size: 14px;
-    font-weight: 500;
-    border-bottom: 2px solid var(--primaryColor);
-}
+
 
 .candidateRateCardOverlayBody {
     padding: 15px 25px;
