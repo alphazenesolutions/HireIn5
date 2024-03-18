@@ -292,4 +292,12 @@
         width: 800px;
         overflow-x: scroll;
     }
+
+    .homeProgressCandidateRight {
+        padding-right: 0px;
+    }
+
+    .homeProgressCandidate {
+        padding: 25px 14px;
+    }
 }
