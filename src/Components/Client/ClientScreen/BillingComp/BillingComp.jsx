@@ -74,7 +74,7 @@ const BillingComp = () => {
   };
   return (
     <>
-      <div className="dashBoardMain paddingLeft100 paddingRight100">
+      <div className=".dashBoardMainContract paddingLeft100 paddingRight100">
         {isPage === "billing" && (
           <div>
             <DashHead

@@ -27,3 +27,26 @@
 .contractTableRow td {
     padding: 15px 0px;
 }
+
+.Contract {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    .Contract {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .contractInnerTable {
+        /* width: 1000px; */
+        overflow-x: scroll;
+
+    }
+
+    .table {
+        width: 1000px;
+        overflow-x: scroll;
+    }
+}
