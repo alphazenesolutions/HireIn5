@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react";
@@ -130,7 +131,9 @@ const AdminCustomerProfile = () => {
   const changecountry = async (e) => {
     if (e.length !== 0) {
       const matchingSkills = totaldata.filter((skill) => {
-        return skill.current_place_of_residence == e;
+        if (skill.address !== null) {
+          return skill.address.country.toLowerCase().includes(e.toLowerCase());
+        }
       });
       setalldata(matchingSkills);
     } else {
@@ -181,6 +184,7 @@ const AdminCustomerProfile = () => {
       setalldata(totaldata);
     }
   };
+  console.log(alldata,'lll');
   return (
     <div className=" paddingLeft100 paddingRight100">
       <DashHead
@@ -218,7 +222,18 @@ const AdminCustomerProfile = () => {
             <select
               className="profileselect"
               onChange={(e) => {
-                // setcountry(e.target.value);
+                change_status(e.target.value);
+              }}
+            >
+              <option value="">Status</option>
+              <option value="Benched">Benched</option>
+              <option value="Hired">Hired</option>
+              <option value="On-contract">On-contract</option>
+            </select>
+            <select
+              className="profileselect"
+              onChange={(e) => {
+                changecountry(e.target.value);
               }}
             >
               <option value="">Country</option>
@@ -230,24 +245,47 @@ const AdminCustomerProfile = () => {
                   ))
                 : null}
             </select>
-            <select className="profileselect" disabled>
-              <option value="">Status</option>
-              <option value="Benched">Benched</option>
-            </select>
           </div>
         )}
         {isButton === "client" && (
+          // <div className="selectdiv">
+          //   <select className="profileselect">
+          //     <option>Subscription Type</option>
+          //     <option value="Starter">Starter</option>
+          //     <option value="Pro">Pro</option>
+          //   </select>
+          //   <select
+          //     className="profileselect"
+          //     onChange={(e) => {
+          //       changestatus(e.target.value);
+          //     }}
+          //   >
+          //     <option value="">Status</option>
+          //     <option value="Inactive">Inactive</option>
+          //     <option value="Active">Active</option>
+          //   </select>
+          // </div>
           <div className="selectdiv">
-            <select className="profileselect" disabled>
-              <option>Subscription Type</option>
-              <option value="Starter">Starter</option>
-              <option value="Pro">Pro</option>
-            </select>
-            <select className="profileselect" disabled>
+            <select
+              className="profileselect"
+              onChange={(e) => {
+                changestatus(e.target.value);
+              }}
+            >
               <option value="">Status</option>
               <option value="Inactive">Inactive</option>
               <option value="Active">Active</option>
             </select>
+            {/* <select
+              className="profileselect"
+              onChange={(e) => {
+                changecountry(e.target.value);
+              }}
+            >
+              <option value="">Subscription Type</option>
+              <option value="Starter">Starter</option>
+              <option value="Pro">Pro</option>
+            </select> */}
           </div>
         )}
       </div>

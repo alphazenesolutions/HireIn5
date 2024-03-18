@@ -118,7 +118,11 @@ const AdminCandidateProfile = ({ alldata, totaldata, loading, setalldata }) => {
                       </td>
                       <td>
                         <div className="tableLocation">
-                          <h1>{data.current_place_of_residence}</h1>
+                          {data.address !== null ? (
+                            <h1>{data.address.country}</h1>
+                          ) : (
+                            <h1>-</h1>
+                          )}
                         </div>
                       </td>
                       <td>
