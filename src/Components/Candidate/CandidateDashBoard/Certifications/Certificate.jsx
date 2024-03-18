@@ -17,6 +17,7 @@ import axios from "axios";
 import { FiAward } from "react-icons/fi";
 import Select from "react-select";
 import Skilllist from "../../../../assests/skillsJSON.json";
+import { RxCross1 } from "react-icons/rx";
 
 const Certificate = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -89,6 +90,10 @@ const Certificate = () => {
 
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("certificate"));
+  };
+
+  const exitOverlayHandler = () => {
+    dispatch(storeAction.isPopUpHander());
   };
 
   const [educationdata, seteducationdata] = useState({
@@ -341,7 +346,7 @@ const Certificate = () => {
             ))}
           {isPopUp === "certificate" && (
             <div className="certificateDescOverlay">
-              <div className="innerCertificate">
+              <div className="innerCertificateOverlay">
                 <div
                   className={
                     isArrow === true ? "certificateHead" : "bottomBorder"
@@ -351,8 +356,13 @@ const Certificate = () => {
                     <img src={user} alt="" />
                     <h1>Certificate</h1>
                   </div>
-                  <div className="certificateLeftIcon">
-                    <img
+                  <div
+                    onClick={exitOverlayHandler}
+                    className="certificateLeftIcon"
+                  >
+                    <RxCross1 />
+
+                    {/* <img
                       className="certificateLeftIconSvg"
                       onClick={overLayHandler}
                       src={edit}
@@ -362,7 +372,7 @@ const Certificate = () => {
                       <img onClick={dropDownhandler} src={dropUp} alt="" />
                     ) : (
                       <img onClick={dropDownhandler} src={dropDown} alt="" />
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>

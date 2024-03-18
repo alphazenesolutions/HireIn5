@@ -16,6 +16,7 @@ import { FiBriefcase } from "react-icons/fi";
 import { FiUser } from "react-icons/fi";
 import Select from "react-select";
 import Skilllist from "../../../../assests/skillsJSON.json";
+import { RxCross1 } from "react-icons/rx";
 
 const ProfessionalDetails = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -34,6 +35,9 @@ const ProfessionalDetails = () => {
 
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("professional"));
+  };
+  const editOverlayHandler = () => {
+    dispatch(storeAction.isPopUpHander());
   };
 
   const [educationdata, seteducationdata] = useState({
@@ -294,13 +298,18 @@ const ProfessionalDetails = () => {
             ))}
           {isPopUp === "professional" && (
             <div className="professionalDetailsOverlay">
-              <div className="innerprofessionalDetails">
+              <div className="innerprofessionalDetailsOverlay">
                 <div className="projectDetailsHead">
                   <div className="professionalDetailsHeadLeft">
                     <img src={user} alt="" />
                     <h1>Professional Details</h1>
                   </div>
-                  <div className="professionalDetailsLeftIcon">
+                  <div
+                    onClick={editOverlayHandler}
+                    className="professionalDetailsLeftIcon"
+                  >
+                    <RxCross1 />
+
                     {/* <img
                       className="professionalDetailsLeftIconSvg"
                       onClick={overLayHandler}

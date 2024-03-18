@@ -307,3 +307,24 @@
     text-align: center;
     border: 1px dashed var(--borderColor);
 }
+
+@media only screen and (max-width: 600px) {
+    .certificateDescOverlay {
+        width: 100%;
+        height: 100%;
+    }
+
+    .certificateDescOverlayFlex {
+        flex-direction: column;
+    }
+
+    .certificateDescOverlayFlexLeft {
+        width: 100%;
+        margin-right: 0px;
+    }
+
+    .certificateDescOverlayFlexRight {
+        width: 100%;
+        margin-Left: 0px;
+    }
+}
