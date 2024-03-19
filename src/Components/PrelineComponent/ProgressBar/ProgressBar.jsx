@@ -21,7 +21,7 @@ const ProgressBar = () => {
             class="stroke-current text-[#C4B5FD]"
             stroke-width="3.5"
             stroke-dasharray="100"
-            stroke-dashoffset="-40"
+            stroke-dashoffset="0" //light
             stroke-linecap="round"
           ></circle>
           <g class="origin-center -rotate-90 transform">
@@ -33,7 +33,7 @@ const ProgressBar = () => {
               class="stroke-current text-[#8b5cf6]"
               stroke-width="3.5"
               stroke-dasharray="100"
-              stroke-dashoffset="40"
+              stroke-dashoffset="20" //dark
               stroke-linecap="round"
             ></circle>
           </g>
