@@ -71,11 +71,13 @@ const DashSearch = (props) => {
     if (updatedItems.length !== 0) {
       var filterdata = [];
       for (var i = 0; i < props.alldata.length; i++) {
-        const checkdata = updatedItems.includes(
-          props.alldata[i].current_place_of_residence
-        );
-        if (checkdata === true) {
-          filterdata.push(props.alldata[i]);
+        if (props.alldata[i].address !== null) {
+          const checkdata = updatedItems.includes(
+            props.alldata[i].address.country
+          );
+          if (checkdata === true) {
+            filterdata.push(props.alldata[i]);
+          }
         }
       }
       props.setfilterdata(filterdata);
@@ -92,11 +94,17 @@ const DashSearch = (props) => {
     if (props.alldata.length !== 0) {
       var filterdata = [];
       for (var i = 0; i < props.alldata.length; i++) {
-        if (
-          props.alldata[i].hourly_rate >= rangevalue[0] &&
-          props.alldata[i].hourly_rate <= rangevalue[1]
-        ) {
-          filterdata.push(props.alldata[i]);
+        if (props.alldata[i].rate_card_info !== null) {
+          console.log(
+            props.alldata[i].rate_card_info.remote_hourly,
+            rangevalue
+          );
+          if (
+            props.alldata[i].rate_card_info.remote_hourly >= rangevalue[0] &&
+            props.alldata[i].rate_card_info.remote_hourly <= rangevalue[1]
+          ) {
+            filterdata.push(props.alldata[i]);
+          }
         }
       }
       props.setfilterdata(filterdata);
@@ -339,11 +347,17 @@ const DashSearch = (props) => {
       }
 
       for (var i = 0; i < props.alldata.length; i++) {
-        if (
-          props.alldata[i].hourly_rate >= rangevalue[0] &&
-          props.alldata[i].hourly_rate <= rangevalue[1]
-        ) {
-          finaldata.push(props.alldata[i]);
+        if (props.alldata[i].rate_card_info !== null) {
+          console.log(
+            props.alldata[i].rate_card_info.remote_hourly,
+            rangevalue
+          );
+          if (
+            props.alldata[i].rate_card_info.remote_hourly >= rangevalue[0] &&
+            props.alldata[i].rate_card_info.remote_hourly <= rangevalue[1]
+          ) {
+            finaldata.push(props.alldata[i]);
+          }
         }
       }
       if (location_list.length !== 0) {
@@ -365,6 +379,28 @@ const DashSearch = (props) => {
               allfilterdata.experience
             ) {
               finaldata.push(props.alldata[i]);
+            }
+          }
+        }
+      }
+      if (allfilterdata.languages.length !== 0) {
+        for (var i = 0; i < props.alldata.length; i++) {
+          if (props.alldata[i].work_preference_info !== null) {
+            if (props.alldata[i].work_preference_info.language.length !== 0) {
+              for (
+                var j = 0;
+                j < props.alldata[i].work_preference_info.language.length;
+                j++
+              ) {
+                if (
+                  props.alldata[i].work_preference_info.language[j]
+                    .split(":")[0]
+                    .toLowerCase()
+                    .includes(allfilterdata.languages.toLowerCase())
+                ) {
+                  finaldata.push(props.alldata[i]);
+                }
+              }
             }
           }
         }
@@ -600,6 +636,9 @@ const DashSearch = (props) => {
     if (allfilterdata.experience.length !== 0) {
       count = count + 1;
     }
+    if (allfilterdata.languages.length !== 0) {
+      count = count + 1;
+    }
     setcount(count);
   };
   const clearallbtn = async () => {
@@ -617,8 +656,9 @@ const DashSearch = (props) => {
       experience: "",
       languages: "",
     });
-    setCost(false)
+    setCost(false);
     setlocationlist([]);
+    setrangevalue();
   };
   return (
     <div>

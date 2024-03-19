@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ContractComp.css";
 import documentX from "../../../../assests/documentX.png";
 import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
 import tabImg from "../../../../assests/table.png";
 import ContractCard from "../../../Reusable/ContractCard/ContractCard";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ContractComp = () => {
+  const userid = useSelector((store) => store.userid);
+  const token = useSelector((store) => store.token);
   const [isPage, setIsPage] = useState("page1");
   const PageHandler = (event) => {
     setIsPage(event.target.id);
@@ -50,6 +54,25 @@ const ContractComp = () => {
       Duration: "12 Months",
     },
   ];
+  useEffect(() => {
+    getContactdata();
+  }, []);
+  const getContactdata = async () => {
+    var contactdata = await axios
+      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${userid}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        },
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    console.log(contactdata, "contactdata");
+  };
   return (
     <div>
       <div className="dashBoardMain paddingLeft100 paddingRight100">
