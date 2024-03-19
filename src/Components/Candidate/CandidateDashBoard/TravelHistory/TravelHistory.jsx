@@ -320,7 +320,6 @@ const TravelHistory = () => {
     }
     Getalldata();
   };
-  console.log(travelwork, "travelwork");
   return (
     <div>
       <div className="travelHistory">
@@ -1198,7 +1197,6 @@ const TravelHistory = () => {
                                     </option>
                                   </select>
                                   <h2>Travel Readlines</h2>
-                                  {console.log(data.readlines, "mmmmm")}
                                   <select
                                     id=""
                                     name="readlines"

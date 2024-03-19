@@ -2,11 +2,6 @@
     padding: 30px 0px;
 }
 
-.clientProfileOverview {
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
 .ClientProfileBackButton {
     display: flex;
     align-items: center;
@@ -98,7 +93,7 @@
 }
 
 .disableProfile {
-    font-size: 19px;
+    font-size: 14px;
     background-color: var(--white);
     padding: 8px 10px;
     border: 1px solid var(--borderColor);
@@ -107,7 +102,7 @@
 }
 
 .disable_Profile {
-    font-size: 19px;
+    font-size: 14px;
     background-color: lightgray;
     padding: 8px 10px;
     border: 1px solid var(--borderColor);
@@ -297,6 +292,11 @@
 
 
 @media only screen and (max-width: 600px) {
+    .clientProfileOverview {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
     .clientProfileViewFlex {
         flex-direction: column;
         border: 1px solid var(--borderColor);

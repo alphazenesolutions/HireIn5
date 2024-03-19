@@ -153,6 +153,28 @@
     transform: translate(-50%, -50%);
 }
 
+.contractCandidateDropdown {
+    width: 45.5%;
+    padding: 10px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    background-color: var(--white);
+    position: absolute;
+    z-index: 10 !important;
+}
+
+.contractCandidateDropdown h5 {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+}
+
+.contractCandidateDropdown h5:hover {
+    background-color: var(--borderColor);
+}
+
 .adminEditOverlayHead {
     padding: 15px 20px;
     font-size: 16px;

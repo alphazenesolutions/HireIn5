@@ -477,7 +477,6 @@ const ACandidateProfileView = () => {
               : "",
         });
       }
-      console.log(singleuser[0].rate_card_info, "singleuser[0].rate_card_info");
       if (singleuser[0].rate_card_info !== null) {
         setratecard({
           remote_hourly:
@@ -955,7 +954,6 @@ const ACandidateProfileView = () => {
       readlines: "",
     },
   ]);
-  console.log(travelwork, "travelwork");
   const addcountwork = () => {
     var newobj = {
       country: "",
@@ -1579,7 +1577,6 @@ const ACandidateProfileView = () => {
       setIsLoading(false);
     }
   };
-  console.log(ratecard, "ratecard");
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -2871,7 +2868,6 @@ const ACandidateProfileView = () => {
                     Edit
                   </button>
                 </div>
-                {console.log(singleuser, "singleusersingleuser")}
                 {singleuser[0].travel_info !== null ? (
                   <div className="ClientProfileViewCardBody">
                     {singleuser[0].travel_info !== null
