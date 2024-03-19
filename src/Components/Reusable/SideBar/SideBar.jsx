@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Avatar from "react-avatar";
 import back from "../../../assests/billingX.png";
 import { RxCross1 } from "react-icons/rx";
+import ProgressBar from "../../PrelineComponent/ProgressBar/ProgressBar";
 
 const SideBar = (props) => {
   const navigate = useNavigate();
@@ -197,6 +198,16 @@ const SideBar = (props) => {
               </div>
             </div>
           </div> */}
+          <div className="sidebarProgressBar">
+            <div className="sidebarProgressBarImg">
+              <ProgressBar />
+            </div>
+            <h1>Profile is completed</h1>
+            <p>
+              A completed profile has higher chance of getting an opportunity
+            </p>
+            <h2>Complete my profile</h2>
+          </div>
         </div>
         <div id="logoutPopUp" className="logout" onClick={overLayHandler}>
           <img id="logoutPopUp" src={logout} alt="" onClick={overLayHandler} />
