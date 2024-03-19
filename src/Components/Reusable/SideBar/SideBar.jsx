@@ -12,7 +12,8 @@ import { useNavigate } from "react-router-dom";
 import Avatar from "react-avatar";
 import back from "../../../assests/billingX.png";
 import { RxCross1 } from "react-icons/rx";
-import ProgressBar from "../../PrelineComponent/ProgressBar/ProgressBar";
+import ProgressBar from "../../PrelineComponent/ProgressBar/Circlebar";
+import { CircularProgress } from "@mui/material";
 
 const SideBar = (props) => {
   const navigate = useNavigate();
@@ -185,23 +186,9 @@ const SideBar = (props) => {
               })}
             </div>
           </div>
-          {/* <div className="sideNavBottom">
-            <div className="cash">
-              <div className="cashLeft">
-                <img src={wallet} alt="" />
-              </div>
-              <div className="cashRight">
-                <p>H5 Cash</p>
-                <h5>
-                  <span>₹</span>5000
-                </h5>
-              </div>
-            </div>
-          </div> */}
+
           <div className="sidebarProgressBar">
-            <div className="sidebarProgressBarImg">
-              <ProgressBar />
-            </div>
+            <ProgressBar />
             <h1>Profile is completed</h1>
             <p>
               A completed profile has higher chance of getting an opportunity

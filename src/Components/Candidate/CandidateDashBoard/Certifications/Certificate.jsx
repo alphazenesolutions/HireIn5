@@ -175,19 +175,25 @@ const Certificate = () => {
   const [formData] = useState(new FormData());
   const handleFileInputChange = async (e) => {
     formData.append("image", e.target.files[0]);
-    formData.append("name", `certificate${userid}`);
-    const response = await axios.post(
-      "https://fileserver-21t2.onrender.com/api/upload/",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    setcertificate([...certificate, response.data.img_url]);
-    fileInputRef.current.value = "";
-    setIsUpload(true);
+    const selectedImage = e.target.files[0];
+    if (selectedImage.size > 5 * 1024 * 1024) {
+      fileInputRef.current.value = "";
+      alert("Image size exceeds 5 MB limit.");
+    } else {
+      formData.append("name", `certificate${userid}`);
+      const response = await axios.post(
+        "https://fileserver-21t2.onrender.com/api/upload/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setcertificate([...certificate, response.data.img_url]);
+      fileInputRef.current.value = "";
+      setIsUpload(true);
+    }
   };
   const deletebtn = async (id) => {
     const updatedElements = [...certificate];

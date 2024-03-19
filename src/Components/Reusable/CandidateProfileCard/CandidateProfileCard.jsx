@@ -220,7 +220,12 @@ const CandidateProfileCard = (props) => {
                 ) : null}
 
                 <h1>{singleuser[0].first_name}</h1>
-                <h2>USD {singleuser[0].hourly_rate} / HR</h2>
+                {singleuser[0].rate_card_info !== null ? (
+                  <h2>USD {singleuser[0].rate_card_info.remote_hourly} / HR</h2>
+                ) : (
+                  <h2>0 / HR</h2>
+                )}
+
                 <div className="available">
                   <p>Available from</p>
                   <h5>03 Aug 2024</h5>
@@ -297,7 +302,7 @@ const CandidateProfileCard = (props) => {
                   <div className="profileLeftBottom">
                     <button className="touchButtondiable">
                       <img src={back} alt="" />
-                      <h4>Get in Touch</h4>
+                      <h4>Interview</h4>
                     </button>
                     <button className="reserveButtondiable">
                       <img src={user} alt="" />
@@ -308,7 +313,7 @@ const CandidateProfileCard = (props) => {
                   <div className="profileLeftBottom">
                     <button className="touchButton">
                       <img src={back} alt="" />
-                      <h4>Get in Touch</h4>
+                      <h4>Interview</h4>
                     </button>
                     <button className="reserveButton" onClick={reserveuser}>
                       <img src={user} alt="" />
@@ -320,7 +325,7 @@ const CandidateProfileCard = (props) => {
                 <div className="profileLeftBottom">
                   <button className="touchButtondiable">
                     <img src={back} alt="" />
-                    <h4>Get in Touch</h4>
+                    <h4>Interview</h4>
                   </button>
                   <button className="reserveButtondiable">
                     <img src={user} alt="" />
@@ -841,7 +846,10 @@ const CandidateProfileCard = (props) => {
                             Current Place of Residence:{" "}
                             {singleuser[0].current_place_of_residence}
                           </p>
-                          <p>Duration : {singleuser[0].lived_at_current_residence}</p>
+                          <p>
+                            Duration :{" "}
+                            {singleuser[0].lived_at_current_residence}
+                          </p>
                         </div>
                       </div>
                     </div>
