@@ -102,6 +102,10 @@ code {
   display: block;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
   .displayHandler {
     display: none;

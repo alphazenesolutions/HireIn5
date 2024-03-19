@@ -14,6 +14,7 @@ const StoreSlice = createSlice({
     islogin: false,
     issidebar: false,
     isPopUp: null,
+    isPopUp2: false,
     bookmarkdata: [],
     userdata: [],
     loginrole: null,
@@ -44,6 +45,10 @@ const StoreSlice = createSlice({
     },
     isPopUpHander(state, action) {
       state.isPopUp = action.payload;
+    },
+    isPopUpHander2(state, action) {
+      state.isPopUp2 = action.payload;
+      console.log("hello");
     },
     bookmarkdataHander(state, action) {
       state.bookmarkdata = action.payload.bookmarkdata;

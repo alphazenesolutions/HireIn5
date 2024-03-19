@@ -188,7 +188,9 @@ const SideBar = (props) => {
           </div>
 
           <div className="sidebarProgressBar">
-            <ProgressBar />
+            <div className="sidebarProgressBarImg">
+              <ProgressBar />
+            </div>
             <h1>Profile is completed</h1>
             <p>
               A completed profile has higher chance of getting an opportunity
