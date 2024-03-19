@@ -1,20 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react";
 import "./ContractComp.css";
 import documentX from "../../../../assests/documentX.png";
 import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
 import tabImg from "../../../../assests/table.png";
-import ContractCard from "../../../Reusable/ContractCard/ContractCard";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import moment from "moment";
+import contractCard from "../../../../assests/contractCard.png";
 
 const ContractComp = () => {
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
-  const [isPage, setIsPage] = useState("page1");
+  const [isPage, setIsPage] = useState("page2");
   const PageHandler = (event) => {
     setIsPage(event.target.id);
   };
+  const [contracts, setContracts] = useState([]);
 
   const profileData = [
     {
@@ -71,8 +75,11 @@ const ContractComp = () => {
       .catch((err) => {
         return err.response;
       });
-    console.log(contactdata, "contactdata");
+    if (contactdata.length !== 0) {
+      setContracts(contactdata);
+    }
   };
+  console.log(contracts, "contracts");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100 paddingRight100">
@@ -177,9 +184,39 @@ const ContractComp = () => {
         )}
         {isPage === "page3" && (
           <div className="Contract">
-            <ContractCard />
-            <ContractCard />
-            <ContractCard />
+            {contracts.length !== 0 ? (
+              contracts.map((data, index) =>
+                data.name == "Non Disclosure Agreement (NDA)" ||
+                data.name == "Master Service Agreement (MSA)" ||
+                data.name == "Statement of Work (SOW)" ? (
+                  <div className="contractCard" key={index}>
+                    <div className="contractInner">
+                      <div className="contractInnerImg">
+                        <img src={contractCard} alt="" />
+                      </div>
+                      <div className="contractInnerDesc">
+                        <h2>{data.name}</h2>
+                        <h6>
+                          Updated on{" "}
+                          {moment(data.uplaod_date).format("DD/MM/YYYY")}
+                        </h6>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        window.open(`${data.file}`, "_blank");
+                      }}
+                    >
+                      Download
+                    </button>
+                  </div>
+                ) : null
+              )
+            ) : (
+              <div>
+                <h6 className="text-center py-24">No Data found...</h6>
+              </div>
+            )}
           </div>
         )}
       </div>

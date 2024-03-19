@@ -40,7 +40,7 @@ const CandidateRegistration = () => {
   const token = useSelector((store) => store.token);
   const onboarding_status = useSelector((store) => store.onboarding_status);
 
-  const [isPage, setIsPage] = useState("page3");
+  const [isPage, setIsPage] = useState("page1");
   const [dropDown, setdropDown] = useState("");
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -882,25 +882,31 @@ const CandidateRegistration = () => {
   });
   const handleFileInputChange = async (e) => {
     formData.append("image", e.target.files[0]);
-    formData.append("name", formtype);
-    const response = await axios.post(
-      "https://fileserver-21t2.onrender.com/api/upload/",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const selectedImage = e.target.files[0];
+    if (selectedImage.size > 5 * 1024 * 1024) {
+      fileInputRef.current.value = "";
+      alert("Image size exceeds 5 MB limit.");
+    } else {
+      formData.append("name", `${formtype}_${userid}`);
+      const response = await axios.post(
+        "https://fileserver-21t2.onrender.com/api/upload/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setformdata((values) => ({
+        ...values,
+        [formtype]: response.data.img_url,
+      }));
+      setfileuploadsuccess((values) => ({
+        ...values,
+        [formtype]: true,
+      }));
+    }
 
-    setformdata((values) => ({
-      ...values,
-      [formtype]: response.data.img_url,
-    }));
-    setfileuploadsuccess((values) => ({
-      ...values,
-      [formtype]: true,
-    }));
     fileInputRef.current.value = "";
   };
   const [row, setrow] = useState([{ languages: "", level: "" }]);
