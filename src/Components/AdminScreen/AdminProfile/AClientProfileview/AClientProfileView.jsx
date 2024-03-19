@@ -17,6 +17,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import contractCard from "../../../../assests/contractCard.png";
 import moment from "moment";
 import country_and_states from "../../../../assests/country-states";
+import approvedTick from "../../../../assests/approvedTick.svg";
 
 const AClientProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
