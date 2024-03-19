@@ -5,6 +5,11 @@
     margin-bottom: 30px;
 }
 
+.adminProfile {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
 .customerView {
     padding-left: 0px;
     padding-right: 0px;
@@ -179,12 +184,14 @@
 
 /* page css for adminprofilepage */
 .shortListButton {
+    width: 100%;
     display: flex;
     /* flex-direction: column; */
     align-items: center;
     justify-content: space-between;
 
 }
+
 
 .shortListButtonDisable {
     width: 200px;
@@ -282,4 +289,15 @@ nav {
         width: 100%;
     }
 
+    .shortListButton1 {
+        width: 100%;
+        display: flex;
+        /* flex-direction: column; */
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .AdminClientTable {
+        width: 900px;
+    }
 }

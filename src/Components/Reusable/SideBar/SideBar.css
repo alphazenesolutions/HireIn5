@@ -253,6 +253,48 @@
     display: none;
 }
 
+/* progress bar */
+
+.sidebarProgressBar {
+    padding: 15px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebarProgressBarImg {
+    height: 60px;
+    width: 60px;
+}
+
+.sidebarProgressBar h1 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--textColorDark);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+.sidebarProgressBar p {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--textColor);
+    text-align: start;
+}
+
+.sidebarProgressBar h2 {
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--primaryColor);
+}
+
 @media only screen and (max-width: 600px) {
     .sideNavInner {
         height: 92%;

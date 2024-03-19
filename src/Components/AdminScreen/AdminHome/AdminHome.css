@@ -204,7 +204,7 @@
 .homeProgressCandidate h1 {
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 35px;
 }
 
 .homeProgressCandidateFlex {
@@ -214,7 +214,8 @@
 }
 
 .homeProgressCandidateLeft {
-    height: 90%;
+    width: 200px;
+    height: 130px;
 }
 
 .homeProgressCandidateRight {
@@ -291,5 +292,13 @@
     .adminNotificationLog {
         width: 800px;
         overflow-x: scroll;
+    }
+
+    .homeProgressCandidateRight {
+        padding-right: 0px;
+    }
+
+    .homeProgressCandidate {
+        padding: 25px 14px;
     }
 }

@@ -2,6 +2,11 @@
     padding: 30px 0px;
 }
 
+.clientProfileOverview {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
 .ClientProfileBackButton {
     display: flex;
     align-items: center;
@@ -100,9 +105,10 @@
     border-radius: 8px;
     margin-left: 10px;
 }
-.disable_Profile{
+
+.disable_Profile {
     font-size: 19px;
-    background-color:lightgray;
+    background-color: lightgray;
     padding: 8px 10px;
     border: 1px solid var(--borderColor);
     border-radius: 8px;
@@ -161,6 +167,40 @@
 }
 
 .approvalMenuDisable:hover {
+    color: #EF4444;
+    background-color: #FEE2E2;
+}
+
+.approvalMenu1 {
+    padding: 10px;
+    z-index: 10 !important;
+    position: absolute;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    top: 37%;
+    right: 7%;
+
+}
+
+.approvalMenu1Active {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    color: var(--primaryColor);
+    background-color: var(--approveColor);
+}
+
+.approvalMenu1Disable {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 5px 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    cursor: pointer;
     color: #EF4444;
     background-color: #FEE2E2;
 }
@@ -249,4 +289,127 @@
     color: var(--textColor);
     padding: 12px 0px;
     text-transform: capitalize;
+}
+
+.clientProfileViewHeaderMob {
+    display: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .clientProfileViewFlex {
+        flex-direction: column;
+        border: 1px solid var(--borderColor);
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .ClientProfileViewCard {
+        margin-top: 25px;
+    }
+
+    .clientViewTabActive {
+        font-size: 13px;
+    }
+
+    .clientViewTabInactive {
+        font-size: 13px;
+    }
+
+    .ClientProfileViewCardBodyTable h2 {
+        width: 50%;
+    }
+
+    .ClientProfileViewCardEdit button {
+        padding: 5px 10px;
+    }
+
+    .ClientProfileViewCard h1 {
+        width: 70%;
+    }
+
+    .clientProfileViewHeader {
+        display: none;
+    }
+
+    .clientProfileViewHeaderMob {
+        display: block;
+        padding: 20px 0px;
+    }
+
+    .ClientProfileBackButton h5 {
+        font-weight: 600;
+        margin-left: 5px;
+    }
+
+    .clientProfileViewFlexRightMobCandidate {
+        width: 100%;
+        display: flex;
+        /* flex-direction: column; */
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+        column-gap: 15px;
+    }
+
+    .clientProfileViewFlexRightMob {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
+    .editRate {
+        width: 90%;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .clientProfileViewFlex {
+        background-color: var(--dropColor);
+    }
+
+    .disableProfile {
+        font-size: 12px;
+        width: 48%;
+        font-weight: 600;
+        margin-left: 0px;
+        padding: 15px 10px;
+    }
+
+    .disableProfileCandidate {
+        font-size: 16px;
+        /* width: 10%; */
+        font-weight: 600;
+        margin-left: 0px;
+        padding: 13px 14px;
+        border: 1px solid var(--borderColor);
+        border-radius: 8px;
+    }
+
+    .clientProfileViewFlexRightButtonMob {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--borderColor);
+    }
+
+    .clientProfileViewFlexRightButtonMobClient {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
 }

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./SignUpComp.css";
-import Head from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
+import Head from "../../../Reusable/LogoHead/Head";
 import Foot from "../../../Reusable/Terms&Conditions/Foot";
 import SectionHead from "../../../Reusable/SectionHead/SectionHead";
 import { useNavigate } from "react-router-dom";
@@ -113,7 +113,7 @@ const SignUpComp = () => {
               },
             })
           );
-        
+
           navigate("/emailverification");
         } else {
           setIsLoading(false);

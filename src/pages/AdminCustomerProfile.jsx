@@ -184,16 +184,16 @@ const AdminCustomerProfile = () => {
       setalldata(totaldata);
     }
   };
-  console.log(alldata,'lll');
+  console.log(alldata, "lll");
   return (
-    <div className=" paddingLeft100 paddingRight100">
+    <div className="adminProfile paddingLeft100 paddingRight100">
       <DashHead
         head="Profile"
         desc="View and update profiles of onboarded clients and candidates"
         descClass="dashBoardMainHeadDescBetween"
       />
-      <div className="shortListButton marginBottom20 flex justify-between items-center">
-        <div>
+      <div className="shortListButton marginBottom20 ">
+        <div className="shortListButton1">
           <button
             id="candidate"
             onClick={buttonHandler}

@@ -51,20 +51,26 @@ const VideoResume = () => {
   const handleFileInputChange = async (e) => {
     setloading(true);
     formData.append("image", e.target.files[0]);
-    formData.append("name", `resume${userid}`);
-    const response = await axios.post(
-      "https://fileserver-21t2.onrender.com/api/upload/",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    setresumevideo(response.data.img_url);
-    fileInputRef.current.value = "";
-    setloading(false);
-    setuploadstatus(true);
+    const selectedImage = e.target.files[0];
+    if (selectedImage.size > 10 * 1024 * 1024) {
+      fileInputRef.current.value = "";
+      alert("Image size exceeds 5 MB limit.");
+    } else {
+      formData.append("name", `resume${userid}`);
+      const response = await axios.post(
+        "https://fileserver-21t2.onrender.com/api/upload/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setresumevideo(response.data.img_url);
+      fileInputRef.current.value = "";
+      setloading(false);
+      setuploadstatus(true);
+    }
   };
   const displayHandler = async () => {
     setloading(true);
@@ -238,7 +244,7 @@ const VideoResume = () => {
                   <div className="uploadVedioRes" onClick={uploadHandler}>
                     <h2>Your video file here</h2>
                     <h3>
-                      Maximum size: 5MB MP4,
+                      Maximum size: 10 MB MP4,
                       <br /> MOV, AVI and WMV accepted
                     </h3>
                   </div>
