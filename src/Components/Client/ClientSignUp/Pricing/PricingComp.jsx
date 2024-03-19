@@ -94,11 +94,31 @@ const PricingComp = () => {
         .catch((err) => {
           return err.response;
         });
-      setTimeout(() => {
-        navigate("/meeting");
-      }, 3000);
     }
   };
+  const [timeLeft, setTimeLeft] = useState(60);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (isPage === "page3") {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  });
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      navigate("/meeting");
+    }
+  }, [timeLeft]);
+
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  const formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds
+    .toString()
+    .padStart(2, "0")}`;
   return (
     <>
       {isPage === "page1" && (
@@ -320,10 +340,13 @@ const PricingComp = () => {
                 Look out for an email / call from our team or set up a meeting at your convenience using the Calendly link."
               title="Payment successful"
             />
-            <p>
-              We’ve sent you a receipt at{" "}
-              <span className="emailDarks">divyagupta@gmail.com</span>
-            </p>
+            {userdata.length !== 0 ? (
+              <p>
+                We’ve sent you a receipt at{" "}
+                <span className="emailDarks">{userdata[0].email}</span>
+              </p>
+            ) : null}
+
             <button
               onClick={() => navigate("/meeting")}
               className="marginTop20 marginBottom20"
@@ -332,7 +355,7 @@ const PricingComp = () => {
             </button>
             <h6 className="paymentTimer">
               Redirecting you to the next screen in{" "}
-              <span className="emailDarks">00:54s</span>
+              <span className="emailDarks">{formattedTime}s</span>
             </h6>
           </div>
         </div>

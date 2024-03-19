@@ -48,7 +48,6 @@ const StoreSlice = createSlice({
     },
     isPopUpHander2(state, action) {
       state.isPopUp2 = action.payload;
-      console.log("hello");
     },
     bookmarkdataHander(state, action) {
       state.bookmarkdata = action.payload.bookmarkdata;

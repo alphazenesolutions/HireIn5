@@ -95,10 +95,6 @@ const DashSearch = (props) => {
       var filterdata = [];
       for (var i = 0; i < props.alldata.length; i++) {
         if (props.alldata[i].rate_card_info !== null) {
-          console.log(
-            props.alldata[i].rate_card_info.remote_hourly,
-            rangevalue
-          );
           if (
             props.alldata[i].rate_card_info.remote_hourly >= rangevalue[0] &&
             props.alldata[i].rate_card_info.remote_hourly <= rangevalue[1]
@@ -345,13 +341,8 @@ const DashSearch = (props) => {
           }
         }
       }
-
       for (var i = 0; i < props.alldata.length; i++) {
         if (props.alldata[i].rate_card_info !== null) {
-          console.log(
-            props.alldata[i].rate_card_info.remote_hourly,
-            rangevalue
-          );
           if (
             props.alldata[i].rate_card_info.remote_hourly >= rangevalue[0] &&
             props.alldata[i].rate_card_info.remote_hourly <= rangevalue[1]
