@@ -25,7 +25,6 @@ const Layout = () => {
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
-  console.log(isPopUp);
   return (
     <div>
       {issidebar && (

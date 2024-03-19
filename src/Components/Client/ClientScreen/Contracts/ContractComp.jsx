@@ -79,7 +79,6 @@ const ContractComp = () => {
       setContracts(contactdata);
     }
   };
-  console.log(contracts, "contracts");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100 paddingRight100">
@@ -185,33 +184,29 @@ const ContractComp = () => {
         {isPage === "page3" && (
           <div className="Contract">
             {contracts.length !== 0 ? (
-              contracts.map((data, index) =>
-                data.name == "Non Disclosure Agreement (NDA)" ||
-                data.name == "Master Service Agreement (MSA)" ||
-                data.name == "Statement of Work (SOW)" ? (
-                  <div className="contractCard" key={index}>
-                    <div className="contractInner">
-                      <div className="contractInnerImg">
-                        <img src={contractCard} alt="" />
-                      </div>
-                      <div className="contractInnerDesc">
-                        <h2>{data.name}</h2>
-                        <h6>
-                          Updated on{" "}
-                          {moment(data.uplaod_date).format("DD/MM/YYYY")}
-                        </h6>
-                      </div>
+              contracts.map((data, index) => (
+                <div className="contractCard" key={index}>
+                  <div className="contractInner">
+                    <div className="contractInnerImg">
+                      <img src={contractCard} alt="" />
                     </div>
-                    <button
-                      onClick={() => {
-                        window.open(`${data.file}`, "_blank");
-                      }}
-                    >
-                      Download
-                    </button>
+                    <div className="contractInnerDesc">
+                      <h2>{data.name}</h2>
+                      <h6>
+                        Updated on{" "}
+                        {moment(data.uplaod_date).format("DD/MM/YYYY")}
+                      </h6>
+                    </div>
                   </div>
-                ) : null
-              )
+                  <button
+                    onClick={() => {
+                      window.open(`${data.file}`, "_blank");
+                    }}
+                  >
+                    Download
+                  </button>
+                </div>
+              ))
             ) : (
               <div>
                 <h6 className="text-center py-24">No Data found...</h6>

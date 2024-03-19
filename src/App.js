@@ -30,7 +30,6 @@ function App() {
   const navbarHandler = () => {
     dispatch(storeAction.isPopUpHander("navbar"));
   };
-  console.log(navbarHandler);
   useEffect(() => {
     Getuserinfo();
   }, [token, userid]);

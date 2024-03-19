@@ -150,7 +150,6 @@ const DiscoverComp = () => {
       });
     if (tabledata.length !== 0) {
       const bookmarkedUserArray = tabledata.map((item) => item.bookmarked_user);
-      console.log(bookmarkedUserArray, "bookmarkedUserArray");
       dispatch(
         storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
       );
@@ -415,6 +414,7 @@ const DiscoverComp = () => {
       setselectseacrh(false);
     }
   };
+  console.log(card, "card");
   return (
     <div>
       <div className="mobileHeaderComp">

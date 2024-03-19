@@ -38,13 +38,13 @@ const RegistrationComp = () => {
       navigate("/pricing");
     }
   };
-  setTimeout(routeHandler, 1500);
+  setTimeout(routeHandler, 3000);
   const [registationdata, setregistationdata] = useState({
     company_name: "",
     company_location: "",
     company_url: "",
     first_name: "",
-    phone: "",
+    phone: sessionStorage.getItem("phone"),
     title: "",
     linked_in: "",
   });

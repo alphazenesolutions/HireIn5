@@ -36,7 +36,6 @@ const AClientProfileView = () => {
   const isPopUp2 = useSelector((store) => {
     return store.isPopUp2;
   });
-  console.log(isPopUp2);
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("candidateRate"));
   };
@@ -45,8 +44,6 @@ const AClientProfileView = () => {
   };
   const contractHandler = () => {
     dispatch(storeAction.isPopUpHander2(true));
-    console.log("contractsearchdropdown");
-    console.log(isPopUp2);
   };
   const [loading, setIsLoading] = useState(false);
   const [companydata, setcompanydata] = useState({

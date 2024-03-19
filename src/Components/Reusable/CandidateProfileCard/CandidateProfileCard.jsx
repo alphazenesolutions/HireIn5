@@ -179,7 +179,6 @@ const CandidateProfileCard = (props) => {
           <img src={back} alt="" />
           <h2>Back to results</h2>
         </div>
-
         {/* <img src={star} alt="" /> */}
         {loginrole == 3 ? (
           <div className="vedioNotes">
@@ -191,6 +190,21 @@ const CandidateProfileCard = (props) => {
               </h4>
             </div>
           </div>
+        ) : null}
+        {loginrole == 2 ? (
+          status === false ? (
+            expiredata !== "null" && calculateDateDifference() === "below" ? (
+              <div className="vedioNotes">
+                <div className="notes">
+                  <h4>
+                    This profile has been reserved by an employer. However you
+                    can still view & bookmark this profile for later
+                    <span className="certificateHighLight">Mettl</span>
+                  </h4>
+                </div>
+              </div>
+            ) : null
+          ) : null
         ) : null}
 
         {singleuser.length !== 0 ? (
@@ -720,7 +734,6 @@ const CandidateProfileCard = (props) => {
                       <h1>Preferred method of working</h1>
                       <h1>Preferred Work Locations</h1>
                     </div>
-                    {console.log(singleuser, "singleuser")}
                     {singleuser[0].work_preference_info !== null ? (
                       <div className="availableFlexRight">
                         <h2>Yes</h2>

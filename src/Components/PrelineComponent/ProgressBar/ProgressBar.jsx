@@ -42,7 +42,7 @@ const ProgressBar = () => {
           <span class="text-center text-2xl font-bold text-gray-800 dark:text-black">
             {alluserdata.length}
           </span>
-          {/* <p className="text-[#71717a]">Onboarded</p> */}
+          <p className="text-[#71717a]">Onboarded</p>
         </div>
       </div>
     </div>
