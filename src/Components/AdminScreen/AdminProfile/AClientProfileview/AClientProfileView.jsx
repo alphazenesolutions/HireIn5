@@ -652,13 +652,13 @@ const AClientProfileView = () => {
                   <img src={editOutline} alt="" />
                   Edit Rate (Pricing)
                 </button> */}
-                <div className="clientProfileViewFlexRightButtonMob">
+                <div className="clientProfileViewFlexRightButtonMobClient">
                   <button
-                    id="approveconformation"
+                    // id="approveconformation"
                     onClick={editHandler1}
                     className="disableProfile"
                   >
-                    Approve Candidate
+                    Delete profile
                   </button>
                   <button className="disableProfile">Disable Profile</button>
                 </div>
@@ -672,7 +672,7 @@ const AClientProfileView = () => {
                           onClick={editHandler1}
                           className="approvalMenuActive"
                         >
-                          Approve Candidate
+                          Disable profile
                         </h3>
                       ) : null}
 

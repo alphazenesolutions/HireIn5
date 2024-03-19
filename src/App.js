@@ -58,6 +58,7 @@ function App() {
         <LuAlignJustify />
       </div>
       {isPopUp == "video" ||
+      isPopUp == "approvedropdownMob" ||
       isPopUp == "mobfilter" ||
       isPopUp == "navbar" ||
       isPopUp == "personal" ||
