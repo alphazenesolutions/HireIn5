@@ -58,8 +58,8 @@ const ACandidateProfileView = () => {
     dispatch(storeAction.isPopUpHander(e.target.id));
   };
 
-  const dropDownHandler = () => {
-    dispatch(storeAction.isPopUpHander("approvedropdown"));
+  const dropDownHandler = (e) => {
+    dispatch(storeAction.isPopUpHander(e.target.id));
   };
   const CloseOverlay = () => {
     dispatch(storeAction.isPopUpHander());
@@ -1635,8 +1635,12 @@ const ACandidateProfileView = () => {
                   <img src={editOutline} alt="" />
                   Edit Rate (Pricing)
                 </button>
-                <button onClick={dropDownHandler} className="disableProfile">
-                  <BsThreeDots />
+                <button
+                  onClick={dropDownHandler}
+                  id="approvedropdown"
+                  className="disableProfile"
+                >
+                  <BsThreeDots onClick={dropDownHandler} id="approvedropdown" />
                 </button>
                 {isPopUp == "approvedropdown" &&
                   (singleuser.length !== 0 ? (
@@ -1711,12 +1715,22 @@ const ACandidateProfileView = () => {
                   </div>
                 </div>
               </div>
-              <div className="clientProfileViewFlexRightMob">
+              <div className="clientProfileViewFlexRightMobCandidate">
                 <button onClick={overLayHandler} className="editRate">
                   <img src={editOutline} alt="" />
                   Edit Rate (Pricing)
                 </button>
-                <div className="clientProfileViewFlexRightButtonMob">
+                <button
+                  id="approvedropdownMob"
+                  onClick={dropDownHandler}
+                  className="disableProfileCandidate"
+                >
+                  <BsThreeDots
+                    onClick={dropDownHandler}
+                    id="approvedropdownMob"
+                  />
+                </button>
+                {/* <div className="clientProfileViewFlexRightButtonMob">
                   <button
                     id="approveconformation"
                     onClick={editHandler1}
@@ -1725,22 +1739,21 @@ const ACandidateProfileView = () => {
                     Approve Candidate
                   </button>
                   <button className="disableProfile">Disable Profile</button>
-                </div>
-
-                {isPopUp == "approvedropdown" &&
+                </div> */}
+                {isPopUp == "approvedropdownMob" &&
                   (singleuser.length !== 0 ? (
-                    <div className="approvalMenu">
+                    <div className="approvalMenu1">
                       {singleuser[0].apprual === false ? (
                         <h3
                           id="approveconformation"
                           onClick={editHandler1}
-                          className="approvalMenuActive"
+                          className="approvalMenu1Active"
                         >
                           Approve Candidate
                         </h3>
                       ) : null}
 
-                      <h3 className="approvalMenuDisable">Disable Profile</h3>
+                      <h3 className="approvalMenu1Disable">Disable Profile</h3>
                     </div>
                   ) : null)}
               </div>
