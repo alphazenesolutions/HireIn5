@@ -14,6 +14,7 @@ import Select from "react-select";
 import Skilllist from "../../../../assests/skillsJSON.json";
 import axios from "axios";
 import { FiLoader } from "react-icons/fi";
+import { RxCross1 } from "react-icons/rx";
 
 const WorkExperience = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -49,7 +50,10 @@ const WorkExperience = () => {
     preffered_work_timings: "",
   });
   const [loading, setloading] = useState(false);
-
+function exitOverlayHandler(params) {
+  dispatch(storeAction.isPopUpHander());
+  
+}
   useEffect(() => {
     Getskill();
   }, [Skilllist]);
@@ -233,6 +237,7 @@ const WorkExperience = () => {
             <div className="workExperienceHeadLeft">
               <img src={user} alt="" />
               <h1>Work Experience</h1>
+              
             </div>
             <div className="workExperienceHeadLeftIcon">
               <img
@@ -389,7 +394,9 @@ const WorkExperience = () => {
                     <img src={user} alt="" />
                     <h1>Work Experience</h1>
                   </div>
-                  <div className="workExperienceHeadLeftIcon"></div>
+                  <div onClick={exitOverlayHandler} className="workExperienceHeadLeftIcon">
+                    <RxCross1 />
+                  </div>
                 </div>
               </div>
               <h6>
@@ -445,7 +452,7 @@ const WorkExperience = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="keySkills">
+                  <div className="keySkills" title="">
                     <div className="keyskills1">
                       <h3>Preferred method of work</h3>
                       <p>Rank in order of preference</p>
