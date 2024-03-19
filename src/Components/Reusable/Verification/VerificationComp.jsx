@@ -76,7 +76,7 @@ const VerificationComp = () => {
     }
   };
   const [isChange, setIsChange] = useState(false);
-  const routeTimeout = setTimeout(routeHandler, 1500);
+  const routeTimeout = setTimeout(routeHandler, 3000);
 
   const handleInputChange = (index, event) => {
     const value = event.target.value;
@@ -167,6 +167,36 @@ const VerificationComp = () => {
       .catch((error) => {
         return error;
       });
+  };
+  const resendbtn = async () => {
+    
+    setfinalerror(false);
+    if (phone.length !== 0) {
+      if (phone.length === 10) {
+        setIsChange(true);
+        setTimeout(() => {
+          setshow(false);
+        }, 2000);
+        let verify = new firebase.auth.RecaptchaVerifier("recaptcha-container");
+        auth
+          .signInWithPhoneNumber(`+91${phone}`, verify)
+          .then((result) => {
+            setfinal(result);
+            setshow(false);
+            setIsChange(false);
+            setIsPage("page3");
+          })
+          .catch((err) => {
+            window.location.reload();
+          });
+      } else {
+        setfinalerror(true);
+        setIsChange(false);
+      }
+    } else {
+      setfinalerror(true);
+      setIsChange(false);
+    }
   };
   return (
     <>
@@ -267,7 +297,7 @@ const VerificationComp = () => {
               )}
               <p
                 onClick={() => {
-                  window.location.reload();
+                  resendbtn();
                 }}
                 className="cursor-pointer"
               >

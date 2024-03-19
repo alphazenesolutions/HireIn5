@@ -17,13 +17,19 @@ function App() {
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
+  const isPopUp2 = useSelector((store) => {
+    return store.isPopUp;
+  });
   const CloseOverlay = () => {
     dispatch(storeAction.isPopUpHander());
+    dispatch(storeAction.isPopUpHander2(false));
   };
+  // const CloseOverlay2 = () => {
+  //   dispatch(storeAction.isPopUpHander2(false));
+  // };
   const navbarHandler = () => {
     dispatch(storeAction.isPopUpHander("navbar"));
   };
-  console.log(navbarHandler);
   useEffect(() => {
     Getuserinfo();
   }, [token, userid]);
@@ -58,6 +64,7 @@ function App() {
         <LuAlignJustify />
       </div>
       {isPopUp == "video" ||
+      isPopUp == "addcontract" ||
       isPopUp == "approvedropdownMob" ||
       isPopUp == "mobfilter" ||
       isPopUp == "navbar" ||
@@ -100,6 +107,7 @@ function App() {
       {isPopUp == "hourly" ||
       isPopUp == "location" ||
       isPopUp == "mobfilter" ||
+      isPopUp2 == true ||
       isPopUp == "approvedropdown" ? (
         <div onClick={CloseOverlay} id="overlayTransparent"></div>
       ) : null}

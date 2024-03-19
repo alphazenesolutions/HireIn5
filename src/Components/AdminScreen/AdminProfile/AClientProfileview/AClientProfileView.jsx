@@ -18,6 +18,7 @@ import contractCard from "../../../../assests/contractCard.png";
 import moment from "moment";
 import country_and_states from "../../../../assests/country-states";
 import approvedTick from "../../../../assests/approvedTick.svg";
+import { RxCross1 } from "react-icons/rx";
 
 const AClientProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
@@ -32,11 +33,17 @@ const AClientProfileView = () => {
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
+  const isPopUp2 = useSelector((store) => {
+    return store.isPopUp2;
+  });
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("candidateRate"));
   };
   const editHandler1 = (e) => {
     dispatch(storeAction.isPopUpHander(e.target.id));
+  };
+  const contractHandler = () => {
+    dispatch(storeAction.isPopUpHander2(true));
   };
   const [loading, setIsLoading] = useState(false);
   const [companydata, setcompanydata] = useState({
@@ -1448,18 +1455,176 @@ const AClientProfileView = () => {
                       )
                     : null}
                   <div className="addContractCard" onClick={showhandler}>
-                    <p>+ Add contract</p>
+                    <p
+                      className="pointer"
+                      onClick={editHandler1}
+                      id="addcontract"
+                    >
+                      + Add contract
+                    </p>
 
                     <input
                       type="file"
                       ref={fileInputRef}
                       style={{ display: "none" }}
                       name="upload"
-                      onChange={handleFileInputChange}
+                      // onChange={handleFileInputChange}
                     />
                   </div>
                 </div>
                 {/* <p>Contract Uploaded Successfully</p> */}
+                {isPopUp == "addcontract" && (
+                  <>
+                    <div className="adminEditOverlay">
+                      <div className="adminEditOverlayHead">
+                        <h1>Add New Contract</h1>
+                        <RxCross1 />
+                      </div>
+                      <div className="adminEditOverlayBody">
+                        <div className="adminEditOverlayContent">
+                          <h2>Select Candidate</h2>
+                          <input
+                            onChange={contractHandler}
+                            type="text"
+                            name=""
+                          />
+                          {/* {isPopUp2 && (
+                            <div className="contractCandidateDropdown">
+                              <h5>Kanish</h5>
+                              <h5>Kanish</h5>
+                              <h5>Kanish</h5>
+                              <h5>Kanish</h5>
+                              <h5>Kanish</h5>
+                            </div>
+                          )} */}
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Contract Type</h2>
+                          <select name="" id="">
+                            <option value="">
+                              Non Disclosure Agreement (NDA)
+                            </option>
+                            <option value="">
+                              Master Service Agreement (MSA)
+                            </option>
+                            <option value="">Statement of Work (SOW)</option>
+                          </select>
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Hired on</h2>
+                          <input
+                            type="date"
+                            name="secondary_phone"
+                            onChange={handlechange}
+                            defaultValue={companydata.secondary_phone}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Contract duration</h2>
+                          <select name="" id="">
+                            <option value="">3 Months</option>
+                            <option value="">6 Months</option>
+                            <option value="">9 Months</option>
+                            <option value="">12 Months</option>
+                          </select>
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Billing cycle</h2>
+                          <select name="" id="">
+                            <option value="">Monthly</option>
+                            <option value="">Yearly</option>
+                          </select>
+                        </div>
+                        <div className="adminEditOverlayContent"></div>
+                        <>
+                          <div
+                            // onClick={uploadHandler}
+                            className="uploadCertificate"
+                          >
+                            <h2 className="drop">
+                              Drag your fies here to{" "}
+                              <span className="browser">Browse</span>
+                            </h2>
+                            <h3>
+                              Maximum size: 5MB MP4,
+                              <br /> PDF, JPEG and PNG accepted
+                            </h3>
+                          </div>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="aadhaarfront"
+                            onChange={handleFileInputChange}
+                          />
+                        </>
+                        {/* <>
+                          {certificate.length !== 0
+                            ? certificate.map((data, index) => (
+                                <div className="educationUploaded">
+                                  <div className="educationUploadedFlex">
+                                    <div className="educationUploadedFlexLeft">
+                                      <img src={gallery} alt="" />
+                                      <div className="educationUploadedFlexLeftDesc">
+                                        {data.length !== 0 ? (
+                                          <h2>
+                                            {
+                                              data
+                                                .split("/images/")[1]
+                                                .split("/")[1]
+                                            }
+                                          </h2>
+                                        ) : (
+                                          <h2>certificate{index + 1}.jpeg</h2>
+                                        )}
+                                      </div>
+                                    </div>
+                                    <div
+                                      className="educationUploadedFlexRight"
+                                      onClick={() => {
+                                        deletebtn(index);
+                                      }}
+                                    >
+                                      <img src={trash} alt="" />
+                                    </div>
+                                  </div>
+                                  <div className="percent">
+                                    <div className="range">
+                                      <div className="InnerRange"></div>
+                                    </div>
+                                    <h2>100%</h2>
+                                  </div>
+                                </div>
+                              ))
+                            : null}
+                        </> */}
+                        {/* <div className="adminEditOverlayContent">
+                    <h2>Location</h2>
+                    <input type="text" />
+                  </div> */}
+                      </div>
+                      {/* <button className="adminEditAddMore">Add More</button> */}
+                      <div className="editOverlayButton">
+                        <button
+                          className="discard"
+                          onClick={() => {
+                            dispatch(storeAction.isPopUpHander());
+                          }}
+                        >
+                          Cancel
+                        </button>
+
+                        {loading === false ? (
+                          <button className="save">Create</button>
+                        ) : (
+                          <button className="save w-[10rem] flex justify-center items-center">
+                            <FiLoader className="loadingIcon" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </>
           )}

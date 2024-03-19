@@ -1010,23 +1010,22 @@ const CandidateRegistration = () => {
     CheckStage();
   }, [onboarding_status]);
   const CheckStage = async () => {
-    // if (onboarding_status > 3) {
-    //   window.location.replace("/#/profile");
-    // } else {
-    //   if (onboarding_status == 1) {
-    //     setIsPage("page1");
-    //   } else if (onboarding_status == 2) {
-    //     setIsPage("page2");
-    //   } else if (onboarding_status == 3) {
-    //     setIsPage("page3");
-    //   }
-    // }
+    if (onboarding_status > 3) {
+      window.location.replace("/#/profile");
+    } else {
+      if (onboarding_status == 1) {
+        setIsPage("page1");
+      } else if (onboarding_status == 2) {
+        setIsPage("page2");
+      } else if (onboarding_status == 3) {
+        setIsPage("page3");
+      }
+    }
   };
   const skipbtn = () => {
     setIsPage("page4");
     routeHandler();
   };
-  console.log(travelwork, "travelwork");
   return (
     <>
       <div className="candidateRegistration">

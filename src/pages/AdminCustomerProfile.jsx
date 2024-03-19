@@ -184,7 +184,6 @@ const AdminCustomerProfile = () => {
       setalldata(totaldata);
     }
   };
-  console.log(alldata, "lll");
   return (
     <div className="adminProfile paddingLeft100 paddingRight100">
       <DashHead

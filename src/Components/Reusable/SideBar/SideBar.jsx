@@ -13,7 +13,6 @@ import Avatar from "react-avatar";
 import back from "../../../assests/billingX.png";
 import { RxCross1 } from "react-icons/rx";
 import ProgressBar from "../../PrelineComponent/ProgressBar/Circlebar";
-import { CircularProgress } from "@mui/material";
 
 const SideBar = (props) => {
   const navigate = useNavigate();
@@ -102,6 +101,7 @@ const SideBar = (props) => {
   const exitOverlayHandler = () => {
     dispatch(storeAction.isPopUpHander());
   };
+  const [valueper, setvalueper] = useState(0);
   return (
     <div>
       <div className="sideNav">
@@ -186,15 +186,26 @@ const SideBar = (props) => {
               })}
             </div>
           </div>
-
-          <div className="sidebarProgressBar">
-            <ProgressBar />
-            <h1>Profile is completed</h1>
-            <p>
-              A completed profile has higher chance of getting an opportunity
-            </p>
-            <h2>Complete my profile</h2>
-          </div>
+          {loginrole == 3 ? (
+            <div className="sidebarProgressBar">
+              <div className="sidebarProgressBarImg">
+                <ProgressBar setvalueper={setvalueper} />
+              </div>
+              {valueper != 100 ? null : <h1>Profile is completed</h1>}
+              <p>
+                A completed profile has higher chance of getting an opportunity
+              </p>
+              {valueper != 100 ? (
+                <h2
+                  onClick={() => {
+                    window.location.replace("/#/profile");
+                  }}
+                >
+                  Complete my profile
+                </h2>
+              ) : null}
+            </div>
+          ) : null}
         </div>
         <div id="logoutPopUp" className="logout" onClick={overLayHandler}>
           <img id="logoutPopUp" src={logout} alt="" onClick={overLayHandler} />
