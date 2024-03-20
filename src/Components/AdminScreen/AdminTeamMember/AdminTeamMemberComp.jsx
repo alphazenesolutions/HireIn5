@@ -8,12 +8,15 @@ import "./AdminTeamMemberComp.css";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Billingtick from "../../../assests/Vector1.png";
 import { FiLoader } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import MobileHeader from "../../MobileScreens/MobileHeader/MobileHeader";
 import { toast, Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { storeAction } from "../../../Store/Store";
 
 const AdminTeamMemberComp = () => {
+  const dispatch = useDispatch();
   const token = useSelector((store) => store.token);
   const userid = useSelector((store) => store.userid);
   const [show, setshow] = useState(false);
@@ -37,6 +40,15 @@ const AdminTeamMemberComp = () => {
     setvalue22(e);
     setshow(false);
   }
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+
+  const accessHandler = (e) => {
+    dispatch(storeAction.isPopUpHander(e.target.id));
+  };
+  console.log(isPopUp);
+  console.log(accessHandler);
   async function getpendingvalue(e) {
     let getdata = e;
     if (getdata === "Remove user") {
@@ -321,7 +333,10 @@ const AdminTeamMemberComp = () => {
   };
   return (
     <div>
-      <div className="paddingLeft100 paddingRight100 ">
+      <div className="displayHandlerMob">
+        <MobileHeader />
+      </div>
+      <div className="teamMembers paddingLeft100 paddingRight100 ">
         <DashHead
           head="Team members"
           desc="Share access with your staff and team members by inviting them to this platform. "
@@ -357,14 +372,14 @@ const AdminTeamMemberComp = () => {
               <div className="editAccess">
                 <div className="editAccess1">
                   <button
-                    onClick={toggleDropdown}
+                    onClick={accessHandler}
                     placeholder="Admin"
                     id="access1"
                   >
                     {setvalue}
                     <MdKeyboardArrowDown className="checkicon" />
                   </button>
-                  {show && (
+                  {isPopUp == "access1" && (
                     <div className="dropHandler">
                       <h3
                         onClick={() => {
@@ -417,6 +432,7 @@ const AdminTeamMemberComp = () => {
                       <div className="editAccess">
                         <div className="editAccess1">
                           <button
+                            id="access1"
                             onClick={() => {
                               toggle_Dropdown(data.id);
                             }}
