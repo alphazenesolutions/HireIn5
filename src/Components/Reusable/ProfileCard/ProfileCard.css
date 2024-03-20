@@ -155,3 +155,9 @@
 .candidateDiscoverExp p img {
     margin-right: 6px;
 }
+
+@media only screen and (max-width: 600px) {
+    .clientDiscoverInner .clientDiscover {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

@@ -318,3 +318,26 @@
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+@media only screen and (max-width: 600px) {
+    .recentHead {
+        padding-right: 0px;
+    }
+
+    .tableOne {
+        padding: 25px;
+    }
+
+    .tableOne {
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+
+    .profileCardContainer {
+        padding-right: 0px;
+    }
+
+    .clientDiscoverOuter {
+        padding: 0px;
+    }
+}

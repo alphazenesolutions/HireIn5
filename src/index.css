@@ -38,6 +38,7 @@ code {
   --dropBorderColor: #E2E8F0;
   --dropColor: #F8FAFC;
   --approveColor: #EDE9FE;
+  --tabHeadColor: #A78BFA;
 }
 
 .sectionWidth {
@@ -96,6 +97,10 @@ code {
 .paddingXY10 {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.paddingRL20 {
+  padding: 20px 0px;
 }
 
 .displayHandler {

@@ -91,11 +91,16 @@ const DiscoverComp = () => {
   // increment
   const totalHandler = () => {
     card += 1;
+    if (seachuser.length == card) {
+      setIsDisable(true);
+    } else {
+      setIsDisable(false);
+    }
   };
   // decrement
   const totalHandler1 = () => {
     card -= 1;
-    if (card <= 0) {
+    if (seachuser.length <= 0) {
       setIsDisable(true);
     } else {
       setIsDisable(false);
@@ -416,7 +421,7 @@ const DiscoverComp = () => {
   };
   return (
     <div>
-      <div className="mobileHeaderComp">
+      <div className="displayHandlerMob">
         <MobileHeader />
       </div>
       <div className="dashBoardMain paddingLeft100">
@@ -428,20 +433,20 @@ const DiscoverComp = () => {
               highLight="Contact us"
               descClass="dashBoardMainHeadDescBetween"
             />
-            <div className="displayHandler">
-              <DashSearch
-                class="dashBoardMainSearch paddingRight100"
-                function2={searchHandler}
-                buttonHandler={buttonHandler}
-                skilldata={skilldata}
-                isButton={isButton}
-                seachuser={seachuser}
-                alldata={alldata}
-                setfilterdata={setfilterdata}
-                setIsInput={setIsInput}
-                setsearchvalue={setsearchvalue}
-              />
-            </div>
+            {/* <div className="displayHandler"> */}
+            <DashSearch
+              class="dashBoardMainSearch paddingRight100"
+              function2={searchHandler}
+              buttonHandler={buttonHandler}
+              skilldata={skilldata}
+              isButton={isButton}
+              seachuser={seachuser}
+              alldata={alldata}
+              setfilterdata={setfilterdata}
+              setIsInput={setIsInput}
+              setsearchvalue={setsearchvalue}
+            />
+            {/* </div>   */}
             {isInput === false ? (
               <div>
                 {selectseacrh === false ? (
@@ -501,7 +506,7 @@ const DiscoverComp = () => {
                 <Table class="tableOne paddingRight100" />
               </div>
             ) : (
-              <div className="">
+              <div className="profileCardContainer">
                 <ProfileCard fun={pageHandler} filterdata={filterdata} />
               </div>
             )}
@@ -516,7 +521,7 @@ const DiscoverComp = () => {
                 back="candidateBack"
               />
             </div>
-            <div className="displayHandler">
+            <div className="displayHandlerMob">
               <MobileCandidateProfile />
             </div>
           </>
