@@ -414,7 +414,6 @@ const DiscoverComp = () => {
       setselectseacrh(false);
     }
   };
-  console.log(card, "card");
   return (
     <div>
       <div className="mobileHeaderComp">

@@ -262,7 +262,6 @@ const ACandidateProfileView = () => {
           current_place_of_residence: singleuser[0].current_place_of_residence,
           lived_at_current_residence: singleuser[0].lived_at_current_residence,
         });
-
         if (singleuser[0].travel_info.relocate_for_work.length !== 0) {
           var new_array = [];
           for (
@@ -1415,25 +1414,6 @@ const ACandidateProfileView = () => {
       updatedArray[index] = { ...updatedArray[index], ...data };
       dispatch(storeAction.alluserdataHander({ alluserdata: updatedArray }));
     }
-    // var allfacility = await axios
-    //   .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `JWT ${token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     return res.data;
-    //   })
-    //   .catch((err) => {
-    //     return err.response;
-    //   });
-
-    // dispatch(
-    //   storeAction.alluserdataHander({
-    //     alluserdata: allfacility.faculties,
-    //   })
-    // );
   };
   const [resumevideo, setresumevideo] = useState(null);
   const [uploadstatus, setuploadstatus] = useState(false);
@@ -1577,6 +1557,61 @@ const ACandidateProfileView = () => {
       setIsLoading(false);
     }
   };
+  const disablebtn = async (data) => {
+    setIsLoading(true);
+    var obj = {
+      username: data.username,
+      dissabled: true,
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${data.id}/`,
+        obj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      let updatedObject = {
+        ...singleuser[0],
+        dissabled: true,
+      };
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata(updatedObject);
+      setTimeout(() => {
+        dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
+      }, 10);
+      dispatch(storeAction.isPopUpHander());
+      setIsLoading(false);
+    }
+  };
+
+  const deletebtn = async (data) => {
+    var arrayOfObjects = alluserdata.filter((obj) => obj.id !== data.id);
+    dispatch(storeAction.alluserdataHander({ alluserdata: arrayOfObjects }));
+   
+    await axios.delete(
+      `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${data.id}/`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        },
+      }
+    );
+    window.location.replace("/#/customerProfile");
+  };
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -1651,8 +1686,25 @@ const ACandidateProfileView = () => {
                           Approve Candidate
                         </h3>
                       ) : null}
+                      {singleuser[0].dissabled === false ? (
+                        <h3
+                          className="approvalMenuDisable"
+                          onClick={() => {
+                            disablebtn(singleuser[0]);
+                          }}
+                        >
+                          Disable Profile
+                        </h3>
+                      ) : null}
 
-                      <h3 className="approvalMenuDisable">Disable Profile</h3>
+                      <h3
+                        className="approvalMenuDisable"
+                        onClick={() => {
+                          deletebtn(singleuser[0]);
+                        }}
+                      >
+                        Delete Profile
+                      </h3>
                     </div>
                   ) : null)}
               </div>

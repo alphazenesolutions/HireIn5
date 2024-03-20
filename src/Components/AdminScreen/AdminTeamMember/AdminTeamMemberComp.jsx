@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-redeclare */
@@ -47,8 +48,9 @@ const AdminTeamMemberComp = () => {
   const accessHandler = (e) => {
     dispatch(storeAction.isPopUpHander(e.target.id));
   };
-  console.log(isPopUp);
-  console.log(accessHandler);
+  const openmodel = (item) => {
+    dispatch(storeAction.isPopUpHander(item));
+  };
   async function getpendingvalue(e) {
     let getdata = e;
     if (getdata === "Remove user") {
@@ -432,15 +434,15 @@ const AdminTeamMemberComp = () => {
                       <div className="editAccess">
                         <div className="editAccess1">
                           <button
-                            id="access1"
                             onClick={() => {
                               toggle_Dropdown(data.id);
+                              openmodel("access2");
                             }}
                           >
                             {setvalue3}
                             <MdKeyboardArrowDown className="checkicon" />
                           </button>
-                          {shownew && updateid === data.id && (
+                          {isPopUp == "access2" && updateid === data.id && (
                             <div className="dropHandler">
                               <h3
                                 onClick={() => {
@@ -496,12 +498,13 @@ const AdminTeamMemberComp = () => {
                           <button
                             onClick={() => {
                               toggle_Dropdown(data.id);
+                              openmodel("access2");
                             }}
                           >
                             {setvalue3}
                             <MdKeyboardArrowDown className="checkicon" />
                           </button>
-                          {shownew && updateid === data.id && (
+                          {isPopUp == "access2" && updateid === data.id && (
                             <div className="dropHandler">
                               <h3
                                 onClick={() => {
