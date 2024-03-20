@@ -144,6 +144,28 @@ const CandidateRegistration = () => {
         .catch((err) => {
           return err.response;
         });
+      var newobj = {
+        message: `<p><b>${userdata[0].first_name}</b> has onboarded as a candidate</p>`,
+        status: "false",
+        on_type: "Candidate has onboarded",
+      };
+      await axios
+        .post(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/notification/${userdata[0].id}/`,
+          newobj,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
       window.location.replace("/#/profile");
     }
   };

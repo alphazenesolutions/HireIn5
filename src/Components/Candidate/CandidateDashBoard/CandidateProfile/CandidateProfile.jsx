@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
@@ -16,10 +17,13 @@ import CandidateProfileCard from "../../../Reusable/CandidateProfileCard/Candida
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import Achievement from "../Achievement/Achievement";
+import axios from "axios";
+import HTMLReactParser from "html-react-parser";
 
 const CandidateProfile = () => {
   const dispatch = useDispatch();
   const userdata = useSelector((store) => store.userdata);
+  const token = useSelector((store) => store.token);
   const [isPage, setIsPage] = useState(false);
   const [percentage, setpercentage] = useState(0);
   const pageHandler = (event) => {
@@ -59,11 +63,77 @@ const CandidateProfile = () => {
         }
       }
       let percent = Math.round((count / 8) * 100);
+      if (percent == 100) {
+        if (userdata[0].nottify == "False") {
+          var obj = {
+            username: userdata[0].username,
+            nottify: "True",
+          };
+          var newobj = {
+            message: `<p><b>${userdata[0].first_name}</b> has completed their profile to a 100%</p>`,
+            status: "false",
+            on_type: "Candidate Profile Completion",
+          };
+          var updatedata = await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userdata[0].id}/`,
+              obj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+          await axios
+            .post(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/notification/${userdata[0].id}/`,
+              newobj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+          if (
+            updatedata.message ===
+            "User and Associated Info updated successfully"
+          ) {
+            let updatedObject = {
+              ...userdata[0],
+              nottify: updatedata.user.nottify,
+            };
+            dispatch(storeAction.userdataHander({ userdata: [] }));
+            setTimeout(() => {
+              dispatch(
+                storeAction.userdataHander({
+                  userdata: [updatedObject],
+                })
+              );
+            }, 10);
+          }
+        }
+      }
       setpercentage(percent);
     }
   };
+  console.log(userdata, "kkk");
   return (
     <div>
+      {/* <p>{HTMLReactParser("<p><b>John Jack</b> has completed their profile to a 100%</p>")}</p> */}
       <div className="profilePage paddingLeft100 paddingRight100">
         <DashHead
           left=""

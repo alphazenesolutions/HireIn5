@@ -22,8 +22,7 @@ const MeetingComp = () => {
       dispatch(storeAction.issidebarHandler({ issidebar: true }));
       dispatch(storeAction.isloginHandler({ islogin: true }));
       navigate("/discover");
-    } else {
-    }
+    } 
   };
   const skipbtn = async () => {
     dispatch(storeAction.issidebarHandler({ issidebar: true }));
