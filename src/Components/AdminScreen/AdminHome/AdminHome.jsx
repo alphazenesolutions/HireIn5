@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AdminHome.css";
 import DashHead from "../../Reusable/DashBoardReusable/DashHead/DashHead";
 import Notification from "../../Reusable/Notification/Notification";
@@ -9,13 +10,17 @@ import back from "../../../assests/billingX.png";
 import ProgressBar from "../../PrelineComponent/ProgressBar/ProgressBar";
 import candidateNotificaionApprove from "../../../assests/approveCandidate.svg";
 import candidateNotificaionInterview from "../../../assests/office.svg";
-import candidateNotificaionOffice from "../../../assests/interview.svg";
+import Profile from "../../../assests/Iconimg.png";
 import greenArrow from "../../../assests/greenArrow.svg";
 import redArrow from "../../../assests/redArrow.svg";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AdminHome = () => {
+  const token = useSelector((store) => store.token);
+  const userid = useSelector((store) => store.userid);
+  const alluserdata = useSelector((store) => store.alluserdata);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isPopUp = useSelector((store) => {
@@ -26,8 +31,36 @@ const AdminHome = () => {
     dispatch(storeAction.isPopUpHander("interviewDetails"));
   };
 
-  const overLayHandler1 = () => {
-    dispatch(storeAction.isPopUpHander("approveconformation"));
+  const overLayHandler1 = async (data) => {
+    var checkuser = await alluserdata.filter((item) => {
+      return item.id == data.user;
+    });
+    if (checkuser.length !== 0) {
+      dispatch(storeAction.singleuserHander({ singleuser: checkuser }));
+      dispatch(storeAction.isPopUpHander("approveconformation"));
+      let newdata = JSON.stringify({
+        status: "true",
+      });
+      let config = {
+        method: "put",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/notification/${data.id}/`,
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+        data: newdata,
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error;
+        });
+      Getnotification();
+    }
   };
   const [target, setTarget] = useState("activity");
   const targetHandler = (e) => {
@@ -42,7 +75,84 @@ const AdminHome = () => {
     navigate("/admincandidateview");
     dispatch(storeAction.isPopUpHander());
   };
-
+  const [readnoti, setreadnoti] = useState([]);
+  const [unreadnoti, setunreadnoti] = useState([]);
+  useEffect(() => {
+    Getnotification();
+  }, []);
+  const Getnotification = async () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://hirein5-server.onrender.com/notification/${userid}`,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    };
+    try {
+      const response = await axios.request(config);
+      const allnotification = response.data;
+      if (allnotification) {
+        const filterData = (arr) => {
+          const filteredData = [];
+          const userMap = {}; // To keep track of users and their types
+          arr.forEach((item) => {
+            const { user, on_type } = item;
+            if (!userMap[user]) {
+              userMap[user] = [on_type]; // Initialize with the first on_type encountered
+              filteredData.push(item);
+            } else {
+              if (!userMap[user].includes(on_type)) {
+                userMap[user].push(on_type);
+                filteredData.push(item);
+              }
+            }
+          });
+          return filteredData;
+        };
+        const filteredNotifications = filterData(allnotification);
+        if (filteredNotifications.length !== 0) {
+          var unreaddata = await filteredNotifications.filter((data) => {
+            return data.status === "false";
+          });
+          var readdata = await filteredNotifications.filter((data) => {
+            return data.status === "true";
+          });
+          setunreadnoti(unreaddata);
+          setreadnoti(readdata);
+        }
+      }
+    } catch (error) {
+      return error;
+    }
+  };
+  const markread = async () => {
+    if (unreadnoti.length !== 0) {
+      for (var i = 0; i < unreadnoti.length; i++) {
+        let newdata = JSON.stringify({
+          status: "true",
+        });
+        let config = {
+          method: "put",
+          maxBodyLength: Infinity,
+          url: `https://hirein5-server.onrender.com/notification/${unreadnoti[i].id}/`,
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+          data: newdata,
+        };
+        axios
+          .request(config)
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            return error;
+          });
+      }
+      Getnotification();
+    }
+  };
   return (
     <div>
       <div className="adminHomePage paddingLeft100 paddingRight100 marginBottom20">
@@ -55,7 +165,13 @@ const AdminHome = () => {
           <div className="innerAdminNotification">
             <div className="adminNotificationHead">
               <h1>Notifications</h1>
-              <h6>Mark all as read</h6>
+              <h6
+                onClick={() => {
+                  markread();
+                }}
+              >
+                Mark all as read
+              </h6>
             </div>
             <div className="adminNotificationTab">
               <h5
@@ -82,64 +198,95 @@ const AdminHome = () => {
               </h5>
             </div>
           </div>
-          <div className="adminNotificationLog">
-            <Notification
-              Img={candidateNotificaionApprove}
-              head="Surya Narreddi"
-              desc="has onboarded as a candidate"
-              button="Approve Candidate"
-              btnClass="notificationButton"
-              fun={overLayHandler1}
-              date="Sunday, Jan 22"
-            />
-            <Notification
-              Img={candidateNotificaionInterview}
-              head="Office for digital design "
-              desc="has onboarded as a candidate"
-              button="has onboarded as a client subscribed to Starter plan"
-              btnClass="hideButton"
-              date="Sunday, Jan 22"
-            />
-            <Notification
-              Img={candidateNotificaionOffice}
-              head1="Yasir Quazi"
-              head2="Nuva Corp"
-              desc="Interview scheduled between"
-              desc2="and"
-              button="View details"
-              btnClass="notificationButton"
-              fun={overLayHandler}
-              date="Sunday, Jan 22"
-            />
-            <Notification
-              Img={candidateNotificaionApprove}
-              head="Surya Narreddi"
-              desc="has onboarded as a candidate"
-              button="Approve Candidate"
-              btnClass="notificationButton"
-              fun={overLayHandler1}
-              date="Sunday, Jan 22"
-            />
-            <Notification
-              Img={candidateNotificaionInterview}
-              head="Office for digital design "
-              desc="has onboarded as a candidate"
-              button="has onboarded as a client subscribed to Starter plan"
-              btnClass="hideButton"
-              date="Sunday, Jan 22"
-            />
-            <Notification
-              Img={candidateNotificaionOffice}
-              head1="Yasir Quazi"
-              head2="Nuva Corp"
-              desc="Interview scheduled between"
-              desc2="and"
-              button="View details"
-              btnClass="notificationButton"
-              fun={overLayHandler}
-              date="Sunday, Jan 22"
-            />
-          </div>
+          {target == "activity" ? (
+            <div className="adminNotificationLog">
+              {unreadnoti.length !== 0 ? (
+                unreadnoti.map((data, index) =>
+                  data.on_type === "Candidate has onboarded" ? (
+                    <Notification
+                      Img={candidateNotificaionApprove}
+                      message={data.message}
+                      button="Approve Candidate"
+                      btnClass="notificationButton"
+                      fun={() => {
+                        overLayHandler1(data);
+                      }}
+                      date={data.created_at}
+                      key={index}
+                      type="unread"
+                    />
+                  ) : data.on_type === "Client has onboarded" ? (
+                    <Notification
+                      Img={candidateNotificaionInterview}
+                      message={data.message}
+                      button="has onboarded as a client subscribed to Starter plan"
+                      btnClass="hideButton"
+                      date={data.created_at}
+                      key={index}
+                      type="unread"
+                    />
+                  ) : (
+                    <Notification
+                      Img={Profile}
+                      message={data.message}
+                      date={data.created_at}
+                      fun={overLayHandler}
+                      // button="Review Candidate"
+                      // btnClass="notificationButton"
+                      key={index}
+                      type="unread"
+                    />
+                  )
+                )
+              ) : (
+                <p className="text-center flex justify-center pt-12 texfontfott-semibold">
+                  Notification Not Available...
+                </p>
+              )}
+            </div>
+          ) : null}
+          {target == "read" ? (
+            <div className="adminNotificationLog">
+              {readnoti.length !== 0 ? (
+                readnoti.map((data, index) =>
+                  data.on_type === "Candidate has onboarded" ? (
+                    <Notification
+                      Img={candidateNotificaionApprove}
+                      message={data.message}
+                      // button="Approve Candidate"
+                      // btnClass="notificationButton"
+                      // fun={overLayHandler1}
+                      date={data.created_at}
+                      key={index}
+                      type="read"
+                    />
+                  ) : data.on_type === "Client has onboarded" ? (
+                    <Notification
+                      Img={candidateNotificaionInterview}
+                      message={data.message}
+                      button="has onboarded as a client subscribed to Starter plan"
+                      btnClass="hideButton"
+                      date={data.created_at}
+                      key={index}
+                      type="read"
+                    />
+                  ) : (
+                    <Notification
+                      Img={Profile}
+                      message={data.message}
+                      date={data.created_at}
+                      key={index}
+                      type="read"
+                    />
+                  )
+                )
+              ) : (
+                <p className="text-center flex justify-center pt-12 texfontfott-semibold">
+                  Notification Not Available...
+                </p>
+              )}
+            </div>
+          ) : null}
         </div>
         <div className="homeProgress">
           <div className="homeProgressCandidate">

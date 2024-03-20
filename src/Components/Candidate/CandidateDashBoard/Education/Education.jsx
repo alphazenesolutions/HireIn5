@@ -178,7 +178,7 @@ const Education = () => {
     updatedElements.splice(id, 1);
     setcertificate(updatedElements);
   };
-
+  console.log(userdata, "userdata");
   return (
     <div>
       <div className="education">

@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import Achievement from "../Achievement/Achievement";
 import axios from "axios";
-import HTMLReactParser from "html-react-parser";
+
 
 const CandidateProfile = () => {
   const dispatch = useDispatch();
@@ -130,10 +130,9 @@ const CandidateProfile = () => {
       setpercentage(percent);
     }
   };
-  console.log(userdata, "kkk");
   return (
     <div>
-      {/* <p>{HTMLReactParser("<p><b>John Jack</b> has completed their profile to a 100%</p>")}</p> */}
+      {/* <p></p> */}
       <div className="profilePage paddingLeft100 paddingRight100">
         <DashHead
           left=""
