@@ -94,6 +94,28 @@ const PricingComp = () => {
         .catch((err) => {
           return err.response;
         });
+      var newobj = {
+        message: `<p><b>${userdata[0].first_name}</b> has onboarded as a client subscribed to Starter plan</p>`,
+        status: "false",
+        on_type: "Client has onboarded",
+      };
+      await axios
+        .post(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/notification/${userdata[0].id}/`,
+          newobj,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
     }
   };
   const [timeLeft, setTimeLeft] = useState(60);

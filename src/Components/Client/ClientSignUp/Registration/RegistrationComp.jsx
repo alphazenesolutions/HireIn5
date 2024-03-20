@@ -21,7 +21,7 @@ const RegistrationComp = () => {
   const token = useSelector((store) => store.token);
   const onboarding_status = useSelector((store) => store.onboarding_status);
 
-  const [isPage, setIsPage] = useState("page2");
+  const [isPage, setIsPage] = useState("page1");
 
   const [isButton, setIsButton] = useState(false);
   const [checked, setchecked] = useState(false);
