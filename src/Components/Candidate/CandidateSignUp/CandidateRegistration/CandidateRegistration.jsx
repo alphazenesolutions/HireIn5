@@ -1730,7 +1730,7 @@ const CandidateRegistration = () => {
           Back
         </button>
         {isPage === "page2" && (
-          <div className="candidateRegistration1">
+          <div className="candidateRegistration1" title="">
             <div className="candidateRegistrationInner">
               <div className="CandidateSkills">
                 <button className="candidateBtn1">
@@ -2125,7 +2125,7 @@ const CandidateRegistration = () => {
           Back
         </button>
         {isPage === "page3" && (
-          <div className="candidateRegistration1">
+          <div className="candidateRegistration1" title="">
             <div className="candidateRegistrationInner">
               <div className="CandidateSkills">
                 <button className="candidateBtn1">

@@ -275,7 +275,7 @@
 }
 
 .candidateInfo p select {
-    /* width: 100%; */
+    width: auto;
     height: 30px;
     padding: 2px;
 
@@ -1291,6 +1291,15 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+    }
+    .candidateRegistration1[title] {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 75px;
 
     }
 
