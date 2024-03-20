@@ -102,6 +102,10 @@ code {
   display: block;
 }
 
+.displayHandlerMob {
+  display: none;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -109,5 +113,9 @@ code {
 @media only screen and (max-width: 600px) {
   .displayHandler {
     display: none;
+  }
+
+  .displayHandlerMob {
+    display: block;
   }
 }

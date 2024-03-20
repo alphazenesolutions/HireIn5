@@ -87,7 +87,7 @@
     color: white !important;
 }
 
-.Toastify__close-button{
+.Toastify__close-button {
     display: none;
 }
 
@@ -225,12 +225,12 @@
 .manageMemberEdit .dropHandler {
     width: 180px;
     height: auto;
-    padding: 20px;
+    padding: 10px;
     z-index: 99;
     border: 1px solid var(--borderColor);
     border-radius: 5px 10px;
     margin-top: 6px;
-    bottom: -200px;
+    top: 110%;
     position: absolute;
     right: 0;
     background-color: white;
@@ -283,7 +283,8 @@
 
 .dropHandler {
     width: 100%;
-    padding: 15px;
+    padding: 10px;
+    position: absolute;
     margin-top: 10px;
     background-color: white;
     border-radius: 8px;
@@ -297,7 +298,7 @@
     margin: 4px 0px;
     font-size: 12px;
     font-weight: 500;
-    padding: 5px 10px;
+    padding: 5px 5px;
     border-radius: 8px;
     transition: 0.5s;
 }
@@ -314,4 +315,25 @@
 
 .dropHandler h3:hover img {
     opacity: 1;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .teamMembers {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    .teamMember {
+        flex-direction: column;
+    }
+
+    .teamMemberLevel {
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .TeamSend {
+        margin-top: 15px;
+    }
 }
