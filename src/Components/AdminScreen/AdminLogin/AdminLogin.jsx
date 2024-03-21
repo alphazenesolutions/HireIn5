@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import "./SignUpComp.css";
-import Head from "../../../Reusable/LogoHead/Head";
-import Foot from "../../../Reusable/Terms&Conditions/Foot";
-import SectionHead from "../../../Reusable/SectionHead/SectionHead";
+import "../../Client/ClientSignUp/SignUp/SignUpComp.css";
+import Head from "../../Reusable/LogoHead/Head";
+import Foot from "../../Reusable/Terms&Conditions/Foot";
+import SectionHead from "../../Reusable/SectionHead/SectionHead";
 import { useNavigate } from "react-router-dom";
-import back from "../../../../assests/back.png";
+import back from "../../../assests/back.png";
 import { useDispatch } from "react-redux";
-import { storeAction } from "../../../../Store/Store";
+import { storeAction } from "../../../Store/Store";
 import axios from "axios";
 import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 
@@ -143,12 +143,7 @@ const AdminLogin = () => {
         <div className="clientSignUpComp">
           <div className="clientSignUpCompInner">
             <Head />
-            {/* <SectionHead
-              head="Create Password"
-              desc="Already have an account?"
-              highLight="Log in"
-              route="/login"
-            /> */}
+            <SectionHead head="Create Password" desc="" highLight="" route="" />
             <div className="clientSignUpCompBody">
               <div className="clientSignUpCompBodyEmail">
                 <h4>Email</h4>
