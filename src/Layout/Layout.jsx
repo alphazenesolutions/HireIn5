@@ -109,14 +109,14 @@ const Layout = () => {
             )}
           </div>
 
-          <div className="main">
+          <div className="main displayHandler">
             <Routing />
           </div>
         </div>
       )}
       <div className="routing">{!issidebar && <Routing />}</div>
 
-      <div className="MobScreen backGround">
+      <div className="MobScreen backGround ">
         <Routing />
         {isPopUp == "navbar" && (
           <div
