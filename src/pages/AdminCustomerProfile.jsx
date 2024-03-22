@@ -51,6 +51,7 @@ const AdminCustomerProfile = () => {
         .catch((err) => {
           return err.response;
         });
+      console.log(allfacility.faculties, "allfacility.faculties");
       setalldata(allfacility.faculties);
       settotaldata(allfacility.faculties);
       dispatch(

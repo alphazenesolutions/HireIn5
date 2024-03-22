@@ -395,10 +395,12 @@ const RegistrationComp = () => {
             .catch((err) => {
               return err;
             });
+        
           if (
             updatedatabilling.message ===
             "User and Associated Info updated successfully"
           ) {
+            dispatch(storeAction.userdataHander({ userdata: [updatedatabilling.user] }));
             setIsPage("page3");
             setIsButton2(false);
             dispatch(
@@ -425,17 +427,17 @@ const RegistrationComp = () => {
     CheckStage();
   }, [onboarding_status]);
   const CheckStage = async () => {
-    if (onboarding_status > 3) {
-      window.location.replace("/#/discover");
-    } else {
-      if (onboarding_status == 1) {
-        setIsPage("page1");
-      } else if (onboarding_status == 2) {
-        setIsPage("page2");
-      } else if (onboarding_status == 3) {
-        window.location.replace("/#/pricing");
-      }
-    }
+    // if (onboarding_status > 3) {
+    //   window.location.replace("/#/discover");
+    // } else {
+    //   if (onboarding_status == 1) {
+    //     setIsPage("page1");
+    //   } else if (onboarding_status == 2) {
+    //     setIsPage("page2");
+    //   } else if (onboarding_status == 3) {
+    //     window.location.replace("/#/pricing");
+    //   }
+    // }
   };
   return (
     <>

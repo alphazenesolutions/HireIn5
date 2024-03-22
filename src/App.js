@@ -107,7 +107,7 @@ function App() {
       {isPopUp == "hourly" ||
       isPopUp == "location" ||
       isPopUp == "mobfilter" ||
-      isPopUp == "access1" ||
+      // isPopUp == "access1" ||
       isPopUp == "access2" ||
       isPopUp == "approvedropdown" ? (
         <div onClick={CloseOverlay} id="overlayTransparent"></div>

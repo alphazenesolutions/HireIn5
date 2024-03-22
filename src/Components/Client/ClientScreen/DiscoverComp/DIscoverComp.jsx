@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-redeclare */
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
@@ -8,10 +9,7 @@ import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import DashSearch from "../../../Reusable/DashBoardReusable/DashSearch/DashSearch";
 import Table from "./Table/Table";
 import SearchProfileCard from "../../../Reusable/SearchProfileCard/SearchProfileCard";
-import recentLeft from "../../../../assests/recentLeft.png";
-import recentRight from "../../../../assests/recentRight.png";
 import ProfileCard from "../../../Reusable/ProfileCard/ProfileCard";
-import { gsap } from "gsap";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import CandidateProfileCard from "../../../Reusable/CandidateProfileCard/CandidateProfileCard";
@@ -29,6 +27,11 @@ import moment from "moment";
 import Skilllist from "../../../../assests/skillsJSON.json";
 import Avatar from "react-avatar";
 import MobileHeader from "../../../MobileScreens/MobileHeader/MobileHeader";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 import MobileCandidateProfile from "../../../MobileScreens/MobileCandidateProfile/MobileCandidateProfile";
 
 const DiscoverComp = () => {
@@ -82,37 +85,6 @@ const DiscoverComp = () => {
     } else {
       setIsPage(event);
     }
-  };
-
-  // gsap
-
-  var tl1 = gsap.timeline();
-  var card = 0;
-  // increment
-  const totalHandler = () => {
-    card += 1;
-    if (seachuser.length == card) {
-      setIsDisable(true);
-    } else {
-      setIsDisable(false);
-    }
-  };
-  // decrement
-  const totalHandler1 = () => {
-    card -= 1;
-    if (seachuser.length <= 0) {
-      setIsDisable(true);
-    } else {
-      setIsDisable(false);
-    }
-  };
-  const gsapHandler = () => {
-    totalHandler();
-    tl1.to(".recentWrap", { x: card * -530 });
-  };
-  const gsapHandlerReverse = () => {
-    totalHandler1();
-    tl1.to(".recentWrap", { x: card * -530 });
   };
 
   useEffect(() => {
@@ -454,7 +426,7 @@ const DiscoverComp = () => {
                     <div className="recentHead paddingRight100">
                       <div className="recentHeadLeft">
                         <h1>Recent Searches</h1>
-                        <button
+                        {/* <button
                           disabled={isDisable === true ? true : false}
                           onClick={gsapHandlerReverse}
                         >
@@ -462,7 +434,7 @@ const DiscoverComp = () => {
                         </button>
                         <button onClick={gsapHandler}>
                           <img src={recentRight} alt="" />
-                        </button>
+                        </button> */}
                       </div>
                       <div className="recentHeadRight">
                         <h2 onClick={clearall} className="cursor-pointer">
@@ -488,21 +460,26 @@ const DiscoverComp = () => {
                     fun=""
                   />
                 )}
-
-                <div className="recent ">
+                <Swiper
+                  spaceBetween={50}
+                  slidesPerView={2.5}
+                  loop={true}
+                  pagination={{ clickable: true }}
+                >
                   {searchuser.length !== 0
                     ? searchuser.map((datanew, index1) => (
-                        <div className="recentWrap" key={index1}>
+                        <SwiperSlide className="recentWrap" key={index1}>
                           <SearchProfileCard
                             datanew={datanew}
                             addbookmark={addbookmark}
                             reserve={overLayHandler}
                             setIsPage={setIsPage}
                           />
-                        </div>
+                        </SwiperSlide>
                       ))
                     : null}
-                </div>
+                </Swiper>
+                <div className="recent "></div>
                 <Table class="tableOne paddingRight100" />
               </div>
             ) : (

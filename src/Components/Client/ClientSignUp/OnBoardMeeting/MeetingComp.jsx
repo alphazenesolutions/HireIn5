@@ -6,14 +6,43 @@ import call from "../../../../assests/call.png";
 import SuccessResponse from "../../../Reusable/SuccessResponse/SuccessResponse";
 import { InlineWidget } from "react-calendly";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
+import axios from "axios";
 
 const MeetingComp = () => {
+  const userdata = useSelector((store) => store.userdata);
+  const token = useSelector((store) => store.token);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isPage, setIsPage] = useState("page1");
-  const pageHandler = (event) => {
+
+  const pageHandler = async (event) => {
+    var newobj = {
+      message: `<p>Interview scheduled between <b>${userdata[0].first_name}</b>, and sales team.</p>`,
+      status: "false",
+      on_type: "Client Meeting",
+
+    };
+    await axios
+      .post(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/notification/${userdata[0].id}/`,
+        newobj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+
     setIsPage(event.target.id);
   };
 
@@ -22,7 +51,7 @@ const MeetingComp = () => {
       dispatch(storeAction.issidebarHandler({ issidebar: true }));
       dispatch(storeAction.isloginHandler({ islogin: true }));
       navigate("/discover");
-    } 
+    }
   };
   const skipbtn = async () => {
     dispatch(storeAction.issidebarHandler({ issidebar: true }));
@@ -58,7 +87,7 @@ const MeetingComp = () => {
       {/*======================== calendly ======================= */}
       {isPage === "calendly" && (
         <div className="calendly">
-          <InlineWidget url="https://calendly.com/kaneeshvar" />
+          <InlineWidget url="https://calendly.com/hirein5" />
         </div>
       )}
 

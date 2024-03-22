@@ -4,12 +4,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import "./ACandidateProfileView.css";
-import back from "../../../../assests/back.png";
+import Select from "react-select";
 import editOutline from "../../../../assests/pencil.svg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
-import RangeSlider from "../../../MaterialUi/Range/RangeSlider";
 import { FiLoader } from "react-icons/fi";
 import Avatar from "react-avatar";
 import country_and_states from "../../../../assests/country-states";
@@ -22,6 +21,8 @@ import { IoMdArrowBack } from "react-icons/io";
 import { toast, Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross1 } from "react-icons/rx";
+import Skilllist from "../../../../assests/skillsJSON.json";
+import gallery from "../../../../assests/gallery.svg";
 
 const ACandidateProfileView = () => {
   const customToastStyle = {
@@ -144,6 +145,7 @@ const ACandidateProfileView = () => {
   const [statelist, setstatelist] = useState([]);
   var [certificate, setcertificate] = useState([]);
   const Getallinfo = async () => {
+    console.log(singleuser, "singleuser 1111");
     if (singleuser.length !== 0) {
       setresumevideo(
         singleuser[0].video_resume !== null ? singleuser[0].video_resume : ""
@@ -336,93 +338,65 @@ const ACandidateProfileView = () => {
           settravelwork(new_array1);
         }
       }
-      if (singleuser[0].project_details_info !== null) {
-        setprojectdata({
-          description:
-            singleuser[0].project_details_info !== null
-              ? singleuser[0].project_details_info.description
-              : "",
-          duration_of_project:
-            singleuser[0].project_details_info !== null
-              ? singleuser[0].project_details_info.duration_of_project
-              : "",
-          project_title:
-            singleuser[0].project_details_info !== null
-              ? singleuser[0].project_details_info.project_title
-              : "",
-          reporting_to:
-            singleuser[0].project_details_info !== null
-              ? singleuser[0].project_details_info.reporting_to
-              : "",
-          role:
-            singleuser[0].project_details_info !== null
-              ? singleuser[0].project_details_info.role
-              : "",
-          skills:
-            singleuser[0].project_details_info !== null
-              ? singleuser[0].project_details_info.skills !== undefined
-                ? singleuser[0].project_details_info.skills.toString(" , ")
-                : ""
-              : "",
-        });
-      }
-      if (singleuser[0].certificate_info !== null) {
-        setcertificatedata({
-          course_name:
-            singleuser[0].certificate_info !== null
-              ? singleuser[0].certificate_info.course_name
-              : "",
-          date_issued:
-            singleuser[0].certificate_info !== null
-              ? singleuser[0].certificate_info.date_issued
-              : "",
-          description:
-            singleuser[0].certificate_info !== null
-              ? singleuser[0].certificate_info.description
-              : "",
-          url:
-            singleuser[0].certificate_info !== null
-              ? singleuser[0].certificate_info.url
-              : "",
-
-          skills:
-            singleuser[0].certificate_info !== null
-              ? singleuser[0].certificate_info.skills !== undefined
-                ? singleuser[0].certificate_info.skills.toString(" , ")
-                : ""
-              : "",
-        });
-      }
-      if (singleuser[0].education_info !== null) {
-        seteducationdata({
-          cgpa:
-            singleuser[0].education_info !== null
-              ? singleuser[0].education_info.cgpa
-              : "",
-          degree:
-            singleuser[0].education_info !== null
-              ? singleuser[0].education_info.degree
-              : "",
-          education_level:
-            singleuser[0].education_info !== null
-              ? singleuser[0].education_info.education_level
-              : "",
-          study_mode:
-            singleuser[0].education_info !== null
-              ? singleuser[0].education_info.study_mode
-              : "",
-          university_name:
-            singleuser[0].education_info !== null
-              ? singleuser[0].education_info.university_name
-              : "",
-          year_of_graduation:
-            singleuser[0].education_info !== null
-              ? singleuser[0].education_info.year_of_graduation
-              : "",
-        });
-        if (singleuser[0].education_info !== null) {
-          setcertificate(singleuser[0].education_info.upload_file);
+      var projectdata = singleuser[0].project_details_info;
+      if (projectdata.length !== 0) {
+        var filterdata = [];
+        for (var i = 0; i < projectdata.length; i++) {
+          const arrayOfObjects = projectdata[i].skills.map((value) => ({
+            value,
+            label: value,
+          }));
+          filterdata.push({
+            description: projectdata[i].description,
+            duration_of_project: projectdata[i].duration_of_project,
+            project_title: projectdata[i].project_title,
+            reporting_to: projectdata[i].reporting_to,
+            role: projectdata[i].role,
+            skills: arrayOfObjects,
+            type: "edit",
+            id: projectdata[i].id,
+          });
         }
+        setprojectdata(filterdata);
+      }
+      var certificatedata = singleuser[0].certificate_info;
+      if (certificatedata.length !== 0) {
+        var filterdata = [];
+        for (var i = 0; i < certificatedata.length; i++) {
+          const arrayOfObjects = certificatedata[i].skills.map((value) => ({
+            value,
+            label: value,
+          }));
+          filterdata.push({
+            course_name: certificatedata[i].course_name,
+            date_issued: certificatedata[i].date_issued,
+            description: certificatedata[i].description,
+            url: certificatedata[i].url,
+            skills: arrayOfObjects,
+            type: "edit",
+            certificate_file: certificatedata[i].certificate_file,
+            id: certificatedata[i].id,
+          });
+        }
+        setcertificatedata(filterdata);
+      }
+      var educationdata = singleuser[0].education_info;
+      if (educationdata.length !== 0) {
+        var filterdata = [];
+        for (var i = 0; i < educationdata.length; i++) {
+          filterdata.push({
+            cgpa: educationdata[i].cgpa,
+            degree: educationdata[i].degree,
+            education_level: educationdata[i].education_level,
+            study_mode: educationdata[i].study_mode,
+            university_name: educationdata[i].university_name,
+            year_of_graduation: educationdata[i].year_of_graduation,
+            type: "edit",
+            upload_file: educationdata[i].upload_file,
+            id: educationdata[i].id,
+          });
+        }
+        seteducationdata(filterdata);
       }
       if (singleuser[0].passport_info !== null) {
         setpassportdata({
@@ -508,6 +482,21 @@ const ACandidateProfileView = () => {
       setTimeout(() => {
         Getallinfo();
       }, 1000);
+    }
+
+    var skillarrray = Skilllist;
+    const uniqueSkills = Array.from(
+      new Set(skillarrray.map((skill) => skill.Skill))
+    );
+    if (uniqueSkills.length !== 0) {
+      var filter1 = [];
+      for (var i = 0; i < uniqueSkills.length; i++) {
+        filter1.push({
+          value: uniqueSkills[i],
+          label: uniqueSkills[i],
+        });
+      }
+      setskilloption(filter1);
     }
   };
   const handlechange = async (e) => {
@@ -932,17 +921,33 @@ const ACandidateProfileView = () => {
       setIsLoading(false);
     }
   };
-  const [projectdata, setprojectdata] = useState({
-    description: "",
-    duration_of_project: "",
-    project_title: "",
-    reporting_to: "",
-    role: "",
-    skills: "",
-  });
-  const handlechangenew = (e) => {
-    const { name, value } = e.target;
-    setprojectdata((values) => ({ ...values, [name]: value }));
+  const [projectdata, setprojectdata] = useState([
+    {
+      description: "",
+      duration_of_project: "",
+      project_title: "",
+      reporting_to: "",
+      role: "",
+      skills: [],
+      type: "new",
+    },
+  ]);
+
+  const addcountproject = () => {
+    var newobj = {
+      description: "",
+      duration_of_project: "",
+      project_title: "",
+      reporting_to: "",
+      role: "",
+      skills: [],
+      type: "new",
+    };
+    setprojectdata((prevState) => [...prevState, newobj]);
+  };
+  const handlechangeproject = (value, index, name) => {
+    projectdata[index][name] = value;
+    setprojectdata([...projectdata]);
   };
 
   const [travelwork, settravelwork] = useState([
@@ -968,142 +973,270 @@ const ACandidateProfileView = () => {
     settravelwork([...travelwork]);
   };
   const saveproject = async () => {
-    setIsLoading(true);
-    var newobj = {
-      username: singleuser[0].username,
-      project_details_info: {
-        description: projectdata.description,
-        duration_of_project: projectdata.duration_of_project,
-        project_title: projectdata.project_title,
-        reporting_to: projectdata.reporting_to,
-        role: projectdata.role,
-        skills: projectdata.skills.split(),
-      },
-    };
-    var updatedata = await axios
-      .put(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}/`,
-        newobj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    if (
-      updatedata.message === "User and Associated Info updated successfully"
-    ) {
-      var userinfo = await axios
-        .get(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `JWT ${token}`,
-            },
+    if (projectdata.length !== 0) {
+      setIsLoading(true);
+      var alldata = [];
+      for (var i = 0; i < projectdata.length; i++) {
+        if (projectdata[i].type === "new") {
+          var arrayOf_Values = [];
+          if (projectdata[i].skills.length !== 0) {
+            arrayOf_Values = projectdata[i].skills.map((obj) => obj.value);
           }
-        )
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
-        });
+          var newobj = {
+            username: singleuser[0].username,
+            project_details_info: {
+              description: projectdata[i].description,
+              duration_of_project: projectdata[i].duration_of_project,
+              project_title: projectdata[i].project_title,
+              reporting_to: projectdata[i].reporting_to,
+              role: projectdata[i].role,
+              skills: arrayOf_Values,
+            },
+          };
+          alldata.push({
+            description: projectdata[i].description,
+            duration_of_project: projectdata[i].duration_of_project,
+            project_title: projectdata[i].project_title,
+            reporting_to: projectdata[i].reporting_to,
+            role: projectdata[i].role,
+            skills: arrayOf_Values,
+          });
+
+          await axios
+            .post(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getProjectDetails/${userid}/`,
+              newobj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+        } else {
+          console.log(projectdata[i], "projectdata[i]");
+          var arrayOfValues = [];
+          if (projectdata[i].skills.length !== 0) {
+            arrayOfValues = projectdata[i].skills.map((obj) => obj.value);
+          }
+          var new_obj = {
+            username: singleuser[0].username,
+            project_details_info: {
+              description: projectdata[i].description,
+              duration_of_project: projectdata[i].duration_of_project,
+              project_title: projectdata[i].project_title,
+              reporting_to: projectdata[i].reporting_to,
+              role: projectdata[i].role,
+              skills: arrayOfValues,
+            },
+          };
+          alldata.push({
+            description: projectdata[i].description,
+            duration_of_project: projectdata[i].duration_of_project,
+            project_title: projectdata[i].project_title,
+            reporting_to: projectdata[i].reporting_to,
+            role: projectdata[i].role,
+            skills: arrayOfValues,
+            id: projectdata[i].id,
+          });
+          await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getProjectDetails/${projectdata[i].id}/`,
+              new_obj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+        }
+      }
+      let updatedObject = {
+        ...singleuser[0],
+        project_details_info: alldata,
+      };
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata(userinfo);
+      getalldata(updatedObject);
       setTimeout(() => {
-        dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
+        dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
       }, 10);
       dispatch(storeAction.isPopUpHander());
       setIsLoading(false);
     }
   };
-  const [certificatedata, setcertificatedata] = useState({
-    course_name: "",
-    date_issued: "",
-    description: "",
-    url: "",
-    skills: "",
-  });
-  const handlechange_new = (e) => {
-    const { name, value } = e.target;
-    setcertificatedata((values) => ({ ...values, [name]: value }));
+  const [certificatedata, setcertificatedata] = useState([
+    {
+      course_name: "",
+      date_issued: "",
+      description: "",
+      url: "",
+      skills: [],
+      type: "new",
+      certificate_file: [],
+    },
+  ]);
+  const addcountcertificate = () => {
+    var newobj = {
+      course_name: "",
+      date_issued: "",
+      description: "",
+      url: "",
+      skills: [],
+      type: "new",
+      certificate_file: [],
+    };
+    setcertificatedata((prevState) => [...prevState, newobj]);
+  };
+
+  const handlechangecertificate = (value, index, name) => {
+    certificatedata[index][name] = value;
+    setcertificatedata([...certificatedata]);
   };
   const savecertificate = async () => {
-    setIsLoading(true);
-    var newobj = {
-      username: singleuser[0].username,
-      certificate_info: {
-        course_name: certificatedata.course_name,
-        date_issued: certificatedata.date_issued,
-        description: certificatedata.description,
-        url: certificatedata.url,
-        skills: certificatedata.skills.split(),
-      },
-    };
-    var updatedata = await axios
-      .put(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}/`,
-        newobj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    if (
-      updatedata.message === "User and Associated Info updated successfully"
-    ) {
-      var userinfo = await axios
-        .get(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `JWT ${token}`,
-            },
+    if (certificatedata.length !== 0) {
+      setIsLoading(true);
+      var alldata = [];
+      for (var i = 0; i < certificatedata.length; i++) {
+        if (certificatedata[i].type === "new") {
+          var arrayOf_Values = [];
+          if (certificatedata[i].skills.length !== 0) {
+            arrayOf_Values = certificatedata[i].skills.map((obj) => obj.value);
           }
-        )
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
-        });
+          var newobj = {
+            username: singleuser[0].username,
+            certificate_info: {
+              course_name: certificatedata[i].course_name,
+              date_issued: certificatedata[i].date_issued,
+              description: certificatedata[i].description,
+              url: certificatedata[i].url,
+              skills: arrayOf_Values,
+              certificate_file: certificatedata[i].certificate_file,
+            },
+          };
+          alldata.push({
+            course_name: certificatedata[i].course_name,
+            date_issued: certificatedata[i].date_issued,
+            description: certificatedata[i].description,
+            url: certificatedata[i].url,
+            skills: arrayOf_Values,
+            certificate_file: certificatedata[i].certificate_file,
+          });
+          await axios
+            .post(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getCertifications/${userid}/`,
+              newobj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+        } else {
+          var arrayOfValues = [];
+          if (certificatedata[i].skills.length !== 0) {
+            arrayOfValues = certificatedata[i].skills.map((obj) => obj.value);
+          }
+          var new_obj = {
+            username: singleuser[0].username,
+            certificate_info: {
+              course_name: certificatedata[i].course_name,
+              date_issued: certificatedata[i].date_issued,
+              description: certificatedata[i].description,
+              url: certificatedata[i].url,
+              skills: arrayOfValues,
+              certificate_file: certificatedata[i].certificate_file,
+            },
+          };
+          alldata.push({
+            course_name: certificatedata[i].course_name,
+            date_issued: certificatedata[i].date_issued,
+            description: certificatedata[i].description,
+            url: certificatedata[i].url,
+            skills: arrayOfValues,
+            certificate_file: certificatedata[i].certificate_file,
+            id: certificatedata[i].id,
+          });
+          await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getCertifications/${certificatedata[i].id}/`,
+              new_obj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+        }
+      }
+      let updatedObject = {
+        ...singleuser[0],
+        certificate_info: alldata,
+      };
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata(userinfo);
+      getalldata(updatedObject);
       setTimeout(() => {
-        dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
+        dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
       }, 10);
       dispatch(storeAction.isPopUpHander());
       setIsLoading(false);
     }
   };
-  const [educationdata, seteducationdata] = useState({
-    cgpa: "",
-    degree: "",
-    education_level: "",
-    study_mode: "",
-    university_name: "",
-    year_of_graduation: "",
-  });
-  const handle_change = (e) => {
-    const { name, value } = e.target;
-    seteducationdata((values) => ({ ...values, [name]: value }));
+  const [educationdata, seteducationdata] = useState([
+    {
+      cgpa: "",
+      degree: "",
+      education_level: "",
+      study_mode: "",
+      university_name: "",
+      year_of_graduation: "",
+      type: "new",
+      upload_file: [],
+    },
+  ]);
+  const addcounteducation = () => {
+    var newobj = {
+      cgpa: "",
+      degree: "",
+      education_level: "",
+      study_mode: "",
+      university_name: "",
+      year_of_graduation: "",
+      type: "new",
+      upload_file: [],
+    };
+    seteducationdata((prevState) => [...prevState, newobj]);
+  };
+
+  const handlechangeeducation = (value, index, name) => {
+    educationdata[index][name] = value;
+    seteducationdata([...educationdata]);
   };
   const [formData] = useState(new FormData());
   const [fileupload, setfileupload] = useState(false);
@@ -1123,60 +1256,152 @@ const ACandidateProfileView = () => {
     setcertificate([...certificate, response.data.img_url]);
     setfileupload(true);
   };
-  const saveeducation = async () => {
-    setIsLoading(true);
-    var newobj = {
-      username: singleuser[0].username,
-      education_info: {
-        cgpa: educationdata.cgpa,
-        degree: educationdata.degree,
-        education_level: educationdata.education_level,
-        study_mode: educationdata.study_mode,
-        university_name: educationdata.university_name,
-        year_of_graduation: educationdata.year_of_graduation,
-        upload_file: certificate,
-      },
-    };
-    var updatedata = await axios
-      .put(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}/`,
-        newobj,
+  const handleFileInputChangecertificate = async (e) => {
+    formData.append("image", e.target.files[0]);
+    const selectedImage = e.target.files[0];
+    if (selectedImage.size > 5 * 1024 * 1024) {
+      fileInputRef.current.value = "";
+      alert("Image size exceeds 5 MB limit.");
+    } else {
+      formData.append("name", `certificate${userid}`);
+      const response = await axios.post(
+        "https://fileserver-21t2.onrender.com/api/upload/",
+        formData,
         {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
-      )
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    if (
-      updatedata.message === "User and Associated Info updated successfully"
-    ) {
-      var userinfo = await axios
-        .get(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${singleuser[0].id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `JWT ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
+      );
+      const updatedTravelwork = [...certificatedata];
+      const updatedObj = {
+        ...updatedTravelwork[index],
+        certificate_file: [
+          ...updatedTravelwork[index].certificate_file,
+          response.data.img_url,
+        ],
+      };
+      updatedTravelwork[index] = updatedObj;
+      setcertificatedata(updatedTravelwork);
+      fileInputRef.current.value = "";
+    }
+  };
+  const handleFileInputChangeeducation = async (e) => {
+    formData.append("image", e.target.files[0]);
+    const selectedImage = e.target.files[0];
+    if (selectedImage.size > 5 * 1024 * 1024) {
+      fileInputRef.current.value = "";
+      alert("Image size exceeds 5 MB limit.");
+    } else {
+      formData.append("name", `certificate${userid}`);
+      const response = await axios.post(
+        "https://fileserver-21t2.onrender.com/api/upload/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const updatedTravelwork = [...educationdata];
+      const updatedObj = {
+        ...updatedTravelwork[index],
+        upload_file: [
+          ...updatedTravelwork[index].upload_file,
+          response.data.img_url,
+        ],
+      };
+      updatedTravelwork[index] = updatedObj;
+      seteducationdata(updatedTravelwork);
+      fileInputRef.current.value = "";
+    }
+  };
+  const saveeducation = async () => {
+    if (educationdata.length !== 0) {
+      setIsLoading(true);
+      var alldata = [];
+      for (var i = 0; i < educationdata.length; i++) {
+        alldata.push({
+          cgpa: educationdata[i].cgpa,
+          degree: educationdata[i].degree,
+          education_level: educationdata[i].education_level,
+          study_mode: educationdata[i].study_mode,
+          university_name: educationdata[i].university_name,
+          year_of_graduation: educationdata[i].year_of_graduation,
+          upload_file: educationdata[i].upload_file,
+          id: educationdata[i].id,
         });
+        if (educationdata[i].type === "new") {
+          var newobj = {
+            education_info: {
+              cgpa: educationdata[i].cgpa,
+              degree: educationdata[i].degree,
+              education_level: educationdata[i].education_level,
+              study_mode: educationdata[i].study_mode,
+              university_name: educationdata[i].university_name,
+              year_of_graduation: educationdata[i].year_of_graduation,
+              upload_file: educationdata[i].upload_file,
+            },
+            username: singleuser[0].username,
+          };
+
+          await axios
+            .post(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getEducations/${userid}/`,
+              newobj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+        } else {
+          var new_obj = {
+            education_info: {
+              cgpa: educationdata[i].cgpa,
+              degree: educationdata[i].degree,
+              education_level: educationdata[i].education_level,
+              study_mode: educationdata[i].study_mode,
+              university_name: educationdata[i].university_name,
+              year_of_graduation: educationdata[i].year_of_graduation,
+              upload_file: educationdata[i].upload_file,
+            },
+            username: singleuser[0].username,
+          };
+          await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getEducations/${educationdata[i].id}/`,
+              new_obj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+        }
+      }
+      let updatedObject = {
+        ...singleuser[0],
+        education_info: alldata,
+      };
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
-      getalldata(userinfo);
+      getalldata(updatedObject);
       setTimeout(() => {
-        dispatch(storeAction.singleuserHander({ singleuser: [userinfo] }));
+        dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
       }, 10);
       dispatch(storeAction.isPopUpHander());
       setIsLoading(false);
@@ -1600,7 +1825,7 @@ const ACandidateProfileView = () => {
   const deletebtn = async (data) => {
     var arrayOfObjects = alluserdata.filter((obj) => obj.id !== data.id);
     dispatch(storeAction.alluserdataHander({ alluserdata: arrayOfObjects }));
-   
+
     await axios.delete(
       `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${data.id}/`,
       {
@@ -1612,6 +1837,27 @@ const ACandidateProfileView = () => {
     );
     window.location.replace("/#/customerProfile");
   };
+  const [selectedOptionskill, setSelectedOptionskill] = useState(null);
+  const [skilloption, setskilloption] = useState([]);
+
+  const handleSelectChange = (index, selectedOptions) => {
+    if (selectedOptions.length <= 5) {
+      projectdata[index]["skills"] = selectedOptions;
+      setprojectdata([...travelwork]);
+    }
+  };
+  const [index, setindex] = useState(null);
+  const uploadHandler = (index) => {
+    fileInputRef.current.click();
+    setindex(index);
+  };
+  const handleSelectChange1 = (index, selectedOptions) => {
+    if (selectedOptions.length <= 5) {
+      certificatedata[index]["skills"] = selectedOptions;
+      setcertificatedata([...certificatedata]);
+    }
+  };
+  console.log(singleuser, "singleusersingleusersingleuser");
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -1658,7 +1904,11 @@ const ACandidateProfileView = () => {
                   <div className="clientProfileViewFlexLeftDescLocation">
                     {/* <img src={candidateProfile} alt="" /> */}
                     <h2>{singleuser[0].current_place_of_residence}</h2>
-                    <h2>₹4500/hr</h2>
+                    {singleuser[0].rate_card_info !== null ? (
+                      <h2>{singleuser[0].rate_card_info.remote_hourly}/hr</h2>
+                    ) : (
+                      <h2>Not provided ye</h2>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1760,7 +2010,11 @@ const ACandidateProfileView = () => {
                   <div className="clientProfileViewFlexLeftDescLocation">
                     {/* <img src={candidateProfile} alt="" /> */}
                     <h2>{singleuser[0].current_place_of_residence}</h2>
-                    <h2>₹4500/hr</h2>
+                    {singleuser[0].rate_card_info !== null ? (
+                      <h2>{singleuser[0].rate_card_info.remote_hourly}/hr</h2>
+                    ) : (
+                      <h2>Not provided ye</h2>
+                    )}
                   </div>
                 </div>
               </div>
@@ -3752,47 +4006,35 @@ const ACandidateProfileView = () => {
                     Edit
                   </button>
                 </div>
-                {singleuser[0].project_details_info !== null ? (
-                  <div>
-                    <h6>project 1</h6>
-                    <div className="CandidateProfileViewCardBody">
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Project Title</h2>
-                        <h3>
-                          {singleuser[0].project_details_info.project_title}
-                        </h3>
+                {singleuser[0].project_details_info.length !== 0
+                  ? singleuser[0].project_details_info.map((data, index) => (
+                      <div key={index}>
+                        <h6>project {index + 1}</h6>
+                        <div className="CandidateProfileViewCardBody">
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Project Title</h2>
+                            <h3>{data.project_title}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Role</h2>
+                            <h3> {data.role}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Reporting to</h2>
+                            <h3> {data.reporting_to}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Duration of project</h2>
+                            <h3> {data.duration_of_project}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Key skills</h2>
+                            <h3>{data.skills.toString()}</h3>
+                          </div>
+                        </div>
                       </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Role</h2>
-                        <h3> {singleuser[0].project_details_info.role}</h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Reporting to</h2>
-                        <h3>
-                          {" "}
-                          {singleuser[0].project_details_info.reporting_to}
-                        </h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Duration of project</h2>
-                        <h3>
-                          {" "}
-                          {
-                            singleuser[0].project_details_info
-                              .duration_of_project
-                          }
-                        </h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Key skills</h2>
-                        <h3>
-                          {" "}
-                          {singleuser[0].project_details_info.skills.toString()}
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
+                    ))
+                  : null}
               </div>
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
@@ -3802,44 +4044,66 @@ const ACandidateProfileView = () => {
                     Edit
                   </button>
                 </div>
-                {singleuser[0].certificate_info !== null ? (
-                  <div>
-                    <h6>Certificate 1</h6>
-                    <div className="CandidateProfileViewCardBody">
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Course name</h2>
-                        <h3>{singleuser[0].certificate_info.course_name}</h3>
+                {singleuser[0].certificate_info.length !== 0
+                  ? singleuser[0].certificate_info.map((data, index) => (
+                      <div key={index}>
+                        <h6>Certificate {index + 1}</h6>
+                        <div className="CandidateProfileViewCardBody">
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Course name</h2>
+                            <h3>{data.course_name}</h3>
+                          </div>
+                          {/* <div className="CandidateProfileViewCardBodyTable">
+                       <h2>Issuing body</h2>
+                       <h3>{data.course_name}</h3>
+                     </div> */}
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Date Issued</h2>
+                            <h3>{data.date_issued}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Skills</h2>
+                            <h3>{data.skills.toString()}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>URL</h2>
+                            <h3>{data.url}</h3>
+                          </div>
+                          {/* <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Certificate File</h2>
+                            {data.certificate_file.length !== 0 ? (
+                              <h3>Uploaded</h3>
+                            ) : (
+                              <h3>Not Uploaded</h3>
+                            )}
+                        </div> */}
+                          {data.certificate_file.length !== 0 ? (
+                            data.certificate_file.map((datanew, index) => (
+                              <div
+                                className="CandidateProfileViewCardBodyTable"
+                                key={index}
+                              >
+                                <h2>Certificate File {index + 1}</h2>
+                                <h3
+                                  onClick={() => {
+                                    window.open(`${datanew}`, "_blank");
+                                  }}
+                                >
+                                  Uploaded
+                                </h3>
+                                <br />
+                              </div>
+                            ))
+                          ) : (
+                            <>
+                              <h2>Certificate File</h2>
+                              <h3>Not Uploaded</h3>
+                            </>
+                          )}
+                        </div>
                       </div>
-                      {/* <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Issuing body</h2>
-                        <h3>{singleuser[0].certificate_info.course_name}</h3>
-                      </div> */}
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Date Issued</h2>
-                        <h3>{singleuser[0].certificate_info.date_issued}</h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Skills</h2>
-                        <h3>
-                          {singleuser[0].certificate_info.skills.toString()}
-                        </h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>URL</h2>
-                        <h3>{singleuser[0].certificate_info.url}</h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Certificate File</h2>
-                        {singleuser[0].certificate_info.certificate_file
-                          .length !== 0 ? (
-                          <h3>Uploaded</h3>
-                        ) : (
-                          <h3>Not Uploaded</h3>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
+                    ))
+                  : null}
               </div>
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
@@ -3849,57 +4113,64 @@ const ACandidateProfileView = () => {
                     Edit
                   </button>
                 </div>
-                {singleuser[0].education_info !== null ? (
-                  <div>
-                    <h6>{singleuser[0].education_info.education_level}</h6>
-                    <div className="CandidateProfileViewCardBody">
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Degree</h2>
-                        <h3>{singleuser[0].education_info.degree}</h3>
+                {console.log(singleuser[0], "singleuser[0]")}
+                {singleuser[0].education_info.length !== 0
+                  ? singleuser[0].education_info.map((data, index) => (
+                      <div key={index}>
+                        <h6>{data.education_level}</h6>
+                        <div className="CandidateProfileViewCardBody">
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Degree 222</h2>
+                            <h3>{data.degree}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Year of Graduation</h2>
+                            <h3>{data.year_of_graduation}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Name of University / School</h2>
+                            <h3>{data.university_name}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Education Level</h2>
+                            <h3>{data.education_level}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>CGPA</h2>
+                            <h3>{data.cgpa}</h3>
+                          </div>
+                          <div className="CandidateProfileViewCardBodyTable">
+                            <h2>Study Mode</h2>
+                            <h3>{data.study_mode}</h3>
+                          </div>
+
+                          {data.upload_file.length !== 0 ? (
+                            data.upload_file.map((datanew, index) => (
+                              <div
+                                className="CandidateProfileViewCardBodyTable"
+                                key={index}
+                              >
+                                <h2>Relevant document {index + 1}</h2>
+                                <h3
+                                  onClick={() => {
+                                    window.open(`${datanew}`, "_blank");
+                                  }}
+                                >
+                                  Uploaded
+                                </h3>
+                                <br />
+                              </div>
+                            ))
+                          ) : (
+                            <>
+                              <h2>Relevant document</h2>
+                              <h3>Not Uploaded</h3>
+                            </>
+                          )}
+                        </div>
                       </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Year of Graduation</h2>
-                        <h3>
-                          {singleuser[0].education_info.year_of_graduation}
-                        </h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Name of University / School</h2>
-                        <h3>{singleuser[0].education_info.university_name}</h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Education Level</h2>
-                        <h3>{singleuser[0].education_info.education_level}</h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>CGPA</h2>
-                        <h3>{singleuser[0].education_info.cgpa}</h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Study Mode</h2>
-                        <h3>{singleuser[0].education_info.study_mode}</h3>
-                      </div>
-                      <div className="CandidateProfileViewCardBodyTable">
-                        <h2>Relevant document</h2>
-                        {singleuser[0].education_info.upload_file.length !==
-                        0 ? (
-                          <h3
-                            onClick={() => {
-                              window.open(
-                                `${singleuser[0].education_info.upload_file[0]}`,
-                                "_blank"
-                              );
-                            }}
-                          >
-                            Uploaded
-                          </h3>
-                        ) : (
-                          <h3>Not Uploaded</h3>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
+                    ))
+                  : null}
               </div>
               <div className="ClientProfileViewCard">
                 <div className="ClientProfileViewCardEdit">
@@ -3942,54 +4213,86 @@ const ACandidateProfileView = () => {
                   <h1>Project details</h1>
                   <RxCross1 onClick={editHandler1} />
                 </div>
-                <div className="adminEditOverlayBody">
-                  <div className="adminEditOverlayContent">
-                    <h2>Project Title</h2>
-                    <input
-                      type="text"
-                      name="project_title"
-                      onChange={handlechangenew}
-                      defaultValue={projectdata.project_title}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Role</h2>
-                    <input
-                      type="text"
-                      name="role"
-                      onChange={handlechangenew}
-                      defaultValue={projectdata.role}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Reporting to</h2>
-                    <input
-                      type="text"
-                      name="reporting_to"
-                      onChange={handlechangenew}
-                      defaultValue={projectdata.reporting_to}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Duration of project</h2>
-                    <input
-                      type="text"
-                      name="duration_of_project"
-                      onChange={handlechangenew}
-                      defaultValue={projectdata.duration_of_project}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Key skills</h2>
-                    <input
-                      type="text"
-                      name="skills"
-                      onChange={handlechangenew}
-                      defaultValue={projectdata.skills}
-                    />
-                  </div>
-                </div>
-                <button className="adminEditAddMore">Add More</button>
+                {projectdata.length !== 0
+                  ? projectdata.map((data, index) => (
+                      <div className="adminEditOverlayBody">
+                        <div className="adminEditOverlayContent">
+                          <h2>Project Title</h2>
+                          <input
+                            type="text"
+                            name="project_title"
+                            onChange={(e) => {
+                              handlechangeproject(
+                                e.target.value,
+                                index,
+                                "project_title"
+                              );
+                            }}
+                            defaultValue={data.project_title}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Role</h2>
+                          <input
+                            type="text"
+                            name="role"
+                            onChange={(e) => {
+                              handlechangeproject(
+                                e.target.value,
+                                index,
+                                "role"
+                              );
+                            }}
+                            defaultValue={data.role}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Reporting to</h2>
+                          <input
+                            type="text"
+                            name="reporting_to"
+                            onChange={(e) => {
+                              handlechangeproject(
+                                e.target.value,
+                                index,
+                                "reporting_to"
+                              );
+                            }}
+                            defaultValue={data.reporting_to}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Duration of project</h2>
+                          <input
+                            type="text"
+                            name="duration_of_project"
+                            onChange={(e) => {
+                              handlechangeproject(
+                                e.target.value,
+                                index,
+                                "duration_of_project"
+                              );
+                            }}
+                            defaultValue={data.duration_of_project}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Key skills</h2>
+                          <Select
+                            value={data.skills}
+                            options={skilloption}
+                            isMulti
+                            onChange={(selectedOption) =>
+                              handleSelectChange(index, selectedOption)
+                            }
+                          />
+                        </div>
+                      </div>
+                    ))
+                  : null}
+                <button className="adminEditAddMore" onClick={addcountproject}>
+                  Add More
+                </button>
                 <div className="editOverlayButton">
                   <button
                     className="discard"
@@ -4020,50 +4323,129 @@ const ACandidateProfileView = () => {
                   <h1>Certifications and courses</h1>
                   <RxCross1 onClick={editHandler1} />
                 </div>
-                <div className="adminEditOverlayBody">
-                  <div className="adminEditOverlayContent">
-                    <h2>Course name</h2>
-                    <input
-                      type="text"
-                      name="course_name"
-                      onChange={handlechange_new}
-                      defaultValue={certificatedata.course_name}
-                    />
-                  </div>
+                {certificatedata.length !== 0
+                  ? certificatedata.map((data, index) => (
+                      <div className="adminEditOverlayBody" key={index}>
+                        <div className="adminEditOverlayContent">
+                          <h2>Course name</h2>
+                          <input
+                            type="text"
+                            name="course_name"
+                            onChange={(e) => {
+                              handlechangecertificate(
+                                e.target.value,
+                                index,
+                                "course_name"
+                              );
+                            }}
+                            defaultValue={data.course_name}
+                          />
+                        </div>
 
-                  <div className="adminEditOverlayContent">
-                    <h2>Date Issued</h2>
-                    <input
-                      type="text"
-                      name="date_issued"
-                      onChange={handlechange_new}
-                      defaultValue={certificatedata.date_issued}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Skills</h2>
-                    <input
-                      type="text"
-                      name="skills"
-                      onChange={handlechange_new}
-                      defaultValue={certificatedata.skills}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>URL</h2>
-                    <input
-                      type="text"
-                      name="url"
-                      onChange={handlechange_new}
-                      defaultValue={certificatedata.url}
-                    />
-                  </div>
-                  {/* <div className="adminEditOverlayContent">
-                    <h2>Certificate File</h2>
-                    <input type="text" />
-                  </div> */}
-                </div>
-                {/* <button className="adminEditAddMore">Add More</button> */}
+                        <div className="adminEditOverlayContent">
+                          <h2>Date Issued</h2>
+                          <input
+                            type="text"
+                            name="date_issued"
+                            onChange={(e) => {
+                              handlechangecertificate(
+                                e.target.value,
+                                index,
+                                "date_issued"
+                              );
+                            }}
+                            defaultValue={data.date_issued}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Skills</h2>
+                          <Select
+                            value={data.skills}
+                            options={skilloption}
+                            isMulti
+                            onChange={(selectedOption) =>
+                              handleSelectChange1(index, selectedOption)
+                            }
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>URL</h2>
+                          <input
+                            type="text"
+                            name="url"
+                            onChange={(e) => {
+                              handlechangecertificate(
+                                e.target.value,
+                                index,
+                                "url"
+                              );
+                            }}
+                            defaultValue={data.url}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Certificate File</h2>
+                          <div
+                            onClick={() => {
+                              uploadHandler(index);
+                            }}
+                            className="uploadCertificate"
+                          >
+                            <h2 className="drop">
+                              Drag your fies here to{" "}
+                              <span className="browser">Browse</span>
+                            </h2>
+                            <h3>
+                              Maximum size: 5MB MP4,
+                              <br /> PDF, JPEG and PNG accepted
+                            </h3>
+                          </div>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="aadhaarfront"
+                            onChange={handleFileInputChangecertificate}
+                          />
+                          {data.certificate_file.length !== 0
+                            ? data.certificate_file.map((data, index1) => (
+                                <div className="educationUploaded">
+                                  <div className="educationUploadedFlex">
+                                    <div className="educationUploadedFlexLeft">
+                                      <img src={gallery} alt="" />
+                                      <div className="educationUploadedFlexLeftDesc">
+                                        <h2>certificate{index + 1}.jpeg</h2>
+                                      </div>
+                                    </div>
+                                    {/* <div
+                                    className="educationUploadedFlexRight"
+                                    onClick={() => {
+                                      deletebtn(index, index1);
+                                    }}
+                                  >
+                                    <img src={trash} alt="" />
+                                  </div> */}
+                                  </div>
+                                  <div className="percent">
+                                    <div className="range">
+                                      <div className="InnerRange"></div>
+                                    </div>
+                                    <h2>100%</h2>
+                                  </div>
+                                </div>
+                              ))
+                            : null}
+                        </div>
+                      </div>
+                    ))
+                  : null}
+
+                <button
+                  className="adminEditAddMore"
+                  onClick={addcountcertificate}
+                >
+                  Add More
+                </button>
                 <div className="editOverlayButton">
                   <button
                     className="discard"
@@ -4094,76 +4476,170 @@ const ACandidateProfileView = () => {
                   <h1>EDUCATION</h1>
                   <RxCross1 onClick={editHandler1} />
                 </div>
-                <div className="adminEditOverlayBody">
-                  <div className="adminEditOverlayContent">
-                    <h2>Degree</h2>
-                    <input
-                      type="text"
-                      name="degree"
-                      onChange={handle_change}
-                      defaultValue={educationdata.degree}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Year of Graduation</h2>
-                    <input
-                      type="number"
-                      name="year_of_graduation"
-                      onChange={handle_change}
-                      defaultValue={educationdata.year_of_graduation}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Name of University / School</h2>
-                    <input
-                      type="text"
-                      name="university_name"
-                      onChange={handle_change}
-                      defaultValue={educationdata.university_name}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Education Level</h2>
-                    <input
-                      type="text"
-                      name="education_level"
-                      onChange={handle_change}
-                      defaultValue={educationdata.education_level}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>CGPA</h2>
-                    <input
-                      type="text"
-                      name="cgpa"
-                      onChange={handle_change}
-                      defaultValue={educationdata.cgpa}
-                    />
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Study Mode</h2>
-                    <select
-                      name="study_mode"
-                      onChange={handle_change}
-                      defaultValue={educationdata.study_mode}
-                      selected={educationdata.study_mode}
-                    >
-                      <option value="">Select Study Mode</option>
-                      <option value="Full-Time">Full-Time</option>
-                      <option value="Part-Tim">Part-Time</option>
-                    </select>
-                  </div>
-                  <div className="adminEditOverlayContent">
-                    <h2>Relevant document</h2>
-                    <input type="file" onChange={handleFileInputChange} />
-                    {fileupload && (
-                      <p className="text-sm text-green-500 py-2">
-                        File Uploaded Successfully...
-                      </p>
-                    )}
-                  </div>
-                </div>
-                {/* <button className="adminEditAddMore">Add More</button> */}
+                {educationdata.length !== 0
+                  ? educationdata.map((data, index) => (
+                      <div className="adminEditOverlayBody">
+                        <div className="adminEditOverlayContent">
+                          <h2>Degree</h2>
+                          <input
+                            type="text"
+                            name="degree"
+                            onChange={(e) => {
+                              handlechangeeducation(
+                                e.target.value,
+                                index,
+                                "degree"
+                              );
+                            }}
+                            defaultValue={data.degree}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Year of Graduation</h2>
+                          <input
+                            type="number"
+                            name="year_of_graduation"
+                            onChange={(e) => {
+                              handlechangeeducation(
+                                e.target.value,
+                                index,
+                                "year_of_graduation"
+                              );
+                            }}
+                            defaultValue={data.year_of_graduation}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Name of University / School</h2>
+                          <input
+                            type="text"
+                            name="university_name"
+                            onChange={(e) => {
+                              handlechangeeducation(
+                                e.target.value,
+                                index,
+                                "university_name"
+                              );
+                            }}
+                            defaultValue={data.university_name}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Education Level</h2>
+                          <select
+                            name="education_level"
+                            onChange={(e) => {
+                              handlechangeeducation(
+                                e.target.value,
+                                index,
+                                "education_level"
+                              );
+                            }}
+                            defaultValue={data.education_level}
+                            selected={data.education_level}
+                          >
+                            <option>Select</option>
+                            <option value="UG">UG</option>
+                            <option value="PG">PG</option>
+                          </select>
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>CGPA</h2>
+                          <input
+                            type="text"
+                            name="cgpa"
+                            onChange={(e) => {
+                              handlechangeeducation(
+                                e.target.value,
+                                index,
+                                "cgpa"
+                              );
+                            }}
+                            defaultValue={data.cgpa}
+                          />
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Study Mode</h2>
+                          <select
+                            name="study_mode"
+                            onChange={(e) => {
+                              handlechangeeducation(
+                                e.target.value,
+                                index,
+                                "study_mode"
+                              );
+                            }}
+                            defaultValue={data.study_mode}
+                            selected={data.study_mode}
+                          >
+                            <option value="">Select Study Mode</option>
+                            <option value="Full-Time">Full-Time</option>
+                            <option value="Part-Tim">Part-Time</option>
+                          </select>
+                        </div>
+                        <div className="adminEditOverlayContent">
+                          <h2>Relevant document</h2>
+                          <div
+                            onClick={() => {
+                              uploadHandler(index);
+                            }}
+                            className="uploadCertificate"
+                          >
+                            <h2 className="drop">
+                              Drag your fies here to{" "}
+                              <span className="browser">Browse</span>
+                            </h2>
+                            <h3>
+                              Maximum size: 5MB MP4,
+                              <br /> PDF, JPEG and PNG accepted
+                            </h3>
+                          </div>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="aadhaarfront"
+                            onChange={handleFileInputChangeeducation}
+                          />
+                          {data.upload_file.length !== 0
+                            ? data.upload_file.map((data, index1) => (
+                                <div className="educationUploaded">
+                                  <div className="educationUploadedFlex">
+                                    <div className="educationUploadedFlexLeft">
+                                      <img src={gallery} alt="" />
+                                      <div className="educationUploadedFlexLeftDesc">
+                                        <h2>certificate{index + 1}.jpeg</h2>
+                                      </div>
+                                    </div>
+                                    {/* <div
+                                    className="educationUploadedFlexRight"
+                                    onClick={() => {
+                                      deletebtn(index, index1);
+                                    }}
+                                  >
+                                    <img src={trash} alt="" />
+                                  </div> */}
+                                  </div>
+                                  <div className="percent">
+                                    <div className="range">
+                                      <div className="InnerRange"></div>
+                                    </div>
+                                    <h2>100%</h2>
+                                  </div>
+                                </div>
+                              ))
+                            : null}
+                        </div>
+                      </div>
+                    ))
+                  : null}
+
+                <button
+                  className="adminEditAddMore"
+                  onClick={addcounteducation}
+                >
+                  Add More
+                </button>
                 <div className="editOverlayButton">
                   <button
                     className="discard"

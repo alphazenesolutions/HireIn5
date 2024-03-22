@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
@@ -40,15 +41,39 @@ const ProjectDetails = () => {
     dispatch(storeAction.isPopUpHander());
   };
 
-  const [educationdata, seteducationdata] = useState({
-    description: "",
-    duration_of_project: "",
-    project_title: "",
-    reporting_to: "",
-    role: "",
-    skills: "",
-  });
+
   const [loading, setloading] = useState(false);
+
+  const [education_data, seteducation_data] = useState([]);
+  const [travelwork, settravelwork] = useState([
+    {
+      description: "",
+      duration_of_project: "",
+      project_title: "",
+      reporting_to: "",
+      role: "",
+      skills: [],
+      type: "new",
+    },
+  ]);
+
+  const addcountwork = () => {
+    var newobj = {
+      description: "",
+      duration_of_project: "",
+      project_title: "",
+      reporting_to: "",
+      role: "",
+      skills: [],
+      type: "new",
+    };
+    settravelwork((prevState) => [...prevState, newobj]);
+  };
+
+  const handlechangework = (value, index, name) => {
+    travelwork[index][name] = value;
+    settravelwork([...travelwork]);
+  };
 
   useEffect(() => {
     getUserinfo();
@@ -56,44 +81,27 @@ const ProjectDetails = () => {
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
-      seteducationdata({
-        description:
-          userdata[0].project_details_info !== null
-            ? userdata[0].project_details_info.description
-            : "",
-        duration_of_project:
-          userdata[0].project_details_info !== null
-            ? userdata[0].project_details_info.duration_of_project
-            : "",
-        project_title:
-          userdata[0].project_details_info !== null
-            ? userdata[0].project_details_info.project_title
-            : "",
-        reporting_to:
-          userdata[0].project_details_info !== null
-            ? userdata[0].project_details_info.reporting_to
-            : "",
-        role:
-          userdata[0].project_details_info !== null
-            ? userdata[0].project_details_info.role
-            : "",
-      });
-      if (userdata[0].project_details_info !== null) {
-        if (userdata[0].project_details_info.skills.length !== 0) {
-          var filter = [];
-          for (
-            var a = 0;
-            a < userdata[0].project_details_info.skills.length;
-            a++
-          ) {
-            filter.push({
-              value: userdata[0].project_details_info.skills[a],
-              label: userdata[0].project_details_info.skills[a],
-            });
-          }
-          setSelectedOptionskill(filter);
-          setskill_list(userdata[0].project_details_info.skills);
+      var certificatedata = userdata[0].project_details_info;
+      if (certificatedata.length !== 0) {
+        seteducation_data(certificatedata);
+        var filterdata = [];
+        for (var i = 0; i < certificatedata.length; i++) {
+          const arrayOfObjects = certificatedata[i].skills.map((value) => ({
+            value,
+            label: value,
+          }));
+          filterdata.push({
+            description: certificatedata[i].description,
+            duration_of_project: certificatedata[i].duration_of_project,
+            project_title: certificatedata[i].project_title,
+            reporting_to: certificatedata[i].reporting_to,
+            role: certificatedata[i].role,
+            skills: arrayOfObjects,
+            type: "edit",
+            id: certificatedata[i].id,
+          });
         }
+        settravelwork(filterdata);
       }
     }
     var skillarrray = Skilllist;
@@ -112,58 +120,109 @@ const ProjectDetails = () => {
     }
   };
 
-  const handlechange = (e) => {
-    const { name, value } = e.target;
-    seteducationdata((values) => ({ ...values, [name]: value }));
-  };
   const displayHandler = async () => {
-    setloading(true);
-    var newobj = {
-      username: userdata[0].username,
-      project_details_info: {
-        description: educationdata.description,
-        duration_of_project: educationdata.duration_of_project,
-        project_title: educationdata.project_title,
-        reporting_to: educationdata.reporting_to,
-        role: educationdata.role,
-        skills: skill_list,
-      },
-    };
-    var updatedata = await axios
-      .put(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
-        newobj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
+    if (travelwork.length !== 0) {
+      setloading(true);
+      var alldata = [];
+      for (var i = 0; i < travelwork.length; i++) {
+        if (travelwork[i].type === "new") {
+          var arrayOf_Values = [];
+          if (travelwork[i].skills.length !== 0) {
+            arrayOf_Values = travelwork[i].skills.map((obj) => obj.value);
+          }
+          var newobj = {
+            username: userdata[0].username,
+            project_details_info: {
+              description: travelwork[i].description,
+              duration_of_project: travelwork[i].duration_of_project,
+              project_title: travelwork[i].project_title,
+              reporting_to: travelwork[i].reporting_to,
+              role: travelwork[i].role,
+              skills: arrayOf_Values,
+            },
+          };
+          alldata.push({
+            description: travelwork[i].description,
+            duration_of_project: travelwork[i].duration_of_project,
+            project_title: travelwork[i].project_title,
+            reporting_to: travelwork[i].reporting_to,
+            role: travelwork[i].role,
+            skills: arrayOf_Values,
+          });
+
+          await axios
+            .post(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getProjectDetails/${userid}/`,
+              newobj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+        } else {
+          var arrayOfValues = [];
+          if (travelwork[i].skills.length !== 0) {
+            arrayOfValues = travelwork[i].skills.map((obj) => obj.value);
+          }
+          var new_obj = {
+            username: userdata[0].username,
+            project_details_info: {
+              description: travelwork[i].description,
+              duration_of_project: travelwork[i].duration_of_project,
+              project_title: travelwork[i].project_title,
+              reporting_to: travelwork[i].reporting_to,
+              role: travelwork[i].role,
+              skills: arrayOfValues,
+            },
+          };
+          alldata.push({
+            description: travelwork[i].description,
+            duration_of_project: travelwork[i].duration_of_project,
+            project_title: travelwork[i].project_title,
+            reporting_to: travelwork[i].reporting_to,
+            role: travelwork[i].role,
+            skills: arrayOfValues,
+            id: travelwork[i].id,
+          });
+          await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getProjectDetails/${travelwork[i].id}/`,
+              new_obj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
         }
-      )
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    if (
-      updatedata.message === "User and Associated Info updated successfully"
-    ) {
+      }
       let updatedObject = {
         ...userdata[0],
-        project_details_info: updatedata.user.project_details_info,
+        project_details_info: alldata,
       };
       dispatch(storeAction.userdataHander({ userdata: [] }));
       setTimeout(() => {
         dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
       }, 10);
       dispatch(storeAction.isPopUpHander());
-
       setloading(false);
-    } else {
-      setloading(false);
+      getUserinfo();
     }
-    getUserinfo();
   };
   const [selectedOptionskill, setSelectedOptionskill] = useState(null);
   const [skilloption, setskilloption] = useState([]);
@@ -188,11 +247,13 @@ const ProjectDetails = () => {
       }
     }
   };
-  const handleSelectChange = (selectedOptions) => {
+  const handleSelectChange = (index, selectedOptions) => {
     if (selectedOptions.length <= 5) {
-      setSelectedOptionskill(selectedOptions);
+      travelwork[index]["skills"] = selectedOptions;
+      settravelwork([...travelwork]);
     }
   };
+  console.log(travelwork, "kkkkkkkkkkkkk");
   return (
     <div>
       <div className="projectDetails">
@@ -220,31 +281,28 @@ const ProjectDetails = () => {
               )}
             </div>
           </div>
-          {isArrow === true &&
-            (userdata.length !== 0 ? (
-              userdata[0].project_details_info !== null ? (
-                <div className="projectDetailsDesc">
-                  <h1>Add details of projects you worked on in your career</h1>
-                  <h2>{userdata[0].project_details_info.project_title}</h2>
+          {isArrow === true ? (
+            education_data.length !== 0 ? (
+              education_data.map((data, index) => (
+                <div className="projectDetailsDesc" key={index}>
+                  <h2>{data.project_title}</h2>
                   <div className="projectDetailsDescFlex">
                     <h3>Role : </h3>
-                    <p>{userdata[0].project_details_info.role}</p>
+                    <p>{data.role}</p>
                   </div>
                   <div className="projectDetailsDescFlex">
                     <h3>Reporting to : </h3>
-                    <p>{userdata[0].project_details_info.reporting_to}</p>
+                    <p>{data.reporting_to}</p>
                   </div>
                   <div className="projectDetailsDescFlex">
                     <h3>Duration : </h3>
-                    <p>
-                      {userdata[0].project_details_info.duration_of_project}{" "}
-                    </p>
+                    <p>{data.duration_of_project} </p>
                   </div>
                   <div className="projectDetailsDescFlexLast">
                     <h4>Key Skills:</h4>
-                    <p>{userdata[0].project_details_info.skills.toString()}</p>
+                    <p>{data.skills.toString()}</p>
                   </div>
-                  <h6>{userdata[0].project_details_info.description}</h6>
+                  <h6>{data.description}</h6>
                   <div className="projectDetailsHighlight">
                     <img src={star} alt="" />
                     <p>
@@ -254,14 +312,7 @@ const ProjectDetails = () => {
                     </p>
                   </div>
                 </div>
-              ) : (
-                <div className="educationDesc">
-                  <h1> Add details of projects you worked on in your career</h1>
-                  <button className="touchButtonnew" onClick={overLayHandler}>
-                    <h4>Add Project Details</h4>
-                  </button>
-                </div>
-              )
+              ))
             ) : (
               <div className="educationDesc">
                 <h1> Add details of projects you worked on in your career</h1>
@@ -269,7 +320,9 @@ const ProjectDetails = () => {
                   <h4>Add Project Details</h4>
                 </button>
               </div>
-            ))}
+            )
+          ) : null}
+
           {isPopUp === "project" && (
             <div className="projectDetailsOverlay">
               <div className="innerprojectDetailsOverlay">
@@ -287,18 +340,6 @@ const ProjectDetails = () => {
                     className="projectDetailsLeftIcon"
                   >
                     <RxCross1 />
-
-                    {/* <img
-                      className="projectDetailsLeftIconSvg"
-                      onClick={overLayHandler}
-                      src={edit}
-                      alt=""
-                    />
-                    {isArrow === true ? (
-                      <img onClick={dropDownhandler} src={dropUp} alt="" />
-                    ) : (
-                      <img onClick={dropDownhandler} src={dropDown} alt="" />
-                    )} */}
                   </div>
                 </div>
               </div>
@@ -306,68 +347,94 @@ const ProjectDetails = () => {
                 Add your Details to help us match you with the perfect
                 opportunity
               </h6>
-              <div className="projectDetailsOverlayFlex">
-                <div className="projectDetailsOverlayFlexLeft">
-                  <h2>Project Title</h2>
-                  <input
-                    type="text"
-                    name="project_title"
-                    onChange={handlechange}
-                    defaultValue={educationdata.project_title}
-                  />
-                  <h2>Role</h2>
-                  <input
-                    type="text"
-                    name="role"
-                    onChange={handlechange}
-                    defaultValue={educationdata.role}
-                  />
-                  <h2>Reporting to</h2>
-                  <input
-                    type="text"
-                    name="reporting_to"
-                    onChange={handlechange}
-                    defaultValue={educationdata.reporting_to}
-                  />
-                  <h2>Duration of project</h2>
-                  <input
-                    type="number"
-                    name="duration_of_project"
-                    onChange={handlechange}
-                    defaultValue={educationdata.duration_of_project}
-                  />
-                  <div className="skillFlex">
-                    <h2>Key Skills</h2>
-                    <h5>Maximum 5 skills and top 3 skills</h5>
-                  </div>
-                  <Select
-                    value={selectedOptionskill}
-                    options={skilloption}
-                    isMulti
-                    onChange={handleSelectChange}
-                  />
-                  {/* <input
-                    type="text"
-                    name="skills"
-                    onChange={handlechange}
-                    defaultValue={educationdata.skills}
-                  /> */}
-                </div>
-                <div className="projectDetailsOverlayFlexRight">
-                  <h2>Description</h2>
-                  <textarea
-                    name="description"
-                    onChange={handlechange}
-                    defaultValue={educationdata.description}
-                  ></textarea>
-                </div>
-              </div>
-              {/* <div className="AddMore">
-                <button>
+              {travelwork.length !== 0
+                ? travelwork.map((data, index) => (
+                    <div className="projectDetailsOverlayFlex" key={index}>
+                      <div className="projectDetailsOverlayFlexLeft">
+                        <h2>Project Title</h2>
+                        <input
+                          type="text"
+                          name="project_title"
+                          onChange={(e) => {
+                            handlechangework(
+                              e.target.value,
+                              index,
+                              "project_title"
+                            );
+                          }}
+                          defaultValue={data.project_title}
+                        />
+                        <h2>Role</h2>
+                        <input
+                          type="text"
+                          name="role"
+                          onChange={(e) => {
+                            handlechangework(e.target.value, index, "role");
+                          }}
+                          defaultValue={data.role}
+                        />
+                        <h2>Reporting to</h2>
+                        <input
+                          type="text"
+                          name="reporting_to"
+                          onChange={(e) => {
+                            handlechangework(
+                              e.target.value,
+                              index,
+                              "reporting_to"
+                            );
+                          }}
+                          defaultValue={data.reporting_to}
+                        />
+                        <h2>Duration of project</h2>
+                        <input
+                          type="number"
+                          name="duration_of_project"
+                          onChange={(e) => {
+                            handlechangework(
+                              e.target.value,
+                              index,
+                              "duration_of_project"
+                            );
+                          }}
+                          defaultValue={data.duration_of_project}
+                        />
+                        <div className="skillFlex">
+                          <h2>Key Skills</h2>
+                          <h5>Maximum 5 skills and top 3 skills</h5>
+                        </div>
+                        <Select
+                          value={data.skills}
+                          options={skilloption}
+                          isMulti
+                          onChange={(selectedOption) =>
+                            handleSelectChange(index, selectedOption)
+                          }
+                        />
+                      </div>
+                      <div className="projectDetailsOverlayFlexRight">
+                        <h2>Description</h2>
+                        <textarea
+                          name="description"
+                          onChange={(e) => {
+                            handlechangework(
+                              e.target.value,
+                              index,
+                              "description"
+                            );
+                          }}
+                          defaultValue={data.description}
+                        ></textarea>
+                      </div>
+                    </div>
+                  ))
+                : null}
+              <div className="Add_More">
+                <button onClick={addcountwork}>
                   <img src={plus} alt="" />
-                  <h3>ADD MORE WORK HISTROY</h3>
+                  <h3>ADD MORE EDUCATION DETAILS</h3>
                 </button>
-              </div> */}
+              </div>
               <div className="vedioResumeButtons">
                 <button
                   className="discard"

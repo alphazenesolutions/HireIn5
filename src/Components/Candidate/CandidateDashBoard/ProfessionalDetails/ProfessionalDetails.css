@@ -122,17 +122,17 @@
 /* overLay */
 .professionalDetailsOverlay {
     width: 65%;
-    height: auto;
+    height: 80%;
     background-color: white;
     display: flex;
     z-index: 10 !important;
     flex-direction: column;
-    /* padding: 10px; */
     border-radius: 12px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    overflow-y: scroll;
 }
 
 .professionalDetailsOverlay h6 {
@@ -238,6 +238,26 @@
     height: 100%;
     padding: 0px 30px;
     padding-bottom: 30px;
+}
+
+.Add_More {
+    padding: 0px 30px;
+    padding-bottom: 30px;
+}
+
+.Add_More button {
+    width: 100%;
+    background-color: var(--addMore);
+    border: 1px solid var(--loadingColor);
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: var(--primaryColor);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
 }
 
 .AddMore button {

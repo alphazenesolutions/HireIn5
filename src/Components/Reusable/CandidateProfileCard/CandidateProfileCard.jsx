@@ -422,7 +422,7 @@ const CandidateProfileCard = (props) => {
                   {isSelect === "assessments" && (
                     <div className="work">
                       <h5 onClick={buttonHandler1} id="technical">
-                        Resume
+                        Video Resume
                       </h5>
                       <h5 onClick={buttonHandler1} id="certificate">
                         Certifications
@@ -605,32 +605,47 @@ const CandidateProfileCard = (props) => {
               )}
               {isSelect1 === "certificate" && (
                 <div className="certification">
-                  {singleuser[0].certificate_info !== null ? (
-                    <div className="certify">
-                      <h1>{singleuser[0].certificate_info.course_name}</h1>
-                      <h2>Google India </h2>
-                      <div className="date">
-                        <h3>Date Issued:</h3>
-                        <h4>{singleuser[0].certificate_info.date_issued}</h4>
-                      </div>
-                      <div className="date">
-                        <h3>Skills:</h3>
-                        <h4>
-                          {singleuser[0].certificate_info.skills.toString()}
-                        </h4>
-                      </div>
-                      <h5>{singleuser[0].certificate_info.description}</h5>
-                      {singleuser[0].certificate_info.certificate_file
-                        .length !== 0 ? (
-                        <div className="gradeCertificate1">
-                          <img src={gallery} alt="" />
-                          <div className="gradeCertificateDesc1">
-                            <h6 className="mt-5">certificate01.jpeg</h6>
+                  {singleuser[0].certificate_info.length !== 0
+                    ? singleuser[0].certificate_info.map((data, index) => (
+                        <div className="certify" key={index}>
+                          <h1>{data.course_name}</h1>
+                          <h2>Google India </h2>
+                          <div className="date">
+                            <h3>Date Issued:</h3>
+                            <h4>{data.date_issued}</h4>
                           </div>
+                          <div className="date">
+                            <h3>Skills:</h3>
+                            <h4>{data.skills.toString()}</h4>
+                          </div>
+                          <h5>{data.description}</h5>
+                          {data.certificate_file.length !== 0
+                            ? data.certificate_file.map((data, index) =>
+                                data.length !== 0 ? (
+                                  <div
+                                    className="gradeCertificate"
+                                    onClick={() => {
+                                      window.open(`${data}`, "_blank");
+                                    }}
+                                    key={index}
+                                  >
+                                    <img src={gallery} alt="" />
+                                    <div className="gradeCertificateDesc">
+                                      <h2>
+                                        {
+                                          data
+                                            .split("/images/")[1]
+                                            .split("/")[1]
+                                        }
+                                      </h2>
+                                    </div>
+                                  </div>
+                                ) : null
+                              )
+                            : null}
                         </div>
-                      ) : null}
-                    </div>
-                  ) : null}
+                      ))
+                    : null}
                 </div>
               )}
               {isSelect1 === "hacker" &&
@@ -658,64 +673,49 @@ const CandidateProfileCard = (props) => {
                   </div>
                 </div>
               )}
+              {console.log(singleuser[0],'yyyyyyyyyy')}
               {isSelect1 === "employ" &&
-                (singleuser[0].professional_details_info !== null ? (
-                  <div className="employ">
-                    <h2>{singleuser[0].professional_details_info.title}</h2>
-                    <h3>
-                      {singleuser[0].professional_details_info.company_name}{" "}
-                    </h3>
-                    <h4>
-                      {singleuser[0].professional_details_info.years_active}
-                    </h4>
-                    <h4>{singleuser[0].professional_details_info.location}</h4>
-                    <h5>
-                      {singleuser[0].professional_details_info.description}
-                    </h5>
-                    <h6>
-                      Key Skills :{" "}
-                      <h5>
-                        {" "}
-                        {singleuser[0].professional_details_info.skills.toString()}
-                      </h5>
-                    </h6>
-                  </div>
-                ) : null)}
+              singleuser[0].professional_details_info.length !== 0
+                ? singleuser[0].professional_details_info.map((data, index) => (
+                    <div className="employ" key={index}>
+                      <h2>{data.title}</h2>
+                      <h3>{data.company_name} </h3>
+                      <h4>{data.years_active}</h4>
+                      <h4>{data.location}</h4>
+                      <h5>{data.description}</h5>
+                      <h6>
+                        Key Skills : <h5> {data.skills.toString()}</h5>
+                      </h6>
+                    </div>
+                  ))
+                : null}
+
               {isSelect1 === "project" && (
                 <div className="project">
-                  {singleuser[0].project_details_info !== null ? (
-                    <div className="projectInner">
-                      <h1>
-                        {singleuser[0].project_details_info.project_title}
-                      </h1>
-                      <div className="projectFlex">
-                        <h2>Role : </h2>
-                        <h3> {singleuser[0].project_details_info.role}</h3>
-                      </div>
-                      <div className="projectFlex">
-                        <h2>Reporting to:</h2>
-                        <h3>
-                          {singleuser[0].project_details_info.reporting_to}
-                        </h3>
-                      </div>
-                      <div className="projectFlex">
-                        <h2>Duration:</h2>
-                        <h3>
-                          {
-                            singleuser[0].project_details_info
-                              .duration_of_project
-                          }
-                        </h3>
-                      </div>
-                      <div className="projectFlex1">
-                        <h2>Key Skills: </h2>
-                        <h3>
-                          {singleuser[0].project_details_info.skills.toString()}
-                        </h3>
-                      </div>
-                      <h4>{singleuser[0].project_details_info.description}</h4>
-                    </div>
-                  ) : null}
+                  {singleuser[0].project_details_info.length !== 0
+                    ? singleuser[0].project_details_info.map((data, index) => (
+                        <div className="projectInner mb-5" key={index}>
+                          <h1>{data.project_title}</h1>
+                          <div className="projectFlex">
+                            <h2>Role : </h2>
+                            <h3> {data.role}</h3>
+                          </div>
+                          <div className="projectFlex">
+                            <h2>Reporting to:</h2>
+                            <h3>{data.reporting_to}</h3>
+                          </div>
+                          <div className="projectFlex">
+                            <h2>Duration:</h2>
+                            <h3>{data.duration_of_project}</h3>
+                          </div>
+                          <div className="projectFlex">
+                            <h2>Key Skills: </h2>
+                            <h3>{data.skills.toString()}</h3>
+                          </div>
+                          <h4>{data.description}</h4>
+                        </div>
+                      ))
+                    : null}
                 </div>
               )}
               {isSelect1 === "achievements" && (

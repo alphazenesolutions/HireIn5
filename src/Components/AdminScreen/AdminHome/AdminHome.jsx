@@ -21,14 +21,42 @@ const AdminHome = () => {
   const token = useSelector((store) => store.token);
   const userid = useSelector((store) => store.userid);
   const alluserdata = useSelector((store) => store.alluserdata);
+  const allcompanydata = useSelector((store) => store.allcompanydata);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
+  const [interviewdata, setinterviewdata] = useState([]);
 
-  const overLayHandler = () => {
+  const overLayHandler = async (data) => {
+    var checkdata = await allcompanydata.filter((item) => {
+      return item.id == data.user;
+    });
+    setinterviewdata(checkdata);
     dispatch(storeAction.isPopUpHander("interviewDetails"));
+    let newdata = JSON.stringify({
+      status: "true",
+    });
+    console.log(checkdata, "checkdata");
+    let config = {
+      method: "put",
+      maxBodyLength: Infinity,
+      url: `https://hirein5-server.onrender.com/notification/${data.id}/`,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+      data: newdata,
+    };
+    axios
+      .request(config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+    Getnotification();
   };
 
   const overLayHandler1 = async (data) => {
@@ -153,6 +181,7 @@ const AdminHome = () => {
       Getnotification();
     }
   };
+  console.log(interviewdata, "interviewdata");
   return (
     <div>
       <div className="adminHomePage paddingLeft100 paddingRight100 marginBottom20">
@@ -222,6 +251,19 @@ const AdminHome = () => {
                       button="has onboarded as a client subscribed to Starter plan"
                       btnClass="hideButton"
                       date={data.created_at}
+                      key={index}
+                      type="unread"
+                    />
+                  ) : data.on_type === "Client Meeting" ? (
+                    <Notification
+                      Img={Profile}
+                      message={data.message}
+                      date={data.created_at}
+                      fun={() => {
+                        overLayHandler(data);
+                      }}
+                      button="Review Candidate"
+                      btnClass="notificationButton"
                       key={index}
                       type="unread"
                     />
@@ -359,16 +401,18 @@ const AdminHome = () => {
             <h1>Interview details</h1>
             <img src={back} alt="" />
           </div>
-          <div className="interViewDetailOverlayContent">
-            <h2>Candidate:</h2>
-            <h3>Yasir Quazi</h3>
-            <h2>Company (client):</h2>
-            <h3>Nuva Corp</h3>
-            <h2>Date & time:</h2>
-            <h3>12 February, 2024 at 5:30 PM IST</h3>
-            <h2>Meeting link:</h2>
-            <h3>https://calendly.com/meet/usernamelink</h3>
-          </div>
+          {interviewdata.length !== 0 ? (
+            <div className="interViewDetailOverlayContent">
+              <h2>Candidate:</h2>
+              <h3>{interviewdata[0].first_name}</h3>
+              <h2>Company (client):</h2>
+              <h3>{interviewdata[0].company.company_name}</h3>
+              {/* <h2>Date & time:</h2>
+              <h3>12 February, 2024 at 5:30 PM IST</h3>
+              <h2>Meeting link:</h2>
+              <h3>https://calendly.com/meet/usernamelink</h3> */}
+            </div>
+          ) : null}
         </div>
       )}
       {isPopUp == "approveconformation" && (

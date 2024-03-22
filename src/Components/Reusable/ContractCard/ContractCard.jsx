@@ -21,7 +21,6 @@ const ContractCard = ({ name }) => {
   const [formData] = useState(new FormData());
 
   const handleFileInputChange = async (e) => {
-
     setloading(true);
     formData.append("image", e.target.files[0]);
     formData.append("name", `contract_${singleuser[0].id}`);
@@ -36,9 +35,11 @@ const ContractCard = ({ name }) => {
     );
     if (response.data.img_url.length !== 0) {
       var obj = {
-        file: response.data.img_url,
-        user: singleuser[0].id,
-        name: name,
+        contracts_info: {
+          file: response.data.img_url,
+          name: name,
+          user: singleuser[0].id,
+        },
       };
       if (e.target.name === "upload") {
         var createdata = await axios
