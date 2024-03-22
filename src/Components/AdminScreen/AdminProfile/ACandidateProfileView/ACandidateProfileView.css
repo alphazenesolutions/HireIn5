@@ -141,7 +141,7 @@
 /* admin edit overlay */
 .adminEditOverlay {
     width: 60%;
-    height: 60%;
+    /* height: 60%; */
     overflow-y: scroll;
     background-color: white;
     display: flex;
@@ -351,10 +351,14 @@
     }
 
     .adminEditOverlayBody {
-        height: 100%;
+        /* height: 100%; */
         grid-template-columns: repeat(1, 1fr);
         overflow-y: scroll;
     }
+
+        /* .adminEditOverlayContent {
+            height: 40px;
+        } */
 
     .editOverlayButton {
         padding: 20px;
