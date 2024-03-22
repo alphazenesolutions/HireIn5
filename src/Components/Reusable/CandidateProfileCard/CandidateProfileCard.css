@@ -846,9 +846,9 @@ progress.progress_bar::-webkit-progress-value {
 }
 
 /* available */
-.available {
+.availableBody {
     width: 100%;
-    /* padding: 0px 40px; */
+    padding: 0px 40px;
 }
 
 .availableFlex {
