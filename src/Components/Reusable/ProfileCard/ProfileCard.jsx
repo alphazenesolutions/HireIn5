@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-import React from "react";
+import React, { useState } from "react";
 import "./ProfileCard.css";
 import briefcase from "../../../assests/briefCase.png";
 import graduation_cap from "../../../assests/graduationCap.png";
@@ -7,15 +7,32 @@ import user_check from "../../../assests/userCheck.png";
 import location from "../../../assests/mapPin.png";
 import courseIcons from "../../../assests/userCard.png";
 import Avatar from "react-avatar";
+import { useDispatch, useSelector } from "react-redux";
+import { storeAction } from "../../../Store/Store";
+import { MdSort } from "react-icons/md";
+import { RxCross1 } from "react-icons/rx";
+import { FiLoader } from "react-icons/fi";
 
 const ProfileCard = ({ filterdata, fun }) => {
+  const dispatch = useDispatch();
+  const [loading, setIsLoading] = useState(false);
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+
+  const sortHandler = (e) => {
+    dispatch(storeAction.isPopUpHander(e.target.id));
+  };
+
   return (
     <div>
       <div className="clientDiscoverOuter paddingRight100">
         <div className="clientDiscoverInner">
           <div className="clientDiscoverTop">
             <h1>{filterdata.length} Results</h1>
-            <h1 title="">Sort by</h1>
+            <h1 id="sort" onClick={sortHandler} title="" className="pointer">
+              Sort by
+            </h1>
           </div>
           <div className="clientDiscover">
             {filterdata.length !== 0 ? (
@@ -47,7 +64,6 @@ const ProfileCard = ({ filterdata, fun }) => {
                       </div>
                     </div>
                     <div className="candidateDiscoverHours">
-                     
                       {data.rate_card_info !== null ? (
                         <h2> {data.rate_card_info.remote_hourly}/hr</h2>
                       ) : (
@@ -123,6 +139,50 @@ const ProfileCard = ({ filterdata, fun }) => {
           </div>
         </div>
       </div>
+      {isPopUp == "sort" && (
+        <>
+          <div className="adminEditOverlay">
+            <div className="adminEditOverlayHead">
+              <h1>Sort By</h1>
+              <RxCross1 onClick={sortHandler} className="pointer" />
+            </div>
+            <div className="adminEditOverlayBody">
+              <div className="adminEditOverlayContent">
+                <h2>Hourly Rate</h2>
+                <select name="" id="">
+                  <option value="">Low to Hight</option>
+                  <option value="">High to Low</option>
+                </select>
+              </div>
+              <div className="adminEditOverlayContent">
+                <h2>Years of Experience</h2>
+                <select name="" id="">
+                  <option value="">Low to Hight</option>
+                  <option value="">High to Low</option>
+                </select>
+              </div>
+            </div>
+            <div className="editOverlayButton">
+              <button
+                className="discard"
+                onClick={() => {
+                  dispatch(storeAction.isPopUpHander());
+                }}
+              >
+                Discard
+              </button>
+
+              {loading === false ? (
+                <button className="save">Sort</button>
+              ) : (
+                <button className="save w-[10rem] flex justify-center items-center">
+                  <FiLoader className="loadingIcon" />
+                </button>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
