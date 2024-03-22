@@ -114,7 +114,7 @@ const Layout = () => {
           </div>
         </div>
       )}
-      <div className="routing">{!issidebar && <Routing />}</div>
+      <div className="routing displayHandler">{!issidebar && <Routing />}</div>
 
       <div className="MobScreen backGround ">
         <Routing />
