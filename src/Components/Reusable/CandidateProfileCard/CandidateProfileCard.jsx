@@ -673,7 +673,7 @@ const CandidateProfileCard = (props) => {
                   </div>
                 </div>
               )}
-              {console.log(singleuser[0],'yyyyyyyyyy')}
+              {console.log(singleuser[0], "yyyyyyyyyy")}
               {isSelect1 === "employ" &&
               singleuser[0].professional_details_info.length !== 0
                 ? singleuser[0].professional_details_info.map((data, index) => (
@@ -724,7 +724,7 @@ const CandidateProfileCard = (props) => {
                 </div>
               )}
               {isSelect1 === "available" && (
-                <div className="available">
+                <div className="availableBody">
                   <div className="availableFlex">
                     <div className="availableFlexLeft">
                       <h1>Availability</h1>
