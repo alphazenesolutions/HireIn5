@@ -37,6 +37,7 @@ const AdminTeamMemberComp = () => {
   }
 
   function getvalue(e) {
+    console.log(e, "e");
     setvalue1(e);
     setvalue22(e);
     setshow(false);
@@ -260,55 +261,50 @@ const AdminTeamMemberComp = () => {
   const sendinvite = async () => {
     setloading(true);
     var obj = {
-      name: formdata.name,
-      email_id: formdata.email_id,
-      level_of_access: setvalue,
+      first_name: formdata.name,
+      username: formdata.email_id,
+      email: formdata.email_id,
+      role: setvalue === "Admin" ? 1 : setvalue === "HR" ? 4 : 5,
       status: "Pending",
+      password: "",
     };
-    var createdata = await axios
-      .post(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${userid}/`,
-        obj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
-        }
-      )
+    var newobj = {
+      email: formdata.email_id,
+    };
+    console.log(obj, "obj");
+    var createuser = await axios
+      .post(`https://hirein5-server.onrender.com/user/create/`, obj)
       .then((res) => {
         return res.data;
       })
       .catch((err) => {
         return err.response;
       });
-    if (createdata !== null) {
-      toast.success("Invite Sent...", {
-        autoClose: 2000,
-        transition: Slide,
-        style: customToastStyle,
-      });
-      setshownew(false);
-      var alldata = await axios
-        .get(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${userid}/`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `JWT ${token}`,
-            },
-          }
-        )
+    if (createuser !== null) {
+      await axios
+        .post(`${process.env.REACT_APP_LOCAL_HOST_URL}/sendEmail/`, newobj, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        })
         .then((res) => {
           return res.data;
         })
         .catch((err) => {
           return err.response;
         });
+      toast.success("Invite Sent...", {
+        autoClose: 2000,
+        transition: Slide,
+        style: customToastStyle,
+      });
+      setshownew(false);
       document.getElementById("email").value = "";
       document.getElementById("name").value = "";
       setalldata(alldata);
     }
+    Getalldata();
     setloading(false);
   };
   useEffect(() => {
@@ -332,6 +328,9 @@ const AdminTeamMemberComp = () => {
         return err.response;
       });
     setalldata(alldata);
+  };
+  const get_value = (e) => {
+    console.log("e", e);
   };
   return (
     <div>

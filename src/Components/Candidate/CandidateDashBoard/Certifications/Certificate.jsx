@@ -35,41 +35,98 @@ const Certificate = () => {
   const [isShow, setIsShow] = useState(false);
 
   const displayHandler = async () => {
-    setloading(true);
-    var newobj = {
-      username: userdata[0].username,
-      certificate_info: {
-        course_name: educationdata.course_name,
-        date_issued: educationdata.date_issued,
-        description: educationdata.description,
-        url: educationdata.url,
-        skills: skill_list,
-        certificate_file: certificate,
-      },
-    };
-    var updatedata = await axios
-      .put(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
-        newobj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
+    if (travelwork.length !== 0) {
+      setloading(true);
+      var alldata = [];
+      for (var i = 0; i < travelwork.length; i++) {
+        if (travelwork[i].type === "new") {
+          var arrayOf_Values = [];
+          if (travelwork[i].skills.length !== 0) {
+            arrayOf_Values = travelwork[i].skills.map((obj) => obj.value);
+          }
+          var newobj = {
+            username: userdata[0].username,
+            certificate_info: {
+              course_name: travelwork[i].course_name,
+              date_issued: travelwork[i].date_issued,
+              description: travelwork[i].description,
+              url: travelwork[i].url,
+              skills: arrayOf_Values,
+              certificate_file: travelwork[i].certificate_file,
+            },
+          };
+          alldata.push({
+            course_name: travelwork[i].course_name,
+            date_issued: travelwork[i].date_issued,
+            description: travelwork[i].description,
+            url: travelwork[i].url,
+            skills: arrayOf_Values,
+            certificate_file: travelwork[i].certificate_file,
+          });
+          await axios
+            .post(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getCertifications/${userid}/`,
+              newobj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+        } else {
+          var arrayOfValues = [];
+          if (travelwork[i].skills.length !== 0) {
+            arrayOfValues = travelwork[i].skills.map((obj) => obj.value);
+          }
+          var new_obj = {
+            username: userdata[0].username,
+            certificate_info: {
+              course_name: travelwork[i].course_name,
+              date_issued: travelwork[i].date_issued,
+              description: travelwork[i].description,
+              url: travelwork[i].url,
+              skills: arrayOfValues,
+              certificate_file: travelwork[i].certificate_file,
+            },
+          };
+          alldata.push({
+            course_name: travelwork[i].course_name,
+            date_issued: travelwork[i].date_issued,
+            description: travelwork[i].description,
+            url: travelwork[i].url,
+            skills: arrayOfValues,
+            certificate_file: travelwork[i].certificate_file,
+            id: travelwork[i].id,
+          });
+          await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getCertifications/${travelwork[i].id}/`,
+              new_obj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
         }
-      )
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    if (
-      updatedata.message === "User and Associated Info updated successfully"
-    ) {
+      }
       let updatedObject = {
         ...userdata[0],
-        certificate_info: updatedata.user.certificate_info,
+        certificate_info: alldata,
       };
       dispatch(storeAction.userdataHander({ userdata: [] }));
       setTimeout(() => {
@@ -78,10 +135,8 @@ const Certificate = () => {
       dispatch(storeAction.isPopUpHander());
       setIsShow(!isShow);
       setloading(false);
-    } else {
-      setloading(false);
+      getUserinfo();
     }
-    getUserinfo();
   };
 
   const isPopUp = useSelector((store) => {
@@ -95,15 +150,37 @@ const Certificate = () => {
   const exitOverlayHandler = () => {
     dispatch(storeAction.isPopUpHander());
   };
-
-  const [educationdata, seteducationdata] = useState({
-    course_name: "",
-    date_issued: "",
-    description: "",
-    url: "",
-    skills: "",
-  });
   const [loading, setloading] = useState(false);
+  const [education_data, seteducation_data] = useState([]);
+  const [travelwork, settravelwork] = useState([
+    {
+      course_name: "",
+      date_issued: "",
+      description: "",
+      url: "",
+      skills: [],
+      type: "new",
+      certificate_file: [],
+    },
+  ]);
+
+  const addcountwork = () => {
+    var newobj = {
+      course_name: "",
+      date_issued: "",
+      description: "",
+      url: "",
+      skills: [],
+      type: "new",
+      certificate_file: [],
+    };
+    settravelwork((prevState) => [...prevState, newobj]);
+  };
+
+  const handlechangework = (value, index, name) => {
+    travelwork[index][name] = value;
+    settravelwork([...travelwork]);
+  };
 
   useEffect(() => {
     getUserinfo();
@@ -111,39 +188,28 @@ const Certificate = () => {
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
-      seteducationdata({
-        course_name:
-          userdata[0].certificate_info !== null
-            ? userdata[0].certificate_info.course_name
-            : "",
-        date_issued:
-          userdata[0].certificate_info !== null
-            ? userdata[0].certificate_info.date_issued
-            : "",
-        description:
-          userdata[0].certificate_info !== null
-            ? userdata[0].certificate_info.description
-            : "",
-        url:
-          userdata[0].certificate_info !== null
-            ? userdata[0].certificate_info.url
-            : "",
-      });
-      if (userdata[0].certificate_info !== null) {
-        setcertificate(userdata[0].certificate_info.certificate_file);
-      }
-      if (userdata[0].certificate_info !== null) {
-        if (userdata[0].certificate_info.skills.length !== 0) {
-          var filter = [];
-          for (var a = 0; a < userdata[0].certificate_info.skills.length; a++) {
-            filter.push({
-              value: userdata[0].certificate_info.skills[a],
-              label: userdata[0].certificate_info.skills[a],
-            });
-          }
-          setSelectedOptionskill(filter);
-          setskill_list(userdata[0].certificate_info.skills);
+      var certificatedata = userdata[0].certificate_info;
+      if (certificatedata.length !== 0) {
+        seteducation_data(certificatedata);
+        var filterdata = [];
+        for (var i = 0; i < certificatedata.length; i++) {
+          const arrayOfObjects = certificatedata[i].skills.map((value) => ({
+            value,
+            label: value,
+          }));
+
+          filterdata.push({
+            course_name: certificatedata[i].course_name,
+            date_issued: certificatedata[i].date_issued,
+            description: certificatedata[i].description,
+            url: certificatedata[i].url,
+            skills: arrayOfObjects,
+            type: "edit",
+            certificate_file: certificatedata[i].certificate_file,
+            id: certificatedata[i].id,
+          });
         }
+        settravelwork(filterdata);
       }
     }
     var skillarrray = Skilllist;
@@ -161,18 +227,14 @@ const Certificate = () => {
       setskilloption(filter1);
     }
   };
-  const handlechange = (e) => {
-    const { name, value } = e.target;
-    seteducationdata((values) => ({ ...values, [name]: value }));
-  };
   const fileInputRef = useRef(null);
-
-  const uploadHandler = (data) => {
-    // setIsUpload(!isUpload);
+  const uploadHandler = (index) => {
     fileInputRef.current.click();
+    setindex(index);
   };
-  var [certificate, setcertificate] = useState([]);
+  const [index, setindex] = useState(null);
   const [formData] = useState(new FormData());
+
   const handleFileInputChange = async (e) => {
     formData.append("image", e.target.files[0]);
     const selectedImage = e.target.files[0];
@@ -190,22 +252,29 @@ const Certificate = () => {
           },
         }
       );
-      setcertificate([...certificate, response.data.img_url]);
+      const updatedTravelwork = [...travelwork];
+      const updatedObj = {
+        ...updatedTravelwork[index],
+        certificate_file: [
+          ...updatedTravelwork[index].certificate_file,
+          response.data.img_url,
+        ],
+      };
+      updatedTravelwork[index] = updatedObj;
+      settravelwork(updatedTravelwork);
       fileInputRef.current.value = "";
       setIsUpload(true);
     }
   };
-  const deletebtn = async (id) => {
-    const updatedElements = [...certificate];
-    updatedElements.splice(id, 1);
-    setcertificate(updatedElements);
-  };
+
   const [selectedOptionskill, setSelectedOptionskill] = useState(null);
   const [skilloption, setskilloption] = useState([]);
   const [skill_list, setskill_list] = useState([]);
+
   useEffect(() => {
     getLocationdata();
   }, [selectedOptionskill]);
+
   const getLocationdata = async () => {
     if (selectedOptionskill !== null) {
       if (selectedOptionskill.length > 5) {
@@ -223,11 +292,13 @@ const Certificate = () => {
       }
     }
   };
-  const handleSelectChange = (selectedOptions) => {
+  const handleSelectChange = (index, selectedOptions) => {
     if (selectedOptions.length <= 5) {
-      setSelectedOptionskill(selectedOptions);
+      travelwork[index]["skills"] = selectedOptions;
+      settravelwork([...travelwork]);
     }
   };
+
   return (
     <div>
       <div className="certificate">
@@ -256,92 +327,58 @@ const Certificate = () => {
             </div>
           </div>
           {isArrow === true &&
-            (userdata.length !== 0 ? (
+            (education_data.length !== 0 ? (
               <div className="certificateDesc">
-                <div className="certificateDescUpload">
-                  <div className="certificateDescUploadDesc">
-                    <h1>Add your personality assessment test result</h1>
-                    {isShow === false && (
-                      <div className="uploadVedioRes">
-                        <h5>Your PDF here</h5>
-                        <h3>
-                          Maximum size: 5MB MP4,
-                          <br /> MOV, AVI and WMV accepted
-                        </h3>
+                <h1>
+                  Add certification / course Details here to enhance your
+                  profile
+                </h1>
+                <div key={index}>
+                  {education_data.map((data, index) => (
+                    <div className="innerCertificateDesc" key={index}>
+                      <h2>{data.course_name}</h2>
+                      <div className="certificateDescFlex">
+                        <h3>Date Issued:</h3>
+                        <p>{data.date_issued}</p>
                       </div>
-                    )}
-                    {isShow === false && (
-                      <div className="vedioNotes">
-                        <img src={star} alt="" />
-                        <div className="notes">
-                          <h4>
-                            If you don’t have a personality assessment
-                            certificate, you can take one here at{" "}
-                            <span className="certificateHighLight">Mettl</span>
-                          </h4>
-                        </div>
+                      <div className="certificateDescFlex">
+                        <h3>URL:</h3>
+                        <p>{data.url}</p>
                       </div>
-                    )}
-                    {isShow === true && (
-                      <div className="gradeCertificate">
-                        <img src={gallery} alt="" />
-                        <div className="gradeCertificateDesc">
-                          <h2>certificate01.jpeg</h2>
-                        </div>
+                      <div className="certificateDescFlexLast">
+                        <h4>Key Skills:</h4>
+                        <p>{data.skills.toString()}</p>
                       </div>
-                    )}
-                  </div>
-                </div>
-                {userdata[0].certificate_info !== null ? (
-                  <div className="innerCertificateDesc">
-                    <h1>
-                      Add certification / course Details here to enhance your
-                      profile
-                    </h1>
-                    <h2>{userdata[0].certificate_info.course_name}</h2>
-                    {/* <div className="certificateDescFlex">
-                      <h3>Issue Body: </h3>
-                      <p>Pending </p>
-                    </div> */}
-                    <div className="certificateDescFlex">
-                      <h3>Date Issued:</h3>
-                      <p>{userdata[0].certificate_info.date_issued}</p>
+                      <p>{data.description}</p>
+                      {data.certificate_file.length !== 0
+                        ? data.certificate_file.map((data, index) =>
+                            data.length !== 0 ? (
+                              <div
+                                className="gradeCertificate"
+                                onClick={() => {
+                                  window.open(`${data}`, "_blank");
+                                }}
+                                key={index}
+                              >
+                                <img src={gallery} alt="" />
+                                <div className="gradeCertificateDesc">
+                                  <h2>
+                                    {data.split("/images/")[1].split("/")[1]}
+                                  </h2>
+                                </div>
+                              </div>
+                            ) : null
+                          )
+                        : null}
                     </div>
-                    <div className="certificateDescFlex">
-                      <h3>URL:</h3>
-                      <p>{userdata[0].certificate_info.url}</p>
-                    </div>
-                    <div className="certificateDescFlexLast">
-                      <h4>Key Skills:</h4>
-                      <p>{userdata[0].certificate_info.skills.toString()}</p>
-                    </div>
-                    <p>{userdata[0].certificate_info.description}</p>
-                  </div>
-                ) : null}
-                <div className="flex gap-4">
-                  {certificate.length !== 0
-                    ? certificate.map((data, index) =>
-                        data.length !== 0 ? (
-                          <div
-                            className="gradeCertificate"
-                            onClick={() => {
-                              window.open(`${data}`, "_blank");
-                            }}
-                          >
-                            <img src={gallery} alt="" />
-                            <div className="gradeCertificateDesc">
-                              <h2>{data.split("/images/")[1].split("/")[1]}</h2>
-                            </div>
-                          </div>
-                        ) : null
-                      )
-                    : null}
+                  ))}
+
+                  <div className="flex gap-4"></div>
                 </div>
               </div>
             ) : (
               <div className="educationDesc">
                 <h1>
-                  {" "}
                   Add certification / course Details here to enhance your
                   profile
                 </h1>
@@ -367,18 +404,6 @@ const Certificate = () => {
                     className="certificateLeftIcon"
                   >
                     <RxCross1 />
-
-                    {/* <img
-                      className="certificateLeftIconSvg"
-                      onClick={overLayHandler}
-                      src={edit}
-                      alt=""
-                    />
-                    {isArrow === true ? (
-                      <img onClick={dropDownhandler} src={dropUp} alt="" />
-                    ) : (
-                      <img onClick={dropDownhandler} src={dropDown} alt="" />
-                    )} */}
                   </div>
                 </div>
               </div>
@@ -414,119 +439,134 @@ const Certificate = () => {
                   Add certification / course Details here to enhance your
                   profile
                 </h6>
-                <div className="certificateDescOverlayFlex">
-                  <div className="certificateDescOverlayFlexLeft">
-                    <h2>Course name</h2>
-                    <input
-                      type="text"
-                      name="course_name"
-                      onChange={handlechange}
-                      defaultValue={educationdata.course_name}
-                    />
-                    <h2>Issuing body</h2>
-                    <input type="text" />
-                    <h2>URL</h2>
-                    <input
-                      type="text"
-                      name="url"
-                      onChange={handlechange}
-                      defaultValue={educationdata.url}
-                    />
-                  </div>
-                  <div className="certificateDescOverlayFlexRight">
-                    <h2>Date Issued</h2>
-                    <input
-                      type="date"
-                      name="date_issued"
-                      onChange={handlechange}
-                      defaultValue={educationdata.date_issued}
-                    />
-                    <h2>Skills</h2>
-                    {/* <input
-                      type="text"
-                      name="skills"
-                      onChange={handlechange}
-                      defaultValue={educationdata.skills}
-                    /> */}
-                    <Select
-                      value={selectedOptionskill}
-                      options={skilloption}
-                      isMulti
-                      onChange={handleSelectChange}
-                    />
-                    <h2>Description</h2>
-                    <input
-                      type="text"
-                      name="description"
-                      onChange={handlechange}
-                      defaultValue={educationdata.description}
-                    />
-                  </div>
-                </div>
-                <>
-                  <div onClick={uploadHandler} className="uploadCertificate">
-                    <h2 className="drop">
-                      Drag your fies here to{" "}
-                      <span className="browser">Browse</span>
-                    </h2>
-                    <h3>
-                      Maximum size: 5MB MP4,
-                      <br /> PDF, JPEG and PNG accepted
-                    </h3>
-                  </div>
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    style={{ display: "none" }}
-                    name="aadhaarfront"
-                    onChange={handleFileInputChange}
-                  />
-                </>
-                <>
-                  {certificate.length !== 0
-                    ? certificate.map((data, index) => (
-                        <div className="educationUploaded">
-                          <div className="educationUploadedFlex">
-                            <div className="educationUploadedFlexLeft">
-                              <img src={gallery} alt="" />
-                              <div className="educationUploadedFlexLeftDesc">
-                                {data.length !== 0 ? (
-                                  <h2>
-                                    {data.split("/images/")[1].split("/")[1]}
-                                  </h2>
-                                ) : (
-                                  <h2>certificate{index + 1}.jpeg</h2>
-                                )}
-
-                                {/* <p>4 MB</p> */}
-                              </div>
-                            </div>
-                            <div
-                              className="educationUploadedFlexRight"
-                              onClick={() => {
-                                deletebtn(index);
+                {travelwork.length !== 0
+                  ? travelwork.map((data, index) => (
+                      <>
+                        <div className="certificateDescOverlayFlex">
+                          <div className="certificateDescOverlayFlexLeft">
+                            <h2>Course name</h2>
+                            <input
+                              type="text"
+                              name="course_name"
+                              onChange={(e) => {
+                                handlechangework(
+                                  e.target.value,
+                                  index,
+                                  "course_name"
+                                );
                               }}
-                            >
-                              <img src={trash} alt="" />
-                            </div>
+                              defaultValue={data.course_name}
+                            />
+                            <h2>Issuing body</h2>
+                            <input type="text" />
+                            <h2>URL</h2>
+                            <input
+                              type="text"
+                              name="url"
+                              onChange={(e) => {
+                                handlechangework(e.target.value, index, "url");
+                              }}
+                              defaultValue={data.url}
+                            />
                           </div>
-                          <div className="percent">
-                            <div className="range">
-                              <div className="InnerRange"></div>
-                            </div>
-                            <h2>100%</h2>
+                          <div className="certificateDescOverlayFlexRight">
+                            <h2>Date Issued</h2>
+                            <input
+                              type="date"
+                              name="date_issued"
+                              onChange={(e) => {
+                                handlechangework(
+                                  e.target.value,
+                                  index,
+                                  "date_issued"
+                                );
+                              }}
+                              defaultValue={data.date_issued}
+                            />
+                            <h2>Skills</h2>
+                            <Select
+                              value={data.skills}
+                              options={skilloption}
+                              isMulti
+                              onChange={(selectedOption) =>
+                                handleSelectChange(index, selectedOption)
+                              }
+                            />
+                            <h2>Description</h2>
+                            <input
+                              type="text"
+                              name="description"
+                              onChange={(e) => {
+                                handlechangework(
+                                  e.target.value,
+                                  index,
+                                  "description"
+                                );
+                              }}
+                              defaultValue={data.description}
+                            />
                           </div>
                         </div>
-                      ))
-                    : null}
-                </>
+                        <div
+                          onClick={() => {
+                            uploadHandler(index);
+                          }}
+                          className="uploadCertificate"
+                        >
+                          <h2 className="drop">
+                            Drag your fies here to{" "}
+                            <span className="browser">Browse</span>
+                          </h2>
+                          <h3>
+                            Maximum size: 5MB MP4,
+                            <br /> PDF, JPEG and PNG accepted
+                          </h3>
+                        </div>
+                        <input
+                          type="file"
+                          ref={fileInputRef}
+                          style={{ display: "none" }}
+                          name="aadhaarfront"
+                          onChange={handleFileInputChange}
+                        />
+                        {data.certificate_file.length !== 0
+                          ? data.certificate_file.map((data, index1) => (
+                              <div className="educationUploaded">
+                                <div className="educationUploadedFlex">
+                                  <div className="educationUploadedFlexLeft">
+                                    <img src={gallery} alt="" />
+                                    <div className="educationUploadedFlexLeftDesc">
+                                      <h2>certificate{index + 1}.jpeg</h2>
+                                    </div>
+                                  </div>
+                                  {/* <div
+                                    className="educationUploadedFlexRight"
+                                    onClick={() => {
+                                      deletebtn(index, index1);
+                                    }}
+                                  >
+                                    <img src={trash} alt="" />
+                                  </div> */}
+                                </div>
+                                <div className="percent">
+                                  <div className="range">
+                                    <div className="InnerRange"></div>
+                                  </div>
+                                  <h2>100%</h2>
+                                </div>
+                              </div>
+                            ))
+                          : null}
+                      </>
+                    ))
+                  : null}
               </div>
-              {/* <div className="AddMore">
-                <button>
+              <div className="Add_More">
+                <button onClick={addcountwork}>
                   <img src={plus} alt="" />
-                  <h3>ADD MORE WORK HISTROY</h3>
+                  <h3>ADD MORE EDUCATION DETAILS</h3>
                 </button>
-              </div> */}
+              </div>
               <div className="vedioResumeButtons">
                 <button
                   className="discard"

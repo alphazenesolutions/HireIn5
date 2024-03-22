@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
@@ -40,18 +41,44 @@ const ProfessionalDetails = () => {
     dispatch(storeAction.isPopUpHander());
   };
 
-  const [educationdata, seteducationdata] = useState({
-    annual_salary: "",
-    company_name: "",
-    description: "",
-    location: "",
-    title: "",
-    years_active: "",
-    years_active_start: "",
-    years_active_end: "",
-    skills: "",
-  });
   const [loading, setloading] = useState(false);
+
+  const [education_data, seteducation_data] = useState([]);
+  const [travelwork, settravelwork] = useState([
+    {
+      annual_salary: "",
+      company_name: "",
+      description: "",
+      location: "",
+      title: "",
+      years_active: "",
+      years_active_start: "",
+      years_active_end: "",
+      skills: [],
+      type: "new",
+    },
+  ]);
+
+  const addcountwork = () => {
+    var newobj = {
+      annual_salary: "",
+      company_name: "",
+      description: "",
+      location: "",
+      title: "",
+      years_active: "",
+      years_active_start: "",
+      years_active_end: "",
+      skills: [],
+      type: "new",
+    };
+    settravelwork((prevState) => [...prevState, newobj]);
+  };
+
+  const handlechangework = (value, index, name) => {
+    travelwork[index][name] = value;
+    settravelwork([...travelwork]);
+  };
 
   useEffect(() => {
     getUserinfo();
@@ -59,58 +86,34 @@ const ProfessionalDetails = () => {
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
-      seteducationdata({
-        annual_salary:
-          userdata[0].professional_details_info !== null
-            ? userdata[0].professional_details_info.annual_salary
-            : "",
-        company_name:
-          userdata[0].professional_details_info !== null
-            ? userdata[0].professional_details_info.company_name
-            : "",
-        description:
-          userdata[0].professional_details_info !== null
-            ? userdata[0].professional_details_info.description
-            : "",
-        location:
-          userdata[0].professional_details_info !== null
-            ? userdata[0].professional_details_info.location
-            : "",
-        title:
-          userdata[0].professional_details_info !== null
-            ? userdata[0].professional_details_info.title
-            : "",
-        years_active_start:
-          userdata[0].professional_details_info !== null
-            ? userdata[0].professional_details_info.years_active.length !== 0
-              ? userdata[0].professional_details_info.years_active.split(",")[0]
-              : ""
-            : "",
-        years_active_end:
-          userdata[0].professional_details_info !== null
-            ? userdata[0].professional_details_info.years_active.length !== 0
-              ? userdata[0].professional_details_info.years_active.split(",")[1]
-              : ""
-            : "",
-      });
-      if (userdata[0].professional_details_info !== null) {
-        if (userdata[0].professional_details_info.skills.length !== 0) {
-          var filter = [];
-          for (
-            var a = 0;
-            a < userdata[0].professional_details_info.skills.length;
-            a++
-          ) {
-            filter.push({
-              value: userdata[0].professional_details_info.skills[a],
-              label: userdata[0].professional_details_info.skills[a],
-            });
-          }
-          setSelectedOptionskill(filter);
-          setskill_list(userdata[0].professional_details_info.skills);
+      var certificatedata = userdata[0].professional_details_info;
+      if (certificatedata.length !== 0) {
+        seteducation_data(certificatedata);
+        var filterdata = [];
+        for (var i = 0; i < certificatedata.length; i++) {
+          const arrayOfObjects = certificatedata[i].skills.map((value) => ({
+            value,
+            label: value,
+          }));
+          console.log(arrayOfObjects, "arrayOfObjects");
+          filterdata.push({
+            annual_salary: certificatedata[i].annual_salary,
+            company_name: certificatedata[i].company_name,
+            description: certificatedata[i].description,
+            location: certificatedata[i].location,
+            title: certificatedata[i].title,
+            years_active: certificatedata[i].years_active,
+            years_active_start: certificatedata[i].years_active_start,
+            years_active_end: certificatedata[i].years_active_end,
+            skills: arrayOfObjects,
+            type: "edit",
+            id: certificatedata[i].id,
+          });
         }
+        settravelwork(filterdata);
       }
     }
+
     var skillarrray = Skilllist;
     const uniqueSkills = Array.from(
       new Set(skillarrray.map((skill) => skill.Skill))
@@ -126,64 +129,126 @@ const ProfessionalDetails = () => {
       setskilloption(filter1);
     }
   };
-
-  const handlechange = (e) => {
-    const { name, value } = e.target;
-    seteducationdata((values) => ({ ...values, [name]: value }));
-  };
   const displayHandler = async () => {
-    setloading(true);
-    var newobj = {
-      username: userdata[0].username,
-      professional_details_info: {
-        annual_salary: educationdata.annual_salary,
-        company_name: educationdata.company_name,
-        description: educationdata.description,
-        location: educationdata.location,
-        title: educationdata.title,
-        years_active: `${educationdata.years_active_start},${educationdata.years_active_end}`,
-        skills: skill_list,
-      },
-    };
-    var updatedata = await axios
-      .put(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
-        newobj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
+    if (travelwork.length !== 0) {
+      setloading(true);
+      var alldata = [];
+      for (var i = 0; i < travelwork.length; i++) {
+        if (travelwork[i].type === "new") {
+          var arrayOf_Values = [];
+          if (travelwork[i].skills.length !== 0) {
+            arrayOf_Values = travelwork[i].skills.map((obj) => obj.value);
+          }
+          var newobj = {
+            username: userdata[0].username,
+            professional_details_info: {
+              annual_salary: travelwork[i].annual_salary,
+              company_name: travelwork[i].company_name,
+              description: travelwork[i].description,
+              location: travelwork[i].location,
+              title: travelwork[i].title,
+              years_active: travelwork[i].years_active,
+              years_active_start: travelwork[i].years_active_start,
+              years_active_end: travelwork[i].years_active_end,
+              skills: arrayOf_Values,
+            },
+          };
+          alldata.push({
+            annual_salary: travelwork[i].annual_salary,
+            company_name: travelwork[i].company_name,
+            description: travelwork[i].description,
+            location: travelwork[i].location,
+            title: travelwork[i].title,
+            years_active: travelwork[i].years_active,
+            years_active_start: travelwork[i].years_active_start,
+            years_active_end: travelwork[i].years_active_end,
+            skills: arrayOf_Values,
+          });
+
+          await axios
+            .post(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getProffessionalDetails/${userid}/`,
+              newobj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+        } else {
+          var arrayOfValues = [];
+          if (travelwork[i].skills.length !== 0) {
+            arrayOfValues = travelwork[i].skills.map((obj) => obj.value);
+          }
+          var new_obj = {
+            username: userdata[0].username,
+            professional_details_info: {
+              annual_salary: travelwork[i].annual_salary,
+              company_name: travelwork[i].company_name,
+              description: travelwork[i].description,
+              location: travelwork[i].location,
+              title: travelwork[i].title,
+              years_active: travelwork[i].years_active,
+              years_active_start: travelwork[i].years_active_start,
+              years_active_end: travelwork[i].years_active_end,
+              skills: arrayOfValues,
+            },
+          };
+          alldata.push({
+            annual_salary: travelwork[i].annual_salary,
+            company_name: travelwork[i].company_name,
+            description: travelwork[i].description,
+            location: travelwork[i].location,
+            title: travelwork[i].title,
+            years_active: travelwork[i].years_active,
+            years_active_start: travelwork[i].years_active_start,
+            years_active_end: travelwork[i].years_active_end,
+            skills: arrayOfValues,
+            id: travelwork[i].id,
+          });
+          await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getProffessionalDetails/${travelwork[i].id}/`,
+              new_obj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
         }
-      )
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    if (
-      updatedata.message === "User and Associated Info updated successfully"
-    ) {
+      }
       let updatedObject = {
         ...userdata[0],
-        professional_details_info: updatedata.user.professional_details_info,
+        professional_details_info: alldata,
       };
       dispatch(storeAction.userdataHander({ userdata: [] }));
       setTimeout(() => {
         dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
       }, 10);
       dispatch(storeAction.isPopUpHander());
-
       setloading(false);
-    } else {
-      setloading(false);
+      getUserinfo();
     }
-    getUserinfo();
   };
   const [selectedOptionskill, setSelectedOptionskill] = useState(null);
   const [skilloption, setskilloption] = useState([]);
   const [skill_list, setskill_list] = useState([]);
+
   useEffect(() => {
     getLocationdata();
   }, [selectedOptionskill]);
@@ -204,9 +269,10 @@ const ProfessionalDetails = () => {
       }
     }
   };
-  const handleSelectChange = (selectedOptions) => {
+  const handleSelectChange = (index, selectedOptions) => {
     if (selectedOptions.length <= 5) {
-      setSelectedOptionskill(selectedOptions);
+      travelwork[index]["skills"] = selectedOptions;
+      settravelwork([...travelwork]);
     }
   };
   return (
@@ -236,40 +302,26 @@ const ProfessionalDetails = () => {
               )}
             </div>
           </div>
-          {isArrow === true &&
-            (userdata.length !== 0 ? (
-              userdata[0].professional_details_info !== null ? (
-                <div className="professionalDetailsDesc">
+          {isArrow === true ? (
+            education_data.length !== 0 ? (
+              education_data.map((data, index) => (
+                <div className="professionalDetailsDesc" key={index}>
                   <h1>Add your current & Past professional experience here</h1>
-                  <h2>{userdata[0].professional_details_info.title}</h2>
-                  <h3>{userdata[0].professional_details_info.company_name}</h3>
+                  <h2>{data.title}</h2>
+                  <h3>{data.company_name}</h3>
                   <h4>
-                    {
-                      userdata[0].professional_details_info.years_active.split(
-                        ","
-                      )[0]
-                    }{" "}
-                    -{" "}
-                    {
-                      userdata[0].professional_details_info.years_active.split(
-                        ","
-                      )[1]
-                    }
+                    {data.years_active.split(",")[0]} -{" "}
+                    {data.years_active.split(",")[1]}
                   </h4>
-                  <h4>{userdata[0].professional_details_info.location}</h4>
-                  <h5>{userdata[0].professional_details_info.description}</h5>
-
+                  <h4>{data.location}</h4>
+                  <h5>{data.description}</h5>
                   <h6>
                     Key Skills :{" "}
                     <span className="professionalDetailsDescSkills">
-                      {userdata[0].professional_details_info.skills.toString()}{" "}
+                      {data.skills.toString()}{" "}
                     </span>
                   </h6>
-
-                  <h6>
-                    Gross Annual Salary :{" "}
-                    {userdata[0].professional_details_info.annual_salary}{" "}
-                  </h6>
+                  <h6>Gross Annual Salary : {data.annual_salary} </h6>
                   <div className="projectDetailsHighlight">
                     <img src={star} alt="" />
                     <p>
@@ -279,14 +331,7 @@ const ProfessionalDetails = () => {
                     </p>
                   </div>
                 </div>
-              ) : (
-                <div className="educationDesc">
-                  <h1> Add your current & Past professional experience here</h1>
-                  <button className="touchButtonnew" onClick={overLayHandler}>
-                    <h4>Add Professional Details</h4>
-                  </button>
-                </div>
-              )
+              ))
             ) : (
               <div className="educationDesc">
                 <h1> Add your current & Past professional experience here</h1>
@@ -294,7 +339,9 @@ const ProfessionalDetails = () => {
                   <h4>Add Professional Details</h4>
                 </button>
               </div>
-            ))}
+            )
+          ) : null}
+
           {isPopUp === "professional" && (
             <div className="professionalDetailsOverlay">
               <div className="innerprofessionalDetailsOverlay">
@@ -308,112 +355,133 @@ const ProfessionalDetails = () => {
                     className="professionalDetailsLeftIcon"
                   >
                     <RxCross1 />
-
-                    {/* <img
-                      className="professionalDetailsLeftIconSvg"
-                      onClick={overLayHandler}
-                      src={edit}
-                      alt=""
-                    />
-                    {isArrow === true ? (
-                      <img onClick={dropDownhandler} src={dropUp} alt="" />
-                    ) : (
-                      <img onClick={dropDownhandler} src={dropDown} alt="" />
-                    )} */}
                   </div>
                 </div>
               </div>
               <h6>Add your current & Past professional experience here</h6>
-              <div className="professionalDetailsOverlayFlex">
-                <div className="professionalDetailsOverlayLeft">
-                  <h2>Title / Role</h2>
-                  <input
-                    placeholder="Java Developer"
-                    type="text"
-                    name="title"
-                    onChange={handlechange}
-                    defaultValue={educationdata.title}
-                  />
-                  <h2>Company Name</h2>
-                  <input
-                    placeholder="PhonePe"
-                    type="text"
-                    name="company_name"
-                    onChange={handlechange}
-                    defaultValue={educationdata.company_name}
-                  />
-                  <h2>Location</h2>
-                  <input
-                    placeholder="Hyderabad, india"
-                    type="text"
-                    name="location"
-                    onChange={handlechange}
-                    defaultValue={educationdata.location}
-                  />
-                  <h2>Gross Annual Salary</h2>
-                  <div className="grossSalary">
-                    <select name="" id="">
-                      <option value="">INR</option>
-                    </select>
-                    <input
-                      placeholder=""
-                      type="text"
-                      name="annual_salary"
-                      onChange={handlechange}
-                      defaultValue={educationdata.annual_salary}
-                    />
-                  </div>
-                </div>
-                <div className="professionalDetailsOverlayRight">
-                  <h2>Years Active</h2>
-                  <div className="yearsActive">
-                    <input
-                      type="date"
-                      name="years_active_start"
-                      onChange={handlechange}
-                      defaultValue={educationdata.years_active_start}
-                    />
-                    <input
-                      type="date"
-                      name="years_active_end"
-                      onChange={handlechange}
-                      defaultValue={educationdata.years_active_end}
-                    />
-                  </div>
-                  <h2>Skills</h2>
-                  {/* <input
-                    placeholder="HTML"
-                    type="text"
-                    name="skills"
-                    onChange={handlechange}
-                    defaultValue={educationdata.skills}
-                  /> */}
-                  <Select
-                    value={selectedOptionskill}
-                    options={skilloption}
-                    isMulti
-                    onChange={handleSelectChange}
-                  />
-                  <div className="textDesc">
-                    <h2>Description / Additional</h2>
-                    <h5>{educationdata.description.length}/200</h5>
-                  </div>
-                  <textarea
-                    className="text"
-                    name="description"
-                    onChange={handlechange}
-                    maxLength={200}
-                    defaultValue={educationdata.description}
-                    placeholder="As always, all Htmlstream products are excellent with a very good personalition"
-                  />
-                </div>
-              </div>
-              {/* <div className="AddMore">
-                <button>
+              {travelwork.length !== 0
+                ? travelwork.map((data, index) => (
+                    <div className="professionalDetailsOverlayFlex">
+                      <div className="professionalDetailsOverlayLeft">
+                        <h2>Title / Role</h2>
+                        <input
+                          placeholder="Java Developer"
+                          type="text"
+                          name="title"
+                          onChange={(e) => {
+                            handlechangework(e.target.value, index, "title");
+                          }}
+                          defaultValue={data.title}
+                        />
+                        <h2>Company Name</h2>
+                        <input
+                          placeholder="PhonePe"
+                          type="text"
+                          name="company_name"
+                          onChange={(e) => {
+                            handlechangework(
+                              e.target.value,
+                              index,
+                              "company_name"
+                            );
+                          }}
+                          defaultValue={data.company_name}
+                        />
+                        <h2>Location</h2>
+                        <input
+                          placeholder="Hyderabad, india"
+                          type="text"
+                          name="location"
+                          onChange={(e) => {
+                            handlechangework(e.target.value, index, "location");
+                          }}
+                          defaultValue={data.location}
+                        />
+                        <h2>Gross Annual Salary</h2>
+                        <div className="grossSalary">
+                          {/* <select name="" id="">
+                            <option value="">INR</option>
+                          </select> */}
+                          <input
+                            placeholder=""
+                            type="text"
+                            name="annual_salary"
+                            onChange={(e) => {
+                              handlechangework(
+                                e.target.value,
+                                index,
+                                "annual_salary"
+                              );
+                            }}
+                            defaultValue={data.annual_salary}
+                          />
+                        </div>
+                      </div>
+                      <div className="professionalDetailsOverlayRight">
+                        <h2>Years Active</h2>
+                        <div className="yearsActive">
+                          <input
+                            type="date"
+                            name="years_active_start"
+                            onChange={(e) => {
+                              handlechangework(
+                                e.target.value,
+                                index,
+                                "years_active_start"
+                              );
+                            }}
+                            defaultValue={data.years_active_start}
+                          />
+                          <input
+                            type="date"
+                            name="years_active_end"
+                            onChange={(e) => {
+                              handlechangework(
+                                e.target.value,
+                                index,
+                                "years_active_end"
+                              );
+                            }}
+                            defaultValue={data.years_active_end}
+                          />
+                        </div>
+                        <h2>Skills</h2>
+
+                        <Select
+                          value={data.skills}
+                          options={skilloption}
+                          isMulti
+                          onChange={(selectedOption) =>
+                            handleSelectChange(index, selectedOption)
+                          }
+                        />
+                        <div className="textDesc">
+                          <h2>Description / Additional</h2>
+                          <h5>{data.description.length}/200</h5>
+                        </div>
+                        <textarea
+                          className="text"
+                          name="description"
+                          onChange={(e) => {
+                            handlechangework(
+                              e.target.value,
+                              index,
+                              "description"
+                            );
+                          }}
+                          defaultValue={data.description}
+                          placeholder="As always, all Htmlstream products are excellent with a very good personalition"
+                        />
+                      </div>
+                    </div>
+                  ))
+                : null}
+              <div className="Add_More">
+                <button onClick={addcountwork}>
                   <img src={plus} alt="" />
-                  <h3>ADD MORE WORK HISTROY</h3>
+                  <h3>ADD MORE EDUCATION DETAILS</h3>
                 </button>
-              </div> */}
+              </div>
               <div className="vedioResumeButtons">
                 <button
                   className="discard"

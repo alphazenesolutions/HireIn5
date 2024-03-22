@@ -19,10 +19,12 @@ import moment from "moment";
 import country_and_states from "../../../../assests/country-states";
 import approvedTick from "../../../../assests/approvedTick.svg";
 import { RxCross1 } from "react-icons/rx";
+import Select from "react-select";
 
 const AClientProfileView = () => {
   const singleuser = useSelector((store) => store.singleuser);
   const allcompanydata = useSelector((store) => store.allcompanydata);
+  const alluserdata = useSelector((store) => store.alluserdata);
   const token = useSelector((store) => store.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,9 +34,6 @@ const AClientProfileView = () => {
   };
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
-  });
-  const isPopUp2 = useSelector((store) => {
-    return store.isPopUp2;
   });
   const overLayHandler = () => {
     dispatch(storeAction.isPopUpHander("candidateRate"));
@@ -72,9 +71,11 @@ const AClientProfileView = () => {
     phone: "",
   });
   const [formdata, setformdata] = useState([]);
+  const [selectedOptionskill, setSelectedOptionskill] = useState(null);
+  const [skilloption, setskilloption] = useState([]);
   useEffect(() => {
     getAllinfo();
-  }, [singleuser]);
+  }, [singleuser, alluserdata]);
   const getAllinfo = async () => {
     if (singleuser.length !== 0) {
       if (singleuser[0].company !== null) {
@@ -189,6 +190,18 @@ const AClientProfileView = () => {
         title: singleuser[0].title,
         phone: singleuser[0].phone,
       });
+    }
+    if (alluserdata.length !== 0) {
+      var filter1 = [];
+      for (var i = 0; i < alluserdata.length; i++) {
+        if (alluserdata[i].first_name.length != 0) {
+          filter1.push({
+            value: alluserdata[i].id,
+            label: alluserdata[i].first_name,
+          });
+        }
+      }
+      setskilloption(filter1);
     }
   };
   const handlechange = async (e) => {
@@ -390,6 +403,8 @@ const AClientProfileView = () => {
   const fileInputRef = useRef(null);
   const fileInputRef1 = useRef(null);
   const [updateid, setupdateid] = useState(null);
+  const [uploadstatus, setuploadstatus] = useState(false);
+  const [name, setname] = useState(null);
   const [formData] = useState(new FormData());
   const handleFileInputChange = async (e) => {
     formData.append("image", e.target.files[0]);
@@ -406,9 +421,11 @@ const AClientProfileView = () => {
 
     if (response.data.img_url.length !== 0) {
       var obj = {
-        file: response.data.img_url,
-        user: singleuser[0].id,
-        name: e.target.files[0].name,
+        contracts_info: {
+          file: response.data.img_url,
+          name: e.target.files[0].name,
+          user: singleuser[0].id,
+        },
       };
       if (e.target.name === "upload") {
         var createdata = await axios
@@ -457,6 +474,28 @@ const AClientProfileView = () => {
           getAll_data();
         }
       }
+    }
+  };
+  const handleFileInput_Change = async (e) => {
+    formData.append("image", e.target.files[0]);
+    formData.append("name", `contract_${singleuser[0].id}`);
+    const response = await axios.post(
+      "https://fileserver-21t2.onrender.com/api/upload/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    setname(e.target.files[0].name);
+    if (response.data.img_url.length !== 0) {
+      setuploadstatus(true);
+      setaddcontractdata((values) => ({
+        ...values,
+        file: response.data.img_url,
+      }));
+      fileInputRef.current.value = "";
     }
   };
   const showhandler = (data) => {
@@ -528,6 +567,56 @@ const AClientProfileView = () => {
       dispatch(storeAction.isPopUpHander());
       setIsLoading(false);
     }
+  };
+  const [addcontractdata, setaddcontractdata] = useState({
+    contract_type: "",
+    hired_on: "",
+    contract_duration: "",
+    billing_cycle: "",
+    file: "",
+  });
+  const handlechange_contract = async (e) => {
+    const { name, value } = e.target;
+    setaddcontractdata((values) => ({ ...values, [name]: value }));
+  };
+  const createbtn = async () => {
+    setIsLoading(true);
+    setuploadstatus(false);
+    dispatch(storeAction.isPopUpHander());
+    var obj = {
+      contracts_info: {
+        file: addcontractdata.file,
+        name: addcontractdata.contract_type,
+        date: addcontractdata.hired_on,
+        duration: addcontractdata.contract_duration,
+        billing_cycle: addcontractdata.billing_cycle,
+        candidate:
+          selectedOptionskill !== null ? selectedOptionskill.value : null,
+      },
+    };
+    await axios
+      .post(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${singleuser[0].id}/`,
+        obj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+
+    setIsLoading(false);
+    getAll_data();
+    setTimeout(() => {
+      dispatch(storeAction.isPopUpHander());
+    }, 2000);
   };
   return (
     <div>
@@ -650,7 +739,11 @@ const AClientProfileView = () => {
                   <div className="clientProfileViewFlexLeftDescLocation">
                     {/* <img src={candidateProfile} alt="" /> */}
                     <h2>{singleuser[0].current_place_of_residence}</h2>
-                    <h2>₹4500/hr</h2>
+                    {singleuser[0].rate_card_info !== null ? (
+                      <h2>{singleuser[0].rate_card_info.remote_hourly}/hr</h2>
+                    ) : (
+                      <h2>Not provided ye</h2>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1454,7 +1547,7 @@ const AClientProfileView = () => {
                         ) : null
                       )
                     : null}
-                  <div className="addContractCard" onClick={showhandler}>
+                  <div className="addContractCard">
                     <p
                       className="pointer"
                       onClick={editHandler1}
@@ -1483,127 +1576,96 @@ const AClientProfileView = () => {
                       <div className="adminEditOverlayBody">
                         <div className="adminEditOverlayContent">
                           <h2>Select Candidate</h2>
-                          <input
-                            onChange={contractHandler}
-                            type="text"
-                            name=""
+                          <Select
+                            defaultValue={selectedOptionskill}
+                            onChange={setSelectedOptionskill}
+                            options={skilloption}
                           />
-                          {/* {isPopUp2 && (
-                            <div className="contractCandidateDropdown">
-                              <h5>Kanish</h5>
-                              <h5>Kanish</h5>
-                              <h5>Kanish</h5>
-                              <h5>Kanish</h5>
-                              <h5>Kanish</h5>
-                            </div>
-                          )} */}
                         </div>
                         <div className="adminEditOverlayContent">
                           <h2>Contract Type</h2>
-                          <select name="" id="">
-                            <option value="">
+                          <select
+                            name="contract_type"
+                            onChange={handlechange_contract}
+                            defaultValue={addcontractdata.contract_type}
+                          >
+                            <option value="">Select</option>
+                            <option value="Non Disclosure Agreement (NDA)">
                               Non Disclosure Agreement (NDA)
                             </option>
-                            <option value="">
+                            <option value="Master Service Agreement (MSA)">
                               Master Service Agreement (MSA)
                             </option>
-                            <option value="">Statement of Work (SOW)</option>
+                            <option value="Statement of Work (SOW)">
+                              Statement of Work (SOW)
+                            </option>
                           </select>
                         </div>
                         <div className="adminEditOverlayContent">
                           <h2>Hired on</h2>
                           <input
                             type="date"
-                            name="secondary_phone"
-                            onChange={handlechange}
-                            defaultValue={companydata.secondary_phone}
+                            name="hired_on"
+                            onChange={handlechange_contract}
+                            defaultValue={addcontractdata.hired_on}
                           />
                         </div>
                         <div className="adminEditOverlayContent">
                           <h2>Contract duration</h2>
-                          <select name="" id="">
-                            <option value="">3 Months</option>
-                            <option value="">6 Months</option>
-                            <option value="">9 Months</option>
-                            <option value="">12 Months</option>
+                          <select
+                            name="contract_duration"
+                            onChange={handlechange_contract}
+                            defaultValue={addcontractdata.contract_duration}
+                          >
+                            <option value="">Select</option>
+                            <option value="3 Months">3 Months</option>
+                            <option value="6 Months">6 Months</option>
+                            <option value="9 Months">9 Months</option>
+                            <option value="12 Months">12 Months</option>
                           </select>
                         </div>
                         <div className="adminEditOverlayContent">
                           <h2>Billing cycle</h2>
-                          <select name="" id="">
-                            <option value="">Monthly</option>
-                            <option value="">Yearly</option>
+                          <select
+                            name="billing_cycle"
+                            onChange={handlechange_contract}
+                            defaultValue={addcontractdata.billing_cycle}
+                          >
+                            <option value="">Select</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Yearly">Yearly</option>
                           </select>
                         </div>
                         <div className="adminEditOverlayContent"></div>
-                        <>
-                          <div
-                            // onClick={uploadHandler}
-                            className="uploadCertificate"
-                          >
-                            <h2 className="drop">
-                              Drag your fies here to{" "}
-                              <span className="browser">Browse</span>
-                            </h2>
-                            <h3>
-                              Maximum size: 5MB MP4,
-                              <br /> PDF, JPEG and PNG accepted
-                            </h3>
-                          </div>
-                          <input
-                            type="file"
-                            ref={fileInputRef}
-                            style={{ display: "none" }}
-                            name="aadhaarfront"
-                            onChange={handleFileInputChange}
-                          />
-                        </>
-                        {/* <>
-                          {certificate.length !== 0
-                            ? certificate.map((data, index) => (
-                                <div className="educationUploaded">
-                                  <div className="educationUploadedFlex">
-                                    <div className="educationUploadedFlexLeft">
-                                      <img src={gallery} alt="" />
-                                      <div className="educationUploadedFlexLeftDesc">
-                                        {data.length !== 0 ? (
-                                          <h2>
-                                            {
-                                              data
-                                                .split("/images/")[1]
-                                                .split("/")[1]
-                                            }
-                                          </h2>
-                                        ) : (
-                                          <h2>certificate{index + 1}.jpeg</h2>
-                                        )}
-                                      </div>
-                                    </div>
-                                    <div
-                                      className="educationUploadedFlexRight"
-                                      onClick={() => {
-                                        deletebtn(index);
-                                      }}
-                                    >
-                                      <img src={trash} alt="" />
-                                    </div>
-                                  </div>
-                                  <div className="percent">
-                                    <div className="range">
-                                      <div className="InnerRange"></div>
-                                    </div>
-                                    <h2>100%</h2>
-                                  </div>
-                                </div>
-                              ))
-                            : null}
-                        </> */}
-                        {/* <div className="adminEditOverlayContent">
-                    <h2>Location</h2>
-                    <input type="text" />
-                  </div> */}
                       </div>
-                      {/* <button className="adminEditAddMore">Add More</button> */}
+                      <div className="px-12">
+                        <div
+                          onClick={showhandler}
+                          className="uploadCertificate w-full"
+                        >
+                          <h2 className="drop">
+                            Drag your fies here to{" "}
+                            <span className="browser">Browse</span>
+                          </h2>
+                          <h3>
+                            Maximum size: 5MB MP4,
+                            <br /> PDF, JPEG and PNG accepted
+                          </h3>
+                        </div>
+                        <input
+                          type="file"
+                          ref={fileInputRef}
+                          style={{ display: "none" }}
+                          name="aadhaarfront"
+                          onChange={handleFileInput_Change}
+                        />
+                        {uploadstatus && (
+                          <p className="text-green-500 text-sm">
+                            File Uploaded Successfully
+                          </p>
+                        )}
+                      </div>
+
                       <div className="editOverlayButton">
                         <button
                           className="discard"
@@ -1615,7 +1677,9 @@ const AClientProfileView = () => {
                         </button>
 
                         {loading === false ? (
-                          <button className="save">Create</button>
+                          <button className="save" onClick={createbtn}>
+                            Create
+                          </button>
                         ) : (
                           <button className="save w-[10rem] flex justify-center items-center">
                             <FiLoader className="loadingIcon" />

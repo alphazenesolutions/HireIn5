@@ -25,7 +25,7 @@ import ACandidateProfile from "../pages/ACandidateProfile";
 import AdminContractCards from "../pages/AdminContractCards";
 import AdminTeamMember from "../pages/AdminTeamMember";
 import AdminHomePage from "../pages/AdminHomePage";
-import AdminLogin from "../Components/AdminScreen/AdminLogin/AdminLogin";
+import AdminSignUp from "../pages/AdminSignUp";
 
 const Routing = () => {
   return (
@@ -54,7 +54,7 @@ const Routing = () => {
         <Route path="/adminclientview" element={<AClientProfile />} />
         <Route path="/admincandidateview" element={<ACandidateProfile />} />
         <Route path="/adminhome" element={<AdminHomePage />} />
-        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/adminsignUp/:email" element={<AdminSignUp />} />
       </Routes>
     </div>
   );

@@ -34,6 +34,7 @@ const Education = () => {
   const [isUpload, setIsUpload] = useState(false);
 
   const [isShow, setIsShow] = useState(false);
+  const [index, setindex] = useState(null);
 
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
@@ -43,15 +44,40 @@ const Education = () => {
     dispatch(storeAction.isPopUpHander("education"));
     setIsArrow(true);
   };
-  const [educationdata, seteducationdata] = useState({
-    cgpa: "",
-    degree: "",
-    education_level: "",
-    study_mode: "",
-    university_name: "",
-    year_of_graduation: "",
-  });
+
+  const [travelwork, settravelwork] = useState([
+    {
+      cgpa: "",
+      degree: "",
+      education_level: "",
+      study_mode: "",
+      university_name: "",
+      year_of_graduation: "",
+      type: "new",
+      upload_file: [],
+    },
+  ]);
+
+  const addcountwork = () => {
+    var newobj = {
+      cgpa: "",
+      degree: "",
+      education_level: "",
+      study_mode: "",
+      university_name: "",
+      year_of_graduation: "",
+      type: "new",
+      upload_file: [],
+    };
+    settravelwork((prevState) => [...prevState, newobj]);
+  };
+
+  const handlechangework = (value, index, name) => {
+    travelwork[index][name] = value;
+    settravelwork([...travelwork]);
+  };
   const [loading, setloading] = useState(false);
+  const [education_data, seteducation_data] = useState([]);
 
   useEffect(() => {
     getUserinfo();
@@ -59,78 +85,108 @@ const Education = () => {
 
   const getUserinfo = async () => {
     if (userdata.length !== 0) {
-      seteducationdata({
-        cgpa:
-          userdata[0].education_info !== null
-            ? userdata[0].education_info.cgpa
-            : "",
-        degree:
-          userdata[0].education_info !== null
-            ? userdata[0].education_info.degree
-            : "",
-        education_level:
-          userdata[0].education_info !== null
-            ? userdata[0].education_info.education_level
-            : "",
-        study_mode:
-          userdata[0].education_info !== null
-            ? userdata[0].education_info.study_mode
-            : "",
-        university_name:
-          userdata[0].education_info !== null
-            ? userdata[0].education_info.university_name
-            : "",
-        year_of_graduation:
-          userdata[0].education_info !== null
-            ? userdata[0].education_info.year_of_graduation
-            : "",
-      });
-      if (userdata[0].education_info !== null) {
-        setcertificate(userdata[0].education_info.upload_file);
+      var certificatedata = userdata[0].education_info;
+      if (certificatedata.length !== 0) {
+        seteducation_data(certificatedata);
+        var filterdata = [];
+        for (var i = 0; i < certificatedata.length; i++) {
+          filterdata.push({
+            cgpa: certificatedata[i].cgpa,
+            degree: certificatedata[i].degree,
+            education_level: certificatedata[i].education_level,
+            study_mode: certificatedata[i].study_mode,
+            university_name: certificatedata[i].university_name,
+            year_of_graduation: certificatedata[i].year_of_graduation,
+            type: "edit",
+            upload_file: certificatedata[i].upload_file,
+            id: certificatedata[i].id,
+          });
+        }
+        settravelwork(filterdata);
       }
     }
   };
-  const handlechange = (e) => {
-    const { name, value } = e.target;
-    seteducationdata((values) => ({ ...values, [name]: value }));
-  };
   const displayHandler = async () => {
-    setloading(true);
-    var newobj = {
-      username: userdata[0].username,
-      education_info: {
-        cgpa: educationdata.cgpa,
-        degree: educationdata.degree,
-        education_level: educationdata.education_level,
-        study_mode: educationdata.study_mode,
-        university_name: educationdata.university_name,
-        year_of_graduation: educationdata.year_of_graduation,
-        upload_file: certificate,
-      },
-    };
-    var updatedata = await axios
-      .put(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
-        newobj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
+    if (travelwork.length !== 0) {
+      setloading(true);
+      var alldata = [];
+      for (var i = 0; i < travelwork.length; i++) {
+        alldata.push({
+          cgpa: travelwork[i].cgpa,
+          degree: travelwork[i].degree,
+          education_level: travelwork[i].education_level,
+          study_mode: travelwork[i].study_mode,
+          university_name: travelwork[i].university_name,
+          year_of_graduation: travelwork[i].year_of_graduation,
+          upload_file: travelwork[i].upload_file,
+          id: travelwork[i].id,
+        });
+        if (travelwork[i].type === "new") {
+          var newobj = {
+            education_info: {
+              cgpa: travelwork[i].cgpa,
+              degree: travelwork[i].degree,
+              education_level: travelwork[i].education_level,
+              study_mode: travelwork[i].study_mode,
+              university_name: travelwork[i].university_name,
+              year_of_graduation: travelwork[i].year_of_graduation,
+              upload_file: travelwork[i].upload_file,
+            },
+            username: userdata[0].username,
+          };
+
+          await axios
+            .post(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getEducations/${userid}/`,
+              newobj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
+        } else {
+          var new_obj = {
+            education_info: {
+              cgpa: travelwork[i].cgpa,
+              degree: travelwork[i].degree,
+              education_level: travelwork[i].education_level,
+              study_mode: travelwork[i].study_mode,
+              university_name: travelwork[i].university_name,
+              year_of_graduation: travelwork[i].year_of_graduation,
+              upload_file: travelwork[i].upload_file,
+            },
+            username: userdata[0].username,
+          };
+          await axios
+            .put(
+              `${process.env.REACT_APP_LOCAL_HOST_URL}/getEducations/${travelwork[i].id}/`,
+              new_obj,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `JWT ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              return err.response;
+            });
         }
-      )
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    if (
-      updatedata.message === "User and Associated Info updated successfully"
-    ) {
+      }
       let updatedObject = {
         ...userdata[0],
-        education_info: updatedata.user.education_info,
+        education_info: alldata,
       };
       dispatch(storeAction.userdataHander({ userdata: [] }));
       setTimeout(() => {
@@ -139,15 +195,14 @@ const Education = () => {
       dispatch(storeAction.isPopUpHander());
       setIsShow(!isShow);
       setloading(false);
-    } else {
-      setloading(false);
+      getUserinfo();
     }
-    getUserinfo();
   };
   const fileInputRef = useRef(null);
 
-  const uploadHandler = (data) => {
+  const uploadHandler = (index) => {
     fileInputRef.current.click();
+    setindex(index);
   };
   var [certificate, setcertificate] = useState([]);
   const [formData] = useState(new FormData());
@@ -168,17 +223,26 @@ const Education = () => {
           },
         }
       );
-      setcertificate([...certificate, response.data.img_url]);
+      const updatedTravelwork = [...travelwork];
+      const updatedObj = {
+        ...updatedTravelwork[index],
+        upload_file: [
+          ...updatedTravelwork[index].upload_file,
+          response.data.img_url,
+        ],
+      };
+      updatedTravelwork[index] = updatedObj;
+      settravelwork(updatedTravelwork);
       fileInputRef.current.value = "";
       setIsUpload(true);
     }
   };
-  const deletebtn = async (id) => {
-    const updatedElements = [...certificate];
-    updatedElements.splice(id, 1);
-    setcertificate(updatedElements);
-  };
-  console.log(userdata, "userdata");
+  // const deletebtn = async (id) => {
+  //   const updatedElements = [...certificate];
+  //   updatedElements.splice(id, 1);
+  //   setcertificate(updatedElements);
+  // };
+
   return (
     <div>
       <div className="education">
@@ -204,52 +268,52 @@ const Education = () => {
               )}
             </div>
           </div>
-          {userdata.length !== 0 ? (
-            isArrow === true &&
-            (userdata[0].education_info !== null ? (
-              <div className="educationDesc">
-                <h1>Add your education and degrees here</h1>
-                <h2>{userdata[0].education_info.degree}</h2>
-                <div className="educationDescFlex">
-                  <h3>Name of University/School : </h3>
-                  <p>{userdata[0].education_info.university_name} </p>
-                </div>
-                <div className="educationDescFlex">
-                  <h3>Year of Graduation : </h3>
-                  <p>{userdata[0].education_info.year_of_graduation}</p>
-                </div>
-                <div className="educationDescFlex">
-                  <h3>Education Level : </h3>
-                  <p>{userdata[0].education_info.education_level} </p>
-                </div>
-                <div className="educationDescFlex">
-                  <h4>Study Mode : </h4>
-                  <p>{userdata[0].education_info.study_mode}</p>
-                </div>
-                <div className="educationDescFlexLast">
-                  <h4>CGPA : </h4>
-                  <p>{userdata[0].education_info.cgpa}</p>
-                </div>
-                {certificate.length !== 0
-                  ? certificate.map((data, index) =>
-                      data.length !== 0 ? (
-                        <div
-                          className="gradeCertificate"
-                          key={index}
-                          onClick={() => {
-                            window.open(`${data}`, "_blank");
-                          }}
-                        >
-                          <img src={gallery} alt="" />
-                          <div className="gradeCertificateDesc">
-                            <h2>{data.split("/images/")[1].split("/")[1]}</h2>
-                            {/* <p>4 MB</p> */}
+          {isArrow === true ? (
+            education_data.length !== 0 ? (
+              education_data.map((data, index) => (
+                <div className="educationDesc" key={index}>
+                  <h2>{data.degree}</h2>
+                  <div className="educationDescFlex">
+                    <h3>Name of University/School : </h3>
+                    <p>{data.university_name} </p>
+                  </div>
+                  <div className="educationDescFlex">
+                    <h3>Year of Graduation : </h3>
+                    <p>{data.year_of_graduation}</p>
+                  </div>
+                  <div className="educationDescFlex">
+                    <h3>Education Level : </h3>
+                    <p>{data.education_level} </p>
+                  </div>
+                  <div className="educationDescFlex">
+                    <h4>Study Mode : </h4>
+                    <p>{data.study_mode}</p>
+                  </div>
+                  <div className="educationDescFlexLast">
+                    <h4>CGPA : </h4>
+                    <p>{data.cgpa}</p>
+                  </div>
+                  {data.upload_file.length !== 0
+                    ? data.upload_file.map((data, index) =>
+                        data.length !== 0 ? (
+                          <div
+                            className="gradeCertificate"
+                            key={index}
+                            onClick={() => {
+                              window.open(`${data}`, "_blank");
+                            }}
+                          >
+                            <img src={gallery} alt="" />
+                            <div className="gradeCertificateDesc">
+                              <h2>{data.split("/images/")[1].split("/")[1]}</h2>
+                              {/* <p>4 MB</p> */}
+                            </div>
                           </div>
-                        </div>
-                      ) : null
-                    )
-                  : null}
-              </div>
+                        ) : null
+                      )
+                    : null}
+                </div>
+              ))
             ) : (
               <div className="educationDesc">
                 <h1>Add your education and degrees here</h1>
@@ -257,15 +321,9 @@ const Education = () => {
                   <h4>Add Education Details</h4>
                 </button>
               </div>
-            ))
-          ) : (
-            <div className="educationDesc">
-              <h1>Add your education and degrees here</h1>
-              <button className="touchButtonnew" onClick={overLayHandler}>
-                <h4>Add Education Details</h4>
-              </button>
-            </div>
-          )}
+            )
+          ) : null}
+
           {isPopUp === "education" && (
             <div className="educationDescOverlay">
               <div
@@ -296,118 +354,162 @@ const Education = () => {
                   Add certification / course Details here to enhance your
                   profile
                 </h6>
-                <div className="educationDescOverlayFlex">
-                  <div className="educationDescOverlayFlexLeft">
-                    <h2>Degree</h2>
-                    <input
-                      type="text"
-                      name="degree"
-                      onChange={handlechange}
-                      defaultValue={educationdata.degree}
-                    />
-                    <h2>Name of University / School</h2>
-                    <input
-                      type="text"
-                      name="university_name"
-                      onChange={handlechange}
-                      defaultValue={educationdata.university_name}
-                    />
-                    <h2>CGPA</h2>
-                    <input
-                      type="text"
-                      name="cgpa"
-                      onChange={handlechange}
-                      defaultValue={educationdata.cgpa}
-                    />
-                  </div>
-                  <div className="educationDescOverlayFlexRight">
-                    <h2>Year of Graduation</h2>
-                    <input
-                      type="text"
-                      name="year_of_graduation"
-                      onChange={handlechange}
-                      defaultValue={educationdata.year_of_graduation}
-                    />
-                    <h2>Education Level</h2>
-
-                    <input
-                      placeholder="Undergraduate"
-                      type="text"
-                      name="education_level"
-                      onChange={handlechange}
-                      defaultValue={educationdata.education_level}
-                    />
-                    <h2>Study Mode</h2>
-                    <select
-                      name="study_mode"
-                      onChange={handlechange}
-                      defaultValue={educationdata.study_mode}
-                      selected={educationdata.study_mode}
-                    >
-                      <option value="">Select Study Mode</option>
-                      <option value="full-time">Full-time</option>
-                      <option value="part-time">Part-time</option>
-                    </select>
-                  </div>
-                </div>
-
-                <>
-                  <div onClick={uploadHandler} className="educationUpload">
-                    <h2>
-                      Drop your files here or
-                      <span className="browser">browse</span>
-                    </h2>
-                    <h5>Maximum size: 5MB</h5>
-                    <h5>PDF, JPEG and PNG accepted</h5>
-                  </div>
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    style={{ display: "none" }}
-                    name="aadhaarfront"
-                    onChange={handleFileInputChange}
-                  />
-                </>
-                {isUpload === true ? (
-                  <>
-                    {certificate.length !== 0
-                      ? certificate.map((data, index) => (
-                          <div className="educationUploaded">
-                            <div className="educationUploadedFlex">
-                              <div className="educationUploadedFlexLeft">
-                                <img src={gallery} alt="" />
-                                <div className="educationUploadedFlexLeftDesc">
-                                  <h2>certificate{index + 1}.jpeg</h2>
-                                  {/* <p>4 MB</p> */}
-                                </div>
-                              </div>
-                              <div
-                                className="educationUploadedFlexRight"
-                                onClick={() => {
-                                  deletebtn(index);
-                                }}
-                              >
-                                <img src={trash} alt="" />
-                              </div>
-                            </div>
-                            <div className="percent">
-                              <div className="range">
-                                <div className="InnerRange"></div>
-                              </div>
-                              <h2>100%</h2>
-                            </div>
+                {travelwork.length !== 0
+                  ? travelwork.map((data, index) => (
+                      <>
+                        <div className="educationDescOverlayFlex" key={index}>
+                          <div className="educationDescOverlayFlexLeft">
+                            <h2>Degree</h2>
+                            <input
+                              type="text"
+                              name="degree"
+                              onChange={(e) => {
+                                handlechangework(
+                                  e.target.value,
+                                  index,
+                                  "degree"
+                                );
+                              }}
+                              defaultValue={data.degree}
+                            />
+                            <h2>Name of University / School</h2>
+                            <input
+                              type="text"
+                              name="university_name"
+                              onChange={(e) => {
+                                handlechangework(
+                                  e.target.value,
+                                  index,
+                                  "university_name"
+                                );
+                              }}
+                              defaultValue={data.university_name}
+                            />
+                            <h2>CGPA</h2>
+                            <input
+                              type="text"
+                              name="cgpa"
+                              onChange={(e) => {
+                                handlechangework(e.target.value, index, "cgpa");
+                              }}
+                              defaultValue={data.cgpa}
+                            />
                           </div>
-                        ))
-                      : null}
-                  </>
-                ) : null}
+                          <div className="educationDescOverlayFlexRight">
+                            <h2>Year of Graduation</h2>
+                            <input
+                              type="text"
+                              name="year_of_graduation"
+                              onChange={(e) => {
+                                handlechangework(
+                                  e.target.value,
+                                  index,
+                                  "year_of_graduation"
+                                );
+                              }}
+                              defaultValue={data.year_of_graduation}
+                            />
+                            <h2>Education Level</h2>
+                            <select
+                              name="education_level"
+                              onChange={(e) => {
+                                handlechangework(
+                                  e.target.value,
+                                  index,
+                                  "education_level"
+                                );
+                              }}
+                              defaultValue={data.education_level}
+                              selected={data.education_level}
+                            >
+                              <option>Select</option>
+                              <option value="UG">UG</option>
+                              <option value="PG">PG</option>
+                            </select>
 
-                {/* <div className="AddMore">
-                <button>
-                  <img src={plus} alt="" />
-                  <h3>ADD MORE WORK HISTROY</h3>
-                </button>
-              </div> */}
+                            <h2>Study Mode</h2>
+                            <select
+                              name="study_mode"
+                              onChange={(e) => {
+                                handlechangework(
+                                  e.target.value,
+                                  index,
+                                  "study_mode"
+                                );
+                              }}
+                              defaultValue={data.study_mode}
+                              selected={data.study_mode}
+                            >
+                              <option value="">Select Study Mode</option>
+                              <option value="full-time">Full-time</option>
+                              <option value="part-time">Part-time</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <>
+                          <div
+                            onClick={() => {
+                              uploadHandler(index);
+                            }}
+                            className="educationUpload"
+                          >
+                            <h2>
+                              Drop your files here or
+                              <span className="browser">browse</span>
+                            </h2>
+                            <h5>Maximum size: 5MB</h5>
+                            <h5>PDF, JPEG and PNG accepted</h5>
+                          </div>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="aadhaarfront"
+                            onChange={handleFileInputChange}
+                          />
+                        </>
+                        <>
+                          {data.upload_file.length !== 0
+                            ? data.upload_file.map((data, index) => (
+                                <div className="educationUploaded">
+                                  <div className="educationUploadedFlex">
+                                    <div className="educationUploadedFlexLeft">
+                                      <img src={gallery} alt="" />
+                                      <div className="educationUploadedFlexLeftDesc">
+                                        <h2>certificate{index + 1}.jpeg</h2>
+                                        {/* <p>4 MB</p> */}
+                                      </div>
+                                    </div>
+                                    {/* <div
+                                      className="educationUploadedFlexRight"
+                                      onClick={() => {
+                                        deletebtn(index);
+                                      }}
+                                    >
+                                      <img src={trash} alt="" />
+                                    </div> */}
+                                  </div>
+                                  <div className="percent">
+                                    <div className="range">
+                                      <div className="InnerRange"></div>
+                                    </div>
+                                    <h2>100%</h2>
+                                  </div>
+                                </div>
+                              ))
+                            : null}
+                        </>
+                      </>
+                    ))
+                  : null}
+
+                <div className="Add_More">
+                  <button onClick={addcountwork}>
+                    <img src={plus} alt="" />
+                    <h3>ADD MORE EDUCATION DETAILS</h3>
+                  </button>
+                </div>
               </div>
               <div className="vedioResumeButtons">
                 <button
