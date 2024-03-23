@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 import React, { useState } from "react";
 import "./ProfileCard.css";
@@ -15,7 +16,10 @@ import { FiLoader } from "react-icons/fi";
 
 const ProfileCard = ({ filterdata, fun }) => {
   const dispatch = useDispatch();
+  const [finaldata, setfinaldata] = useState(filterdata);
   const [loading, setIsLoading] = useState(false);
+  const [raterange, setraterange] = useState(null);
+  const [experiencerange, setexperiencerange] = useState(null);
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
@@ -23,7 +27,46 @@ const ProfileCard = ({ filterdata, fun }) => {
   const sortHandler = (e) => {
     dispatch(storeAction.isPopUpHander(e.target.id));
   };
-
+  const sortbtn = async () => {
+    let filteredData = filterdata.filter(
+      (item) => item.rate_card_info !== null
+    );
+    let sortedData = [...filteredData];
+    if (raterange === "Low to High") {
+      sortedData.sort(
+        (a, b) =>
+          a.rate_card_info.remote_hourly - b.rate_card_info.remote_hourly
+      );
+    } else {
+      sortedData.sort(
+        (a, b) =>
+          b.rate_card_info.remote_hourly - a.rate_card_info.remote_hourly
+      );
+    }
+    if (experiencerange !== null) {
+      let filtered_Data = sortedData.filter(
+        (item) => item.preference_info !== null
+      );
+      let sorted_Data = [...filtered_Data];
+      if (experiencerange === "Low to High") {
+        sorted_Data.sort(
+          (a, b) =>
+            a.preference_info.year_of_experience -
+            b.preference_info.year_of_experience
+        );
+      } else {
+        sorted_Data.sort(
+          (a, b) =>
+            b.preference_info.year_of_experience -
+            a.preference_info.year_of_experience
+        );
+      }
+      setfinaldata(sorted_Data);
+    } else {
+      setfinaldata(sortedData);
+    }
+    dispatch(storeAction.isPopUpHander());
+  };
   return (
     <div>
       <div className="clientDiscoverOuter paddingRight100">
@@ -35,8 +78,8 @@ const ProfileCard = ({ filterdata, fun }) => {
             </h1>
           </div>
           <div className="clientDiscover">
-            {filterdata.length !== 0 ? (
-              filterdata.map((data, index) => (
+            {finaldata.length !== 0 ? (
+              finaldata.map((data, index) => (
                 <div
                   id="page2"
                   onClick={() => fun("page2", data.id)}
@@ -149,16 +192,29 @@ const ProfileCard = ({ filterdata, fun }) => {
             <div className="adminEditOverlayBody">
               <div className="adminEditOverlayContent">
                 <h2>Hourly Rate</h2>
-                <select name="" id="">
-                  <option value="">Low to Hight</option>
-                  <option value="">High to Low</option>
+                <select
+                  onChange={(e) => {
+                    setraterange(e.target.value);
+                    setexperiencerange(null);
+                  }}
+                  selected={raterange}
+                >
+                  <option value="">Select</option>
+                  <option value="Low to High">Low to High</option>
+                  <option value="High to Low">High to Low</option>
                 </select>
               </div>
               <div className="adminEditOverlayContent">
                 <h2>Years of Experience</h2>
-                <select name="" id="">
-                  <option value="">Low to Hight</option>
-                  <option value="">High to Low</option>
+                <select
+                  onChange={(e) => {
+                    setexperiencerange(e.target.value);
+                  }}
+                  selected={experiencerange}
+                >
+                  <option value="">Select</option>
+                  <option value="Low to High">Low to High </option>
+                  <option value="High to Low">High to Low</option>
                 </select>
               </div>
             </div>
@@ -173,7 +229,9 @@ const ProfileCard = ({ filterdata, fun }) => {
               </button>
 
               {loading === false ? (
-                <button className="save">Sort</button>
+                <button className="save" onClick={sortbtn}>
+                  Sort
+                </button>
               ) : (
                 <button className="save w-[10rem] flex justify-center items-center">
                   <FiLoader className="loadingIcon" />

@@ -91,11 +91,11 @@ const ProfessionalDetails = () => {
         seteducation_data(certificatedata);
         var filterdata = [];
         for (var i = 0; i < certificatedata.length; i++) {
+          console.log(certificatedata[i]);
           const arrayOfObjects = certificatedata[i].skills.map((value) => ({
             value,
             label: value,
           }));
-          console.log(arrayOfObjects, "arrayOfObjects");
           filterdata.push({
             annual_salary: certificatedata[i].annual_salary,
             company_name: certificatedata[i].company_name,
@@ -103,8 +103,8 @@ const ProfessionalDetails = () => {
             location: certificatedata[i].location,
             title: certificatedata[i].title,
             years_active: certificatedata[i].years_active,
-            years_active_start: certificatedata[i].years_active_start,
-            years_active_end: certificatedata[i].years_active_end,
+            years_active_start: certificatedata[i].years_active.split("-")[0],
+            years_active_end: certificatedata[i].years_active.split("-")[1],
             skills: arrayOfObjects,
             type: "edit",
             id: certificatedata[i].id,
@@ -147,25 +147,21 @@ const ProfessionalDetails = () => {
               description: travelwork[i].description,
               location: travelwork[i].location,
               title: travelwork[i].title,
-              years_active: travelwork[i].years_active,
-              years_active_start: travelwork[i].years_active_start,
-              years_active_end: travelwork[i].years_active_end,
+              years_active: `${travelwork[i].years_active_start}-${travelwork[i].years_active_end}`,
               skills: arrayOf_Values,
             },
           };
-          alldata.push({
-            annual_salary: travelwork[i].annual_salary,
-            company_name: travelwork[i].company_name,
-            description: travelwork[i].description,
-            location: travelwork[i].location,
-            title: travelwork[i].title,
-            years_active: travelwork[i].years_active,
-            years_active_start: travelwork[i].years_active_start,
-            years_active_end: travelwork[i].years_active_end,
-            skills: arrayOf_Values,
-          });
+          // alldata.push({
+          //   annual_salary: travelwork[i].annual_salary,
+          //   company_name: travelwork[i].company_name,
+          //   description: travelwork[i].description,
+          //   location: travelwork[i].location,
+          //   title: travelwork[i].title,
+          //   years_active: `${travelwork[i].years_active_start}-${travelwork[i].years_active_end}`,
+          //   skills: arrayOf_Values,
+          // });
 
-          await axios
+          var updatedata = await axios
             .post(
               `${process.env.REACT_APP_LOCAL_HOST_URL}/getProffessionalDetails/${userid}/`,
               newobj,
@@ -182,6 +178,12 @@ const ProfessionalDetails = () => {
             .catch((err) => {
               return err.response;
             });
+          if (
+            updatedata.message ===
+            "User and Associated Info updated successfully"
+          ) {
+            alldata.push(updatedata.professional_details_info);
+          }
         } else {
           var arrayOfValues = [];
           if (travelwork[i].skills.length !== 0) {
@@ -195,9 +197,7 @@ const ProfessionalDetails = () => {
               description: travelwork[i].description,
               location: travelwork[i].location,
               title: travelwork[i].title,
-              years_active: travelwork[i].years_active,
-              years_active_start: travelwork[i].years_active_start,
-              years_active_end: travelwork[i].years_active_end,
+              years_active: `${travelwork[i].years_active_start}-${travelwork[i].years_active_end}`,
               skills: arrayOfValues,
             },
           };
@@ -207,9 +207,7 @@ const ProfessionalDetails = () => {
             description: travelwork[i].description,
             location: travelwork[i].location,
             title: travelwork[i].title,
-            years_active: travelwork[i].years_active,
-            years_active_start: travelwork[i].years_active_start,
-            years_active_end: travelwork[i].years_active_end,
+            years_active: `${travelwork[i].years_active_start}-${travelwork[i].years_active_end}`,
             skills: arrayOfValues,
             id: travelwork[i].id,
           });
@@ -275,6 +273,7 @@ const ProfessionalDetails = () => {
       settravelwork([...travelwork]);
     }
   };
+  console.log(travelwork, "travelworktravelworktravelwork");
   return (
     <div>
       <div className="professionalDetails">

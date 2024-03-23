@@ -18,6 +18,7 @@ import Avatar from "react-avatar";
 const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
   const dispatch = useDispatch();
   const bookmarkdata = useSelector((store) => store.bookmarkdata);
+  const alluserdata = useSelector((store) => store.alluserdata);
   const token = useSelector((store) => store.token);
   const userid = useSelector((store) => store.userid);
   const [tabledata, settabledata] = useState([]);
@@ -76,9 +77,12 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
     }
     settabledata(table_data);
   };
-  const viewbtn = (data) => {
+  const viewbtn = async (data) => {
+    var checkdata = await alluserdata.filter((item) => {
+      return item.id == data;
+    });
     setIsPage("page2");
-    dispatch(storeAction.singleuserHander({ singleuser: [data] }));
+    dispatch(storeAction.singleuserHander({ singleuser: checkdata }));
   };
   return (
     <div>
@@ -196,7 +200,7 @@ const SearchProfileCard = ({ datanew, addbookmark, reserve, setIsPage }) => {
                     </button>
                     <button
                       className="cartbtnimgbutton2"
-                      onClick={() => viewbtn(datanew)}
+                      onClick={() => viewbtn(datanew.id)}
                     >
                       view
                     </button>

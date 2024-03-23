@@ -19,7 +19,6 @@ import { storeAction } from "../../../../Store/Store";
 import Achievement from "../Achievement/Achievement";
 import axios from "axios";
 
-
 const CandidateProfile = () => {
   const dispatch = useDispatch();
   const userdata = useSelector((store) => store.userdata);
@@ -42,19 +41,19 @@ const CandidateProfile = () => {
       if (userdata[0].work_preference_info !== null) {
         count += 1;
       }
-      if (userdata[0].professional_details_info !== null) {
+      if (userdata[0].professional_details_info.length !== 0) {
         count += 1;
       }
-      if (userdata[0].project_details_info !== null) {
+      if (userdata[0].project_details_info.length !== 0) {
         count += 1;
       }
-      if (userdata[0].certificate_info !== null) {
+      if (userdata[0].certificate_info.length !== 0) {
         count += 1;
       }
       if (userdata[0].travel_info !== null) {
         count += 1;
       }
-      if (userdata[0].education_info !== null) {
+      if (userdata[0].education_info.length !== 0) {
         count += 1;
       }
       if (userdata[0].video_resume !== null) {

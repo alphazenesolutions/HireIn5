@@ -173,9 +173,9 @@ const AdminCustomerProfile = () => {
           return data.status === "Hired";
         });
         setalldata(hireduser);
-      } else if (e === "On-contract") {
+      } else if (e === "Reserved") {
         var contrctuser = await totaldata.filter((data) => {
-          return data.status === "On-contract";
+          return data.status === "Reserved";
         });
         setalldata(contrctuser);
       } else {
@@ -228,7 +228,7 @@ const AdminCustomerProfile = () => {
               <option value="">Status</option>
               <option value="Benched">Benched</option>
               <option value="Hired">Hired</option>
-              <option value="On-contract">On-contract</option>
+              <option value="Reserved">Reserved</option>
             </select>
             <select
               className="profileselect"

@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
@@ -55,15 +56,15 @@ const Certificate = () => {
               certificate_file: travelwork[i].certificate_file,
             },
           };
-          alldata.push({
-            course_name: travelwork[i].course_name,
-            date_issued: travelwork[i].date_issued,
-            description: travelwork[i].description,
-            url: travelwork[i].url,
-            skills: arrayOf_Values,
-            certificate_file: travelwork[i].certificate_file,
-          });
-          await axios
+          // alldata.push({
+          //   course_name: travelwork[i].course_name,
+          //   date_issued: travelwork[i].date_issued,
+          //   description: travelwork[i].description,
+          //   url: travelwork[i].url,
+          //   skills: arrayOf_Values,
+          //   certificate_file: travelwork[i].certificate_file,
+          // });
+          var updatedata = await axios
             .post(
               `${process.env.REACT_APP_LOCAL_HOST_URL}/getCertifications/${userid}/`,
               newobj,
@@ -80,6 +81,12 @@ const Certificate = () => {
             .catch((err) => {
               return err.response;
             });
+          if (
+            updatedata.message ===
+            "User and Associated Info updated successfully"
+          ) {
+            alldata.push(updatedata.certificate_info);
+          }
         } else {
           var arrayOfValues = [];
           if (travelwork[i].skills.length !== 0) {
@@ -298,7 +305,7 @@ const Certificate = () => {
       settravelwork([...travelwork]);
     }
   };
-
+  console.log(travelwork, "nnnnnnnnnnnn");
   return (
     <div>
       <div className="certificate">

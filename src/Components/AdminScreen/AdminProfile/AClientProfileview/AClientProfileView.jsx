@@ -568,6 +568,45 @@ const AClientProfileView = () => {
       setIsLoading(false);
     }
   };
+  const enablebtn = async (data) => {
+    setIsLoading(true);
+    var obj = {
+      username: data.username,
+      dissabled: false,
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${data.id}/`,
+        obj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      let updatedObject = {
+        ...singleuser[0],
+        dissabled: false,
+      };
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata(updatedObject);
+      setTimeout(() => {
+        dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
+      }, 10);
+      dispatch(storeAction.isPopUpHander());
+      setIsLoading(false);
+    }
+  };
   const [addcontractdata, setaddcontractdata] = useState({
     contract_type: "",
     hired_on: "",
@@ -580,6 +619,42 @@ const AClientProfileView = () => {
     setaddcontractdata((values) => ({ ...values, [name]: value }));
   };
   const createbtn = async () => {
+    if (addcontractdata.contract_type === "Statement of Work (SOW)") {
+      if (selectedOptionskill !== null) {
+        var checkuser = await alluserdata.filter((data) => {
+          return data.id == selectedOptionskill.value;
+        });
+        var obj_new = {
+          username: checkuser[0].username,
+          status: "Hired",
+        };
+        var updatedata = await axios
+          .put(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${checkuser[0].id}/`,
+            obj_new,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+        if (
+          updatedata.message === "User and Associated Info updated successfully"
+        ) {
+         
+          getalldata(updatedata.user);
+        }
+      } else {
+        console.log("object");
+      }
+    }
     setIsLoading(true);
     setuploadstatus(false);
     dispatch(storeAction.isPopUpHander());
@@ -692,8 +767,19 @@ const AClientProfileView = () => {
                       <FiLoader className="loadingIcon" />
                     </button>
                   )
+                ) : loading === false ? (
+                  <button
+                    className="disableProfile"
+                    onClick={() => {
+                      enablebtn(singleuser[0]);
+                    }}
+                  >
+                    Activate profile
+                  </button>
                 ) : (
-                  <button className="disable_Profile">Disabled</button>
+                  <button className="save w-[10rem] flex justify-center items-center">
+                    <FiLoader className="loadingIcon" />
+                  </button>
                 )}
               </div>
             </div>

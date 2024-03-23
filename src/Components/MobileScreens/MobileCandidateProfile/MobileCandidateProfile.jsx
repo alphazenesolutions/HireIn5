@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useState } from "react";
 import "./MobileCandidateProfile.css";
 import { IoArrowBackSharp } from "react-icons/io5";
@@ -463,7 +464,7 @@ const MobileCandidateProfile = () => {
               </div>
               <div className="demographicBodyContent">
                 <h4>Preferred Work Timing </h4>
-                <h5></h5>
+                <h5>-</h5>
               </div>
               <div className="demographicBodyContent">
                 <h4>Preferred method of working </h4>

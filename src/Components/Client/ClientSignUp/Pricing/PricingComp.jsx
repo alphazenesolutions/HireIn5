@@ -95,7 +95,7 @@ const PricingComp = () => {
           return err.response;
         });
       var newobj = {
-        message: `<p><b>${userdata[0].first_name}</b> has onboarded as a client subscribed to Starter plan</p>`,
+        message: `<p><b>${userdata[0].company.company_name}</b> has onboarded as a client subscribed to Starter plan</p>`,
         status: "false",
         on_type: "Client has onboarded",
       };
