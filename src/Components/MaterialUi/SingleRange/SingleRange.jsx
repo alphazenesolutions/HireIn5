@@ -22,9 +22,9 @@ const SingleRange = ({ setmonth }) => {
       <Slider
         value={value}
         onChange={handleChange}
-        min={3}
+        min={1}
         max={12}
-        step={12 / 4}
+        // step={12 / 4}
         valueLabelDisplay="auto" // or 'on' to always display, 'off' to hide
         valueLabelFormat={valueLabelFormat}
       />

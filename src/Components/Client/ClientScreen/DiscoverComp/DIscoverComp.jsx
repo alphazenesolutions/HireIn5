@@ -46,7 +46,7 @@ const DiscoverComp = () => {
   const [searchuser, setsearchuser] = useState([]);
   const [reserveduser, setreserveduser] = useState([]);
   const [isPage, setIsPage] = useState("page1");
-  const [startdate, setstartdate] = useState(moment().format("YYYY-MM-DD"));
+  const [startdate, setstartdate] = useState(moment().format("MMM DD, YYYY"));
   const [month, setmonth] = useState(3);
 
   const pageHandler = async (event, id) => {
@@ -108,28 +108,33 @@ const DiscoverComp = () => {
       .catch((err) => {
         return err.response;
       });
-    setalldata(allfacility.faculties);
-
-    var config1 = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-    };
-    var tabledata = await axios(config1)
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (error) {
-        return error;
-      });
-    if (tabledata.length !== 0) {
-      const bookmarkedUserArray = tabledata.map((item) => item.bookmarked_user);
-      dispatch(
-        storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
-      );
+    if (allfacility.faculties.length !== 0) {
+      setalldata(allfacility.faculties);
+      var config1 = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      };
+      var tabledata = await axios(config1)
+        .then(function (response) {
+          return response.data;
+        })
+        .catch(function (error) {
+          return error;
+        });
+      if (tabledata.length !== 0) {
+        const bookmarkedUserArray = tabledata.map(
+          (item) => item.bookmarked_user
+        );
+        dispatch(
+          storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
+        );
+      }
+    } else {
+      setalldata([]);
     }
   };
 
@@ -143,14 +148,43 @@ const DiscoverComp = () => {
     dispatch(storeAction.singleuserHander({ singleuser: [data] }));
   };
 
-  const overLayHandler1 = () => {
+  const overLayHandler1 = async () => {
     let data = JSON.stringify({
       candidate_id: reserveduser[0].id,
-      duration: month,
+      duration: month * 30,
       amount_paid: 15000,
       blocked_by_id: userid,
     });
-
+    var obj_new = {
+      username: reserveduser[0].username,
+      status: "Reserved",
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${reserveduser[0].id}/`,
+        obj_new,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      let updatedObject = {
+        ...reserveduser[0],
+        status: "Reserved",
+      };
+      setreserveduser([updatedObject]);
+    }
     let config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -478,6 +512,7 @@ const DiscoverComp = () => {
                         </SwiperSlide>
                       ))
                     : null}
+                  
                 </Swiper>
                 <div className="recent "></div>
                 <Table class="tableOne paddingRight100" />
@@ -635,11 +670,12 @@ const DiscoverComp = () => {
                   <h4>3 months</h4>
                   <h4>1 year</h4>
                 </div>
+                {console.log(startdate, "startdatestartdate")}
                 <h5>
                   Candidate will be reserved from{" "}
                   {startdate !== null ? (
                     <span className="darkHighter">
-                      {moment(startdate).format("MMM DD, YYYY")} -{" "}
+                      {startdate} -{" "}
                       {moment(startdate)
                         .add(month, "month")
                         .format("MMM DD, YYYY")}

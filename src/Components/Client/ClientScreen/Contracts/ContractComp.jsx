@@ -9,76 +9,70 @@ import tabImg from "../../../../assests/table.png";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { useDispatch } from "react-redux";
 import contractCard from "../../../../assests/contractCard.png";
+import { storeAction } from "../../../../Store/Store";
+import Avatar from "react-avatar";
 
 const ContractComp = () => {
+  const dispatch = useDispatch();
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
+
+  const contactdata = useSelector((store) => store.contractdata);
   const [isPage, setIsPage] = useState("page2");
   const PageHandler = (event) => {
     setIsPage(event.target.id);
   };
-  const [contracts, setContracts] = useState([]);
-
-  const profileData = [
-    {
-      name: "Surya Narreddi",
-      role: "Java Developer",
-      Experience: "2 years",
-      Skill1: "Java EEE",
-      Skill2: "JavaScript",
-      Skill3: "Java",
-      time: "7:00 PM IST",
-      date: "24/12/23",
-      cycle: "Monthly",
-      Duration: "12 Months",
-    },
-    {
-      name: "Surya Narreddi",
-      role: "Java Developer",
-      Experience: "2 years",
-      Skill1: "Java EEE",
-      Skill2: "JavaScript",
-      Skill3: "Java",
-      time: "7:00 PM IST",
-      date: "24/12/23",
-      cycle: "Monthly",
-      Duration: "12 Months",
-    },
-    {
-      name: "Surya Narreddi",
-      role: "Java Developer",
-      Experience: "2 years",
-      Skill1: "Java EEE",
-      Skill2: "JavaScript",
-      Skill3: "Java",
-      time: "7:00 PM IST",
-      date: "24/12/23",
-      cycle: "Monthly",
-      Duration: "12 Months",
-    },
-  ];
+  const [contractsdata, setContractsdata] = useState([]);
   useEffect(() => {
     getContactdata();
-  }, []);
+  }, [contactdata]);
   const getContactdata = async () => {
-    var contactdata = await axios
-      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${userid}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${token}`,
-        },
-      })
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
     if (contactdata.length !== 0) {
-      setContracts(contactdata);
+      setContractsdata(contactdata);
+      var contact_data = await axios
+        .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${userid}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        })
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      if (contact_data.length !== 0) {
+        dispatch(
+          storeAction.contractdataHander({ contractdata: contact_data })
+        );
+        setContractsdata(contact_data);
+      }
+    } else {
+      var contact_data1 = await axios
+        .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getContracts/${userid}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        })
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      if (contact_data1.length !== 0) {
+        dispatch(
+          storeAction.contractdataHander({ contractdata: contact_data1 })
+        );
+        setContractsdata(contact_data1);
+      }
     }
   };
+  console.log(contractsdata, "contracts");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100 paddingRight100">
@@ -135,78 +129,104 @@ const ContractComp = () => {
                 <th></th>
                 {/* <th></th> */}
               </tr>
-              {profileData.map((data) => {
-                return (
-                  <tr className="contractTableRow">
-                    {/* <td className="profileBookMark">
-                      <img src={tabFirst} alt="" />
-                    </td> */}
-                    <td>
-                      <div className="profileData ">
-                        <img src={tabImg} alt="" />
-                        <h2>{data.name}</h2>
-                      </div>
-                    </td>
-                    {/* <td>
-                      <h2>{data.role}</h2>
-                    </td> */}
-                    <td>
-                      <h2>{data.date}</h2>
-                    </td>
-                    <td>
-                      <h2>{data.Duration}</h2>
-                    </td>
-                    <td>
-                      <h2>{data.cycle}</h2>
-                    </td>
-                    <td className="skillData">
-                      <p>{data.Skill1}</p>
-                      <p>{data.Skill2}</p>
-                      <p>{data.Skill3}</p>
-                    </td>
-                    <td>
-                      <div>
-                        <button
-                          id="page3"
-                          onClick={PageHandler}
-                          className="tdBtn"
-                        >
-                          View Contract
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+              {console.log(contractsdata, "contractsdata")}
+              {contractsdata.length !== 0
+                ? contractsdata.map((data, index) => {
+                    return data.candidate !== null ? (
+                      <tr className="contractTableRow" key={index}>
+                        <td>
+                          <div className="profileData ">
+                            {data.Candidate[0].profile_picture.length !== 0 ? (
+                              <img src={tabImg} alt="" />
+                            ) : (
+                              <Avatar
+                                name={
+                                  data.Candidate[0].first_name.length !== 0
+                                    ? data.Candidate[0].first_name
+                                    : data.Candidate[0].username
+                                }
+                                size={30}
+                                round="50px"
+                                className="mr-2"
+                              />
+                            )}
+
+                            <h2>
+                              {data.Candidate[0].first_name.length !== 0
+                                ? data.Candidate[0].first_name
+                                : data.Candidate[0].username}
+                            </h2>
+                          </div>
+                        </td>
+
+                        <td>
+                          <h2>
+                            {moment(data.uplaod_date).format("DD-MM-YYYY")}
+                          </h2>
+                        </td>
+                        <td>
+                          <h2>{data.duration}</h2>
+                        </td>
+                        <td>
+                          <h2>{data.billing_cycle}</h2>
+                        </td>
+                        {data.Candidate[0].preference_info !== null ? (
+                          <td className="skillData">
+                            {data.Candidate[0].preference_info.skills.map(
+                              (datanew, index) => (
+                                <p key={index}>{datanew}</p>
+                              )
+                            )}
+                          </td>
+                        ) : null}
+                        {console.log(data, "hhhhhhhhhhhhhhhhhhhh")}
+                        <td>
+                          <div>
+                            <button
+                              onClick={() => {
+                                window.open(`${data.file}`, "_blank");
+                              }}
+                              className="tdBtn"
+                            >
+                              View Contract
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ) : null;
+                  })
+                : null}
             </table>
           </div>
         )}
         {isPage === "page3" && (
           <div className="Contract">
-            {contracts.length !== 0 ? (
-              contracts.map((data, index) => (
-                <div className="contractCard" key={index}>
-                  <div className="contractInner">
-                    <div className="contractInnerImg">
-                      <img src={contractCard} alt="" />
+            {contractsdata.length !== 0 ? (
+              contractsdata.map((data, index) =>
+                data.candidate == null ? (
+                  <div className="contractCard" key={index}>
+                    <div className="contractInner">
+                      <div className="contractInnerImg">
+                        <img src={contractCard} alt="" />
+                      </div>
+                      <div className="contractInnerDesc">
+                        <h2>{data.name}</h2>
+                        <h6>
+                          Updated on{" "}
+                          {moment(data.uplaod_date).format("DD/MM/YYYY")}
+                        </h6>
+                      </div>
                     </div>
-                    <div className="contractInnerDesc">
-                      <h2>{data.name}</h2>
-                      <h6>
-                        Updated on{" "}
-                        {moment(data.uplaod_date).format("DD/MM/YYYY")}
-                      </h6>
-                    </div>
+                    <button
+                      onClick={() => {
+                        window.open(`${data.file}`, "_blank");
+                      }}
+                    >
+                      Download
+                    </button>
                   </div>
-                  <button
-                    onClick={() => {
-                      window.open(`${data.file}`, "_blank");
-                    }}
-                  >
-                    Download
-                  </button>
-                </div>
-              ))
+                ) : null
+              )
             ) : (
               <div>
                 <h6 className="text-center py-24">No Data found...</h6>

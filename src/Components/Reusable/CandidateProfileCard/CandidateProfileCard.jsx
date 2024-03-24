@@ -46,6 +46,7 @@ const CandidateProfileCard = (props) => {
   };
 
   const [isSelect1, setIsSelect1] = useState("personal");
+  const [availablefrom, setavailablefrom] = useState(null);
   const [profile, setprofile] = useState("");
   const buttonHandler1 = (e) => {
     setIsSelect1(e.target.id);
@@ -172,6 +173,30 @@ const CandidateProfileCard = (props) => {
       }, 10);
     }
   };
+  useEffect(() => {
+    getavailabledata();
+  }, [expiredata]);
+  const getavailabledata = async () => {
+    if (expiredata !== "null") {
+      const differenceInDays = Math.ceil(
+        Math.abs(
+          (new Date(moment(expiredata).format("YYYY-MM-DD")) -
+            new Date(moment().format("YYYY-MM-DD"))) /
+            (1000 * 60 * 60 * 24)
+        )
+      );
+      if (differenceInDays < 30) {
+        setavailablefrom(
+          moment(expiredata).add(1, "days").format("DD MMM YYYY")
+        );
+      } else {
+        setavailablefrom(null);
+      }
+    } else {
+      setavailablefrom(null);
+    }
+  };
+
   return (
     <div>
       <div className={props.main}>
@@ -240,10 +265,14 @@ const CandidateProfileCard = (props) => {
                   <h2>0 / HR</h2>
                 )}
 
-                <div className="available">
-                  <p>Available from</p>
-                  <h5>03 Aug 2024</h5>
-                </div>
+                {expiredata !== "null" ? (
+                  availablefrom !== null ? (
+                    <div className="available">
+                      <p>Available from</p>
+                      <h5>{availablefrom}</h5>
+                    </div>
+                  ) : null
+                ) : null}
               </div>
               <div className="profileLeftMiddle">
                 <h3>TOP SKILLS</h3>
@@ -605,7 +634,8 @@ const CandidateProfileCard = (props) => {
               )}
               {isSelect1 === "certificate" && (
                 <div className="certification">
-                  {singleuser[0].certificate_info.length !== 0
+                  {singleuser[0].certificate_info !== null &&
+                  singleuser[0].certificate_info.length !== 0
                     ? singleuser[0].certificate_info.map((data, index) => (
                         <div className="certify" key={index}>
                           <h1>{data.course_name}</h1>
@@ -675,6 +705,7 @@ const CandidateProfileCard = (props) => {
               )}
               {console.log(singleuser[0], "yyyyyyyyyy")}
               {isSelect1 === "employ" &&
+              singleuser[0].professional_details_info !== null &&
               singleuser[0].professional_details_info.length !== 0
                 ? singleuser[0].professional_details_info.map((data, index) => (
                     <div className="employ" key={index}>
@@ -692,7 +723,8 @@ const CandidateProfileCard = (props) => {
 
               {isSelect1 === "project" && (
                 <div className="project">
-                  {singleuser[0].project_details_info.length !== 0
+                  {singleuser[0].project_details_info !== null &&
+                  singleuser[0].project_details_info.length !== 0
                     ? singleuser[0].project_details_info.map((data, index) => (
                         <div className="projectInner mb-5" key={index}>
                           <h1>{data.project_title}</h1>
@@ -728,7 +760,7 @@ const CandidateProfileCard = (props) => {
                   <div className="availableFlex">
                     <div className="availableFlexLeft">
                       <h1>Availability</h1>
-                      <h1>Available from </h1>
+                      {/* <h1>Available from </h1> */}
                       <h1>Full time /Part time?</h1>
                       <h1>Preferred Work Timings</h1>
                       <h1>Preferred method of working</h1>

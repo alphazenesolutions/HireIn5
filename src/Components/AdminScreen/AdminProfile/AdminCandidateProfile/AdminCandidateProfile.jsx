@@ -28,19 +28,19 @@ const AdminCandidateProfile = ({ alldata, totaldata, loading, setalldata }) => {
     if (profile.work_preference_info !== null) {
       count += 1;
     }
-    if (profile.professional_details_info !== null) {
+    if (profile.professional_details_info.length !== 0) {
       count += 1;
     }
-    if (profile.project_details_info !== null) {
+    if (profile.project_details_info.length !== 0) {
       count += 1;
     }
-    if (profile.certificate_info !== null) {
+    if (profile.certificate_info.length !== 0) {
       count += 1;
     }
     if (profile.travel_info !== null) {
       count += 1;
     }
-    if (profile.education_info !== null) {
+    if (profile.education_info.length !== 0) {
       count += 1;
     }
     if (profile.video_resume !== null) {

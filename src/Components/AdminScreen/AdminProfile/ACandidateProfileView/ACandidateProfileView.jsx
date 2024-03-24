@@ -1784,6 +1784,7 @@ const ACandidateProfileView = () => {
   };
   const disablebtn = async (data) => {
     setIsLoading(true);
+    settype("disable");
     var obj = {
       username: data.username,
       dissabled: true,
@@ -1821,11 +1822,52 @@ const ACandidateProfileView = () => {
       setIsLoading(false);
     }
   };
-
+  const enablebtn = async (data) => {
+    setIsLoading(true);
+    settype("disable");
+    var obj = {
+      username: data.username,
+      dissabled: false,
+    };
+    var updatedata = await axios
+      .put(
+        `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${data.id}/`,
+        obj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err.response;
+      });
+    if (
+      updatedata.message === "User and Associated Info updated successfully"
+    ) {
+      let updatedObject = {
+        ...singleuser[0],
+        dissabled: false,
+      };
+      dispatch(storeAction.singleuserHander({ singleuser: [] }));
+      getalldata(updatedObject);
+      setTimeout(() => {
+        dispatch(storeAction.singleuserHander({ singleuser: [updatedObject] }));
+      }, 10);
+      dispatch(storeAction.isPopUpHander());
+      setIsLoading(false);
+    }
+  };
+  const [type, settype] = useState("");
   const deletebtn = async (data) => {
+    settype("delete");
+    setIsLoading(true);
     var arrayOfObjects = alluserdata.filter((obj) => obj.id !== data.id);
     dispatch(storeAction.alluserdataHander({ alluserdata: arrayOfObjects }));
-
     await axios.delete(
       `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${data.id}/`,
       {
@@ -1835,6 +1877,7 @@ const ACandidateProfileView = () => {
         },
       }
     );
+    setIsLoading(false);
     window.location.replace("/#/customerProfile");
   };
   const [selectedOptionskill, setSelectedOptionskill] = useState(null);
@@ -1936,25 +1979,47 @@ const ACandidateProfileView = () => {
                           Approve Candidate
                         </h3>
                       ) : null}
-                      {singleuser[0].dissabled === false ? (
+
+                      {loading === false ? (
+                        singleuser[0].dissabled === false ? (
+                          <h3
+                            className="approvalMenuDisable"
+                            onClick={() => {
+                              disablebtn(singleuser[0]);
+                            }}
+                          >
+                            Disable Candidate
+                          </h3>
+                        ) : (
+                          <h3
+                            id="approveconformation"
+                            onClick={() => {
+                              enablebtn(singleuser[0]);
+                            }}
+                            className="approvalMenuActive"
+                          >
+                            Enable Candidate
+                          </h3>
+                        )
+                      ) : type === "disable" ? (
+                        <button className="flex justify-center items-center ml-5">
+                          <FiLoader className="loadingIcon" />
+                        </button>
+                      ) : null}
+                      {loading === false ? (
                         <h3
                           className="approvalMenuDisable"
                           onClick={() => {
-                            disablebtn(singleuser[0]);
+                            deletebtn(singleuser[0]);
                           }}
                         >
-                          Disable Profile
+                          Delete Profile
                         </h3>
+                      ) : type === "delete" ? (
+                        <button className="flex justify-center items-center ml-5">
+                          <FiLoader className="loadingIcon" />
+                        </button>
                       ) : null}
-
-                      <h3
-                        className="approvalMenuDisable"
-                        onClick={() => {
-                          deletebtn(singleuser[0]);
-                        }}
-                      >
-                        Delete Profile
-                      </h3>
                     </div>
                   ) : null)}
               </div>

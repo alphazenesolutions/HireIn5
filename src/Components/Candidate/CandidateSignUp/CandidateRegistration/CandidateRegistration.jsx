@@ -42,6 +42,7 @@ const CandidateRegistration = () => {
 
   const [isPage, setIsPage] = useState("page1");
   const [dropDown, setdropDown] = useState("");
+  const [userdata_new, setuserdata_new] = useState([]);
   const [dropDown1, setdropDown1] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [dropDownList, setdropDownList] = useState([]);
@@ -116,57 +117,38 @@ const CandidateRegistration = () => {
   };
   const routeHandler = async () => {
     if (isPage === "page4") {
-      dispatch(storeAction.issidebarHandler({ issidebar: true }));
-      dispatch(storeAction.isloginHandler({ islogin: true }));
-      dispatch(
-        storeAction.onboarding_statusHander({
+      if (userdata_new.length !== 0) {
+        dispatch(storeAction.issidebarHandler({ issidebar: true }));
+        dispatch(storeAction.isloginHandler({ islogin: true }));
+        dispatch(
+          storeAction.onboarding_statusHander({
+            onboarding_status: 4,
+          })
+        );
+        var newobj1 = {
+          username: userdata_new[0].username,
           onboarding_status: 4,
-        })
-      );
-      var newobj1 = {
-        username: userdata[0].username,
-        onboarding_status: 4,
-      };
-      await axios
-        .put(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
-          newobj1,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `JWT ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
-        });
-      var newobj = {
-        message: `<p><b>${userdata[0].first_name}</b> has onboarded as a candidate</p>`,
-        status: "false",
-        on_type: "Candidate has onboarded",
-      };
-      await axios
-        .post(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/notification/${userdata[0].id}/`,
-          newobj,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `JWT ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          return err.response;
-        });
-      window.location.replace("/#/profile");
+        };
+        await axios
+          .put(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}/`,
+            newobj1,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+       
+        window.location.replace("/#/profile");
+      }
     }
   };
   const routeTimeout = setTimeout(routeHandler, 1500);
@@ -876,12 +858,37 @@ const CandidateRegistration = () => {
       if (
         update1_data.message === "User and Associated Info updated successfully"
       ) {
+        var new_obj = {
+          message: `<p><b>${update1_data.user.first_name}</b> has onboarded as a candidate</p>`,
+          status: "false",
+          on_type: "Candidate has onboarded",
+        };
+        await axios
+          .post(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/notification/${update1_data.user.id}/`,
+            new_obj,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
         let updatedObject = {
           ...userdata[0],
           travel_info: update1_data.user.travel_info,
         };
+        setuserdata_new([updatedObject]);
         setIsLoading(false);
-        dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+        setTimeout(() => {
+          dispatch(storeAction.userdataHander({ userdata: [updatedObject] }));
+        }, 2000);
         setIsPage("page4");
         routeHandler();
       }
@@ -1048,6 +1055,7 @@ const CandidateRegistration = () => {
     setIsPage("page4");
     routeHandler();
   };
+  console.log(userdata_new);
   return (
     <>
       <div className="candidateRegistration">
