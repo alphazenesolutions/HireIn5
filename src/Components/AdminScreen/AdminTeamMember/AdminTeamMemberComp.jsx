@@ -27,6 +27,7 @@ const AdminTeamMemberComp = () => {
   const [setvalue3, setvalue33] = useState("Edit access");
   const [updateid, setupdateid] = useState(null);
   const [shownew, setshownew] = useState(false);
+  const [singleuserdata, setsingleuserdata] = useState(null);
 
   function toggleDropdown(event) {
     setshow(!show);
@@ -53,11 +54,12 @@ const AdminTeamMemberComp = () => {
     dispatch(storeAction.isPopUpHander(item));
   };
   async function getpendingvalue(e) {
+    console.log(e, updateid, "updateidupdateid");
     let getdata = e;
     if (getdata === "Remove user") {
       var deleteuser = await axios
         .delete(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${updateid}/`,
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${updateid}/`,
 
           {
             headers: {
@@ -79,32 +81,17 @@ const AdminTeamMemberComp = () => {
           transition: Slide,
           style: customToastStyle,
         });
-        var alldata = await axios
-          .get(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${userid}/`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `JWT ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            return res.data;
-          })
-          .catch((err) => {
-            return err.response;
-          });
-        setalldata(alldata);
+        Getalldata();
       }
     } else {
       var obj = {
-        level_of_access: getdata,
+        role: getdata === "Admin" ? 1 : getdata === "HR" ? 4 : 5,
         status: "Pending",
+        username: singleuserdata.username,
       };
       var updatedata = await axios
         .put(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${updateid}/`,
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${updateid}/`,
           obj,
           {
             headers: {
@@ -126,23 +113,7 @@ const AdminTeamMemberComp = () => {
           style: customToastStyle,
         });
         setshownew(false);
-        var alldata = await axios
-          .get(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${userid}/`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `JWT ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            return res.data;
-          })
-          .catch((err) => {
-            return err.response;
-          });
-        setalldata(alldata);
+        Getalldata();
       }
     }
   }
@@ -151,8 +122,7 @@ const AdminTeamMemberComp = () => {
     if (getdata === "Remove user") {
       var deleteuser = await axios
         .delete(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${updateid}/`,
-
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${updateid}/`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -173,32 +143,17 @@ const AdminTeamMemberComp = () => {
           transition: Slide,
           style: customToastStyle,
         });
-        var alldata = await axios
-          .get(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${userid}/`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `JWT ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            return res.data;
-          })
-          .catch((err) => {
-            return err.response;
-          });
-        setalldata(alldata);
+        Getalldata();
       }
     } else {
       var obj = {
-        level_of_access: getdata,
+        role: getdata === "Admin" ? 1 : getdata === "HR" ? 4 : 5,
         status: "Success",
+        username: singleuserdata.username,
       };
       var updatedata = await axios
         .put(
-          `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${updateid}/`,
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${updateid}/`,
           obj,
           {
             headers: {
@@ -220,23 +175,7 @@ const AdminTeamMemberComp = () => {
           style: customToastStyle,
         });
         setshownew(false);
-        var alldata = await axios
-          .get(
-            `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${userid}/`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `JWT ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            return res.data;
-          })
-          .catch((err) => {
-            return err.response;
-          });
-        setalldata(alldata);
+        Getalldata();
       }
     }
   }
@@ -266,12 +205,11 @@ const AdminTeamMemberComp = () => {
       email: formdata.email_id,
       role: setvalue === "Admin" ? 1 : setvalue === "HR" ? 4 : 5,
       status: "Pending",
-      password: "",
+      password: "admin",
     };
     var newobj = {
       email: formdata.email_id,
     };
-    console.log(obj, "obj");
     var createuser = await axios
       .post(`https://hirein5-server.onrender.com/user/create/`, obj)
       .then((res) => {
@@ -312,26 +250,26 @@ const AdminTeamMemberComp = () => {
   }, []);
   const Getalldata = async () => {
     var alldata = await axios
-      .get(
-        `${process.env.REACT_APP_LOCAL_HOST_URL}/getTeamMembers/${userid}/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${token}`,
-          },
-        }
-      )
+      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/role/staffusers/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        },
+      })
       .then((res) => {
         return res.data;
       })
       .catch((err) => {
         return err.response;
       });
-    setalldata(alldata);
+    if (alldata.faculties.length !== 0) {
+      setalldata(alldata.faculties);
+    }
   };
   const get_value = (e) => {
     console.log("e", e);
   };
+  console.log(alldata, "alldata");
   return (
     <div>
       <div className="displayHandlerMob">
@@ -428,14 +366,21 @@ const AdminTeamMemberComp = () => {
               ? alldata.map((data, index) =>
                   data.status === "Pending" || data.status !== "Success" ? (
                     <div className="manageMemberEdit" key={index}>
-                      <h4>{data.name}</h4>
-                      <p>{data.level_of_access}</p>
+                      <h4>{data.first_name}</h4>
+                      <p>
+                        {data.role == 1
+                          ? "Admin"
+                          : data.role == 4
+                          ? "HR"
+                          : "Sales"}
+                      </p>
                       <div className="editAccess">
                         <div className="editAccess1">
                           <button
                             onClick={() => {
                               toggle_Dropdown(data.id);
                               openmodel("access2");
+                              setsingleuserdata(data);
                             }}
                           >
                             {setvalue3}
@@ -448,7 +393,7 @@ const AdminTeamMemberComp = () => {
                                   getpendingvalue("Admin");
                                 }}
                               >
-                                Admin
+                                Admin 1
                                 <img src={Billingtick} alt="" />
                               </h3>
                               <h3
@@ -490,14 +435,21 @@ const AdminTeamMemberComp = () => {
               ? alldata.map((data, index) =>
                   data.status === "Success" ? (
                     <div className="manageMemberEdit" key={index}>
-                      <h4>{data.name}</h4>
-                      <p>{data.level_of_access}</p>
+                      <h4>{data.first_name}</h4>
+                      <p>
+                        {data.role == 1
+                          ? "Admin"
+                          : data.role == 4
+                          ? "HR"
+                          : "Sales"}
+                      </p>
                       <div className="editAccess">
                         <div className="editAccess1">
                           <button
                             onClick={() => {
                               toggle_Dropdown(data.id);
                               openmodel("access2");
+                              setsingleuserdata(data);
                             }}
                           >
                             {setvalue3}

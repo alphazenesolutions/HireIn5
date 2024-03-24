@@ -338,6 +338,7 @@ const ACandidateProfileView = () => {
           settravelwork(new_array1);
         }
       }
+      console.log(singleuser[0], "singleuser[0]singleuser[0]singleuser[0]");
       var projectdata = singleuser[0].project_details_info;
       if (projectdata.length !== 0) {
         var filterdata = [];
@@ -1421,6 +1422,8 @@ const ACandidateProfileView = () => {
     aadhar_number: "",
     pan_front: "",
     pan_number: "",
+    personality_assessment: "",
+    background_verification: "",
   });
   const handle_change_pass = (e) => {
     const { name, value } = e.target;
@@ -1503,6 +1506,8 @@ const ACandidateProfileView = () => {
     pan_front: false,
     passport_front: false,
     passport_back: false,
+    personality_assessment: false,
+    background_verification: false,
   });
   const handleFileSelectClick = (data) => {
     fileInputRef.current.click();
@@ -1579,6 +1584,8 @@ const ACandidateProfileView = () => {
         pan_front: kycdata.pan_front,
         pan_number: kycdata.pan_number,
       },
+      personality_assessment: kycdata.personality_assessment,
+      background_verification: kycdata.background_verification,
     };
     var updatedata = await axios
       .put(
@@ -1616,6 +1623,7 @@ const ACandidateProfileView = () => {
         .catch((err) => {
           return err.response;
         });
+      console.log(userinfo, "userinfo");
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
       getalldata(userinfo);
       setTimeout(() => {
@@ -1900,7 +1908,7 @@ const ACandidateProfileView = () => {
       setcertificatedata([...certificatedata]);
     }
   };
-  console.log(singleuser, "singleusersingleusersingleuser");
+  console.log(singleuser, kycdata, "singleusersingleusersingleuser");
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -2502,11 +2510,33 @@ const ACandidateProfileView = () => {
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>Personality Assessment </h2>
-                    <h3>Not Uploaded</h3>
+                    {singleuser[0].personality_assessment !== null ? (
+                      singleuser[0].personality_assessment.length !== 0 ? (
+                        <h3
+                          onClick={() => {
+                            window.open(
+                              `${
+                                singleuser[0].personality_assessment !== null
+                                  ? singleuser[0].personality_assessment
+                                  : null
+                              }`,
+                              "_blank"
+                            );
+                          }}
+                          className="cursor-pointer"
+                        >
+                          Uploaded
+                        </h3>
+                      ) : (
+                        <h3 className="cursor-pointer">-</h3>
+                      )
+                    ) : (
+                      <h3 className="cursor-pointer">-</h3>
+                    )}
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
                     <h2>Personality Assessment Test Link </h2>
-                    <h3>https://mettl.com/test-score/yasirquazi</h3>
+                    <h3>{singleuser[0].personality_assessment}</h3>
                   </div>
                 </div>
               </div>
@@ -2644,6 +2674,68 @@ const ACandidateProfileView = () => {
                           </div>
                         </div>
                       </div> */}
+                    </div>
+                    <div className="adminEditOverlayContent px-8 mb-5">
+                      <h3>Background Verification</h3>
+                      <div
+                        className="adminEditOverlayUpload backGround"
+                        onClick={() => {
+                          handleFileSelectClick("background_verification");
+                        }}
+                      >
+                        <div className="adminEditOverlayUploadHead">
+                          <img src={file} alt="" />
+                          <div className="adminEditOverlayUploadHeadRight">
+                            <h4>background_verification.jpg</h4>
+                            {/* <h5>1 MB</h5> */}
+                          </div>
+                        </div>
+                        <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
+                        <button>Upload new file</button>
+                        <input
+                          type="file"
+                          ref={fileInputRef}
+                          style={{ display: "none" }}
+                          name="background_verification"
+                          onChange={handleFileInput_Change1}
+                        />
+                        {fileuploadsuccess.background_verification && (
+                          <h6 className="text-green-500 text-xs font-semibold mt-2">
+                            Background Verification Uploaded Successfully
+                          </h6>
+                        )}
+                      </div>
+                    </div>
+                    <div className="adminEditOverlayContent px-8 mb-5">
+                      <h3>Personality Assessment</h3>
+                      <div
+                        className="adminEditOverlayUpload backGround"
+                        onClick={() => {
+                          handleFileSelectClick("personality_assessment");
+                        }}
+                      >
+                        <div className="adminEditOverlayUploadHead">
+                          <img src={file} alt="" />
+                          <div className="adminEditOverlayUploadHeadRight">
+                            <h4>personality_assessment.jpg</h4>
+                            {/* <h5>1 MB</h5> */}
+                          </div>
+                        </div>
+                        <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
+                        <button>Upload new file</button>
+                        <input
+                          type="file"
+                          ref={fileInputRef}
+                          style={{ display: "none" }}
+                          name="personality_assessment"
+                          onChange={handleFileInput_Change1}
+                        />
+                        {fileuploadsuccess.personality_assessment && (
+                          <h6 className="text-green-500 text-xs font-semibold mt-2">
+                            Personality Assessment Uploaded Successfully
+                          </h6>
+                        )}
+                      </div>
                     </div>
                     <div className="editOverlayButton">
                       <button

@@ -141,7 +141,7 @@
 /* admin edit overlay */
 .adminEditOverlay {
     width: 60%;
-    /* height: 60%; */
+    height: 60%;
     overflow-y: scroll;
     background-color: white;
     display: flex;
