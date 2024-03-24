@@ -4,17 +4,17 @@ import "../../Client/ClientSignUp/SignUp/SignUpComp.css";
 import Head from "../../Reusable/LogoHead/Head";
 import Foot from "../../Reusable/Terms&Conditions/Foot";
 import SectionHead from "../../Reusable/SectionHead/SectionHead";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import back from "../../../assests/back.png";
-import { useDispatch } from "react-redux";
-import { storeAction } from "../../../Store/Store";
 import axios from "axios";
 import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
+import { jwtDecode } from "jwt-decode";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [isButton, setIsButton] = useState(false);
+  const [updateid, setupdateid] = useState(null);
+  const [token, settoken] = useState(null);
 
   const ButtonHandler = (e) => {
     setIsButton(true);
@@ -55,86 +55,82 @@ const AdminLogin = () => {
     setpassworderror(false);
     setpasswordmatch(false);
     setfinalerror(false);
-    var validRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (signupdata.username.length === 0) {
-      setusernameerror(true);
-    } else if (signupdata.username.match(validRegex)) {
+    if (signupdata.password.length === 0) {
       setusernameerror(false);
-      if (signupdata.password.length === 0) {
-        setusernameerror(false);
-        setpassworderror(true);
-      } else if (signupdata.cpassword.length === 0) {
-        setcpassworderror(true);
-        setpassworderror(false);
-        setpasswordmatch(false);
-      } else if (signupdata.password !== signupdata.cpassword) {
-        setpasswordmatch(true);
-        setcpassworderror(false);
-      } else {
-        setIsLoading(true);
-
-        setusernameerror(false);
-        setpassworderror(false);
-        setcpassworderror(false);
-        setpasswordmatch(false);
-        var newobj = {
-          email: signupdata.username,
-          username: signupdata.username,
-          password: signupdata.password,
-          role: 2,
-        };
-
-        var createuser = await axios
-          .post(`${process.env.REACT_APP_LOCAL_HOST_URL}/user/create/`, newobj)
-          .then((res) => {
-            return res.data;
-          })
-          .catch((err) => {
-            return err.response;
-          });
-        if (createuser.access_token !== undefined) {
-          dispatch(
-            storeAction.tokenHandler({ token: createuser.access_token })
-          );
-          dispatch(storeAction.loginroleHander({ loginrole: 2 }));
-          dispatch(storeAction.isloginHandler({ islogin: true }));
-          dispatch(storeAction.useridHandler({ userid: createuser.id }));
-          dispatch(
-            storeAction.onboarding_statusHander({
-              onboarding_status: 1,
-            })
-          );
-          dispatch(
-            storeAction.signupdataHandler({
-              signupdata: {
-                username: signupdata.username,
-                password: signupdata.password,
-              },
-            })
-          );
-
-          navigate("/emailverification");
-        } else {
-          setIsLoading(false);
-          setfinalerror(true);
-        }
-      }
+      setpassworderror(true);
+    } else if (signupdata.cpassword.length === 0) {
+      setcpassworderror(true);
+      setpassworderror(false);
+      setpasswordmatch(false);
+    } else if (signupdata.password !== signupdata.cpassword) {
+      setpasswordmatch(true);
+      setcpassworderror(false);
     } else {
-      setusernameerror(true);
+      setIsLoading(true);
+      setusernameerror(false);
+      setpassworderror(false);
+      setcpassworderror(false);
+      setpasswordmatch(false);
+      var newobj = {
+        email: signupdata.username,
+        username: signupdata.username,
+        password: signupdata.password,
+        status: "Success",
+      };
+      var updatedata = await axios
+        .put(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${updateid}/`,
+          newobj,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      if (
+        updatedata.message === "User and Associated Info updated successfully"
+      ) {
+        setIsLoading(false);
+        navigate("/login");
+      }
     }
   };
   useEffect(() => {
     Checkdata();
-  }, [signupdata]);
+  }, []);
+  let { email } = useParams();
   const Checkdata = async () => {
-    setIsButton(false);
-    if (
-      signupdata.username.length !== 0 &&
-      signupdata.password.length !== 0 &&
-      signupdata.cpassword.length !== 0
-    ) {
-      setIsButton(true);
+    if (email.length !== 0) {
+      setsignupdata((values) => ({ ...values, username: email }));
+      var newobj = {
+        username: email,
+        email: email,
+        password: "admin",
+      };
+      var loginuser = await axios
+        .post(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/user/token/obtain/`,
+          newobj
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      if (loginuser.access !== undefined) {
+        const token = loginuser.access;
+        const decoded = jwtDecode(token);
+        setupdateid(decoded.user_id);
+        settoken(token);
+      }
     }
   };
   return (
@@ -143,7 +139,12 @@ const AdminLogin = () => {
         <div className="clientSignUpComp">
           <div className="clientSignUpCompInner">
             <Head />
-            <SectionHead head="Create Password" desc="" highLight="" route="" />
+            <SectionHead
+              head="Create Password 11"
+              desc=""
+              highLight=""
+              route=""
+            />
             <div className="clientSignUpCompBody">
               <div className="clientSignUpCompBodyEmail">
                 <h4>Email</h4>
@@ -153,6 +154,8 @@ const AdminLogin = () => {
                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                   name="username"
                   onChange={handlechange}
+                  defaultValue={signupdata.username}
+                  disabled
                 />
                 {usernameerror && (
                   <p className="text-red-500 text-xs font-semibold mt-2">
@@ -241,7 +244,7 @@ const AdminLogin = () => {
                     {isLoading === true ? (
                       <FiLoader className="loadingIcon" />
                     ) : (
-                      "Sign up"
+                      "Set Password"
                     )}
                   </button>
                 ) : (
@@ -250,7 +253,7 @@ const AdminLogin = () => {
                     id="Signup"
                     className="signUpCompBodyButtonDisable"
                   >
-                    Sign up
+                    Set Password
                   </button>
                 )}
               </div>

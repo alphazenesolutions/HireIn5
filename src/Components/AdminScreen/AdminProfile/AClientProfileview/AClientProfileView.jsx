@@ -648,7 +648,6 @@ const AClientProfileView = () => {
         if (
           updatedata.message === "User and Associated Info updated successfully"
         ) {
-         
           getalldata(updatedata.user);
         }
       } else {
@@ -692,6 +691,28 @@ const AClientProfileView = () => {
     setTimeout(() => {
       dispatch(storeAction.isPopUpHander());
     }, 2000);
+  };
+  const [type, settype] = useState("");
+  const deletebtn = async (data) => {
+    settype("delete");
+    setIsLoading(true);
+    var arrayOfObjects = allcompanydata.filter((obj) => obj.id !== data.id);
+    dispatch(
+      storeAction.allcompanydataHander({ allcompanydata: arrayOfObjects })
+    );
+    await axios.delete(
+      `${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${data.id}/`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        },
+      }
+    );
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    window.location.replace("/#/customerProfile");
   };
   return (
     <div>
@@ -776,9 +797,43 @@ const AClientProfileView = () => {
                   >
                     Activate profile
                   </button>
-                ) : (
+                ) : type !== "delete" ? (
                   <button className="save w-[10rem] flex justify-center items-center">
                     <FiLoader className="loadingIcon" />
+                  </button>
+                ) : (
+                  <button
+                    className="disableProfile"
+                    onClick={() => {
+                      enablebtn(singleuser[0]);
+                    }}
+                  >
+                    Activate profile
+                  </button>
+                )}
+                {loading === true ? (
+                  type === "delete" ? (
+                    <button className="save w-[10rem] flex justify-center items-center">
+                      <FiLoader className="loadingIcon" />
+                    </button>
+                  ) : (
+                    <button
+                      className="delete_btn"
+                      onClick={() => {
+                        deletebtn(singleuser[0]);
+                      }}
+                    >
+                      Delete Profile
+                    </button>
+                  )
+                ) : (
+                  <button
+                    className="delete_btn"
+                    onClick={() => {
+                      deletebtn(singleuser[0]);
+                    }}
+                  >
+                    Delete Profile
                   </button>
                 )}
               </div>
