@@ -91,7 +91,6 @@ const ProfessionalDetails = () => {
         seteducation_data(certificatedata);
         var filterdata = [];
         for (var i = 0; i < certificatedata.length; i++) {
-          console.log(certificatedata[i]);
           const arrayOfObjects = certificatedata[i].skills.map((value) => ({
             value,
             label: value,
@@ -273,7 +272,6 @@ const ProfessionalDetails = () => {
       settravelwork([...travelwork]);
     }
   };
-  console.log(travelwork, "travelworktravelworktravelwork");
   return (
     <div>
       <div className="professionalDetails">

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { storeAction } from "../../../../../Store/Store";
 import { RxCross1 } from "react-icons/rx";
+import { FiLoader } from "react-icons/fi";
 
 const Table = (props) => {
   const dispatch = useDispatch();
@@ -18,6 +19,10 @@ const Table = (props) => {
   const [isSelect, setIsSelect] = useState("Shortlisted");
   const [alluserdata, setalluserdata] = useState([]);
   const [tabledata, settabledata] = useState([]);
+  const [loading, setloading] = useState(false);
+  const [singleuser, setsingleuser] = useState([]);
+  const [date, setdate] = useState("");
+  const [time, settime] = useState("");
 
   useEffect(() => {
     getUserinfo();
@@ -121,8 +126,59 @@ const Table = (props) => {
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
-  const overLayHandler = (e) => {
-    dispatch(storeAction.isPopUpHander(e.target.id));
+  const overLayHandler = (e, data) => {
+    dispatch(storeAction.isPopUpHander(e));
+    setsingleuser([data]);
+  };
+  const submitbtn = async () => {
+    if (singleuser.length !== 0) {
+      setloading(true);
+      var obj = {
+        interview_info: {
+          date: date,
+          time: time,
+          candidate: singleuser[0].id,
+          meeting_url: "null",
+        },
+      };
+      await axios
+        .post(
+          `${process.env.REACT_APP_LOCAL_HOST_URL}/getInterview/${userid}/`,
+          obj,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `JWT ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      setloading(false);
+      dispatch(storeAction.isPopUpHander());
+      var userinfo = await axios
+        .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/user/update/${userid}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        })
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      if (userinfo !== undefined) {
+        if (userinfo.id !== undefined) {
+          dispatch(storeAction.userdataHander({ userdata: [userinfo] }));
+        }
+      }
+    }
   };
   return (
     <div>
@@ -218,8 +274,9 @@ const Table = (props) => {
                           <td>
                             <div>
                               <button
-                                id="scheduleinterview"
-                                onClick={overLayHandler}
+                                onClick={() => {
+                                  overLayHandler("scheduleinterview", data);
+                                }}
                                 className="tdBtn"
                               >
                                 Schedule interview
@@ -240,17 +297,51 @@ const Table = (props) => {
           <div className="adminEditOverlay1">
             <div className="adminEditOverlayHead">
               <h1>Schedule Interview</h1>
-              <RxCross1 onClick={overLayHandler} />
+              <RxCross1
+                onClick={() => {
+                  dispatch(storeAction.isPopUpHander());
+                }}
+              />
             </div>
             <div className="adminEditOverlayBody">
               <div className="adminEditOverlayContent">
                 <h2>Interview Date </h2>
-                <input type="text" name="" id="" />
+                <input
+                  type="date"
+                  onChange={(e) => {
+                    setdate(e.target.value);
+                  }}
+                />
               </div>
               <div className="adminEditOverlayContent">
                 <h2>Interview Time</h2>
-                <input type="text" name="" id="" />
+                <input
+                  type="time"
+                  onChange={(e) => {
+                    settime(e.target.value);
+                  }}
+                />
               </div>
+            </div>
+            <div className="editOverlayButton">
+              <button
+                className="discard"
+                onClick={() => {
+                  dispatch(storeAction.isPopUpHander());
+                }}
+              >
+                Discard
+              </button>
+
+              {loading === false ? (
+                <button className="save" onClick={submitbtn}>
+                  Submit
+                </button>
+              ) : (
+                <button className="save w-[10rem] flex justify-center items-center">
+                  <FiLoader className="loadingIcon" />
+                </button>
+              )}
             </div>
           </div>
         </>

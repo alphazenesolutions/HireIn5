@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import correct from "../../../../../assests/correct.png";
@@ -53,7 +54,6 @@ const UpgradeComp = () => {
   const overLayHandler = (e) => {
     dispatch(storeAction.isPopUpHander(e.target.id));
   };
-  // console.log(isPopUp);
   return (
     <div>
       <div className="dashBoardMain paddingLeft100 paddingRight100">

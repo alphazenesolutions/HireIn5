@@ -38,7 +38,6 @@ const AdminHome = () => {
     let newdata = JSON.stringify({
       status: "true",
     });
-    console.log(checkdata, "checkdata");
     let config = {
       method: "put",
       maxBodyLength: Infinity,
@@ -181,7 +180,6 @@ const AdminHome = () => {
       Getnotification();
     }
   };
-  console.log(interviewdata, "interviewdata");
   return (
     <div>
       <div className="adminHomePage paddingLeft100 paddingRight100 marginBottom20">

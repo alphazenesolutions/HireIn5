@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ProfileCard.css";
 import briefcase from "../../../assests/briefCase.png";
 import graduation_cap from "../../../assests/graduationCap.png";
@@ -15,8 +15,9 @@ import { RxCross1 } from "react-icons/rx";
 import { FiLoader } from "react-icons/fi";
 
 const ProfileCard = ({ filterdata, fun }) => {
+
   const dispatch = useDispatch();
-  const [finaldata, setfinaldata] = useState(filterdata);
+  const [finaldata, setfinaldata] = useState([]);
   const [loading, setIsLoading] = useState(false);
   const [raterange, setraterange] = useState(null);
   const [experiencerange, setexperiencerange] = useState(null);
@@ -67,6 +68,9 @@ const ProfileCard = ({ filterdata, fun }) => {
     }
     dispatch(storeAction.isPopUpHander());
   };
+  useEffect(() => {
+    setfinaldata(filterdata);
+  }, [filterdata]);
   return (
     <div>
       <div className="clientDiscoverOuter paddingRight100">

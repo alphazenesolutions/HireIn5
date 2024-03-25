@@ -11,11 +11,13 @@ import DashBody from "../../../Reusable/DashBoardReusable/DashBody/DashBody";
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const BillingComp = () => {
+  const userdata = useSelector((store) => store.userdata);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isPage, setIsPage] = useState("billing");
+  const [isPage, setIsPage] = useState("page2");
   const PageHandler = (event) => {
     setIsPage(event.target.id);
   };
@@ -26,46 +28,9 @@ const BillingComp = () => {
     navigate("/upgrade");
   };
 
-  const profileData = [
-    {
-      name: "Invoice_no.123456",
-      role: "Java Developer",
-      Experience: "2 years",
-      Skill1: "Java EEE",
-      Skill2: "JavaScript",
-      Skill3: "Java",
-      status: "paid",
-      Date: "24/12/23",
-      amount: "₹ 24,999",
-    },
-    {
-      name: "Invoice_no.123456",
-      role: "Java Developer",
-      Experience: "2 years",
-      Skill1: "Java EEE",
-      Skill2: "JavaScript",
-      Skill3: "Java",
-      status: "paid",
-      Date: "24/12/23",
-      amount: "₹ 24,999",
-    },
-    {
-      name: "Invoice_no.123456",
-      role: "Java Developer",
-      Experience: "2 years",
-      Skill1: "Java EEE",
-      Skill2: "JavaScript",
-      Skill3: "Java",
-      status: "paid",
-      Date: "24/12/23",
-      amount: "₹ 24,999",
-    },
-  ];
-
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
-  console.log(isPopUp);
 
   const overLayHandler = (e) => {
     dispatch(storeAction.isPopUpHander(e.target.id));
@@ -104,137 +69,190 @@ const BillingComp = () => {
             )}
           </div>
         )}
-        {isPage === "page2" && (
-          <div className="billing">
-            <DashHead
-              left="Billing"
-              center="/"
-              right="Upgrade"
-              head="Billing"
-              billingId="billing"
-              upgradeId="upgrade"
-              fun={PageHandler}
-              desc="Some caption which sets more context for this page"
-              highLight=""
-              descClass="dashBoardMainHeadDescBetween"
-            />
-            <div className="billingCard">
-              <div className="billCard">
-                <div className="billHead">
-                  <h1>Details</h1>
-                  {/* <h2></h2> */}
+
+        {isPage === "page2" &&
+          (userdata[0].pricing_info !== null ? (
+            <div className="billing">
+              <DashHead
+                left="Billing"
+                center="/"
+                right="Upgrade"
+                head="Billing"
+                billingId="billing"
+                upgradeId="upgrade"
+                fun={PageHandler}
+                desc="Some caption which sets more context for this page"
+                highLight=""
+                descClass="dashBoardMainHeadDescBetween"
+              />
+              {userdata[0].pricing_info.length !== 0 ? (
+                <div className="billingCard">
+                  <div className="billCard">
+                    <div className="billHead">
+                      <h1>Details</h1>
+                    </div>
+                    <div className="billDesc">
+                      <div className="billDescOne">
+                        <h3>Billing cycle</h3>
+                        <div className="billRight">
+                          <h4>{userdata[0].pricing_info[0].plan_duration}</h4>
+                          <img
+                            id="monthly"
+                            onClick={overLayHandler}
+                            src={penSquare}
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <div className="billDescOne">
+                        <h3>Payment method</h3>
+                        <div className="billRight">
+                          <h4>Mastercard ending in 0076</h4>
+                          <img src={penSquare} alt="" />
+                        </div>
+                      </div>
+                      <div className="billDescOne">
+                        <h3>Billing email</h3>
+                        <div className="billRight">
+                          <h4>{userdata[0].username}</h4>
+                          <img src={penSquare} alt="" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="billCard">
+                    <div className="billHead">
+                      <h1>Current plan</h1>
+                      <h2 onClick={() => navigate("/upgrade")}>Upgrade plan</h2>
+                    </div>
+                    <div className="billDesc">
+                      <div className="billDescOne">
+                        <h3>Type</h3>
+                        <div className="billRight">
+                          <h4>{userdata[0].pricing_info[0].pricing_plan}</h4>
+                        </div>
+                      </div>
+                      <div className="billDescOne">
+                        <h3>Amount</h3>
+                        <div className="billRight">
+                          <h4>
+                            {" "}
+                            ₹ {userdata[0].pricing_info[0].plan_price}/
+                            {userdata[0].pricing_info[0].plan_duration}
+                          </h4>
+                        </div>
+                      </div>
+                      <div className="billDescOne">
+                        <h3>Next billing</h3>
+                        <div className="billRight">
+                          <h4>
+                            {moment(
+                              userdata[0].pricing_info[0].plan_validity
+                            ).format("DD/MM/YYYY")}
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="billDesc">
-                  <div className="billDescOne">
-                    <h3>Billing cycle</h3>
-                    <div className="billRight">
-                      <h4>Monthly</h4>
-                      <img
-                        id="monthly"
-                        // onClick={PageHandler}
-                        onClick={overLayHandler}
-                        src={penSquare}
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className="billDescOne">
-                    <h3>Payment method</h3>
-                    <div className="billRight">
-                      <h4>Mastercard ending in 0076</h4>
-                      <img src={penSquare} alt="" />
-                    </div>
-                  </div>
-                  <div className="billDescOne">
-                    <h3>Billing email</h3>
-                    <div className="billRight">
-                      <h4>divyagupta@gmail.com</h4>
-                      <img src={penSquare} alt="" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="billCard">
-                <div className="billHead">
-                  <h1>Current plan</h1>
-                  <h2 onClick={() => navigate("/upgrade")}>Upgrade plan</h2>
-                </div>
-                <div className="billDesc">
-                  <div className="billDescOne">
-                    <h3>Type</h3>
-                    <div className="billRight">
-                      <h4>Starter</h4>
-                      {/* <img src={penSquare} alt="" /> */}
-                    </div>
-                  </div>
-                  <div className="billDescOne">
-                    <h3>Amount</h3>
-                    <div className="billRight">
-                      <h4>₹ 24999/month</h4>
-                      {/* <img src={penSquare} alt="" /> */}
-                    </div>
-                  </div>
-                  <div className="billDescOne">
-                    <h3>Next billing</h3>
-                    <div className="billRight">
-                      <h4>24/12/23</h4>
-                      {/* <img src={penSquare} alt="" /> */}
-                    </div>
-                  </div>
+              ) : null}
+
+              <div className="invoiceTable">
+                <div className="innerTable">
+                  <table className="table">
+                    <tr className="tableHead">
+                      <th className="firstTableHead">Name</th>
+                      <th>INVOICE DATE</th>
+                      <th>DUE DATE</th>
+                      <th>AMOUNT</th>
+                      <th>STATUS</th>
+                      <th className="lastTableHead"></th>
+                    </tr>
+                    {userdata[0].pricing_info.length !== 0
+                      ? userdata[0].pricing_info.map((data, index) => {
+                          return (
+                            <tr className="tableRow" key={index}>
+                              <td>
+                                <div className="profileData ">
+                                  <img src={billingTable} alt="" />
+                                  <h2>
+                                    {
+                                      data.invoice_url
+                                        .split("/images/")[1]
+                                        .split("/")[0]
+                                    }
+                                  </h2>
+                                </div>
+                              </td>
+                              <td>
+                                <h2>
+                                  {moment(data.plan_start).format("DD/MM/YYYY")}
+                                </h2>
+                              </td>
+                              <td>
+                                <h2>
+                                  {moment(data.plan_validity).format(
+                                    "DD/MM/YYYY"
+                                  )}
+                                </h2>
+                              </td>
+                              <td>
+                                <h2>{data.plan_price}</h2>
+                              </td>
+                              <td className="paidData">
+                                <p>{data.plan_status}</p>
+                              </td>
+                              <td>
+                                <div>
+                                  <button
+                                    className="tdBtn"
+                                    onClick={() => {
+                                      window.open(
+                                        `${data.invoice_url}`,
+                                        "_blank"
+                                      );
+                                    }}
+                                  >
+                                    Download
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      : null}
+                  </table>
                 </div>
               </div>
             </div>
-            <div className="invoiceTable">
-              <div className="innerTable">
-                <table className="table">
-                  <tr className="tableHead">
-                    <th className="firstTableHead">Name</th>
-                    <th>INVOICE DATE</th>
-                    <th>DUE DATE</th>
-                    <th>AMOUNT</th>
-                    <th>STATUS</th>
-                    <th className="lastTableHead"></th>
-                  </tr>
-                  {profileData.map((data) => {
-                    return (
-                      <tr className="tableRow">
-                        {/* <td className="profileBookMark">
-                      <img src={tabFirst} alt="" />
-                    </td> */}
-                        <td>
-                          <div className="profileData ">
-                            <img src={billingTable} alt="" />
-                            <h2>{data.name}</h2>
-                          </div>
-                        </td>
-                        <td>
-                          <h2>{data.Date}</h2>
-                        </td>
-                        <td>
-                          <h2>{data.Date}</h2>
-                        </td>
-                        <td>
-                          <h2>{data.amount}</h2>
-                        </td>
-                        <td className="paidData">
-                          {/* <p>{data.Skill1}</p>
-                      <p>{data.Skill2}</p>
-                      <p>{data.Skill3}</p> */}
-                          <p>{data.status}</p>
-                        </td>
-                        <td>
-                          <div>
-                            <button className="tdBtn">Download</button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </table>
-              </div>
+          ) : (
+            <div>
+              <DashHead
+                left="Billing"
+                center="/"
+                right="Upgrade"
+                head="Billing"
+                billingId="billing"
+                upgradeId="upgrade"
+                fun2={PageHandler2}
+                fun3={PageHandler3}
+                desc="Some caption which sets more context for this page"
+                highLight=""
+                descClass="dashBoardMainHeadDescBetween"
+              />
+              {isPage === "billing" && (
+                <DashBody
+                  Img={documentX}
+                  head="No documents for hired candidates"
+                  desc="Find the right candidates, shortlist and schedule an interview with them. Start by doing your first search!"
+                  button="Search Now"
+                  fun={PageHandler}
+                  Id="page2"
+                  buttonClass="dashBoardMainBodyInnerButton"
+                />
+              )}
             </div>
-          </div>
-        )}
+          ))}
         {isPopUp == "monthly" && (
           // <div className="billingInfo">
           <div className="billingInfo1">

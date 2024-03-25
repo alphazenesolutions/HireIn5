@@ -650,8 +650,6 @@ const AClientProfileView = () => {
         ) {
           getalldata(updatedata.user);
         }
-      } else {
-        console.log("object");
       }
     }
     setIsLoading(true);

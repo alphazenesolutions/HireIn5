@@ -39,6 +39,8 @@ const DiscoverComp = () => {
   const token = useSelector((store) => store.token);
   const userid = useSelector((store) => store.userid);
   const search_user = useSelector((store) => store.searchuser);
+  const alluserdata = useSelector((store) => store.alluserdata);
+
   const [isInput, setIsInput] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
   const [alldata, setalldata] = useState([]);
@@ -95,46 +97,95 @@ const DiscoverComp = () => {
   }, [isPage]);
 
   const getAlldata = async () => {
-    var allfacility = await axios
-      .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${token}`,
-        },
-      })
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err.response;
-      });
-    if (allfacility.faculties.length !== 0) {
-      setalldata(allfacility.faculties);
-      var config1 = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
-        headers: {
-          Authorization: `JWT ${token}`,
-        },
-      };
-      var tabledata = await axios(config1)
-        .then(function (response) {
-          return response.data;
+    if (alluserdata.length !== 0) {
+      setalldata(alluserdata);
+      var allfacility = await axios
+        .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
         })
-        .catch(function (error) {
-          return error;
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
         });
-      if (tabledata.length !== 0) {
-        const bookmarkedUserArray = tabledata.map(
-          (item) => item.bookmarked_user
-        );
-        dispatch(
-          storeAction.bookmarkdataHander({ bookmarkdata: bookmarkedUserArray })
-        );
+      if (allfacility.faculties.length !== 0) {
+        setalldata(allfacility.faculties);
+        var config1 = {
+          method: "get",
+          maxBodyLength: Infinity,
+          url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+        };
+        var tabledata = await axios(config1)
+          .then(function (response) {
+            return response.data;
+          })
+          .catch(function (error) {
+            return error;
+          });
+        if (tabledata.length !== 0) {
+          const bookmarkedUserArray = tabledata.map(
+            (item) => item.bookmarked_user
+          );
+          dispatch(
+            storeAction.bookmarkdataHander({
+              bookmarkdata: bookmarkedUserArray,
+            })
+          );
+        }
+      } else {
+        setalldata([]);
       }
     } else {
-      setalldata([]);
+      var allfacility = await axios
+        .get(`${process.env.REACT_APP_LOCAL_HOST_URL}/getFaculties`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${token}`,
+          },
+        })
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          return err.response;
+        });
+      if (allfacility.faculties.length !== 0) {
+        setalldata(allfacility.faculties);
+        var config1 = {
+          method: "get",
+          maxBodyLength: Infinity,
+          url: `https://hirein5-server.onrender.com/bookmark/users/${userid}`,
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+        };
+        var tabledata = await axios(config1)
+          .then(function (response) {
+            return response.data;
+          })
+          .catch(function (error) {
+            return error;
+          });
+        if (tabledata.length !== 0) {
+          const bookmarkedUserArray = tabledata.map(
+            (item) => item.bookmarked_user
+          );
+          dispatch(
+            storeAction.bookmarkdataHander({
+              bookmarkdata: bookmarkedUserArray,
+            })
+          );
+        }
+      } else {
+        setalldata([]);
+      }
     }
   };
 
@@ -406,16 +457,18 @@ const DiscoverComp = () => {
       setIsInput(true);
       const searchTerm = searchvalue.toLowerCase();
       const filteredData = alldata.filter((data) => {
-        // const isFirstNameMatch = data.first_name
-        //   .toLowerCase()
-        //   .includes(searchTerm);
         if (data.preference_info !== null) {
-          const isSkillMatch = data.preference_info.skills.some((skill) =>
-            skill.toLowerCase().includes(searchTerm)
-          );
-
-          return isSkillMatch;
-          // return isFirstNameMatch || isSkillMatch;
+          if (data.preference_info.skills.length !== 0) {
+            for (var i = 0; i < data.preference_info.skills.length; i++) {
+              if (
+                data.preference_info.skills[i]
+                  .toLowerCase()
+                  .includes(searchTerm)
+              ) {
+                return data;
+              }
+            }
+          }
         }
       });
       setfilterdata(filteredData);
@@ -669,7 +722,6 @@ const DiscoverComp = () => {
                   <h4>3 months</h4>
                   <h4>1 year</h4>
                 </div>
-                {console.log(startdate, "startdatestartdate")}
                 <h5>
                   Candidate will be reserved from{" "}
                   {startdate !== null ? (

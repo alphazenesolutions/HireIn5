@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./PricingComp.css";
@@ -13,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import axios from "axios";
 import moment from "moment";
+import { FiLoader } from "react-icons/fi";
 
 const PricingComp = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -25,15 +27,23 @@ const PricingComp = () => {
     setIsToggle(!isToggle);
   };
   const [isPage, setIsPage] = useState("page1");
+  const [loading, setloading] = useState(false);
+  const [plan, setplan] = useState(null);
 
   const pageHandler = (plan, amount) => {
+    setplan(plan);
+    setloading(true);
     const randomNumber = Math.floor(Math.random() * 900000) + 100000;
     fetch("http://localhost:3001/generate-invoice", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         invoicenumber: randomNumber,
-        date: moment().format("YYYY-MM-DD"),
+        date: "2024-03-25",
         amount: amount,
+        plan: plan,
       }),
     })
       .then((response) => {
@@ -56,22 +66,41 @@ const PricingComp = () => {
           }
         );
         var newobj = {
-          pricing_plan: plan,
-          plan_validity: moment()
-            .add(isToggle === true ? 365 : 30, "days")
-            .format("YYYY-MM-DD"),
-          plan_price: amount,
-          plan_duration: isToggle === true ? "Yearly" : "Monthly",
-          plan_start: moment().format("YYYY-MM-DD"),
-          plan_status: "Paid",
-          invoice_: response.data.img_url,
+          pricing_info: {
+            pricing_plan: plan,
+            plan_validity: moment()
+              .add(isToggle === true ? 365 : 30, "days")
+              .format("YYYY-MM-DD"),
+            plan_price: amount,
+            plan_duration: isToggle === true ? "Yearly" : "Monthly",
+            plan_start: moment().format("YYYY-MM-DD"),
+            plan_status: "Paid",
+            invoice_url: response.data.img_url,
+          },
         };
-        console.log(newobj, "response.data.img_url,");
+        var createdata = await axios
+          .post(
+            `${process.env.REACT_APP_LOCAL_HOST_URL}/getPricing/${userdata[0].id}/`,
+            newobj,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return err.response;
+          });
+        setloading(false);
+        setIsPage("page3");
       })
       .catch((error) => {
         console.error("Error generating invoice:", error);
       });
-    // setIsPage(event.target.id);
   };
 
   const [isActive, setIsActive] = useState(false);
@@ -308,17 +337,37 @@ const PricingComp = () => {
                       </h2>
                       <p>/month, billed annually</p>
                     </div>
-                    <button
-                      id="page3"
-                      onClick={() => {
-                        pageHandler(
-                          "Starter",
-                          isToggle === true ? yearlyStarter : monthlyStarter
-                        );
-                      }}
-                    >
-                      Choose plan
-                    </button>
+                    {loading === true ? (
+                      plan === "Starter" ? (
+                        <button className="flex justify-center items-center">
+                          <FiLoader className="loadingIcon" />
+                        </button>
+                      ) : (
+                        <button
+                          id="page3"
+                          onClick={() => {
+                            pageHandler(
+                              "Starter",
+                              isToggle === true ? yearlyStarter : monthlyStarter
+                            );
+                          }}
+                        >
+                          Choose plan
+                        </button>
+                      )
+                    ) : (
+                      <button
+                        id="page3"
+                        onClick={() => {
+                          pageHandler(
+                            "Starter",
+                            isToggle === true ? yearlyStarter : monthlyStarter
+                          );
+                        }}
+                      >
+                        Choose plan
+                      </button>
+                    )}
                   </div>
                 </div>
                 <div className="pricingDescOption">
@@ -361,17 +410,38 @@ const PricingComp = () => {
                       <h2>${isToggle === true ? yearlyPro : monthlyPro}</h2>
                       <p>/month, billed annually</p>
                     </div>
-                    <button
-                      id="page3"
-                      onClick={() => {
-                        pageHandler(
-                          "Pro",
-                          isToggle === true ? yearlyPro : monthlyPro
-                        );
-                      }}
-                    >
-                      Choose plan
-                    </button>
+
+                    {loading === true ? (
+                      plan === "Pro" ? (
+                        <button className="flex justify-center items-center">
+                          <FiLoader className="loadingIcon" />
+                        </button>
+                      ) : (
+                        <button
+                          id="page3"
+                          onClick={() => {
+                            pageHandler(
+                              "Pro",
+                              isToggle === true ? yearlyPro : monthlyPro
+                            );
+                          }}
+                        >
+                          Choose plan
+                        </button>
+                      )
+                    ) : (
+                      <button
+                        id="page3"
+                        onClick={() => {
+                          pageHandler(
+                            "Pro",
+                            isToggle === true ? yearlyPro : monthlyPro
+                          );
+                        }}
+                      >
+                        Choose plan
+                      </button>
+                    )}
                   </div>
                 </div>
                 <div className="pricingDescOption">
@@ -490,9 +560,7 @@ const PricingComp = () => {
                     </h2>
                     <p>/month, billed annually</p>
                   </div>
-                  {/* <button id="page3" onClick={pageHandler}>
-                  Choose plan
-                </button> */}
+
                   <button onClick={showDesc}>
                     See Benefits <img src={arrowDown} alt="" />
                   </button>
@@ -535,9 +603,7 @@ const PricingComp = () => {
                     <h2>${isToggle === true ? yearlyPro : monthlyPro}</h2>
                     <p>/month, billed annually</p>
                   </div>
-                  {/* <button id="page3" onClick={pageHandler}>
-                  Choose plan
-                </button> */}
+
                   <button onClick={showDesc2}>
                     See Benefits <img src={arrowDown} alt="" />
                   </button>
@@ -559,15 +625,6 @@ const PricingComp = () => {
                 </div>
               </div>
             </div>
-            {/* <button
-              className={
-                isButton === true ? "mobButtonActive" : "mobButtonDisable"
-              }
-              id="page3"
-              // onClick={pageHandler}
-            > 
-              Choose plan 
-            </button> */}
           </div>
           <div className="mobPricingTerms">
             <p>Pricing Terms & Conditions</p>

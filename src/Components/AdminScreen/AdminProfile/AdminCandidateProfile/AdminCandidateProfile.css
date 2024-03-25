@@ -41,7 +41,7 @@
 }
 
 .selectdiv {
-    /* width: 40%; */
+    width: 100%;
     gap: 2rem;
     display: flex;
 }

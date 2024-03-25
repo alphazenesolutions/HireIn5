@@ -1,5 +1,6 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./InterviewComp.css";
 import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import SearchProfileCard from "../../../Reusable/SearchProfileCard/SearchProfileCard";
@@ -13,6 +14,7 @@ const InterviewComp = (props) => {
   const [isPage, setIsPage] = useState("page1");
   const dispatch = useDispatch();
   const search_user = useSelector((store) => store.searchuser);
+  const userdata = useSelector((store) => store.userdata);
   const token = useSelector((store) => store.token);
   const userid = useSelector((store) => store.userid);
 
@@ -112,82 +114,76 @@ const InterviewComp = (props) => {
         />
         <h1 className="interviewHead">Upcoming interviews</h1>
         <div className="">
-          <div className="">
-            {/* tableOne */}
-            <div className={props.class}>
-              {/* <h1>Candidates on review</h1> */}
-              {/* <div className="tableButton marginTop20 marginBottom20">
-                  <button
-                    onClick={buttonHandler}
-                    className={
-                      isSelect === true
-                        ? "shortListedActive"
-                        : "shortListedInActive"
-                    }
-                  >
-                    Shortlisted
-                  </button>
-                  <button
-                    onClick={buttonHandler2}
-                    className={isSelect2 === true ? "hiredActive" : "hired"}
-                  >
-                    Hired
-                  </button>
-                </div> */}
-              <div className="innerTable">
-                <table className="table">
-                  <tr className="tableHead">
-                    <th className="tableFirst"></th>
-                    <th>Candidate Name</th>
-                    <th>Qualification</th>
-                    <th>Experience</th>
-                    <th>Key Skills</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                  </tr>
-                  {profileData.map((data) => {
-                    return (
-                      <tr className="tableRow">
-                        <td className="profileBookMark">
-                          <img src={tabFirst} alt="" />
-                        </td>
-                        <td>
-                          <div className="profileData ">
-                            <img src={tabImg} alt="" />
-                            <h2>{data.name}</h2>
-                          </div>
-                        </td>
-                        <td>
-                          <h2>{data.role}</h2>
-                        </td>
-                        <td>
-                          <h2>{data.Experience}</h2>
-                        </td>
-                        <td className="skillData">
-                          <p>{data.Skill1}</p>
-                          <p>{data.Skill2}</p>
-                          <p>{data.Skill3}</p>
-                        </td>
-                        {/* <td>
-                            <div>
-                              <button className="tdBtn">
-                                Schedule interview
-                              </button>
+          {userdata[0].interview_info.length !== 0 ? (
+            <div className="">
+              <div className={props.class}>
+                <div className="innerTable">
+                  <table className="table">
+                    <tr className="tableHead">
+                      <th className="tableFirst"></th>
+                      <th>Candidate Name</th>
+                      <th>Qualification</th>
+                      <th>Experience</th>
+                      <th>Key Skills</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                    </tr>
+                    {userdata[0].interview_info.map((data) => {
+                      return (
+                        <tr className="tableRow">
+                          <td className="profileBookMark">
+                            {/* <img src={tabFirst} alt="" /> */}
+                          </td>
+                          <td>
+                            <div className="profileData ">
+                              <img src={tabImg} alt="" />
+                              <h2>{data.candidate[0].first_name}</h2>
                             </div>
-                          </td> */}
-                        <td>
-                          <h2>{data.date}</h2>
-                        </td>
-                        <td>
-                          <h2>{data.time}</h2>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </table>
+                          </td>
+                          <td>
+                            <h2>
+                              {data.candidate[0].preference_info.qualification}
+                            </h2>
+                          </td>
+                          <td>
+                            <h2>
+                              {
+                                data.candidate[0].preference_info
+                                  .year_of_experience
+                              }
+                            </h2>
+                          </td>
+                          {data.candidate[0].preference_info.skills.length !==
+                          0 ? (
+                            <td className="skillData -mt-16">
+                              {data.candidate[0].preference_info.skills.map(
+                                (datanew, index) =>
+                                  index == 0 || index == 1 || index == 2 ? (
+                                    <p key={index}>{datanew}</p>
+                                  ) : null
+                              )}
+                            </td>
+                          ) : (
+                            <td>
+                              <p>-</p>
+                            </td>
+                          )}
+
+                          <td>
+                            <h2>{data.date}</h2>
+                          </td>
+                          <td>
+                            <h2>{data.time}</h2>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
+          ) : null}
+
           <h1 className="interviewHead">
             Schedule call with your shortlisted candidates
           </h1>

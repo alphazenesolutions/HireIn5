@@ -51,7 +51,6 @@ const AdminCustomerProfile = () => {
         .catch((err) => {
           return err.response;
         });
-      console.log(allfacility.faculties, "allfacility.faculties");
       setalldata(allfacility.faculties);
       settotaldata(allfacility.faculties);
       dispatch(
@@ -142,6 +141,24 @@ const AdminCustomerProfile = () => {
         setalldata(alluserdata);
       }, 10);
       setalldata(totaldata);
+    }
+  };
+  const changetype = async (e) => {
+    console.log(e, "eee");
+    if (e.length !== 0) {
+      const matchingSkills = totaldata1.filter((skill) => {
+        if (skill.pricing_info.length !== 0) {
+          return skill.pricing_info[0].pricing_plan
+            .toLowerCase()
+            .includes(e.toLowerCase());
+        }
+      });
+      setalldata1(matchingSkills);
+    } else {
+      setTimeout(() => {
+        setalldata1(allcompanydata);
+      }, 10);
+      setalldata1(totaldata1);
     }
   };
   const changestatus = async (value) => {
@@ -276,16 +293,16 @@ const AdminCustomerProfile = () => {
               <option value="Inactive">Inactive</option>
               <option value="Active">Active</option>
             </select>
-            {/* <select
+            <select
               className="profileselect"
               onChange={(e) => {
-                changecountry(e.target.value);
+                changetype(e.target.value);
               }}
             >
               <option value="">Subscription Type</option>
               <option value="Starter">Starter</option>
               <option value="Pro">Pro</option>
-            </select> */}
+            </select>
           </div>
         )}
       </div>

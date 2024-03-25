@@ -594,7 +594,29 @@ const CandidateProfileCard = (props) => {
                             : "-"
                           : "-"}
                       </h2>
-                      <h2>Not Uploaded</h2>
+                      {singleuser[0].background_verification !== null
+                        ? singleuser[0].background_verification !== 0
+                          ? singleuser[0].background_verification
+                          : "-"
+                        : "-"}
+                      {singleuser[0].background_verification !== null ? (
+                        singleuser[0].background_verification.length !== 0 ? (
+                          <h2
+                            onClick={() => {
+                              window.open(
+                                `${singleuser[0].background_verification}`,
+                                "_blank"
+                              );
+                            }}
+                          >
+                            Uploaded
+                          </h2>
+                        ) : (
+                          <h2>Not Uploaded</h2>
+                        )
+                      ) : (
+                        <h2>Not Uploaded</h2>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -692,18 +714,32 @@ const CandidateProfileCard = (props) => {
               {isSelect1 === "personality" && (
                 <div className="personality">
                   <div className="personalityTest">
-                    <h1>personality assessment test result </h1>
-                    <div className="gradeCertificate1">
-                      <img src={gallery} alt="" />
-                      <div className="gradeCertificateDesc1">
-                        <h6>PersonalityTestResult.PDF</h6>
-                        <p>12 MB</p>
-                      </div>
-                    </div>
+                    <h1>Personality assessment test result </h1>
+                    {singleuser[0].personality_assessment !== null ? (
+                      singleuser[0].personality_assessment.length !== 0 ? (
+                        <div
+                          className="gradeCertificate1"
+                          onClick={() => {
+                            window.open(
+                              `${singleuser[0].personality_assessment}`,
+                              "_blank"
+                            );
+                          }}
+                        >
+                          <img src={gallery} alt="" />
+                          <div className="gradeCertificateDesc1">
+                            <h6>PersonalityTestResult.PDF</h6>
+                          </div>
+                        </div>
+                      ) : (
+                        <h2>Not Uploaded</h2>
+                      )
+                    ) : (
+                      <h2>Not Uploaded</h2>
+                    )}
                   </div>
                 </div>
               )}
-              {console.log(singleuser[0], "yyyyyyyyyy")}
               {isSelect1 === "employ" &&
               singleuser[0].professional_details_info !== null &&
               singleuser[0].professional_details_info.length !== 0
@@ -769,7 +805,7 @@ const CandidateProfileCard = (props) => {
                     {singleuser[0].work_preference_info !== null ? (
                       <div className="availableFlexRight">
                         <h2>Yes</h2>
-                        <h2>03 / 08 / 2024</h2>
+                        {/* <h2>03 / 08 / 2024</h2> */}
                         <h2>
                           {
                             singleuser[0].work_preference_info
@@ -915,7 +951,13 @@ const CandidateProfileCard = (props) => {
                         <h2>{singleuser[0].rate_card_info.remote_monthly}</h2>
                         <h2>{singleuser[0].rate_card_info.remote_annualy}</h2>
                       </div>
-                    ) : null}
+                    ) : (
+                      <div className="remoteFlexRight">
+                        <h2>Not Provided</h2>
+                        <h2>Not Provided</h2>
+                        <h2>Not Provided</h2>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -934,7 +976,13 @@ const CandidateProfileCard = (props) => {
                         <h2>{singleuser[0].rate_card_info.onsite_monthly}</h2>
                         <h2>{singleuser[0].rate_card_info.onsite_annualy}</h2>
                       </div>
-                    ) : null}
+                    ) : (
+                      <div className="remoteFlexRight">
+                        <h2>Not Provided</h2>
+                        <h2>Not Provided</h2>
+                        <h2>Not Provided</h2>
+                      </div>
+                    )}
                   </div>
                   <div className="onsiteNote">
                     <img src={info} alt="" />
