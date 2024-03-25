@@ -7,6 +7,7 @@ import tabFirst from "../../../../../assests/colar.png";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { storeAction } from "../../../../../Store/Store";
+import { RxCross1 } from "react-icons/rx";
 
 const Table = (props) => {
   const dispatch = useDispatch();
@@ -117,6 +118,12 @@ const Table = (props) => {
       }
     }
   };
+  const isPopUp = useSelector((store) => {
+    return store.isPopUp;
+  });
+  const overLayHandler = (e) => {
+    dispatch(storeAction.isPopUpHander(e.target.id));
+  };
   return (
     <div>
       {bookmarkdata.length !== 0 ? (
@@ -210,7 +217,11 @@ const Table = (props) => {
 
                           <td>
                             <div>
-                              <button className="tdBtn">
+                              <button
+                                id="scheduleinterview"
+                                onClick={overLayHandler}
+                                className="tdBtn"
+                              >
                                 Schedule interview
                               </button>
                             </div>
@@ -224,6 +235,26 @@ const Table = (props) => {
           ) : null}
         </div>
       ) : null}
+      {isPopUp == "scheduleinterview" && (
+        <>
+          <div className="adminEditOverlay1">
+            <div className="adminEditOverlayHead">
+              <h1>Schedule Interview</h1>
+              <RxCross1 onClick={overLayHandler} />
+            </div>
+            <div className="adminEditOverlayBody">
+              <div className="adminEditOverlayContent">
+                <h2>Interview Date </h2>
+                <input type="text" name="" id="" />
+              </div>
+              <div className="adminEditOverlayContent">
+                <h2>Interview Time</h2>
+                <input type="text" name="" id="" />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -155,6 +155,22 @@
     transform: translate(-50%, -50%);
 }
 
+.adminEditOverlay1 {
+    width: 60%;
+    /* height: 60%; */
+    overflow-y: scroll;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    /* padding: 10px; */
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .contractCandidateDropdown {
     width: 45.5%;
     padding: 10px;
@@ -356,7 +372,7 @@
         overflow-y: scroll;
     }
 
-        /* .adminEditOverlayContent {
+    /* .adminEditOverlayContent {
             height: 40px;
         } */
 

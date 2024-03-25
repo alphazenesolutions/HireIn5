@@ -512,7 +512,6 @@ const DiscoverComp = () => {
                         </SwiperSlide>
                       ))
                     : null}
-                  
                 </Swiper>
                 <div className="recent "></div>
                 <Table class="tableOne paddingRight100" />
