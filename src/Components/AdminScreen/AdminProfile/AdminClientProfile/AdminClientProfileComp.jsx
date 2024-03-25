@@ -47,6 +47,7 @@ const AdminClientProfileComp = ({
       setalldata1(totaldata1);
     }
   };
+  console.log(alldata1, "currentRecords");
   return (
     <div>
       <div className="AdminClientProfileComp">
@@ -104,14 +105,22 @@ const AdminClientProfileComp = ({
                     <h1>{data.first_name}</h1>
                   </td>
                   <td>
-                    <h1>-</h1>
+                    {data.pricing_info.length !== 0 ? (
+                      <h1>{data.pricing_info[0].pricing_plan}</h1>
+                    ) : (
+                      <h1>-</h1>
+                    )}
                   </td>
                   <td>
-                    <h1>-</h1>
+                    {data.pricing_info.length !== 0 ? (
+                      <h1>{data.pricing_info[0].plan_duration}</h1>
+                    ) : (
+                      <h1>-</h1>
+                    )}
                   </td>
-                  <td>
-                    <p className={data.statusClass}>{data.clientStatus}</p>
-                  </td>
+                  {/* <td>
+                    <p className={data.statusClass}>Paid</p>
+                  </td> */}
                   <td>
                     {data.dissabled === true ? (
                       <p className="status inActive">Inactive</p>

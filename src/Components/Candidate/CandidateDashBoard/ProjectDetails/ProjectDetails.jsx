@@ -253,7 +253,6 @@ const ProjectDetails = () => {
       settravelwork([...travelwork]);
     }
   };
-  console.log(travelwork, "kkkkkkkkkkkkk");
   return (
     <div>
       <div className="projectDetails">

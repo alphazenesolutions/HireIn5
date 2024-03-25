@@ -38,7 +38,6 @@ const AdminTeamMemberComp = () => {
   }
 
   function getvalue(e) {
-    console.log(e, "e");
     setvalue1(e);
     setvalue22(e);
     setshow(false);
@@ -54,7 +53,6 @@ const AdminTeamMemberComp = () => {
     dispatch(storeAction.isPopUpHander(item));
   };
   async function getpendingvalue(e) {
-    console.log(e, updateid, "updateidupdateid");
     let getdata = e;
     if (getdata === "Remove user") {
       var deleteuser = await axios
@@ -266,10 +264,7 @@ const AdminTeamMemberComp = () => {
       setalldata(alldata.faculties);
     }
   };
-  const get_value = (e) => {
-    console.log("e", e);
-  };
-  console.log(alldata, "alldata");
+
   return (
     <div>
       <div className="displayHandlerMob">

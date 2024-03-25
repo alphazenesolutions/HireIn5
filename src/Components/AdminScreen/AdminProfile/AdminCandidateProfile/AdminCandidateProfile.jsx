@@ -21,7 +21,6 @@ const AdminCandidateProfile = ({ alldata, totaldata, loading, setalldata }) => {
   };
 
   const calculateProfileCompletion = (profile) => {
-    console.log(profile,'profileprofile1111');
     var count = 0;
     if (profile.address !== null) {
       count += 1;

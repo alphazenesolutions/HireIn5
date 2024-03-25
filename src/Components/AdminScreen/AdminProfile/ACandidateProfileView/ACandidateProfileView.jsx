@@ -145,7 +145,6 @@ const ACandidateProfileView = () => {
   const [statelist, setstatelist] = useState([]);
   var [certificate, setcertificate] = useState([]);
   const Getallinfo = async () => {
-    console.log(singleuser, "singleuser 1111");
     if (singleuser.length !== 0) {
       setresumevideo(
         singleuser[0].video_resume !== null ? singleuser[0].video_resume : ""
@@ -338,7 +337,6 @@ const ACandidateProfileView = () => {
           settravelwork(new_array1);
         }
       }
-      console.log(singleuser[0], "singleuser[0]singleuser[0]singleuser[0]");
       var projectdata = singleuser[0].project_details_info;
       if (projectdata.length !== 0) {
         var filterdata = [];
@@ -1021,7 +1019,6 @@ const ACandidateProfileView = () => {
               return err.response;
             });
         } else {
-          console.log(projectdata[i], "projectdata[i]");
           var arrayOfValues = [];
           if (projectdata[i].skills.length !== 0) {
             arrayOfValues = projectdata[i].skills.map((obj) => obj.value);
@@ -1623,7 +1620,6 @@ const ACandidateProfileView = () => {
         .catch((err) => {
           return err.response;
         });
-      console.log(userinfo, "userinfo");
       dispatch(storeAction.singleuserHander({ singleuser: [] }));
       getalldata(userinfo);
       setTimeout(() => {
@@ -1908,7 +1904,6 @@ const ACandidateProfileView = () => {
       setcertificatedata([...certificatedata]);
     }
   };
-  console.log(singleuser, kycdata, "singleusersingleusersingleuser");
   return (
     <div>
       {singleuser.length !== 0 ? (
@@ -4270,7 +4265,6 @@ const ACandidateProfileView = () => {
                     Edit
                   </button>
                 </div>
-                {console.log(singleuser[0], "singleuser[0]")}
                 {singleuser[0].education_info.length !== 0
                   ? singleuser[0].education_info.map((data, index) => (
                       <div key={index}>

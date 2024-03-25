@@ -305,7 +305,6 @@ const Certificate = () => {
       settravelwork([...travelwork]);
     }
   };
-  console.log(travelwork, "nnnnnnnnnnnn");
   return (
     <div>
       <div className="certificate">

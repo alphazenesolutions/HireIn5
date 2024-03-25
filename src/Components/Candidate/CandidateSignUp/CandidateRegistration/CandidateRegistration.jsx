@@ -1055,7 +1055,6 @@ const CandidateRegistration = () => {
     setIsPage("page4");
     routeHandler();
   };
-  console.log(userdata_new);
   return (
     <>
       <div className="candidateRegistration">

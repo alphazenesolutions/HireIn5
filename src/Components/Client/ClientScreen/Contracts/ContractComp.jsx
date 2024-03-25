@@ -72,7 +72,6 @@ const ContractComp = () => {
       }
     }
   };
-  console.log(contractsdata, "contracts");
   return (
     <div>
       <div className="dashBoardMain paddingLeft100 paddingRight100">
@@ -129,7 +128,6 @@ const ContractComp = () => {
                 <th></th>
                 {/* <th></th> */}
               </tr>
-              {console.log(contractsdata, "contractsdata")}
               {contractsdata.length !== 0
                 ? contractsdata.map((data, index) => {
                     return data.candidate !== null ? (
@@ -179,7 +177,6 @@ const ContractComp = () => {
                             )}
                           </td>
                         ) : null}
-                        {console.log(data, "hhhhhhhhhhhhhhhhhhhh")}
                         <td>
                           <div>
                             <button
