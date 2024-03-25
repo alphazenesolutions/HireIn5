@@ -65,9 +65,10 @@ const BillingComp = () => {
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
+  console.log(isPopUp);
 
-  const overLayHandler = () => {
-    dispatch(storeAction.isPopUpHander("monthly"));
+  const overLayHandler = (e) => {
+    dispatch(storeAction.isPopUpHander(e.target.id));
   };
   const overLayHandler1 = () => {
     dispatch(storeAction.isPopUpHander());
@@ -288,40 +289,6 @@ const BillingComp = () => {
             </div>
           </div>
           // </div>
-        )}
-        {isPage === "cancel" && (
-          <div className="billingInfo">
-            <div className="billingInfo1">
-              <div className="billingClose">
-                <img src={closeicon} alt="" />
-              </div>
-              <div className="billingCycle">
-                <div className="billingCycle1">
-                  <h1>Cancel your subscription</h1>
-                  <p>
-                    Our team will contact you within 2 working days to process
-                    the cancellation.
-                  </p>
-                </div>
-                <div className="subcriptionMessageBox">
-                  <div className="subMessageTitle">
-                    <h3>Message</h3>
-                    <p>0/100</p>
-                  </div>
-                  <textarea
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="7"
-                    placeholder="Write here ..."
-                  ></textarea>
-                </div>
-                <div className="billingBtn">
-                  <button name="">Send message to team</button>
-                </div>
-              </div>
-            </div>
-          </div>
         )}
       </div>
     </>

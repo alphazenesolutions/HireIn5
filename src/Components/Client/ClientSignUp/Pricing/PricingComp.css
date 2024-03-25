@@ -160,6 +160,14 @@
     border-radius: 8px;
 }
 
+.continue {
+    /* width: 100%; */
+    color: var(--white);
+    padding: 10px;
+    background-color: var(--primaryColor);
+    border-radius: 8px;
+}
+
 /*==================== pro =================== */
 
 .pro {
