@@ -157,9 +157,11 @@ const UpgradeComp = () => {
                     </h2>
                     <p>/month, billed annually</p>
                   </div>
-                  <button id="page3" onClick={PageHandler}>
-                    Choose plan
-                  </button>
+                  <div className="">
+                    <button id="page3" onClick={PageHandler}>
+                      Choose plan
+                    </button>
+                  </div>
                   {/* <div className="planButton">
                       <button>Current plan</button>
                       <button>Cancel plan</button>

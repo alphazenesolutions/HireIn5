@@ -156,7 +156,7 @@ const BillingComp = () => {
               <div className="billCard">
                 <div className="billHead">
                   <h1>Current plan</h1>
-                  <h2>Upgrade plan</h2>
+                  <h2 onClick={() => navigate("/upgrade")}>Upgrade plan</h2>
                 </div>
                 <div className="billDesc">
                   <div className="billDescOne">
