@@ -53,6 +53,10 @@
     margin-bottom: 20px;
 }
 
+.profileName {
+    width: 70%;
+}
+
 .profileName h2 {
     font-weight: 600;
     font-size: 18px;

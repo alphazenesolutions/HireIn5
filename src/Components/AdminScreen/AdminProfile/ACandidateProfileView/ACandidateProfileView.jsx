@@ -2497,10 +2497,10 @@ const ACandidateProfileView = () => {
                           Uploaded
                         </h3>
                       ) : (
-                        <h3 className="cursor-pointer">-</h3>
+                        <h3 className="pointer">-</h3>
                       )
                     ) : (
-                      <h3 className="cursor-pointer">-</h3>
+                      <h3 className="pointer">-</h3>
                     )}
                   </div>
                   <div className="ClientProfileViewCardBodyTable">
@@ -2669,67 +2669,68 @@ const ACandidateProfileView = () => {
                           </div>
                         </div>
                       </div> */}
-                    </div>
-                    <div className="adminEditOverlayContent px-8 mb-5">
-                      <h3>Background Verification</h3>
-                      <div
-                        className="adminEditOverlayUpload backGround"
-                        onClick={() => {
-                          handleFileSelectClick("background_verification");
-                        }}
-                      >
-                        <div className="adminEditOverlayUploadHead">
-                          <img src={file} alt="" />
-                          <div className="adminEditOverlayUploadHeadRight">
-                            <h4>background_verification.jpg</h4>
-                            {/* <h5>1 MB</h5> */}
+                      <div className="adminEditOverlayContent"></div>
+                      <div className="adminEditOverlayContent">
+                        <h3>Background Verification</h3>
+                        <div
+                          className="adminEditOverlayUpload backGround"
+                          onClick={() => {
+                            handleFileSelectClick("background_verification");
+                          }}
+                        >
+                          <div className="adminEditOverlayUploadHead">
+                            <img src={file} alt="" />
+                            <div className="adminEditOverlayUploadHeadRight">
+                              <h4>background_verification.jpg</h4>
+                              {/* <h5>1 MB</h5> */}
+                            </div>
                           </div>
+                          <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
+                          <button>Upload new file</button>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="background_verification"
+                            onChange={handleFileInput_Change1}
+                          />
+                          {fileuploadsuccess.background_verification && (
+                            <h6 className="text-green-500 text-xs font-semibold mt-2">
+                              Background Verification Uploaded Successfully
+                            </h6>
+                          )}
                         </div>
-                        <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
-                        <button>Upload new file</button>
-                        <input
-                          type="file"
-                          ref={fileInputRef}
-                          style={{ display: "none" }}
-                          name="background_verification"
-                          onChange={handleFileInput_Change1}
-                        />
-                        {fileuploadsuccess.background_verification && (
-                          <h6 className="text-green-500 text-xs font-semibold mt-2">
-                            Background Verification Uploaded Successfully
-                          </h6>
-                        )}
                       </div>
-                    </div>
-                    <div className="adminEditOverlayContent px-8 mb-5">
-                      <h3>Personality Assessment</h3>
-                      <div
-                        className="adminEditOverlayUpload backGround"
-                        onClick={() => {
-                          handleFileSelectClick("personality_assessment");
-                        }}
-                      >
-                        <div className="adminEditOverlayUploadHead">
-                          <img src={file} alt="" />
-                          <div className="adminEditOverlayUploadHeadRight">
-                            <h4>personality_assessment.jpg</h4>
-                            {/* <h5>1 MB</h5> */}
+                      <div className="adminEditOverlayContent">
+                        <h3>Personality Assessment</h3>
+                        <div
+                          className="adminEditOverlayUpload backGround"
+                          onClick={() => {
+                            handleFileSelectClick("personality_assessment");
+                          }}
+                        >
+                          <div className="adminEditOverlayUploadHead">
+                            <img src={file} alt="" />
+                            <div className="adminEditOverlayUploadHeadRight">
+                              <h4>personality_assessment.jpg</h4>
+                              {/* <h5>1 MB</h5> */}
+                            </div>
                           </div>
+                          <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
+                          <button>Upload new file</button>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            name="personality_assessment"
+                            onChange={handleFileInput_Change1}
+                          />
+                          {fileuploadsuccess.personality_assessment && (
+                            <h6 className="text-green-500 text-xs font-semibold mt-2">
+                              Personality Assessment Uploaded Successfully
+                            </h6>
+                          )}
                         </div>
-                        <p>Maximum size: 5MB. PDF, JPEG and PNG accepted</p>
-                        <button>Upload new file</button>
-                        <input
-                          type="file"
-                          ref={fileInputRef}
-                          style={{ display: "none" }}
-                          name="personality_assessment"
-                          onChange={handleFileInput_Change1}
-                        />
-                        {fileuploadsuccess.personality_assessment && (
-                          <h6 className="text-green-500 text-xs font-semibold mt-2">
-                            Personality Assessment Uploaded Successfully
-                          </h6>
-                        )}
                       </div>
                     </div>
                     <div className="editOverlayButton">
