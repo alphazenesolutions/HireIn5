@@ -12,6 +12,7 @@ import DashHead from "../../../Reusable/DashBoardReusable/DashHead/DashHead";
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../Store/Store";
 import axios from "axios";
+import moment from "moment";
 
 const PricingComp = () => {
   const userdata = useSelector((store) => store.userdata);
@@ -24,8 +25,53 @@ const PricingComp = () => {
     setIsToggle(!isToggle);
   };
   const [isPage, setIsPage] = useState("page1");
-  const pageHandler = (event) => {
-    setIsPage(event.target.id);
+
+  const pageHandler = (plan, amount) => {
+    const randomNumber = Math.floor(Math.random() * 900000) + 100000;
+    fetch("http://localhost:3001/generate-invoice", {
+      method: "POST",
+      body: JSON.stringify({
+        invoicenumber: randomNumber,
+        date: moment().format("YYYY-MM-DD"),
+        amount: amount,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to generate invoice");
+        }
+        return response.blob();
+      })
+      .then(async (blob) => {
+        const formData = new FormData();
+        formData.append("image", blob, `invoice_${randomNumber}.pdf`);
+        formData.append("name", `invoice_${randomNumber}`);
+        const response = await axios.post(
+          "https://fileserver-21t2.onrender.com/api/upload/",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        var newobj = {
+          pricing_plan: plan,
+          plan_validity: moment()
+            .add(isToggle === true ? 365 : 30, "days")
+            .format("YYYY-MM-DD"),
+          plan_price: amount,
+          plan_duration: isToggle === true ? "Yearly" : "Monthly",
+          plan_start: moment().format("YYYY-MM-DD"),
+          plan_status: "Paid",
+          invoice_: response.data.img_url,
+        };
+        console.log(newobj, "response.data.img_url,");
+      })
+      .catch((error) => {
+        console.error("Error generating invoice:", error);
+      });
+    // setIsPage(event.target.id);
   };
 
   const [isActive, setIsActive] = useState(false);
@@ -262,7 +308,15 @@ const PricingComp = () => {
                       </h2>
                       <p>/month, billed annually</p>
                     </div>
-                    <button id="page3" onClick={pageHandler}>
+                    <button
+                      id="page3"
+                      onClick={() => {
+                        pageHandler(
+                          "Starter",
+                          isToggle === true ? yearlyStarter : monthlyStarter
+                        );
+                      }}
+                    >
                       Choose plan
                     </button>
                   </div>
@@ -307,7 +361,15 @@ const PricingComp = () => {
                       <h2>${isToggle === true ? yearlyPro : monthlyPro}</h2>
                       <p>/month, billed annually</p>
                     </div>
-                    <button id="page3" onClick={pageHandler}>
+                    <button
+                      id="page3"
+                      onClick={() => {
+                        pageHandler(
+                          "Pro",
+                          isToggle === true ? yearlyPro : monthlyPro
+                        );
+                      }}
+                    >
                       Choose plan
                     </button>
                   </div>
@@ -497,15 +559,15 @@ const PricingComp = () => {
                 </div>
               </div>
             </div>
-            <button
+            {/* <button
               className={
                 isButton === true ? "mobButtonActive" : "mobButtonDisable"
               }
               id="page3"
-              onClick={pageHandler}
-            >
-              Choose plan
-            </button>
+              // onClick={pageHandler}
+            > 
+              Choose plan 
+            </button> */}
           </div>
           <div className="mobPricingTerms">
             <p>Pricing Terms & Conditions</p>
