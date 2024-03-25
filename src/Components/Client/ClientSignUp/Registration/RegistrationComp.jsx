@@ -395,12 +395,14 @@ const RegistrationComp = () => {
             .catch((err) => {
               return err;
             });
-        
+
           if (
             updatedatabilling.message ===
             "User and Associated Info updated successfully"
           ) {
-            dispatch(storeAction.userdataHander({ userdata: [updatedatabilling.user] }));
+            dispatch(
+              storeAction.userdataHander({ userdata: [updatedatabilling.user] })
+            );
             setIsPage("page3");
             setIsButton2(false);
             dispatch(
@@ -1292,7 +1294,7 @@ const RegistrationComp = () => {
                 />
                 <h5 className="terms">
                   I agree to the Hirein5
-                  <span className="spanighLight">terms & condition </span>and
+                  <span className="spanighLight">terms & conditions </span>and
                   <span className="spanighLight">privacy policy</span>
                 </h5>
               </div>
