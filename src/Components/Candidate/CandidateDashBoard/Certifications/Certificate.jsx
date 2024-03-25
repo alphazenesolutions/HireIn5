@@ -415,7 +415,7 @@ const Certificate = () => {
                 </div>
               </div>
               <div className="outerCertificate">
-                <div className="certificateDescUpload">
+                {/* <div className="certificateDescUpload">
                   <div className="certificateDescUploadDesc">
                     <h1>Add your personality assessment test result</h1>
                     <div className="uploadCertificate">
@@ -439,7 +439,7 @@ const Certificate = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="addCertification">
                 <h6>

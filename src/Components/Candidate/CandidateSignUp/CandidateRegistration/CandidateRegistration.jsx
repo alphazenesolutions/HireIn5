@@ -146,7 +146,7 @@ const CandidateRegistration = () => {
           .catch((err) => {
             return err.response;
           });
-       
+
         window.location.replace("/#/profile");
       }
     }
@@ -1263,7 +1263,8 @@ const CandidateRegistration = () => {
                       type="date"
                       placeholder="DD/MM/YYYY"
                       name="dob"
-                      max="1979-12-31"
+                      max="2024-12-31"
+                      min="1979-12-31"
                       onChange={handlechange}
                       defaultValue={formdata.dob}
                     />

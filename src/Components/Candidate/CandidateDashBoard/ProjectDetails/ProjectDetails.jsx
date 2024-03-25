@@ -388,7 +388,7 @@ const ProjectDetails = () => {
                         />
                         <h2>Duration of project</h2>
                         <input
-                          type="number"
+                          type="date"
                           name="duration_of_project"
                           onChange={(e) => {
                             handlechangework(

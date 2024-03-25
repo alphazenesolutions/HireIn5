@@ -4421,7 +4421,7 @@ const ACandidateProfileView = () => {
                         <div className="adminEditOverlayContent">
                           <h2>Duration of project</h2>
                           <input
-                            type="text"
+                            type="date"
                             name="duration_of_project"
                             onChange={(e) => {
                               handlechangeproject(
