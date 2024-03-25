@@ -25,6 +25,11 @@ const UpgradeComp = () => {
     navigate("/upgrade");
   };
 
+  const PageHandler4 = () => {
+    navigate("/discover");
+    dispatch(storeAction.isPopUpHander());
+  };
+
   const monthlyStarter = 499;
   const yearlyStarter = 399;
 
@@ -356,7 +361,7 @@ const UpgradeComp = () => {
             ) : null} */}
 
             <button
-              onClick={() => navigate("/discover")}
+              onClick={PageHandler4}
               className="marginTop20 marginBottom20 continue"
             >
               Continue
