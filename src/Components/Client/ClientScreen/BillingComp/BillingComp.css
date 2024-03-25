@@ -328,18 +328,52 @@ textarea::placeholder {
 .currentPlanButton {
     padding: 10px;
     width: 50%;
-    border: 1px solid var(--borderColor);
-    background-color: var(--disableColor);
-    color: var(--textColor);
+    border-radius: 8px;
+    border: 1px solid var(--borderColor) !important;
+    background-color: var(--disableColor) !important;
+    color: var(--textColor) !important;
     margin-right: 10px;
 }
 
 .cancelPlanButton {
     padding: 10px;
     width: 50%;
-    border: 1px solid var(--borderColor);
-    background-color: var(--white);
-    color: var(--textColorDark);
+    border-radius: 8px;
+    border: 1px solid var(--borderColor) !important;
+    background-color: var(--white) !important;
+    color: var(--textColorDark) !important;
+}
+
+.upgradeSuccess {
+    width: 480px;
+    height: 270px;
+    background-color: white;
+    display: flex;
+    z-index: 10 !important;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.upgradeSuccess1 {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10 !important;
+    flex-direction: column;
+    padding: 10px;
+    padding-bottom: 50px;
+    border-radius: 12px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @media only screen and (max-width: 600px) {

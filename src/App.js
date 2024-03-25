@@ -66,7 +66,9 @@ function App() {
       {isPopUp == "video" ||
       isPopUp == "scheduleinterview" ||
       isPopUp == "sort" ||
+      isPopUp == "paySuccess" ||
       isPopUp == "addcontract" ||
+      isPopUp == "upgradesuccess" ||
       isPopUp == "approvedropdownMob" ||
       isPopUp == "mobfilter" ||
       isPopUp == "navbar" ||
@@ -79,6 +81,7 @@ function App() {
       isPopUp == "reserve" ||
       isPopUp == "filter" ||
       isPopUp == "monthly" ||
+      isPopUp == "cancel" ||
       isPopUp == "reserveSuccess" ||
       isPopUp == "achievements" ||
       isPopUp == "candidateRate" ||

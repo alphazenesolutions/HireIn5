@@ -7,6 +7,9 @@ import OptionAvailable from "../../../../../Components/Reusable/OptionAvailable/
 import { useDispatch, useSelector } from "react-redux";
 import { storeAction } from "../../../../../Store/Store";
 import { useNavigate } from "react-router-dom";
+import closeicon from "../../../../../assests/billingX.png";
+import SuccessResponse from "../../../../Reusable/SuccessResponse/SuccessResponse";
+import Head from "../../../../Reusable/LogoHead/Head";
 
 const UpgradeComp = () => {
   const dispatch = useDispatch();
@@ -33,18 +36,19 @@ const UpgradeComp = () => {
     setIsToggle(!isToggle);
   };
 
-  const [isSubscribe, setIsSubscribe] = useState(false);
-  const subscribeHandler = () => {
-    setIsSubscribe(true);
+  const [isSubscribe, setIsSubscribe] = useState("Choose");
+  const subscribeHandler = (e) => {
+    setIsSubscribe(e.target.id);
   };
 
   const isPopUp = useSelector((store) => {
     return store.isPopUp;
   });
 
-  const overLayHandler = () => {
-    dispatch(storeAction.isPopUpHander("monthly"));
+  const overLayHandler = (e) => {
+    dispatch(storeAction.isPopUpHander(e.target.id));
   };
+  // console.log(isPopUp);
   return (
     <div>
       <div className="dashBoardMain paddingLeft100 paddingRight100">
@@ -157,15 +161,36 @@ const UpgradeComp = () => {
                     </h2>
                     <p>/month, billed annually</p>
                   </div>
-                  <div className="">
-                    <button id="page3" onClick={PageHandler}>
+                  {/* <button
+                    className="choosePlan"
+                    id="page3"
+                    onClick={PageHandler}
+                  >
+                    Choose plan
+                  </button>
+
+                  <div className="planButton">
+                    <button className="currentPlanButton">Current plan</button>
+                    <button className="cancelPlanButton">Cancel plan</button>
+                  </div> */}{" "}
+                  {isSubscribe === "Choose" ? (
+                    <div className="planButton">
+                      <button className="currentPlanButton">
+                        Current plan
+                      </button>
+                      <button
+                        id="cancel"
+                        onClick={overLayHandler}
+                        className="cancelPlanButton"
+                      >
+                        Cancel plan
+                      </button>
+                    </div>
+                  ) : (
+                    <button id="Choose" onClick={subscribeHandler}>
                       Choose plan
                     </button>
-                  </div>
-                  {/* <div className="planButton">
-                      <button>Current plan</button>
-                      <button>Cancel plan</button>
-                    </div> */}
+                  )}
                 </div>
               </div>
               <div className="pricingDescOption">
@@ -208,15 +233,27 @@ const UpgradeComp = () => {
                     <h2>${isToggle === true ? yearlyPro : monthlyPro}</h2>
                     <p>/month, billed annually</p>
                   </div>
-                  {isSubscribe === true ? (
+                  {isSubscribe === "Upgrade" ? (
                     <div className="planButton">
-                      <button className="currentPlanButton">
+                      <button
+                        id="paySuccess"
+                        onClick={overLayHandler}
+                        className="currentPlanButton"
+                      >
                         Current plan
                       </button>
-                      <button className="cancelPlanButton">Cancel plan</button>
+                      <button
+                        id="cancel"
+                        onClick={overLayHandler}
+                        className="cancelPlanButton"
+                      >
+                        Cancel plan
+                      </button>
                     </div>
                   ) : (
-                    <button onClick={subscribeHandler}>Choose plan</button>
+                    <button id="Upgrade" onClick={subscribeHandler}>
+                      Upgrade to Pro
+                    </button>
                   )}
                 </div>
               </div>
@@ -251,6 +288,87 @@ const UpgradeComp = () => {
           </div>
         </div>
       </div>
+      {isPopUp == "cancel" && (
+        <div className="billingInfo1">
+          <div className="billingClose">
+            <img onClick={overLayHandler} src={closeicon} alt="" />
+          </div>
+          <div className="billingCycle">
+            <div className="billingCycle1">
+              <h1>Cancel your subscription</h1>
+              <p>
+                Our team will contact you within 2 working days to process the
+                cancellation.
+              </p>
+            </div>
+            <div className="subcriptionMessageBox">
+              <div className="subMessageTitle">
+                <h3>Message</h3>
+                <p>0/100</p>
+              </div>
+              <textarea
+                name=""
+                id=""
+                cols="30"
+                rows="7"
+                placeholder="Write here ..."
+              ></textarea>
+            </div>
+            <div className="billingBtn">
+              <button onClick={overLayHandler} id="upgradesuccess" name="">
+                Send message to team
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isPopUp == "upgradesuccess" && (
+        <div className="upgradeSuccess">
+          <div className="billingClose">
+            <img onClick={overLayHandler} src={closeicon} alt="" />
+          </div>
+          <SuccessResponse
+            title="Request submitted"
+            des="Our team will contact you shortly!"
+          />
+        </div>
+      )}
+      {isPopUp == "paySuccess" && (
+        <div className="upgradeSuccess1">
+          <div className="billingClose">
+            <img onClick={overLayHandler} src={closeicon} alt="" />
+          </div>
+          {/* <div className="payment"> */}
+          <div className="paymentTop">
+            <Head />
+          </div>
+          <div className="paymentBottom">
+            <SuccessResponse
+              des="Our team will connect with you shortly to understand your requirements and complete your onboarding process.
+                Look out for an email / call from our team or set up a meeting at your convenience using the Calendly link."
+              title="Payment successful"
+            />
+            {/* {userdata.length !== 0 ? (
+              <p>
+                We’ve sent you a receipt at{" "}
+                <span className="emailDarks">{userdata[0].email}</span>
+              </p>
+            ) : null} */}
+
+            <button
+              onClick={() => navigate("/discover")}
+              className="marginTop20 marginBottom20 continue"
+            >
+              Continue
+            </button>
+            <h6 className="paymentTimer">
+              Redirecting you to the next screen in{" "}
+              {/* <span className="emailDarks">{formattedTime}s</span> */}
+            </h6>
+          </div>
+          {/* </div> */}
+        </div>
+      )}
     </div>
   );
 };
