@@ -266,7 +266,7 @@ const DiscoverComp = () => {
 
   const getSearchuser = async () => {
     if (search_user.length !== 0) {
-      setsearchuser(search_user);
+      // setsearchuser(search_user);
       // dispatch(storeAction.searchuserHander({ searchuser: search_user }));
       var allsearchfacility = await axios
         .get(
@@ -482,6 +482,7 @@ const DiscoverComp = () => {
       setselectseacrh(false);
     }
   };
+  console.log(searchuser, "searchuser");
   return (
     <div>
       <div className="displayHandlerMob">

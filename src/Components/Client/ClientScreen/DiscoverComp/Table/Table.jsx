@@ -49,7 +49,9 @@ const Table = (props) => {
       axios
         .request(config)
         .then((response) => {
-          setalluserdata(response.data);
+          if (response.data.length !== 0) {
+            setalluserdata(response.data);
+          }
         })
         .catch((error) => {
           return error;
