@@ -267,7 +267,7 @@ const DiscoverComp = () => {
   const getSearchuser = async () => {
     if (search_user.length !== 0) {
       setsearchuser(search_user);
-      dispatch(storeAction.searchuserHander({ searchuser: search_user }));
+      // dispatch(storeAction.searchuserHander({ searchuser: search_user }));
       var allsearchfacility = await axios
         .get(
           `${process.env.REACT_APP_LOCAL_HOST_URL}/user/recentlyvisited/${userid}`,
@@ -311,7 +311,7 @@ const DiscoverComp = () => {
           });
         if (alluserdata.length !== 0) {
           setsearchuser(alluserdata);
-          dispatch(storeAction.searchuserHander({ searchuser: alluserdata }));
+          // dispatch(storeAction.searchuserHander({ searchuser: alluserdata }));
         }
       } else {
         setsearchuser([]);
@@ -360,7 +360,7 @@ const DiscoverComp = () => {
           });
         if (alluserdata.length !== 0) {
           setsearchuser(alluserdata);
-          dispatch(storeAction.searchuserHander({ searchuser: alluserdata }));
+          // dispatch(storeAction.searchuserHander({ searchuser: alluserdata }));
         }
       } else {
         setsearchuser([]);
