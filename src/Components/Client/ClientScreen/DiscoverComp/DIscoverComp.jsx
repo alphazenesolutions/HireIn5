@@ -309,8 +309,10 @@ const DiscoverComp = () => {
           .catch((error) => {
             return error;
           });
-        setsearchuser(alluserdata);
-        dispatch(storeAction.searchuserHander({ searchuser: alluserdata }));
+        if (alluserdata.length !== 0) {
+          setsearchuser(alluserdata);
+          dispatch(storeAction.searchuserHander({ searchuser: alluserdata }));
+        }
       } else {
         setsearchuser([]);
       }
@@ -356,8 +358,10 @@ const DiscoverComp = () => {
           .catch((error) => {
             return error;
           });
-        setsearchuser(alluserdata);
-        dispatch(storeAction.searchuserHander({ searchuser: alluserdata }));
+        if (alluserdata.length !== 0) {
+          setsearchuser(alluserdata);
+          dispatch(storeAction.searchuserHander({ searchuser: alluserdata }));
+        }
       } else {
         setsearchuser([]);
       }

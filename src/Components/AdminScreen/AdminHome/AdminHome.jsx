@@ -104,6 +104,8 @@ const AdminHome = () => {
   };
   const [readnoti, setreadnoti] = useState([]);
   const [unreadnoti, setunreadnoti] = useState([]);
+  const [hireddata, sethireddata] = useState([]);
+  const [nothired, setnothired] = useState([]);
   useEffect(() => {
     Getnotification();
   }, []);
@@ -152,6 +154,14 @@ const AdminHome = () => {
     } catch (error) {
       return error;
     }
+    var hireduser = await alluserdata.filter((data) => {
+      return data.status === "Hired";
+    });
+    var nothireduser = await alluserdata.filter((data) => {
+      return data.status !== "Hired";
+    });
+    sethireddata(hireduser);
+    setnothired(nothireduser);
   };
   const markread = async () => {
     if (unreadnoti.length !== 0) {
@@ -339,12 +349,12 @@ const AdminHome = () => {
                 <div className="homeProgressCandidateRightOne">
                   <div className="indication candidateHomeHired"></div>
                   <h2>Hired</h2>
-                  <h3>- 20</h3>
+                  <h3>- {hireddata.length}</h3>
                 </div>
                 <div className="homeProgressCandidateRightOne">
                   <div className="indication yetToBeHired"></div>
                   <h2>Yet to be hired</h2>
-                  <h3>- 180</h3>
+                  <h3>- {nothired.length}</h3>
                 </div>
               </div>
             </div>

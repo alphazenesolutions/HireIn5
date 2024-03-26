@@ -619,6 +619,7 @@ const AClientProfileView = () => {
     setaddcontractdata((values) => ({ ...values, [name]: value }));
   };
   const createbtn = async () => {
+    setIsLoading(true);
     if (addcontractdata.contract_type === "Statement of Work (SOW)") {
       if (selectedOptionskill !== null) {
         var checkuser = await alluserdata.filter((data) => {
@@ -1644,13 +1645,14 @@ const AClientProfileView = () => {
                 <div className="adminContractCard">
                   <ContractCard name="Non Disclosure Agreement (NDA)" />
                   <ContractCard name="Master Service Agreement (MSA)" />
-                  <ContractCard name="Statement of Work (SOW)" />
+                  {/* <ContractCard name="Statement of Work (SOW)" /> */}
                   {formdata.length !== 0
                     ? formdata.map((data, index) =>
                         data.name != "Non Disclosure Agreement (NDA)" &&
                         data.name != "Master Service Agreement (MSA)" &&
-                        data.name != "Statement of Work (SOW)" ? (
+                        data.name == "Statement of Work (SOW)" ? (
                           <div className="contractCard" key={index}>
+                            {console.log(data)}
                             <div
                               className="contractInner"
                               onClick={() => {
