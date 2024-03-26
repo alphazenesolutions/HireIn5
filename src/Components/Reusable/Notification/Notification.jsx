@@ -4,6 +4,7 @@ import HTMLReactParser from "html-react-parser";
 import moment from "moment";
 
 const Notification = (props) => {
+  console.log(props, "kkk");
   return (
     <div>
       <div className="notification">
@@ -17,7 +18,7 @@ const Notification = (props) => {
             <div className="notificationName">
               <h1>{HTMLReactParser(props.message)}</h1>
             </div>
-            <h3>{moment().format("dddd, MMM DD")}</h3>
+            <h3>{moment(props.date).format("dddd, MMM DD")}</h3>
           </div>
         </div>
         <button onClick={props.fun} className={props.btnClass}>
