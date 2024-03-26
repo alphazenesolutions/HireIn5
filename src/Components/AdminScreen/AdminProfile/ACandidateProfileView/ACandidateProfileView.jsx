@@ -2533,6 +2533,32 @@ const ACandidateProfileView = () => {
                     <h2>Personality Assessment Test Link </h2>
                     <h3>{singleuser[0].personality_assessment}</h3>
                   </div>
+                  <div className="ClientProfileViewCardBodyTable">
+                    <h2>Background Verification</h2>
+                    {singleuser[0].background_verification !== null ? (
+                      singleuser[0].background_verification.length !== 0 ? (
+                        <h3
+                          onClick={() => {
+                            window.open(
+                              `${
+                                singleuser[0].background_verification !== null
+                                  ? singleuser[0].background_verification
+                                  : null
+                              }`,
+                              "_blank"
+                            );
+                          }}
+                          className="cursor-pointer"
+                        >
+                          Uploaded
+                        </h3>
+                      ) : (
+                        <h3 className="cursor-pointer">-</h3>
+                      )
+                    ) : (
+                      <h3 className="cursor-pointer">-</h3>
+                    )}
+                  </div>
                 </div>
               </div>
               {isPopUp === "aadhar" && (

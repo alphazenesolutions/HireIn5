@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from "react";
@@ -13,10 +14,12 @@ import Avatar from "react-avatar";
 import back from "../../../assests/billingX.png";
 import { RxCross1 } from "react-icons/rx";
 import ProgressBar from "../../PrelineComponent/ProgressBar/Circlebar";
+import { useLocation } from "react-router-dom";
 
 const SideBar = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const userid = useSelector((store) => store.userid);
   const token = useSelector((store) => store.token);
   const userdata = useSelector((store) => store.userdata);
@@ -102,6 +105,7 @@ const SideBar = (props) => {
     dispatch(storeAction.isPopUpHander());
   };
   const [valueper, setvalueper] = useState(0);
+
   return (
     <div>
       <div className="sideNav">
@@ -145,12 +149,11 @@ const SideBar = (props) => {
                     />
                   )
                 ) : null}
-                {/* <img src={profile} alt="" /> */}
               </div>
             </div>
             <div className="navMenu">
               {props.menu.map((data) => {
-                if (data.router == isHover) {
+                if (data.router == location.pathname.slice(1)) {
                   return (
                     <div
                       onClick={HoverHandler}
