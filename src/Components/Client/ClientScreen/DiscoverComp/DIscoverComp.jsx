@@ -294,7 +294,7 @@ const DiscoverComp = () => {
         let config = {
           method: "post",
           maxBodyLength: Infinity,
-          url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}`,
+          url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}/`,
           headers: {
             Authorization: `JWT ${token}`,
             "Content-Type": "application/json",
@@ -343,7 +343,7 @@ const DiscoverComp = () => {
         let config = {
           method: "post",
           maxBodyLength: Infinity,
-          url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}`,
+          url: `https://hirein5-server.onrender.com/getUsersInformation/${userid}/`,
           headers: {
             Authorization: `JWT ${token}`,
             "Content-Type": "application/json",

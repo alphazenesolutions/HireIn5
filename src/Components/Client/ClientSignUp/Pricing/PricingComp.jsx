@@ -30,21 +30,23 @@ const PricingComp = () => {
   const [loading, setloading] = useState(false);
   const [plan, setplan] = useState(null);
 
-  const pageHandler = (plan, amount) => {
+  const pageHandler = async (plan, amount) => {
     setplan(plan);
     setloading(true);
     const randomNumber = Math.floor(Math.random() * 900000) + 100000;
-    fetch("http://localhost:3001/generate-invoice", {
+    var newobj = {
+      invoicenumber: randomNumber,
+      date: moment().format("YYYY-MM-DD"),
+      amount: amount,
+      plan: plan,
+    };
+
+    fetch("http://116.203.181.181:3001/generate-invoice", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        invoicenumber: randomNumber,
-        date: "2024-03-25",
-        amount: amount,
-        plan: plan,
-      }),
+      body: JSON.stringify(newobj),
     })
       .then((response) => {
         if (!response.ok) {
@@ -99,8 +101,10 @@ const PricingComp = () => {
         setIsPage("page3");
       })
       .catch((error) => {
-        console.error("Error generating invoice:", error);
+        console.error("Error:", error);
       });
+    //  http://localhost:3005/
+    // https://hirein5.vimix.app/
   };
 
   const [isActive, setIsActive] = useState(false);
